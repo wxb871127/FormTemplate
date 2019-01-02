@@ -1,0 +1,1333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views>
+
+    <!-- 基本信息 -->
+
+    <section
+        name="jbxx"
+        label="基本信息" >
+
+        <input
+            name="xm"
+            editable="false"
+            label="姓名" />
+
+        <radio
+            name="xb"
+            editable="false"
+            label="性别" >
+
+            <item
+                name="男"
+                code="1"/>
+
+            <item
+                name="女"
+                code="2"/>
+
+            <item
+                name="未说明的性别"
+                code="9"/>
+
+            <item
+                name="未知的性别"
+                code="0"/>
+        </radio>
+
+        <date
+            name="csrq"
+            editable="false"
+            label="出生日期" />
+
+        <input
+            name="sfzh"
+            editable="false"
+            label="身份证号" />
+
+        <input
+            name="jtdh"
+            inputType="number"
+            hint="请输入电话号码"
+            label="联系电话" />
+
+        <radio
+            name="jzlx"
+            initValue="1"
+            label="居住类型" >
+
+            <item
+                name="常住"
+                code="1"/>
+
+            <item
+                name="流动"
+                code="2"/>
+        </radio>
+
+        <input
+            name="jtdz"
+            label="家庭地址" />
+
+        <search
+            name="glszxzqh"
+            style="Area"
+            directInput="true"
+            label="管理所在行政区划"
+            required="true" >
+
+            <item
+                name="glszxzqhmc"
+                column="qhqc"/>
+
+            <item
+                name="glszxzqh"
+                column="qhbm"/>
+        </search>
+    </section>
+
+    <!-- 目前生活方式情况 -->
+
+    <section
+        name="sfhs"
+        label="目前生活方式情况" >
+
+        <radio name="ywgms" label="有无过敏史">
+            <item name="有" code="1"/>
+            <item name="无" code="2"/>
+        </radio>
+
+        <list
+            name="gmsList"
+            label="过敏原列表"
+            show="ywgms == 1"
+            showArgs="gmy"
+            showFormat="过敏源：%s" >
+
+            <input
+                name="xh"
+                label="序号 "
+                show="false" />
+
+            <radio
+                name="gmy"
+                canClear="true"
+                label="过敏源"
+                nameShow="gmymc"
+                required="true" >
+
+                <item
+                    name="青霉素"
+                    code="1"/>
+
+                <item
+                    name="磺胺"
+                    code="2"/>
+
+                <item
+                    name="油漆"
+                    code="3"/>
+            </radio>
+
+            <date
+                name="fsrq"
+                label="发现日期" />
+
+            <input
+                name="bz"
+                label="备注" />
+        </list>
+        <radio
+            name="ycqshfszlcs"
+            initValue="0"
+            label="已采取生活方式治疗措施" >
+
+            <item
+                name="有"
+                code="1"/>
+
+            <item
+                name="无"
+                code="0"/>
+        </radio>
+
+        <select
+            name="ycqshfszlcsxs"
+            label="请选择"
+            show="ycqshfszlcs == 1" >
+
+            <item
+                name="减少食盐摄入"
+                code="1"/>
+
+            <item
+                name="减少膳食脂肪"
+                code="2"/>
+
+            <item
+                name="规律运动"
+                code="3"/>
+
+            <item
+                name="减少吸烟量或戒烟"
+                code="4"/>
+
+            <item
+                name="减少饮酒量或戒酒"
+                code="5"/>
+
+            <item
+                name="控制体重"
+                code="6"/>
+
+            <item
+                name="心理调整"
+                code="7"/>
+        </select>
+
+        <section
+            name="sfhs_ysqk"
+            label="目前饮食情况" >
+
+            <radio
+                name="ysrlcd"
+                label="盐摄入量程度" >
+
+                <item
+                    name="轻"
+                    code="1"/>
+
+                <item
+                    name="中"
+                    code="2"/>
+
+                <item
+                    name="重"
+                    code="3"/>
+            </radio>
+
+            <input
+                name="ysrl"
+                domain="ysrl >= 0 &amp;&amp; ysrl &lt;= 100"
+                inputType="numberDecimal"
+                label="盐摄入量"
+                precision="1"
+                unit="克/天" />
+
+            <radio
+                name="gzys"
+                initValue="9"
+                label="高脂饮食" >
+
+                <item
+                    name="否"
+                    code="0"/>
+
+                <item
+                    name="是"
+                    code="1"/>
+
+                <item
+                    name="不详"
+                    code="9"/>
+            </radio>
+
+            <radio
+                name="ydqk"
+                label="目前运动情况" >
+
+                <item
+                    name="规律运动"
+                    code="1"/>
+
+                <item
+                    name="不规律运动"
+                    code="2"/>
+
+                <item
+                    name="不运动"
+                    code="3"/>
+            </radio>
+
+            <input
+                name="zyydfs"
+                label="主要运动方式"
+                show="ydqk &lt; 3" />
+
+            <input
+                name="ydlcmz"
+                domain="ydlcmz >= 0 &amp;&amp; ydlcmz &lt;= 100"
+                inputType="number"
+                label="每周运动次数"
+                show="ydqk &lt; 3"
+                unit="次" />
+
+            <input
+                name="ydlfzmc"
+                domain="ydlfzmc >= 0 &amp;&amp; ydlfzmc &lt;= 1440"
+                inputType="number"
+                label="每次运动时间"
+                show="ydqk &lt; 3"
+                unit="分钟/次" />
+
+            <radio
+                name="yjqk"
+                label="目前饮酒情况" >
+
+                <item
+                    name="不饮酒"
+                    code="1"/>
+
+                <item
+                    name="已戒酒"
+                    code="2"/>
+
+                <item
+                    name="经常饮酒"
+                    code="3"/>
+
+                <item
+                    name="偶尔饮酒"
+                    code="4"/>
+            </radio>
+
+            <input
+                name="yjts"
+                domain="yjts >= 0 &amp;&amp; yjts &lt;= 7"
+                inputType="number"
+                label="每周饮酒天数"
+                show="yjqk == 3"
+                unit="天" />
+
+            <input
+                name="yjl"
+                domain="yjl >= 0 &amp;&amp; yjl &lt;= 1000"
+                inputType="numberDecimal"
+                label="饮酒量"
+                precision="1"
+                show="yjqk == 3"
+                unit="两/天" />
+
+            <select
+                name="yjlx"
+                label="主要饮酒类型"
+                show="yjqk == 3" >
+
+                <item
+                    name="高度白酒"
+                    code="1"/>
+
+                <item
+                    name="低度白酒"
+                    code="2"/>
+
+                <item
+                    name="黄酒"
+                    code="3"/>
+
+                <item
+                    name="葡萄酒"
+                    code="6"/>
+
+                <item
+                    name="啤酒"
+                    code="4"/>
+
+                <item
+                    name="其他"
+                    code="5"/>
+            </select>
+
+            <radio
+                name="xyqk"
+                label="目前吸烟情况" >
+
+                <item
+                    name="不吸烟"
+                    code="1"/>
+
+                <item
+                    name="已戒烟"
+                    code="2"/>
+
+                <item
+                    name="经常吸烟"
+                    code="3"/>
+
+                <item
+                    name="偶尔吸烟"
+                    code="4"/>
+            </radio>
+
+            <input
+                name="xyxq"
+                domain="xyxq >= 0 &amp;&amp; xyxq &lt;= 1000"
+                inputType="number"
+                label="吸烟量"
+                show="xyqk == 3"
+                unit="支/天" />
+
+            <radio
+                name="mqxltz"
+                label="目前心理调整" >
+
+                <item
+                    name="良好"
+                    code="1"/>
+
+                <item
+                    name="一般"
+                    code="2"/>
+
+                <item
+                    name="差"
+                    code="3"/>
+            </radio>
+
+            <radio
+                name="mqzyxw"
+                label="目前遵医行为" >
+
+                <item
+                    name="良好"
+                    code="1"/>
+
+                <item
+                    name="一般"
+                    code="2"/>
+
+                <item
+                    name="差"
+                    code="3"/>
+            </radio>
+        </section>
+    </section>
+
+    <!-- 高血压患病和治疗情况 -->
+
+    <section
+        name="hbhzl"
+        label="高血压患病和治疗情况" >
+
+        <date
+            name="zdrq"
+            label="确诊时间"
+            required="true" />
+
+        <input
+            name="qzyy"
+            label="确诊医疗机构" >
+
+            <common_expression xlid="116" />
+        </input>
+
+        <radio
+            name="yylx"
+            label="医疗机构类型" >
+
+            <item
+                name="省级医院"
+                code="1"/>
+
+            <item
+                name="市级医院"
+                code="2"/>
+
+            <item
+                name="县级医院"
+                code="3"/>
+
+            <item
+                name="社区卫生服务中心/乡镇卫生院"
+                code="4"/>
+
+            <item
+                name="社区卫生服务站"
+                code="5"/>
+
+            <item
+                name="不详"
+                code="9"/>
+        </radio>
+
+        <radio
+            name="fxfs"
+            label="发现方式" >
+
+            <item
+                name="主动就诊"
+                code="1"/>
+
+            <item
+                name="机会性筛查"
+                code="2"/>
+
+            <item
+                name="体检"
+                code="3"/>
+
+            <item
+                name="其他"
+                code="4"/>
+        </radio>
+
+        <input
+            name="fxfsxs"
+            label="其他发现方式"
+            show="fxfs == 4" />
+
+        <radio
+            name="gxylx"
+            label="高血压类型" >
+
+            <item
+                name="原发性高血压"
+                code="1"/>
+
+            <item
+                name="继发性高血压"
+                code="2"/>
+
+            <item
+                name="不详"
+                code="9"/>
+        </radio>
+
+        <section
+            name="hbhzl_jdsxy"
+            label="建档时血压" >
+
+            <input
+                name="jdsssy1"
+                domain="jdsssy1 >= 1 &amp;&amp; jdsssy1 &lt;= 300"
+                inputType="number"
+                label="第一次收缩压"
+                required="true"
+                unit="mmHg" />
+
+            <input
+                name="jdsszy1"
+                domain="jdsszy1 >= 1 &amp;&amp; jdsszy1 &lt;= 300"
+                inputType="number"
+                label="第一次舒张压"
+                required="true"
+                unit="mmHg" />
+
+            <input
+                name="jdsssy2"
+                domain="jdsssy2 >= 1 &amp;&amp; jdsssy2 &lt;= 300"
+                inputType="number"
+                label="第二次收缩压"
+                required="true"
+                unit="mmHg" />
+
+            <input
+                name="jdsszy2"
+                domain="jdsszy2 >= 1 &amp;&amp; jdsszy2 &lt;= 300"
+                inputType="number"
+                label="第二次舒张压"
+                required="true"
+                unit="mmHg" />
+        </section>
+
+        <section
+            name="hbhzl_wfyywzgxy"
+            label="未服用药物最高血压" >
+
+            <input
+                name="wfywssy"
+                domain="wfywssy >= 1 &amp;&amp; wfywssy &lt;= 300"
+                inputType="number"
+                label="收缩压"
+                unit="mmHg" />
+
+            <input
+                name="wfywszy"
+                domain="wfywszy >= 1 &amp;&amp; wfywszy &lt;= 300"
+                inputType="number"
+                label="舒张压"
+                unit="mmHg" />
+        </section>
+
+        <radio
+            name="ywxxgbwxys"
+            initValue="0"
+            label="有无心血管病重要危险因素(CVD)" >
+
+            <item
+                name="有"
+                code="1"/>
+
+            <item
+                name="无"
+                code="0"/>
+        </radio>
+
+        <select
+            name="xxgbwxys"
+            label="心血管病重要危险因素(CVD)"
+            show="ywxxgbwxys == 1" >
+
+            <item
+                name="年龄：男性＞55岁，女性＞65岁"
+                code="1"/>
+
+            <item
+                name="吸烟"
+                code="3"/>
+
+            <item
+                name="血脂异常（1.总胆固醇（TC）≥5.7mmol/L（220mg/dL） 2.低密度脂蛋白胆固醇（LDL-C）＞3.3mmol/L（130mg/dL）3.高密度脂蛋白胆固醇（HDL-C）＜1.0mmol/L（40mg/dL））"
+                code="4"/>
+
+            <item
+                name="早发心血管疾病家族史（一级亲属，发病年龄＜50岁）"
+                code="6"/>
+
+            <item
+                name="腹型肥胖（腰围男≥90cm，女≥85cm）或肥胖（体重指数≥28kg/㎡）"
+                code="5"/>
+
+            <item
+                name="高同型半胱氨酸＞10μmol/L"
+                code="10"/>
+
+            <item
+                name="糖调节异常（1.糖耐量受损（即7.8mmol/L（140mg/dL）≤负荷后2小时血糖＜11.1 mmol/L（200mg/dL）） 2.空腹血糖异常（即6.1mmol/L（110mg/dL）≤空腹血糖＜7.0 mmol/L（126mg/dL）））"
+                code="11"/>
+        </select>
+
+        <radio
+            name="ywbqgshdm"
+            initValue="0"
+            label="有无靶器官损害" >
+
+            <item
+                name="有"
+                code="1"/>
+
+            <item
+                name="无"
+                code="0"/>
+        </radio>
+
+        <select
+            name="bqgshdm"
+            label="靶器官损害"
+            show="ywbqgshdm == 1" >
+
+            <item
+                name="左心室肥厚"
+                code="1"/>
+
+            <item
+                name="微量白蛋白尿"
+                code="2"/>
+
+            <item
+                name="颈动脉粥样斑块或内膜中层增厚"
+                code="3"/>
+
+            <item
+                name="血清肌酐轻度升高或估算的肾小球滤过率降低"
+                code="4"/>
+        </select>
+
+        <!-- 高血压合并症-糖尿病 -->
+
+        <section
+            name="hbztnb"
+            label="高血压合并症-糖尿病" >
+
+            <radio
+                name="sftnb"
+                label="糖尿病" >
+
+                <item
+                    name="是"
+                    code="1"/>
+
+                <item
+                    name="否"
+                    code="0"/>
+
+                <item
+                    name="不详"
+                    code="9"/>
+            </radio>
+
+            <select
+                name="tnbdm"
+                label="血糖情况(近3个月)"
+                show="sftnb == 1" >
+
+                <item
+                    name="治疗后空腹血糖≥7.0mmol/L(126mg/dL)"
+                    code="3"/>
+
+                <item
+                    name="治疗后餐后血糖≥11.1mmol/L(200mg/dL)"
+                    code="4"/>
+
+                <item
+                    name="治疗后空腹血糖&lt;7.0mmol/L(126mg/dL)"
+                    code="5"/>
+
+                <item
+                    name="治疗后餐后血糖&lt;11.1mmol/L(200mg/dL)"
+                    code="6"/>
+            </select>
+        </section>
+        <!-- 并存的相关疾病 -->
+
+        <section
+            name="bcdxgjb"
+            label="并存的相关疾病" >
+
+            <radio
+                name="ywnxgjb"
+                initValue="0"
+                label="脑血管疾病" >
+
+                <item
+                    name="有"
+                    code="1"/>
+
+                <item
+                    name="无"
+                    code="0"/>
+            </radio>
+
+            <select
+                name="nxgjb"
+                label="脑血管疾病"
+                show="ywnxgjb == 1" >
+
+                <item
+                    name="缺血性卒中"
+                    code="1"/>
+
+                <item
+                    name="脑出血"
+                    code="2"/>
+
+                <item
+                    name="短暂性脑缺血发作"
+                    code="3"/>
+            </select>
+
+            <radio
+                name="ywxzjb"
+                initValue="0"
+                label="心脏疾病" >
+
+                <item
+                    name="有"
+                    code="1"/>
+
+                <item
+                    name="无"
+                    code="0"/>
+            </radio>
+
+            <select
+                name="xzjb"
+                label="心脏疾病"
+                show="ywxzjb == 1" >
+
+                <item
+                    name="心肌梗死史"
+                    code="4"/>
+
+                <item
+                    name="心绞痛"
+                    code="5"/>
+
+                <item
+                    name="充血性心力衰竭"
+                    code="6"/>
+
+                <item
+                    name="冠状动脉血运重建"
+                    code="10"/>
+            </select>
+
+            <radio
+                name="ywszjb"
+                initValue="0"
+                label="肾脏疾病" >
+
+                <item
+                    name="有"
+                    code="1"/>
+
+                <item
+                    name="无"
+                    code="0"/>
+            </radio>
+
+            <select
+                name="szjb"
+                label="肾脏疾病"
+                show="ywszjb == 1" >
+
+                <item
+                    name="糖尿病肾病"
+                    code="7"/>
+
+                <item
+                    name="蛋白尿(大于300mg/24h)"
+                    code="12"/>
+
+                <item
+                    name="肾功能受损(血清肌酐) 说明：男性大于133μmol/L (1.5mg/dL)女性大于124μmol/L (1.4mg/dL)"
+                    code="13"/>
+            </select>
+
+            <radio
+                name="ywxgjb"
+                initValue="0"
+                label="血管疾病" >
+
+                <item
+                    name="有"
+                    code="1"/>
+
+                <item
+                    name="无"
+                    code="0"/>
+            </radio>
+
+            <select
+                name="xgjb"
+                label="血管疾病"
+                show="ywxgjb == 1" >
+
+                <item
+                    name="外周血管疾病"
+                    code="9"/>
+            </select>
+
+            <radio
+                name="ywswmbb"
+                initValue="0"
+                label="视网膜病变" >
+
+                <item
+                    name="有"
+                    code="1"/>
+
+                <item
+                    name="无"
+                    code="0"/>
+            </radio>
+
+            <select
+                name="swmbb"
+                label="重度高血压性视网膜病变"
+                show="ywswmbb == 1" >
+
+                <item
+                    name="视网膜病变：出血或渗出，视乳头水肿"
+                    code="11"/>
+            </select>
+
+            <radio
+                name="ywqtbfz"
+                initValue="0"
+                label="其他" >
+
+                <item
+                    name="有"
+                    code="1"/>
+
+                <item
+                    name="无"
+                    code="0"/>
+            </radio>
+
+            <input
+                name="qtbfz"
+                label="其他"
+                show="ywqtbfz == 1" />
+
+            <radio
+                name="shzlnl"
+                label="生活自理能力" >
+
+                <item
+                    name="完全不能自理"
+                    code="1"/>
+
+                <item
+                    name="中度依赖"
+                    code="2"/>
+
+                <item
+                    name="轻度依赖"
+                    code="3"/>
+
+                <item
+                    name="可自理"
+                    code="4"/>
+            </radio>
+        </section>
+    </section>
+
+    <section
+        name="jqsfsyjyy"
+        label="近期是否使用降压药" >
+
+        <radio
+            name="sfsyjyy"
+            initValue="0"
+            label="近期是否使用降压药" >
+
+            <item
+                name="是"
+                code="1"/>
+
+            <item
+                name="否"
+                code="0"/>
+        </radio>
+
+        <yyjl
+            name="yyjl"
+            label="降压药列表"
+            show="sfsyjyy == 1"
+            showFormat="药品名称：%s"
+            ywlx="6" >
+
+            <search
+                name="ypid"
+                style="Drug"
+                label="药品名称"
+                required="true" >
+
+                <item
+                    name="ypmc"
+                    column="ypmc"/>
+
+                <item
+                    name="ypid"
+                    column="ypid"/>
+
+                <item
+                    name="jl"
+                    column="jl"/>
+
+                <item
+                    name="fyff"
+                    column="fyfs"/>
+
+                <item
+                    name="ffcs"
+                    column="ffcs"/>
+
+                <item
+                    name="bz"
+                    column="bz"/>
+            </search>
+
+            <input
+                name="jl"
+                label="单次剂量"
+                required="true" />
+
+            <input
+                name="ffcs"
+                label="每日次数"
+                required="true" />
+
+            <input
+                name="blfy"
+                label="不良反应" />
+
+            <input
+                name="bz"
+                label="备注" />
+        </yyjl>
+    </section>
+
+    <!-- 近期检查结果 -->
+
+    <section
+        name="jqjcjg"
+        label="近期检查结果" >
+
+        <input
+            name="gtxbgas"
+            domain="gtxbgas >= 0 &amp;&amp; gtxbgas &lt;= 10000"
+            inputType="numberDecimal"
+            label="高同型半胱氨酸"
+            unit="μmol/l" />
+
+        <radio
+            name="zxsfh"
+            initValue="9"
+            label="左心室肥厚" >
+
+            <item
+                name="是"
+                code="1"/>
+
+            <item
+                name="否"
+                code="0"/>
+
+            <item
+                name="不详"
+                code="9"/>
+        </radio>
+
+        <radio
+            name="dmbzh"
+            initValue="9"
+            label="劲动脉内膜中层增厚或动脉粥样硬化性斑块" >
+
+            <item
+                name="有"
+                code="1"/>
+
+            <item
+                name="无"
+                code="0"/>
+
+            <item
+                name="不详"
+                code="9"/>
+        </radio>
+
+        <section
+            name="jqjcjg_xz"
+            label="血脂" >
+
+            <input
+                name="gysz1"
+                domain="gysz1 >= 0 &amp;&amp; gysz1 &lt;= 10000"
+                inputType="numberDecimal"
+                label="甘油三酯"
+                precision="2"
+                unit="mmol/l" />
+
+            <input
+                name="gysz2"
+                domain="gysz2 >= 0 &amp;&amp; gysz2 &lt;= 10000"
+                inputType="numberDecimal"
+                label="甘油三酯"
+                precision="2"
+                unit="mg/dl" />
+
+            <input
+                name="zdgc1"
+                domain="zdgc1 >= 0 &amp;&amp; zdgc1 &lt;= 10000"
+                inputType="numberDecimal"
+                label="总胆固醇"
+                precision="2"
+                unit="mmol/l" />
+
+            <input
+                name="zdgc2"
+                domain="zdgc2 >= 0 &amp;&amp; zdgc2 &lt;= 10000"
+                inputType="numberDecimal"
+                label="总胆固醇"
+                precision="2"
+                unit="mg/dl" />
+
+            <input
+                name="gmdzdb1"
+                domain="gmdzdb1 >= 0 &amp;&amp; gmdzdb1 &lt;= 10000"
+                inputType="numberDecimal"
+                label="高密度脂蛋白"
+                precision="2"
+                unit="mmol/l" />
+
+            <input
+                name="gmdzdb2"
+                domain="gmdzdb2 >= 0 &amp;&amp; gmdzdb2 &lt;= 10000"
+                inputType="numberDecimal"
+                label="高密度脂蛋白"
+                precision="2"
+                unit="mg/dl" />
+
+            <input
+                name="dmdzdb1"
+                domain="dmdzdb1 >= 0 &amp;&amp; dmdzdb1 &lt;= 10000"
+                inputType="numberDecimal"
+                label="低密度脂蛋白"
+                precision="2"
+                unit="mmol/l" />
+
+            <input
+                name="dmdzdb2"
+                domain="dmdzdb2 >= 0 &amp;&amp; dmdzdb2 &lt;= 10000"
+                inputType="numberDecimal"
+                label="低密度脂蛋白"
+                precision="2"
+                unit="mg/dl" />
+        </section>
+
+        <input
+            name="xqjg1"
+            domain="xqjg1 >= 0 &amp;&amp; xqjg1 &lt;= 10000"
+            inputType="numberDecimal"
+            label="血清肌酐"
+            precision="2"
+            unit="μmol/l" />
+
+        <input
+            name="xqjg2"
+            domain="xqjg2 >= 0 &amp;&amp; xqjg2 &lt;= 10000"
+            inputType="numberDecimal"
+            label="血清肌酐"
+            precision="2"
+            unit="mg/dl" />
+
+        <input
+            name="gsdsxqlgl"
+            domain="gsdsxqlgl >= 0 &amp;&amp; gsdsxqlgl &lt;= 10000"
+            inputType="numberDecimal"
+            label="估算的肾小球滤过率"
+            precision="2"
+            unit="ml/min/1.73㎡" />
+
+        <input
+            name="kfxt1"
+            domain="kfxt1 >= 0 &amp;&amp; kfxt1 &lt;= 10000"
+            inputType="numberDecimal"
+            label="空腹血糖"
+            precision="2"
+            unit="mmol/l" />
+
+        <input
+            name="kfxt2"
+            domain="kfxt2 >= 0 &amp;&amp; kfxt2 &lt;= 10000"
+            inputType="numberDecimal"
+            label="空腹血糖"
+            precision="2"
+            unit="mg/dl" />
+
+        <input
+            name="chxt1"
+            domain="chxt1 >= 0 &amp;&amp; chxt1 &lt;= 10000"
+            inputType="numberDecimal"
+            label="餐后血糖"
+            precision="2"
+            unit="mmol/l" />
+
+        <input
+            name="chxt2"
+            domain="chxt2 >= 0 &amp;&amp; chxt2 &lt;= 10000"
+            inputType="numberDecimal"
+            label="餐后血糖"
+            precision="2"
+            unit="mg/dl" />
+
+        <input
+            name="nbdb1"
+            domain="nbdb1 >= 0 &amp;&amp; nbdb1 &lt;= 10000"
+            inputType="numberDecimal"
+            label="尿白蛋白"
+            precision="2"
+            unit="mg/dL" />
+
+        <input
+            name="nbdb2"
+            domain="nbdb2 >= 0 &amp;&amp; nbdb2 &lt;= 10000"
+            inputType="numberDecimal"
+            label="尿白蛋白"
+            precision="2"
+            unit="mg/24h" />
+
+        <input
+            name="nbdbjgb2"
+            domain="nbdbjgb2 >= 0 &amp;&amp; nbdbjgb2 &lt;= 10000"
+            inputType="numberDecimal"
+            label="尿白蛋白/肌酐比"
+            precision="2"
+            unit="mg/g" />
+    </section>
+
+    <!-- 最新评估分级管理情况 -->
+
+    <section
+        name="zxpgfjglqk"
+        label="最新评估分级管理情况"
+        show="ismodify == 1" >
+
+        <radio
+            name="zxxyfjjg"
+            editable="false"
+            label="最新血压分级结果"
+            show="ismodify == 1" >
+
+            <item
+                name="一级高血压"
+                code="1"/>
+
+            <item
+                name="二级高血压"
+                code="2"/>
+
+            <item
+                name="三级高血压"
+                code="3"/>
+        </radio>
+
+        <radio
+            name="zxwxfc"
+            editable="false"
+            label="最新危险分层结果"
+            show="ismodify == 1" >
+
+            <item
+                name="低危"
+                code="1"/>
+
+            <item
+                name="中危"
+                code="2"/>
+
+            <item
+                name="高危"
+                code="3"/>
+
+            <item
+                name="极高危"
+                code="4"/>
+        </radio>
+
+        <radio
+            name="zxfjgljg"
+            editable="false"
+            label="最新分级管理结果"
+            show="ismodify == 1" >
+
+            <item
+                name="一级管理"
+                code="1"/>
+
+            <item
+                name="二级管理"
+                code="2"/>
+
+            <item
+                name="三级管理"
+                code="3"/>
+        </radio>
+    </section>
+
+    <!-- 建档时分级管理情况 -->
+
+    <section
+        name="jdsfjglqk"
+        label="建档时分级管理情况" >
+
+        <button
+            name="button_jdpg"
+            label="评估"
+            show="_mode == 1"
+            text="评估" />
+
+        <radio
+            name="xyfjjg"
+            editable="false"
+            label="血压分级结果" >
+
+            <item
+                name="一级高血压"
+                code="1"/>
+
+            <item
+                name="二级高血压"
+                code="2"/>
+
+            <item
+                name="三级高血压"
+                code="3"/>
+        </radio>
+
+        <radio
+            name="wxfc"
+            editable="false"
+            label="危险分层结果" >
+
+            <item
+                name="低危"
+                code="1"/>
+
+            <item
+                name="中危"
+                code="2"/>
+
+            <item
+                name="高危"
+                code="3"/>
+
+            <item
+                name="极高危"
+                code="4"/>
+        </radio>
+
+        <radio
+            name="fjgljg"
+            editable="false"
+            label="分级管理结果" >
+
+            <item
+                name="一级管理"
+                code="1"/>
+
+            <item
+                name="二级管理"
+                code="2"/>
+
+            <item
+                name="三级管理"
+                code="3"/>
+        </radio>
+
+        <search
+            name="jdys"
+            style="User"
+            label="建档医生"
+            required="true" >
+
+            <item
+                name="jdysxm"
+                column="yhxm"/>
+
+            <item
+                name="jdys"
+                column="id"/>
+        </search>
+
+        <date
+            name="jdrq"
+            initValueCommon="today"
+            label="建档日期"
+            required="true" />
+
+        <search
+            name="lrr"
+            style="User"
+            editable="false"
+            label="录入人" >
+
+            <item
+                name="lrrxm"
+                column="yhxm"/>
+
+            <item
+                name="lrr"
+                column="id"/>
+        </search>
+
+        <date
+            name="lrrq"
+            editable="false"
+            initValueCommon="today"
+            label="录入日期" />
+    </section>
+
+</views>

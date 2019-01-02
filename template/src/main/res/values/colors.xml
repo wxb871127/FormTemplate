@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="white">#ffffff</color>
+    <color name="btn_white_normal">#f7f8f8</color>
+    <color name="background_white">@color/white</color>
+    <color name="cfc5837">#fffc5837</color>
+    <color name="c2cc1a4">#ff2cc1a4</color>
+    <color name="black">#000000</color>
+    <color name="D17">#171717</color>
+    <color name="c595959">#ff595959</color>
+    <color name="_2cc1a4">#2cc1a4</color>
+    <!--灰色-->
+    <color name="md_grey_100">#f5f5f5</color>
+    <color name="c_d1d1d1">#D1D1D1</color>
+    <color name="c_7d7d7d">#7D7D7D</color>
+    <color name="c9">#C9C9C9</color>
+
+    <color name="red">#ffff0000</color>
+
+    <color name="c333333">#ff333333</color>
+    <color name="gray">#D6D6D6</color>
+    <color name="c_ebebeb">#EBEBEB</color>
+    <color name="c_303030">#303030</color>
+    <color name="Pad_Background">#F5F6F8</color>
+    <color name="D7">#7D7D7D</color>
+    <color name="md_grey_400">#bdbdbd</color>
+</resources>

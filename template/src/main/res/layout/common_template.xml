@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/template_linelayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="-2dp"
+    android:background="@drawable/list_item_stroke_selector"
+    android:gravity="center_vertical"
+    android:padding="@dimen/dp6">
+
+    <LinearLayout
+        android:layout_width="@dimen/dp130"
+        android:layout_height="wrap_content"
+       >
+        <TextView
+            android:id="@id/template_required"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/cfc5837"
+            android:textSize="14sp"
+            android:paddingLeft="@dimen/dp4"
+            android:layout_marginRight="@dimen/dp3"/>
+
+        <TextView
+            android:id="@id/template_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/c_7d7d7d"
+            android:paddingLeft="@dimen/dp2"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/common_template_box"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/dp10"
+            android:paddingRight="@dimen/dp10">
+
+            <TextView
+                android:id="@id/template_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp7"
+                android:paddingTop="@dimen/dp7"
+                android:background="@null"
+                android:layout_marginRight="@dimen/dp10"
+                android:gravity="center_vertical|right"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                />
+            <EditText
+                android:id="@id/template_edit"
+                android:layout_gravity="center_vertical|right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textCursorDrawable="@null"
+                android:textColorHint="@color/c_d1d1d1"
+                android:clickable="false"
+                android:textColor="@color/black"
+                android:gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/dp10"
+                android:textSize="14sp"
+                />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/common_template_unit_divider"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@id/template_input_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp8"
+            android:paddingRight="@dimen/dp8"
+            android:textColor="@color/c2cc1a4"
+            android:textSize="15sp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/common_template_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/common_template_arrow"
+            android:text="请选择"
+            android:layout_gravity="center_vertical|right"
+            android:textColor="@color/c9"
+            android:textSize="15sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/common_template_common_expression"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp5"
+        android:layout_marginRight="@dimen/dp5"
+        android:paddingLeft="@dimen/dp5"
+        android:paddingRight="@dimen/dp5"
+        android:src="@drawable/common_template_common_expression"
+        android:visibility="gone" />
+
+</LinearLayout>

@@ -1,0 +1,97 @@
+package template.widget;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import java.util.HashMap;
+import java.util.Map;
+import base.annotation.Template;
+import template.bean.BaseTemplate;
+import template.bean.TemplateList;
+import template.config.TemplateConfig;
+import template.control.BaseTemplateControl;
+
+public class TemplateAdapter extends BaseTemplateAdapter {
+    protected TemplateList templates;
+    protected Context context;
+    protected LayoutInflater mLayoutInflater;
+
+    protected Map<String, Object> valueMap;//表单数据
+
+    public TemplateAdapter(Context context, TemplateList templates){// List<BaseTemplateControl> templates) {
+        this(context, templates, new HashMap<String, Object>());
+    }
+
+    TemplateAdapter(Context context, TemplateList templates, Map<String, Object> outMap) {
+        this.context = context;
+        mLayoutInflater = LayoutInflater.from(context);
+        this.templates = templates;
+        valueMap = new HashMap<>();
+        this.valueMap.putAll(outMap);
+    }
+
+    @Override
+    protected BaseViewHolder getItemViewHolder(ViewGroup parent, int viewType) {
+        int id = TemplateConfig.getTemplateLayoutByType(viewType);
+        return new BaseViewHolder(getItemView(id, parent));
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
+        if(templateControl != null)
+            return templateControl.getTemplateView(context).getType();
+        return 0;
+    }
+
+    @Override
+    public int getItemCount() {
+        return templates.size();
+    }
+
+    @Override
+    protected void onBindItemViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
+        if(templateControl != null)
+            templateControl.initView(context, (BaseViewHolder) holder, templateControl.getTemplate(), valueMap);
+        templateControl.setTemplateListener(new BaseTemplateControl.OnTemplateListener() {
+            @Override
+            public void onTemplateUpdate(String key, Object value) {
+                valueMap.put(key, value);
+                if(getItemViewType(position) != 1)
+                    notifyDataSetChanged();
+
+            }
+        });
+    }
+
+    private BaseTemplateControl getTemplateControl(BaseTemplate template){
+        Template tp = template.getClass().getAnnotation(Template.class);
+        BaseTemplateControl templateControl = null;
+        templateControl = TemplateConfig.getTemplateControlByTag(tp.tag());
+        templateControl.setTemplate(template);
+        return templateControl;
+    }
+
+    private View getItemView(int layoutResId, ViewGroup parent){
+        return mLayoutInflater.inflate(layoutResId, parent, false);
+    }
+
+    public <T extends Object> void putValue(String key, T value){
+        valueMap.put(key, value);
+    }
+
+    public void setValueMap(Map<String, Object> map){
+        this.valueMap = map;
+    }
+
+    public Map<String, Object> getValueMap() {
+        return valueMap;
+    }
+
+    private Object getItemValue(String key){//获取每个ITemView的值
+        return valueMap.get(key);
+    }
+}

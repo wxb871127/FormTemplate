@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="base_fragment_fragment" type="id"/>
+    <item name="template_required" type="id"/>
+    <item name="template_label" type="id"/>
+    <item name="template_text" type="id"/>
+    <item name="template_edit" type="id"/>
+    <item name="template_delete" type="id"/>
+    <item name="template_input_unit" type="id"/>
+    <item name="template_list_add" type="id"/>
+    <item name="template_list_list" type="id"/>
+    <item name="template_list_item_text" type="id"/>
+    <item name="template_list_item_delete" type="id"/>
+    <item name="template_search_dialog_text" type="id"/>
+    <item name="template_search_dialog_delete" type="id"/>
+    <item name="template_search_dialog_list" type="id"/>
+    <item name="template_search_dialog_item_text" type="id"/>
+    <item name="template_drawer" type="id"/>
+    <item name="template_list" type="id"/>
+    <item name="template_array_list" type="id"/>
+    <item name="template_array_item_text" type="id"/>
+    <item name="template_menu" type="id"/>
+    <item name="template_menu_item_text" type="id"/>
+
+</resources>

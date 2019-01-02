@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/radio_template_dialog_title"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="标题"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:textColor="@color/D7"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5px"
+                android:background="@color/md_grey_400"/>
+            <ListView
+                android:id="@+id/radio_template_dialog_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5px"
+                android:background="@color/md_grey_400"/>
+            <TextView
+                    android:id="@+id/radio_template_dialog_clean"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="清空"
+                    android:onClick="onClick"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textColor="@color/D7"/>
+
+</LinearLayout>
