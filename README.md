@@ -1,2 +1,5 @@
 # FormTemplate
 自定义表单
+根据aseert下的xml配置文件创建列表 支持：输入框、单选、多选、标题、日期、搜索、列表
+采用recyclerView实现列表，recyclerView中使用MVC模式设计来减少view和model之间的耦合
+xml标签名与control的class注解名字保持一致，用来标识目前支持的类型
