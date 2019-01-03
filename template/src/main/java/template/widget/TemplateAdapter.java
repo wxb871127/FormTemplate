@@ -83,15 +83,16 @@ public class TemplateAdapter extends BaseTemplateAdapter {
         valueMap.put(key, value);
     }
 
+    public <T extends Object> T getValue(String key){
+        return (T) valueMap.get(key);
+    }
+
+    public void addValueMap(Map<String, Object> outMap){
+        this.valueMap.putAll(outMap);
+    }
+
     public void setValueMap(Map<String, Object> map){
+        this.valueMap.clear();
         this.valueMap = map;
-    }
-
-    public Map<String, Object> getValueMap() {
-        return valueMap;
-    }
-
-    private Object getItemValue(String key){//获取每个ITemView的值
-        return valueMap.get(key);
     }
 }

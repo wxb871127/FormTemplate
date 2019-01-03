@@ -22,7 +22,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
     protected Map<String, Object> valueMap;
     protected BaseTemplateView view;
     protected BaseTemplateDialog dialog;
-    private OnTemplateListener listener;
+    protected OnTemplateListener listener;
 
     public abstract Class<? extends BaseTemplate> getTemplateClass();
     public abstract BaseTemplateView getTemplateView(Context context);

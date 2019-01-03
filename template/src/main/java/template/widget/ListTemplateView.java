@@ -3,6 +3,7 @@ package template.widget;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
     private OnListTemplateViewListener templateViewListener;
 
     public interface OnListTemplateViewListener{
-        public void onDataDelete(Object object);
+        public void onDataDelete(int index);
         public void onClickAdd();
         public void onItemViewClick(int index);
     }
@@ -57,8 +58,10 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
         recyclerView = (RecyclerView) holder.getViewById(R.id.template_list_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setClickable(editable);
+        String[] ret = null;
+        if(!TextUtils.isEmpty(value))
+            ret =  value.split("/");
 
-        String[] ret =  value.split("/");
         recyclerView.setAdapter(new Adapter(ret));
     }
 
@@ -83,9 +86,8 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
             delete.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String str = value[position];
                     if(templateViewListener != null)
-                        templateViewListener.onDataDelete(str);
+                        templateViewListener.onDataDelete(position);
                 }
             });
             ((BaseViewHolder) holder).getConvertView().setOnClickListener(new OnClickListener() {
@@ -100,6 +102,8 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
 
         @Override
         public int getItemCount() {
+            if(value == null)
+                return 0;
             return this.value.length;
         }
     }

@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import base.annotation.Template;
 import template.bean.BaseTemplate;
@@ -51,6 +52,14 @@ public class TemplateView extends RecyclerView {
 
     public <T extends Object> void setValue(String key, T value){
         templateAdapter.putValue(key, value);
+    }
+
+    public <T extends Object> T getValue(String key){
+        return templateAdapter.getValue(key);
+    }
+
+    public Map<String, Object> getValueMap(){
+        return templateAdapter.valueMap;
     }
 
     public void notifyData(){
