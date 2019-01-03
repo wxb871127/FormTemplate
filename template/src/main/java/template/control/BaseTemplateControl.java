@@ -59,38 +59,28 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         this.valueMap = valueMap;
         view = getTemplateView(context);
         view.initView(holder, template, template.getShowName(valueMap.get(template.name)),isEditable(valueMap));
-        view.setShow(holder, isShow(valueMap));
 
+        holder.setShow(isShow(valueMap));
         view.setOnTemplateListener(new template.widget.OnTemplateListener() {
             @Override
-            public void onDataChange(Object object) {
-//                valueMap.put(template.name, object);
+            public void onDataChange(String name,Object object) {
                 if(listener != null)
-                    listener.onTemplateUpdate(template.name, object);
+                    listener.onTemplateUpdate(name, object);
             }
         });
 
-        view.setOnViewListener(new BaseTemplateView.OnViewListener() {
+        holder.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onViewClick() {
+            public void onClick(View v) {
                 dialog = getDialog(context);
                 if(dialog != null) {
                     dialog.initDialog(template, valueMap.get(template.name));
                     dialog.showDialog();
-                    dialog.setDialogListener(new BaseTemplateDialog.OnDialogListener() {
-
+                    dialog.setOnTemplateListener(new template.widget.OnTemplateListener() {
                         @Override
-                        public void onDataChange(String s) {
-//                            valueMap.put(template.name, s);
-                            if(listener != null)
-                                listener.onTemplateUpdate(template.name, s);
-                        }
-
-                        @Override
-                        public void onDataClean() {
-//                            valueMap.put(template.name, null);
-                            if(listener != null)
-                                listener.onTemplateUpdate(template.name, null);
+                        public void onDataChange(String name, Object object) {
+                            if (listener != null)
+                                listener.onTemplateUpdate(template.name, object);
                         }
                     });
                 }

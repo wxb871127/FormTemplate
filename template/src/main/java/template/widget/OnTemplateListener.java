@@ -1,5 +1,5 @@
 package template.widget;
 
 public interface OnTemplateListener {
-    public void onDataChange(Object object);
+    public void onDataChange(String name, Object object);
 }

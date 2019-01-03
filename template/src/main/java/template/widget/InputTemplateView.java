@@ -2,13 +2,15 @@ package template.widget;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
 import template.bean.InputTemplate;
 
-public class InputTemplateView extends BaseTemplateView<InputTemplate>{
+public class InputTemplateView extends BaseTemplateView<InputTemplate> {
 
 
     public InputTemplateView(Context context) {
@@ -33,8 +35,13 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate>{
             if (TextUtils.isEmpty(template.inputType)) {
                 editText.setInputType(0x20001);
             }
+
+           if(editText.getTag() instanceof TextWatcher){//防止recyclerView刷新 触发TextWatcher事件
+                editText.removeTextChangedListener((TextWatcher)editText.getTag());
+           }
+
             editText.setText(value);
-            editText.addTextChangedListener(new TextWatcher() {
+            TextWatcher textWatcher = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -48,13 +55,25 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate>{
                 @Override
                 public void afterTextChanged(Editable s) {
                     if(templateListener != null)
-                        templateListener.onDataChange(s);
+                        templateListener.onDataChange(template.name, s.toString());
                 }
-            });
+            };
+            editText.setTag(textWatcher);
+            editText.addTextChangedListener(textWatcher);
         }else {
             text.setVisibility(View.VISIBLE);
             editText.setVisibility(View.INVISIBLE);
+
             text.setText(value);
+            text.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
     }
+
+
+
 }

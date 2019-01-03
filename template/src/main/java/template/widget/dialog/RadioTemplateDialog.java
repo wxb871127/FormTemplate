@@ -23,7 +23,7 @@ public class RadioTemplateDialog extends BaseTemplateDialog<RadioTemplate> {
     }
 
     @Override
-    public <String> void initDialog(RadioTemplate template, String value) {
+    public <String> void initDialog(final RadioTemplate template, String value) {
         super.initDialog(template, value);
         view = LayoutInflater.from(mContext).inflate(R.layout.radio_template_dialog, null);
         TextView title = (TextView) view.findViewById(R.id.radio_template_dialog_title);
@@ -39,7 +39,7 @@ public class RadioTemplateDialog extends BaseTemplateDialog<RadioTemplate> {
             @Override
             public void onClick(View v) {
                 if(listener != null)
-                    listener.onDataChange("");
+                    listener.onDataChange(template.name,"");
                 dialog.dismiss();
             }
         });
@@ -99,7 +99,7 @@ public class RadioTemplateDialog extends BaseTemplateDialog<RadioTemplate> {
                 public void onClick(View v) {
                     String code = template.getCode(items[position]);
                     if(listener != null)
-                        listener.onDataChange(code);
+                        listener.onDataChange(template.name, code);
                     dialog.dismiss();
                 }
             });

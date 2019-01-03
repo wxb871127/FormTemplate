@@ -4,21 +4,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 
 import template.bean.BaseTemplate;
+import template.widget.OnTemplateListener;
 
 public class BaseTemplateDialog<T extends BaseTemplate> {
     protected T template;
     Object value;
     protected Context mContext;
     protected AlertDialog dialog;
-    protected OnDialogListener listener;
+    protected OnTemplateListener listener;
 
-    //弹出框接口支持数据 修改、清空
-    public interface OnDialogListener{
-        public void onDataChange(String s);
-        public void onDataClean();
-    }
-
-    public void setDialogListener(OnDialogListener listener){
+    public void setOnTemplateListener(OnTemplateListener listener){
         this.listener = listener;
     }
 

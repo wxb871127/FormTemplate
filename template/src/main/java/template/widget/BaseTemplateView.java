@@ -23,17 +23,17 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected TextView hint;
     protected T template;
     protected Object value;
-    protected OnViewListener listener;
+//    protected OnViewListener listener;
     protected OnTemplateListener templateListener;
 
-    //定义View的事件接口
-    public interface OnViewListener{
-        public void onViewClick();
-    }
+//    //定义View的事件接口
+//    public interface OnViewListener{
+//        public void onViewClick();
+//    }
 
-    public void setOnViewListener(OnViewListener listener){
-        this.listener = listener;
-    }
+//    public void setOnViewListener(OnViewListener listener){
+//        this.listener = listener;
+//    }
 
     public void setOnTemplateListener(OnTemplateListener listener){
         this.templateListener = listener;
@@ -81,14 +81,14 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             }
         }
 
-        if(holder.getConvertView().isClickable())
-        holder.getConvertView().setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(listener != null)
-                    listener.onViewClick();
-            }
-        });
+//        if(holder.getConvertView().isClickable())
+//        holder.getConvertView().setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(listener != null)
+//                    listener.onViewClick();
+//            }
+//        });
     }
 
     public void setShow(BaseViewHolder holder,boolean show){

@@ -1,6 +1,7 @@
 package template.bean;
 
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import base.annotation.Template;
 
@@ -21,7 +22,7 @@ public class SelectTemplate extends RadioTemplate{
 
     @Override
     public String getShowName(Object object) {
-        if(object == null)
+        if(object == null || "".equals(object.toString()))
             return "";
 
         String[] codes = object.toString().split(",");

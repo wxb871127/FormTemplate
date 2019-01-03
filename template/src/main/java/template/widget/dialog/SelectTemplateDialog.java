@@ -30,9 +30,11 @@ public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate>
         boolean[] checkedItem = template.getSelectItems(v);
         items = template.getNames();
         selectedItem.clear();
-        java.lang.String[] vs = v.split(",");
-        for (int i=0; i<vs.length; i++)
-            selectedItem.add(vs[i]);
+        if(v.contains(",")) {
+            java.lang.String[] vs = v.split(",");
+            for (int i = 0; i < vs.length; i++)
+                selectedItem.add(vs[i]);
+        }
 
 		dialog = new AlertDialog.Builder(mContext)
                 .setMultiChoiceItems(items, checkedItem,this)
@@ -57,8 +59,9 @@ public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate>
         String selected = "";
         if(DialogInterface.BUTTON_NEUTRAL == which){
             selected =  "";
+            selectedItem.clear();
             if(listener != null)
-                listener.onDataClean();
+                listener.onDataChange(template.name, "");
         }else if(DialogInterface.BUTTON_POSITIVE == which){
             for(int i=0; i<selectedItem.size(); i++){
                 if(i != selectedItem.size())
@@ -66,7 +69,7 @@ public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate>
                 else selected += selectedItem.get(i);
             }
             if(listener != null)
-                listener.onDataChange(selected);
+                listener.onDataChange(template.name, selected);
         }
     }
 }

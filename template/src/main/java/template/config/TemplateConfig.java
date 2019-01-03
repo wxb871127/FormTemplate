@@ -99,8 +99,4 @@ public class TemplateConfig {
         }
         return -1;
     }
-
-//    public static int getTemplateTypeByTag(){
-//
-//    }
 }
