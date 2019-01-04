@@ -29,5 +29,18 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         templateView.notifyData();
+
+//        AreaDao areaDao = DaoManager.getInstance(this).getDaoSession().getAreaDao();
+//        Area area = new Area();
+//        area.pym = "lzh";
+//        area.qhbm = "123";
+//        area.qhmc = "李昭辉";
+//        area.qhqc = "卫宁李昭辉";
+//        areaDao.insert(area);
+//
+//        List<Area> list =  areaDao.queryBuilder().where(AreaDao.Properties.Pym.eq("lzh")).list();
+//
+//        for(Area area1: list)
+//            Log.e("xxxxxxx", area1.qhmc);
     }
 }

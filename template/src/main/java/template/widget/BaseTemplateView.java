@@ -81,43 +81,5 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             }
         }
 
-//        if(holder.getConvertView().isClickable())
-//        holder.getConvertView().setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(listener != null)
-//                    listener.onViewClick();
-//            }
-//        });
     }
-
-    public void setShow(BaseViewHolder holder,boolean show){
-        ViewGroup.LayoutParams layoutParams = holder.getConvertView().getLayoutParams();
-        holder.getConvertView().setLayoutParams(layoutParams);
-        if(!show){
-            layoutParams.height = 0;
-            layoutParams.width = 0;
-            holder.getConvertView().setVisibility(GONE);
-        }else {
-            layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            holder.getConvertView().setVisibility(VISIBLE);
-        }
-    }
-
-//    public void setEdit(boolean edit) {
-//        if (edit) {
-//            if(vBox != null)
-//                vBox.setBackgroundResource(R.drawable.bg_color_white_border);
-//            if(editText!= null)
-//            editText.setClickable(true);
-//        } else {
-//            if(vBox != null)
-//                vBox.setBackgroundResource(R.drawable.bg_color_gray_border);
-//            if(editText!= null)
-//            editText.setClickable(false);
-//        }
-//    }
-
-
 }
