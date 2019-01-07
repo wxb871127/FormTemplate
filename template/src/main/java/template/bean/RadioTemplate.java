@@ -1,5 +1,7 @@
 package template.bean;
 
+import android.content.Context;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -57,7 +59,7 @@ public class RadioTemplate extends BaseTemplate{
     }
 
     @Override
-    public String getShowName(Object object) {
+    public String getShowName(Object object, Context context) {
         if(object == null)
             return "";
         return getNameByCode(object.toString());

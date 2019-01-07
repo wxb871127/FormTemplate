@@ -1,5 +1,7 @@
 package template.bean;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +23,7 @@ public class ListTemplate extends BaseTemplate{
     }
 
     @Override
-    public String getShowName(Object object) {
+    public String getShowName(Object object, Context context) {
         if(object == null)
             return "";
 

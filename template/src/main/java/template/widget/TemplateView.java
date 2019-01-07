@@ -39,7 +39,8 @@ public class TemplateView extends RecyclerView {
     }
 
     public void initTemplate(String templateXml){
-        TemplateList templates = TemplateParse.parseAssetsFile(mContext, templateXml);
+        TemplateParse.initTemplateStyle(mContext);
+        TemplateList templates = TemplateParse.parseTemplateFile(mContext, templateXml);
         initTemplate(templates);
     }
 

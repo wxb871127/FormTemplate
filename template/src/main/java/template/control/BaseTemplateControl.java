@@ -58,7 +58,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
     public void initView(final Context context, final BaseViewHolder holder, final T template, final Map<String, Object> valueMap){
         this.valueMap = valueMap;
         view = getTemplateView(context);
-        view.initView(holder, template, template.getShowName(valueMap.get(template.name)),isEditable(valueMap));
+        view.initView(holder, template, template.getShowName(valueMap.get(template.name), context),isEditable(valueMap));
 
         holder.setShow(isShow(valueMap));
         view.setOnTemplateListener(new template.widget.OnTemplateListener() {

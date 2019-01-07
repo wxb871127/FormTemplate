@@ -891,7 +891,7 @@
                 code="0"/>
         </radio>
 
-        <yyjl
+        <list
             name="yyjl"
             label="降压药列表"
             show="sfsyjyy == 1"
@@ -946,7 +946,7 @@
             <input
                 name="bz"
                 label="备注" />
-        </yyjl>
+        </list>
     </section>
 
     <!-- 近期检查结果 -->

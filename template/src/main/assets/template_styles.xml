@@ -1,241 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <styles>
-
-    <style name="ReferralUser" >
-
-        <item
-            name="selection"
-            value="pym like &apos;?%&apos; or yhxm like &apos;?%&apos;"/>
-
-        <item
-            name="selectionShow"
-            value="id = ?"/>
-
-        <item
-            name="uriPath"
-            value="referralUser"/>
-    </style>
-
-    <style name="ReferralArea" >
-
-        <item
-            name="selection"
-            value="pym like &apos;?%&apos; or qhmc like &apos;?%&apos;"/>
-
-        <item
-            name="selectionShow"
-            value="qhbm = ?"/>
-
-        <item
-            name="uriPath"
-            value="referralArea"/>
-    </style>
-
-    <style name="ReferralInstitution" >
-
-        <item
-            name="selection"
-            value="pym like &apos;?%&apos; or jgmc like &apos;?%&apos;"/>
-
-        <item
-            name="selectionShow"
-            value="jgbh = ?"/>
-
-        <item
-            name="uriPath"
-            value="referralInstitution"/>
-    </style>
-
     <style name="Drug" >
-
         <item
             name="selection"
             value="pym like &apos;?%&apos; or ypmc like &apos;?%&apos;"/>
-
         <item
             name="selectionShow"
             value="ypid = ?"/>
-
-        <item
-            name="uriPath"
-            value="drug"/>
     </style>
 
     <style name="User" >
-
         <item
             name="selection"
             value="User.pym like &apos;?%&apos; or User.yhxm like &apos;?%&apos; and Institution.jgbh = User.jgbh"/>
-
+        <!--<item-->
+            <!--name="selectionShow"-->
+            <!--value="User.id = ? and Institution.jgbh = User.jgbh"/>-->
         <item
             name="selectionShow"
-            value="User.id = ? and Institution.jgbh = User.jgbh"/>
-
-        <item
-            name="uriPath"
-            value="user"/>
-
+            value="id = ?"/>
         <item
             name="searchFormat"
             value="%s%s"/>
-
         <item
             name="searchArgs"
             value="Institution.jgmc,User.yhxm"/>
-
         <item
             name="initValueCommon"
             value="UserId"/>
     </style>
 
     <style name="Area" >
-
         <item
             name="selection"
             value="qhmc like &apos;?%&apos; or pym like &apos;?%&apos;"/>
-
         <item
             name="selectionShow"
             value="qhbm = ?"/>
-
-        <item
-            name="uriPath"
-            value="area"/>
     </style>
 
     <style name="Institution" >
-
         <item
             name="selection"
             value="pym like &apos;?%&apos; or jgmc like &apos;?%&apos;"/>
-
         <item
             name="selectionShow"
             value="jgbh = ?"/>
-
-        <item
-            name="uriPath"
-            value="institution"/>
     </style>
-
-    <style name="Disease" >
-
-        <item
-            name="selection"
-            value="pym like &apos;?%&apos; or dmmc like &apos;?%&apos;"/>
-
-        <item
-            name="selectionShow"
-            value="dmid = ?"/>
-
-        <item
-            name="uriPath"
-            value="disease"/>
-    </style>
-
-    <style name="ICD0" >
-
-        <item
-            name="selection"
-            value="pym like &apos;?%&apos; or dmmc like &apos;?%&apos;"/>
-
-        <item
-            name="selectionShow"
-            value="dmid = ?"/>
-
-        <item
-            name="uriPath"
-            value="icd0"/>
-    </style>
-
-    <style name="Morphology" >
-
-        <item
-            name="selection"
-            value="pym like &apos;?%&apos; or dmmc like &apos;?%&apos;"/>
-
-        <item
-            name="selectionShow"
-            value="dmid = ?"/>
-
-        <item
-            name="uriPath"
-            value="morphology"/>
-    </style>
-
-    <style name="ContractDoctor" >
-
-        <item
-            name="selection"
-            value="User.sfzh = ContractDoctor.sfzh and (ContractDoctor.pym like &apos;?%&apos; or ContractDoctor.xm like &apos;?%&apos;)"/>
-
-        <item
-            name="selectionShow"
-            value="ContractDoctor.id = ?"/>
-
-        <item
-            name="uriPath"
-            value="contractDoctor"/>
-    </style>
-
-
-    <style name="Zlypk">
-
-        <item
-            name="selection"
-            value="ypmc like &apos;?%&apos;"/>
-
-        <item
-            name="selectionShow"
-            value="ypmc = ?"/>
-
-        <item
-            name="uriPath"
-            value="Zlypk"/>
-    </style>
-    <style name="Zlzdk">
-
-        <item
-            name="selection"
-            value="zdmc like &apos;?%&apos;"/>
-
-        <item
-            name="selectionShow"
-            value="zdmc = ?"/>
-
-        <item
-            name="uriPath"
-            value="Zlzdk"/>
-    </style>
-
-    <style name="Zlmbk">
-
-        <item
-            name="selection"
-            value="ms like &apos;?%&apos;"/>
-
-        <item
-            name="selectionShow"
-            value="ms = ?"/>
-
-        <item
-            name="uriPath"
-            value="Zlmbk"/>
-    </style>
-
-    <style name="Profession" >
-
-        <item
-            name="selection"
-            value="pym like &apos;?%&apos; or dmmc like &apos;?%&apos;"/>
-
-        <item
-            name="selectionShow"
-            value="dmid = ?"/>
-
-        <item
-            name="uriPath"
-            value="profession"/>
-    </style>
-
 </styles>

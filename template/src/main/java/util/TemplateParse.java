@@ -12,7 +12,23 @@ import template.config.TemplateConfig;
 import template.control.BaseTemplateControl;
 
 public class TemplateParse {
-    public static TemplateList parseAssetsFile(Context context, String fileName) {
+    private static Element templateStyleElement = null;
+
+    public static void initTemplateStyle(Context context){
+        try {
+            InputStream inputStream = null;
+            inputStream = context.getAssets().open("template_styles.xml");
+            templateStyleElement = XmlUtil.getDocumentElement(inputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Element getTemplateStyleElement(){
+        return templateStyleElement;
+    }
+
+    public static TemplateList parseTemplateFile(Context context, String fileName) {
         try {
             InputStream inputStream = null;
             inputStream = context.getAssets().open(fileName);

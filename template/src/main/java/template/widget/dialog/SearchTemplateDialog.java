@@ -3,6 +3,7 @@ package template.widget.dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.database.Cursor;
+import android.hardware.Camera;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 
 import com.templatedb.greendao.AreaDao;
 
+import org.greenrobot.greendao.database.Database;
+
 import template.bean.SearchTemplate;
 import template.com.form.R;
 import template.com.templatedb.Area;
@@ -26,7 +29,6 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
     private View view;
     private EditText editText;
     private ListView listView;
-    private Cursor cursor;
     private Adapter adapter;
 
     public SearchTemplateDialog(Context mContext) {
@@ -60,18 +62,15 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
 
             @Override
             public void afterTextChanged(Editable s) {
+
+
                 if (s.length() > 0) {
                     AreaDao areaDao = DaoManager.getInstance(mContext).getDaoSession().getAreaDao();
-//                    String where = "qhmc like s% or pym like s%";
-//                    where = String.format(where, s.toString());
-
                     String where = "select * from Area where qhmc like ? or pym like ?";
-//                    Cursor cursor = areaDao.getDatabase().rawQuery(where, null);
-                    Cursor cursor = areaDao.getSession().getDatabase().rawQuery(where, new String[]{"lzh","lzh"});
+                    Database database = DaoManager.getInstance(mContext).getDaoSession().getDatabase();
+                    Cursor cursor = database.rawQuery(where, new String[]{s.toString(), s.toString()});
+                    cursor.moveToFirst();
                     adapter.changeCursor(cursor);
-//                    String s1 = cursor.getString(cursor.getColumnIndex("qhqc"));
-                    String s1 = cursor.getString(3);
-                    Log.e("xxxxxxxxxxx", s1);
                 }
             }
         };
@@ -96,7 +95,19 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
         public void bindView(View view, Context context, Cursor cursor) {
             TextView tvText = (TextView) view.findViewById(R.id.template_search_dialog_item_text);
             final CheckBox checkBox = (CheckBox) view.findViewById(R.id.template_search_dialog_item_checkbox);
-            tvText.setText("李昭辉");
+            final String c = cursor.getString(cursor.getColumnIndex("qhqc"));
+
+            tvText.setText(c);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null)
+                        listener.onDataChange(template.name, c);
+                    if(dialog != null)
+                        dialog.dismiss();
+                }
+            });
         }
     }
 }
