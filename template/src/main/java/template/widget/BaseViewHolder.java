@@ -24,7 +24,8 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setOnClickListener(View.OnClickListener listener){
-        itemView.setOnClickListener(listener);
+        if(itemView.isClickable())//列表和输入框 不需要弹出框
+            itemView.setOnClickListener(listener);
     }
 
     public void setShow(boolean show){

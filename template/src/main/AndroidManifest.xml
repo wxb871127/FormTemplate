@@ -1,4 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="template.com.form" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="template.com.form">
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        tools:replace="android:theme">
+        <activity
+            android:name="activity.TemplateActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+    </application>
 </manifest>

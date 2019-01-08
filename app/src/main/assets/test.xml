@@ -1,56 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <views>
-    <!--
-    <section
-        name="jbxx"
-        label="基本信息" >
--->
-            <input
-                name="xm"
-                editable="false"
-            label="姓名" />
-        <!--<
-                    <list
-                        name="gmsList"
-                        label="过敏原列表"
-                        show="daJws.gmsbz == 1"
-                        showArgs="gmy"
-                        showFormat="过敏源：%s" >
-
-                        <input
-                            name="xh"
-                            label="序号 "
-                            show="false" />
-
-                        <radio
-                            name="gmy"
-                            canClear="true"
-                            label="过敏源"
-                            nameShow="gmymc"
-                            required="true" >
-
-                            <item
-                                name="青霉素"
-                                code="1"/>
-
-                            <item
-                                name="磺胺"
-                                code="2"/>
-
-                            <item
-                                name="油漆"
-                                code="3"/>
-                        </radio>
-
-                        <date
-                            name="fsrq"
-                            label="发现日期" />
-
-                        <input
-                            name="bz"
-                            label="备注" />
-                    </list>
-
-    </section>
-    -->
+    <input
+        name="jtdz"
+        label="家庭地址" />
 </views>

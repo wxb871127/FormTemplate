@@ -15,7 +15,7 @@ public class SelectTemplateView extends BaseTemplateView<SelectTemplate>{
 
     @Override
     public void initView(BaseViewHolder holder, SelectTemplate template, String value, boolean editable) {
-        holder.getConvertView().setClickable(true);
+        holder.getConvertView().setClickable(editable);
         super.initView(holder, template, value, editable);
         hint.setText("请选择（可多选）");
         hint.setVisibility(VISIBLE);

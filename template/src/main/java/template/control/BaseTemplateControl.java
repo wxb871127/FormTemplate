@@ -69,6 +69,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
             }
         });
 
+        if(isEditable(valueMap))
         holder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

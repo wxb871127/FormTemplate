@@ -15,7 +15,7 @@ public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
 
     @Override
     public void initView(BaseViewHolder holder, RadioTemplate template, String value, boolean editable) {
-        holder.getConvertView().setClickable(true);
+        holder.getConvertView().setClickable(editable);
         super.initView(holder, template, value, editable);
         hint.setVisibility(VISIBLE);
         editText.setText(value);

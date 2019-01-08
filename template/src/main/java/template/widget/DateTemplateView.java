@@ -16,7 +16,7 @@ public class DateTemplateView extends BaseTemplateView<DateTemplate>{
 
     @Override
     public  void initView(BaseViewHolder holder, DateTemplate template, String value, boolean editable) {
-        holder.getConvertView().setClickable(true);
+        holder.getConvertView().setClickable(editable);
         super.initView(holder, template, value, editable);
         hint.setVisibility(VISIBLE);
         editText.setText(value);
