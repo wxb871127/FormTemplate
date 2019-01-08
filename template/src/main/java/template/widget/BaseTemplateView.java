@@ -23,17 +23,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected TextView hint;
     protected T template;
     protected Object value;
-//    protected OnViewListener listener;
     protected OnTemplateListener templateListener;
-
-//    //定义View的事件接口
-//    public interface OnViewListener{
-//        public void onViewClick();
-//    }
-
-//    public void setOnViewListener(OnViewListener listener){
-//        this.listener = listener;
-//    }
 
     public void setOnTemplateListener(OnTemplateListener listener){
         this.templateListener = listener;
@@ -78,6 +68,15 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             if (!TextUtils.isEmpty(template.unit)) {
                 tvUnit.setVisibility(View.VISIBLE);
                 tvUnit.setText(Html.fromHtml(template.unit));
+            }
+        }
+        if(vBox != null) {
+            if (editable)
+                vBox.setBackgroundResource(R.drawable.bg_color_white_border);
+            else {
+                vBox.setBackgroundResource(R.drawable.bg_color_gray_border);
+                if(text != null)
+                    text.setTextColor(getResources().getColor(R.color.B0));
             }
         }
 

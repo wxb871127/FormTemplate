@@ -15,6 +15,7 @@ import org.json.JSONException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import template.com.templatedb.Area;
 import template.com.templatedb.DaoManager;
@@ -45,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
         }
         templateView.notifyData();
 
+//        List<Area> list = DaoManager.getInstance(this).getDaoSession().getAreaDao().queryBuilder().
+//                where(AreaDao.Properties.Qhbm.eq("124")).list();
+//        for(Area area : list)
+//            Log.e("xxxxx", area.qhqc);
+
 
 //        User user = new User();
 //        user.id = "124";
@@ -54,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 //        user.yhxm = "李昭辉";
 //        user.stamp = "20120344";
 //        DaoManager.getInstance(this).getDaoSession().getUserDao().insertOrReplace(user);
-
+//
 //        Institution institution = new Institution();
 //        institution.jgbh = "100";
 //        institution.jgmc = "西溪水岸花园";

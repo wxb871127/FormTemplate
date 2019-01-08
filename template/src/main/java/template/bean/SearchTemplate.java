@@ -3,7 +3,6 @@ package template.bean;
 import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.greenrobot.greendao.database.Database;
 import org.w3c.dom.Element;
@@ -66,7 +65,13 @@ public class SearchTemplate extends BaseTemplate{
         String where = "select " + showColumn + " from " + style + " where " + nameMap.get("selectionShow");
         Cursor cursor = database.rawQuery(where,  new String[]{object.toString()});
         cursor.moveToFirst();
-        String showname = cursor.getString(cursor.getColumnIndex(showColumn));
+        String showname = "";
+        int column = cursor.getColumnIndex(showColumn);
+        if(column == -1) {
+            cursor.close();
+            return "";
+        }
+        showname = cursor.getString(column);
         cursor.close();
         if(showFormat!=null && !TextUtils.isEmpty(showFormat))
             showname = String.format(showFormat, showname);
