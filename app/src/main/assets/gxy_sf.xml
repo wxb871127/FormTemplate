@@ -1,0 +1,1219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views>
+
+    <section
+        name="section_jbxx"
+        label="基本信息" >
+
+        <input
+            name="xm"
+            editable="false"
+            label="姓名" />
+
+        <radio
+            name="fjgljg"
+            editable="false"
+            label="管理级别" >
+
+            <item
+                name="一级管理"
+                code="1"/>
+
+            <item
+                name="二级管理"
+                code="2"/>
+
+            <item
+                name="三级管理"
+                code="3"/>
+        </radio>
+
+        <input
+            name="xzzdabh"
+            editable="false"
+            label="档案编号" />
+
+        <date
+            name="sfrq"
+            editable="false"
+            initValueCommon="today"
+            label="随访日期"
+            required="true" />
+
+        <radio
+            name="sffs"
+            label="随访方式"
+            required="true" >
+
+            <item
+                name="电话随访"
+                code="1"/>
+
+            <item
+                name="家庭随访"
+                code="2"/>
+
+            <item
+                name="门诊随访"
+                code="3"/>
+        </radio>
+    </section>
+
+    <section
+        name="section_zzjtz"
+        label="症状及体征" >
+
+        <radio
+            name="hzzgzz"
+            initValue="0"
+            label="患者症状(可多选)"
+            required="true" >
+
+            <item
+                name="有"
+                code="1"/>
+
+            <item
+                name="无"
+                code="0"/>
+        </radio>
+
+        <select
+            name="hzzgzzxs"
+            show="hzzgzz == 1" >
+
+            <item
+                name="头晕头痛"
+                code="1"/>
+
+            <item
+                name="恶心呕吐"
+                code="2"/>
+
+            <item
+                name="眼花耳鸣"
+                code="3"/>
+
+            <item
+                name="呼吸困难"
+                code="4"/>
+
+            <item
+                name="心悸胸闷"
+                code="5"/>
+
+            <item
+                name="鼻衄出血不止"
+                code="6"/>
+
+            <item
+                name="四肢发麻"
+                code="7"/>
+
+            <item
+                name="下肢水肿"
+                code="8"/>
+
+            <item
+                name="烦躁"
+                code="9"/>
+
+            <item
+                name="视力模糊"
+                code="10"/>
+
+            <item
+                name="面色苍白或潮红"
+                code="11"/>
+
+            <item
+                name="四肢乏力"
+                code="12"/>
+
+            <item
+                name="其他"
+                code="13"/>
+        </select>
+
+        <input
+            name="qtzzxs"
+            show="hzzgzzxs contains 13" />
+
+        <section
+            name="section_tz"
+            label="体征" >
+
+            <input
+                name="ssy"
+                domain="ssy >= 1 &amp;&amp; ssy &lt; 301"
+                inputType="number"
+                label="收缩压"
+                required="true"
+                unit="mmHg" />
+
+            <input
+                name="szy"
+                domain="szy >= 1 &amp;&amp; szy &lt; 301"
+                inputType="number"
+                label="舒张压"
+                required="true"
+                unit="mmHg" />
+
+            <input
+                name="cls"
+                inputType="number"
+                label="血压测量时间"
+                unit="时" />
+
+            <input
+                name="clf"
+                inputType="number"
+                unit="分" />
+
+            <input
+                name="sg"
+                inputType="numberDecimal"
+                label="身高"
+                unit="cm" />
+
+            <input
+                name="tz"
+                inputType="numberDecimal"
+                label="体重"
+                required="true"
+                unit="kg" />
+
+            <input
+                name="bmi"
+                editable="false"
+                label="体质指数" />
+
+            <input
+                name="yw"
+                inputType="numberDecimal"
+                label="腰围"
+                unit="cm" />
+
+            <input
+                name="xl"
+                inputType="number"
+                label="心率(次/分)" />
+
+            <input
+                name="qttz"
+                label="其他" />
+        </section>
+    </section>
+
+    <section
+        name="section_gxyhbz"
+        label="高血压合并症" >
+
+        <radio
+            name="hbzqk"
+            initValue="0"
+            label="合并症情况(可多选)" >
+
+            <item
+                name="有"
+                code="1"/>
+
+            <item
+                name="无"
+                code="0"/>
+        </radio>
+
+        <select
+            name="hbzxs"
+            show="hbzqk == 1" >
+
+            <item
+                name="糖尿病"
+                code="21"/>
+
+            <item
+                name="缺血性卒中"
+                code="1"/>
+
+            <item
+                name="脑出血"
+                code="2"/>
+
+            <item
+                name="短暂性脑缺血发作"
+                code="3"/>
+
+            <item
+                name="心绞痛"
+                code="4"/>
+
+            <item
+                name="心肌梗死史"
+                code="5"/>
+
+            <item
+                name="充血性心力衰竭"
+                code="6"/>
+
+            <item
+                name="糖尿病肾病"
+                code="7"/>
+
+            <item
+                name="肾功能受损(血清肌酐) 说明：男性大于133μmol/L (1.5mg/dL)女性大于124μmol/L (1.4mg/dL)"
+                code="8"/>
+
+            <item
+                name="视网膜病变：出血或渗出，视乳头水肿"
+                code="9"/>
+
+            <item
+                name="冠状动脉血运重建"
+                code="10"/>
+
+            <item
+                name="蛋白尿(大于300mg/24h)"
+                code="11"/>
+
+            <item
+                name="外周血管疾病"
+                code="12"/>
+
+            <item
+                name="心因性猝死"
+                code="20"/>
+        </select>
+
+        <input
+            name="qtjb"
+            label="其他疾病" />
+    </section>
+
+    <section
+        name="section_sfglqk"
+        label="随访管理情况" >
+
+        <section
+            name="section_shfsdc"
+            label="生活方式调查" >
+
+            <radio
+                name="ycqzlcs"
+                initValue="0"
+                label="已采取生活方式治疗措施"
+                required="true" >
+
+                <item
+                    name="有"
+                    code="1"/>
+
+                <item
+                    name="无"
+                    code="0"/>
+            </radio>
+
+            <select
+                name="ycqzlcsxs"
+                show="ycqzlcs == 1" >
+
+                <item
+                    name="减少食盐摄入"
+                    code="1"/>
+
+                <item
+                    name="减少膳食脂肪"
+                    code="2"/>
+
+                <item
+                    name="规律运动"
+                    code="3"/>
+
+                <item
+                    name="减少吸烟量或戒烟"
+                    code="4"/>
+
+                <item
+                    name="减少饮酒量或戒酒"
+                    code="5"/>
+
+                <item
+                    name="控制体重"
+                    code="6"/>
+
+                <item
+                    name="心理调整"
+                    code="7"/>
+            </select>
+
+            <radio
+                name="xyqk"
+                label="目前吸烟情况" >
+
+                <item
+                    name="不吸烟"
+                    code="1"/>
+
+                <item
+                    name="已戒烟"
+                    code="2"/>
+
+                <item
+                    name="经常吸烟"
+                    code="3"/>
+
+                <item
+                    name="偶尔吸烟"
+                    code="4"/>
+            </radio>
+
+            <input
+                name="xyl"
+                domain="xyl >= 0 &amp;&amp; xyl &lt;= 1000"
+                inputType="number"
+                label="日吸烟量"
+                required="true"
+                show="xyqk == 3"
+                unit="支/天" />
+
+            <radio
+                name="yjqk"
+                label="目前饮酒情况" >
+
+                <item
+                    name="不饮酒"
+                    code="1"/>
+
+                <item
+                    name="已戒酒"
+                    code="2"/>
+
+                <item
+                    name="经常饮酒"
+                    code="3"/>
+
+                <item
+                    name="偶尔饮酒"
+                    code="4"/>
+            </radio>
+
+            <input
+                name="yjts"
+                domain="yjts >= 0 &amp;&amp; yjts &lt;= 7"
+                inputType="number"
+                label="每周饮酒天数"
+                show="yjqk == 3"
+                unit="天" />
+
+            <input
+                name="yjl"
+                domain="yjl >= 0 &amp;&amp; yjl &lt;= 1000"
+                inputType="number"
+                label="日饮酒量"
+                required="true"
+                show="yjqk == 3"
+                unit="两/天" />
+
+            <select
+                name="yjlx"
+                label="饮酒类型"
+                show="yjqk == 3" >
+
+                <item
+                    name="高度白酒"
+                    code="1"/>
+
+                <item
+                    name="低度白酒"
+                    code="2"/>
+
+                <item
+                    name="黄酒"
+                    code="3"/>
+
+                <item
+                    name="葡萄酒"
+                    code="6"/>
+
+                <item
+                    name="啤酒"
+                    code="4"/>
+
+                <item
+                    name="其他"
+                    code="5"/>
+            </select>
+
+            <radio
+                name="ydqk"
+                label="目前运动情况" >
+
+                <item
+                    name="规律运动"
+                    code="1"/>
+
+                <item
+                    name="不规律运动"
+                    code="2"/>
+
+                <item
+                    name="不运动"
+                    code="3"/>
+            </radio>
+
+            <input
+                name="zyydfs"
+                label="主要运动方式"
+                show="ydqk == 1 || ydqk == 2" />
+
+            <input
+                name="ydzcs"
+                domain="ydzcs >= 0 &amp;&amp; ydzcs &lt;= 100"
+                inputType="number"
+                label="每周运动次数"
+                required="true"
+                show="ydqk == 1 || ydqk == 2"
+                unit="次" />
+
+            <input
+                name="ydcfz"
+                domain="ydzcs >= 0 &amp;&amp; ydzcs &lt;= 1440"
+                inputType="number"
+                label="每次运动时间"
+                required="true"
+                show="ydqk == 1 || ydqk == 2"
+                unit="分钟/次" />
+        </section>
+
+        <section
+            name="section_mqysqk"
+            label="目前饮食情况" >
+
+            <radio
+                name="ysrlcd"
+                label="盐摄入量程度"
+                required="true" >
+
+                <item
+                    name="轻"
+                    code="1"/>
+
+                <item
+                    name="中"
+                    code="2"/>
+
+                <item
+                    name="重"
+                    code="3"/>
+            </radio>
+
+            <input
+                name="ysrl"
+                domain="ysrl >= 0 &amp;&amp; ysrl &lt;= 100"
+                inputType="numberDecimal"
+                label="盐摄入量"
+                required="true"
+                unit="克/天" />
+
+            <radio
+                name="gzys"
+                label="高脂饮食" >
+
+                <item
+                    name="否"
+                    code="0"/>
+
+                <item
+                    name="是"
+                    code="1"/>
+
+                <item
+                    name="不详"
+                    code="9"/>
+            </radio>
+
+            <radio
+                name="xltz"
+                label="心理调整"
+                required="true" >
+
+                <item
+                    name="良好"
+                    code="1"/>
+
+                <item
+                    name="一般"
+                    code="2"/>
+
+                <item
+                    name="差"
+                    code="3"/>
+            </radio>
+
+            <radio
+                name="zyxw"
+                label="遵医行为"
+                required="true" >
+
+                <item
+                    name="良好"
+                    code="1"/>
+
+                <item
+                    name="一般"
+                    code="2"/>
+
+                <item
+                    name="差"
+                    code="3"/>
+            </radio>
+        </section>
+    </section>
+
+    <section
+        name="section_fzjc"
+        label="辅助检查" >
+
+        <input
+            name="zxjkzk"
+            label="辅助检查内容" >
+
+            <common_expression xlid="114" />
+        </input>
+    </section>
+
+    <section
+        name="section_ywzlqk"
+        label="药物治疗情况" >
+
+        <radio
+            name="sfsyjyy"
+            initValue="9"
+            label="是否使用降压药"
+            required="true" >
+
+            <item
+                name="否"
+                code="0"/>
+
+            <item
+                name="是"
+                code="1"/>
+
+            <item
+                name="不详"
+                code="9"/>
+        </radio>
+
+        <yyjl
+            name="yyjl"
+            show="sfsyjyy == 1"
+            showArgs="ypmc"
+            ywlx="1" >
+
+            <search
+                name="ypid"
+                style="Drug"
+                label="药品名称"
+                required="true" >
+
+                <item
+                    name="ypmc"
+                    column="ypmc"/>
+
+                <item
+                    name="ypid"
+                    column="ypid"/>
+
+                <item
+                    name="jl"
+                    column="jl"/>
+
+                <item
+                    name="fyff"
+                    column="fyfs"/>
+
+                <item
+                    name="ffcs"
+                    column="ffcs"/>
+
+                <item
+                    name="bz"
+                    column="bz"/>
+            </search>
+
+            <input
+                name="jl"
+                label="单次剂量"
+                required="true" />
+
+            <input
+                name="fyff"
+                label="用药方法" />
+
+            <input
+                name="ffcs"
+                label="每日次数"
+                required="true" />
+
+            <input
+                name="bz"
+                label="备注" />
+        </yyjl>
+
+        <radio
+            name="fyycx"
+            label="服药依从性"
+            required="true"
+            show="sfsyjyy == 1" >
+
+            <item
+                name="规律服药"
+                code="1"/>
+
+            <item
+                name="间断服药"
+                code="2"/>
+
+            <item
+                name="不服药"
+                code="3"/>
+        </radio>
+
+        <select
+            name="wfyyy"
+            label="不/间断服药原因"
+            show="fyycx == 2 || fyycx == 3" >
+
+            <item
+                name="经济原因"
+                code="1"/>
+
+            <item
+                name="忘记"
+                code="2"/>
+
+            <item
+                name="不良反应"
+                code="3"/>
+
+            <item
+                name="配药不方便"
+                code="4"/>
+
+            <item
+                name="无需药物治疗"
+                code="5"/>
+
+            <item
+                name="其他"
+                code="6"/>
+        </select>
+
+        <input
+            name="qtwfyyy"
+            label="其他不/间断服药原因"
+            show="wfyyy contains 6" />
+
+        <radio
+            name="ywblfylx"
+            initValue="0"
+            label="药物不良反应"
+            required="true"
+            show="sfsyjyy == 1" >
+
+            <item
+                name="无"
+                code="0"/>
+
+            <item
+                name="有"
+                code="1"/>
+        </radio>
+
+        <input
+            name="ywblfyms"
+            label="药物不良反应详述"
+            required="true"
+            show="ywblfylx == 1" />
+
+        <radio
+            name="sfkzqk"
+            label="此次随访分类"
+            required="true" >
+
+            <item
+                name="控制满意"
+                code="1"/>
+
+            <item
+                name="控制不满意"
+                code="2"/>
+
+            <item
+                name="不良反应"
+                code="3"/>
+
+            <item
+                name="并发症"
+                code="4"/>
+        </radio>
+    </section>
+
+    <section
+        name="section_sfysjy"
+        label="随访医师建议" >
+
+        <section
+            name="section_shfszdjy"
+            label="生活方式指导建议" >
+
+            <select
+                name="ysjy"
+                label="饮食建议" >
+
+                <item
+                    name="减少食盐摄入"
+                    code="1"/>
+
+                <item
+                    name="减少膳食脂肪"
+                    code="2"/>
+
+                <item
+                    name="减少膳食总热量"
+                    code="3"/>
+            </select>
+
+            <radio
+                name="syqklx"
+                label="盐摄入量程度"
+                required="true" >
+
+                <item
+                    name="轻"
+                    code="1"/>
+
+                <item
+                    name="中"
+                    code="2"/>
+
+                <item
+                    name="重"
+                    code="3"/>
+            </radio>
+
+            <input
+                name="syqk"
+                domain="syqk >= 0 &amp;&amp; syqk &lt;= 100"
+                inputType="numberDecimal"
+                label="盐摄入量"
+                unit="克/天" />
+
+            <input
+                name="syy"
+                domain="syy >= 0 &amp;&amp; syy &lt;= 1000"
+                inputType="numberDecimal"
+                label="食用油"
+                unit="克/天" />
+
+            <radio
+                name="ydjy"
+                label="运动建议" >
+
+                <item
+                    name="规律运动"
+                    code="1"/>
+
+                <item
+                    name="暂不适宜运动"
+                    code="2"/>
+            </radio>
+
+            <input
+                name="jyydfs"
+                label="主要运动方式"
+                show="ydjy == 1" />
+
+            <input
+                name="jyydcs"
+                domain="jyydcs >= 0 &amp;&amp; jyydcs &lt;= 100"
+                inputType="number"
+                label="每周运动次数"
+                required="true"
+                show="ydjy == 1"
+                unit="次" />
+
+            <input
+                name="jyydsj"
+                domain="jyydsj >= 0 &amp;&amp; jyydsj &lt;= 1440"
+                inputType="number"
+                label="每次运动时间"
+                required="true"
+                show="ydjy == 1"
+                unit="分钟/次" />
+
+            <radio
+                name="yjjy"
+                label="饮酒建议" >
+
+                <item
+                    name="减少饮酒量"
+                    code="1"/>
+
+                <item
+                    name="戒酒"
+                    code="2"/>
+
+                <item
+                    name="无"
+                    code="3"/>
+            </radio>
+
+            <input
+                name="jyyjts"
+                domain="jyyjts >= 0 &amp;&amp; jyyjts &lt;= 7"
+                inputType="number"
+                label="每周饮酒天数"
+                show="yjjy == 1"
+                unit="天" />
+
+            <input
+                name="jyyjl"
+                domain="jyyjl >= 0 &amp;&amp; jyyjl &lt;= 1000"
+                inputType="numberDecimal"
+                label="日饮酒量"
+                required="true"
+                show="yjjy == 1"
+                unit="两/天" />
+
+            <select
+                name="jyyjlx"
+                label="主要饮酒类型"
+                show="yjjy == 1" >
+
+                <item
+                    name="高度白酒"
+                    code="1"/>
+
+                <item
+                    name="低度白酒"
+                    code="2"/>
+
+                <item
+                    name="黄酒"
+                    code="3"/>
+
+                <item
+                    name="葡萄酒"
+                    code="6"/>
+
+                <item
+                    name="啤酒"
+                    code="4"/>
+
+                <item
+                    name="其他"
+                    code="5"/>
+            </select>
+
+            <radio
+                name="xyjy"
+                label="吸烟建议" >
+
+                <item
+                    name="减少吸烟量"
+                    code="1"/>
+
+                <item
+                    name="戒烟"
+                    code="2"/>
+
+                <item
+                    name="无"
+                    code="3"/>
+            </radio>
+
+            <input
+                name="jyxyl"
+                domain="jyxyl >= 0 &amp;&amp; jyxyl &lt;= 7"
+                inputType="number"
+                label="日吸烟量"
+                required="true"
+                show="xyjy == 1"
+                unit="支/天" />
+
+            <input
+                name="tzkzjy"
+                domain="tzkzjy >= 1 &amp;&amp; tzkzjy &lt;= 300"
+                inputType="numberDecimal"
+                label="体重控制建议"
+                required="true"
+                unit="公斤" />
+
+            <input
+                name="tzkzxq"
+                label="体重控制详情" />
+
+            <input
+                name="jyxl"
+                domain="jyxl >= 1 &amp;&amp; jyxl &lt;= 300"
+                inputType="number"
+                label="(运动)心率"
+                required="true"
+                unit="次/分" />
+
+            <input
+                name="jcrc"
+                domain="jcrc >= 0 &amp;&amp; jcrc &lt; 11"
+                inputType="number"
+                label="血压监测"
+                unit="次/每天" />
+
+            <input
+                name="jccs"
+                domain="jccs >= 0 &amp;&amp; jccs &lt; 11"
+                inputType="number"
+                unit="遍/每次测量" />
+
+            <input
+                name="jczc"
+                domain="jczc >= 0 &amp;&amp; jczc &lt; 8"
+                inputType="number"
+                unit="次/每周" />
+
+            <input
+                name="jcyc"
+                domain="jcyc >= 0 &amp;&amp; jcyc &lt; 32"
+                inputType="number"
+                unit="次/每月" />
+        </section>
+
+        <section
+            name="section_zljy"
+            label="治疗建议" >
+
+            <radio
+                name="sfywzl"
+                label="药物治疗" >
+
+                <item
+                    name="开始用药或调整用药"
+                    code="1"/>
+
+                <item
+                    name="继续按原处方规律用药"
+                    code="2"/>
+
+                <item
+                    name="不需药物治疗"
+                    code="3"/>
+            </radio>
+
+            <yyjl
+                name="yyjl"
+                show="sfywzl == 1 || sfywzl == 2"
+                showArgs="ypmc"
+                ywlx="8" >
+
+                <search
+                    name="ypid"
+                    style="Drug"
+                    label="药品名称"
+                    required="true" >
+
+                    <item
+                        name="ypmc"
+                        column="ypmc"/>
+
+                    <item
+                        name="ypid"
+                        column="ypid"/>
+
+                    <item
+                        name="jl"
+                        column="jl"/>
+
+                    <item
+                        name="fyff"
+                        column="fyfs"/>
+
+                    <item
+                        name="ffcs"
+                        column="ffcs"/>
+
+                    <item
+                        name="bz"
+                        column="bz"/>
+                </search>
+
+                <input
+                    name="jl"
+                    label="单次剂量"
+                    required="true" />
+
+                <input
+                    name="fyff"
+                    label="用药方法" />
+
+                <input
+                    name="ffcs"
+                    label="每日次数"
+                    required="true" />
+
+                <input
+                    name="bz"
+                    label="备注" />
+            </yyjl>
+        </section>
+    </section>
+
+    <section
+        name="section_zzqk"
+        label="转诊情况" >
+
+        <radio
+            name="sfzz"
+            initValue="0"
+            label="是否转诊"
+            required="true" >
+
+            <item
+                name="是"
+                code="1"/>
+
+            <item
+                name="否"
+                code="0"/>
+
+            <item
+                name="拒绝转诊"
+                code="2"/>
+        </radio>
+
+        <button
+            name="button_sz"
+            label="双向转诊"
+            show="_mode == 1 &amp;&amp; sfzz == 1 &amp;&amp; sxzzqx == 1"
+            text="上转" />
+
+        <select
+            name="zzyy"
+            label="转诊原因"
+            show="sfzz == 1 &amp;&amp; sxzzqx == 0" >
+
+            <item
+                name="收缩压≥180mmHg和(或)舒张压≥110mmHg"
+                code="1"/>
+
+            <item
+                name="意识改变、剧烈头痛或头晕、恶心呕吐、视力模糊、眼痛、心悸、胸闷、喘憋不能平卧、心前区疼痛危急症状之一"
+                code="2"/>
+
+            <item
+                name="处于妊娠期或哺乳期同时血压高于正常等危急情况"
+                code="3"/>
+
+            <item
+                name="连续两次收缩压≥140mmHg和（或）舒张压≥90mmHg"
+                code="5"/>
+
+            <item
+                name="连续两次出现血压控制不满意"
+                code="6"/>
+
+            <item
+                name="存在不能处理的其他疾病"
+                code="4"/>
+        </select>
+
+        <input
+            name="zzjgmc"
+            label="转诊机构及科别"
+            show="sfzz == 1 &amp;&amp; sxzzqx == 0" >
+
+            <common_expression xlid="125" />
+        </input>
+    </section>
+
+    <section
+        name="section_jkzz"
+        label="健康指导" >
+
+        <input
+            name="jkzd"
+            label="健康指导" >
+
+            <common_expression xlid="137" />
+        </input>
+    </section>
+
+    <section
+        name="section_sfpj"
+        label="随访评价" >
+
+        <radio
+            name="jsglcd"
+            label="患者接受管理程度" >
+
+            <item
+                name="不接受"
+                code="0"/>
+
+            <item
+                name="勉强接受"
+                code="1"/>
+
+            <item
+                name="完全接受"
+                code="2"/>
+        </radio>
+
+        <date
+            name="xcsfrq"
+            label="下次随访日期" />
+
+        <search
+            name="sfys"
+            style="User"
+            label="随访医生签名"
+            required="true" >
+
+            <item
+                name="sfysxm"
+                column="yhxm"/>
+
+            <item
+                name="sfys"
+                column="id"/>
+        </search>
+
+        <search
+            name="lrr"
+            style="User"
+            editable="false"
+            label="录入人"
+            required="true" >
+
+            <item
+                name="lrrxm"
+                column="yhxm"/>
+
+            <item
+                name="lrr"
+                column="id"/>
+        </search>
+
+        <date
+            name="lrrq"
+            editable="false"
+            initValueCommon="today"
+            label="录入日期" />
+
+        <button
+            name="button_cktp"
+            label="照片"
+            show="_mode == 2"
+            text="点击查看照片" />
+    </section>
+
+</views>

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views>
+
+    <section
+        name="section_xysp"
+        label="血压水平" >
+
+        <input
+            name="ssy"
+            domain="ssy >= 1 &amp;&amp; ssy &lt; 301"
+            inputType="number"
+            label="收缩压"
+            required="true"
+            unit="mmHg" />
+
+        <input
+            name="szy"
+            domain="ssy >= 1 &amp;&amp; ssy &lt; 301"
+            inputType="number"
+            label="舒张压"
+            required="true"
+            unit="mmHg" />
+    </section>
+
+    <section
+        name="section_wxys"
+        label="危险因素" >
+
+        <select
+            name="wxysdm"
+            label="心血管病危险因素" >
+
+            <item
+                name="年龄：男性＞55岁，女性＞65岁"
+                code="1"/>
+
+            <item
+                name="吸烟"
+                code="3"/>
+
+            <item
+                name="血脂异常（1.总胆固醇（TC）≥5.7mmol/L（220mg/dL） 2.低密度脂蛋白胆固醇（LDL-C）＞3.3mmol/L（130mg/dL）3.高密度脂蛋白胆固醇（HDL-C）＜1.0mmol/L（40mg/dL））"
+                code="4"/>
+
+            <item
+                name="早发心血管疾病家族史（一级亲属，发病年龄＜50岁）"
+                code="6"/>
+
+            <item
+                name="腹型肥胖（腰围男≥90cm，女≥85cm）或肥胖（体重指数≥28kg/㎡）"
+                code="5"/>
+
+            <item
+                name="高同型半胱氨酸＞10μmol/L"
+                code="10"/>
+
+            <item
+                name="糖调节异常（1.糖耐量受损（即7.8mmol/L（140mg/dL）≤负荷后2小时血糖＜11.1 mmol/L（200mg/dL）） 2.空腹血糖异常（即6.1mmol/L（110mg/dL）≤空腹血糖＜7.0 mmol/L（126mg/dL）））"
+                code="11"/>
+        </select>
+
+        <select
+            name="bqgshdm"
+            label="靶器官损害" >
+
+            <item
+                name="左心室肥厚"
+                code="1"/>
+
+            <item
+                name="微量白蛋白尿 （30mg/24h≤尿白蛋白排泄率≤300mg/24h）或白蛋白肌酐比≥30mg/g（3.5mg/mmol）"
+                code="2"/>
+
+            <item
+                name="颈动脉粥样斑块或内膜中层增厚"
+                code="3"/>
+
+            <item
+                name="血清肌酐轻度升高或估算的肾小球滤过率降低"
+                code="4"/>
+        </select>
+
+        <radio
+            name="sftnb"
+            label="糖尿病" >
+
+            <item
+                name="否"
+                code="0"/>
+
+            <item
+                name="是"
+                code="1"/>
+
+            <item
+                name="不详"
+                code="9"/>
+        </radio>
+
+        <radio
+            name="ywbcjb"
+            label="并存的相关疾病" >
+
+            <item
+                name="有"
+                code="1"/>
+
+            <item
+                name="无"
+                code="0"/>
+        </radio>
+
+        <select
+            name="xgjbdm"
+            label="相关疾病名称"
+            show="ywbcjb == 1" >
+
+            <item
+                name="缺血性卒中"
+                code="1"/>
+
+            <item
+                name="脑出血"
+                code="2"/>
+
+            <item
+                name="短暂性脑缺血发作"
+                code="3"/>
+
+            <item
+                name="心肌梗死史"
+                code="4"/>
+
+            <item
+                name="心绞痛"
+                code="5"/>
+
+            <item
+                name="充血性心力衰竭"
+                code="6"/>
+
+            <item
+                name="糖尿病肾病"
+                code="7"/>
+
+            <item
+                name="心因性猝死"
+                code="8"/>
+
+            <item
+                name="外周血管疾病"
+                code="9"/>
+
+            <item
+                name="冠状动脉血运重建"
+                code="10"/>
+
+            <item
+                name="视网膜病变：出血或渗出，视乳头水肿"
+                code="11"/>
+
+            <item
+                name="蛋白尿(大于300mg/24h)"
+                code="12"/>
+
+            <item
+                name="肾功能受损(血清肌酐) 说明：男性大于133μmol/L (1.5mg/dL)女性大于124μmol/L (1.4mg/dL)"
+                code="13"/>
+        </select>
+    </section>
+
+    <section
+        name="section_ztpg"
+        label="总体评估" >
+
+        <button
+            name="ztpg"
+            label="评估"
+            text="请选择" />
+
+        <radio
+            name="xyfj"
+            editable="false"
+            label="血压分级结果" >
+
+            <item
+                name="一级高血压"
+                code="1"/>
+
+            <item
+                name="二级高血压"
+                code="2"/>
+
+            <item
+                name="三级高血压"
+                code="3"/>
+        </radio>
+
+        <radio
+            name="wxfc"
+            editable="false"
+            label="危险分层结果" >
+
+            <item
+                name="低危"
+                code="1"/>
+
+            <item
+                name="中危"
+                code="2"/>
+
+            <item
+                name="高危"
+                code="3"/>
+
+            <item
+                name="极高危"
+                code="4"/>
+        </radio>
+
+        <radio
+            name="glfj"
+            editable="false"
+            label="分级管理结果" >
+
+            <item
+                name="一级管理"
+                code="1"/>
+
+            <item
+                name="二级管理 "
+                code="2"/>
+
+            <item
+                name="三级管理"
+                code="3"/>
+        </radio>
+
+        <radio
+            name="jyxg"
+            label="降压效果"
+            required="true" >
+
+            <item
+                name="血压正常"
+                code="1"/>
+
+            <item
+                name="血压正常伴有药物副反应"
+                code="2"/>
+
+            <item
+                name="血压正常并存其他疾病 "
+                code="3"/>
+
+            <item
+                name="血压异常"
+                code="4"/>
+        </radio>
+
+        <radio
+            name="ztpj"
+            label="总体评价" >
+
+            <item
+                name="血压控制 "
+                code="1"/>
+
+            <item
+                name="血压未控制 "
+                code="2"/>
+
+            <item
+                name="血压正常伴有药物不良反应 "
+                code="3"/>
+
+            <item
+                name="血压未控制伴有药物不良反应 "
+                code="4"/>
+
+            <item
+                name="血压控制伴靶器官损害 "
+                code="5"/>
+
+            <item
+                name="血压未控制伴靶器官损害"
+                code="6"/>
+
+            <item
+                name="血压控制伴临床合并症（包括糖尿病） "
+                code="7"/>
+
+            <item
+                name="血压未控制伴临床合并症（包括糖尿病）"
+                code="8"/>
+        </radio>
+
+        <search
+            name="pgr"
+            style="User"
+            directInput="true"
+            label="评估人"
+            required="true" >
+
+            <item
+                name="pgrxm"
+                column="yhxm"/>
+
+            <item
+                name="pgr"
+                column="id"/>
+        </search>
+
+        <date
+            name="pgrq"
+            initValueCommon="today"
+            label="评估日期"
+            required="true" />
+
+        <search
+            name="lrr"
+            style="User"
+            editable="false"
+            label="录入人"
+            required="true" >
+
+            <item
+                name="lrrxm"
+                column="yhxm"/>
+
+            <item
+                name="lrr"
+                column="id"/>
+        </search>
+
+        <date
+            name="lrrq"
+            editable="false"
+            initValueCommon="today"
+            label="录入日期" />
+    </section>
+
+</views>

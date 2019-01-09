@@ -22,5 +22,6 @@
     <item name="template_array_item_text" type="id"/>
     <item name="template_menu" type="id"/>
     <item name="template_menu_item_text" type="id"/>
-
+    <item name="template_submit" type="id"/>
+    <item name="template_save" type="id"/>
 </resources>

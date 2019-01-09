@@ -4,25 +4,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
 import activity.TemplateActivity;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button button = (Button)findViewById(R.id.templateButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TemplateActivity.class);
-                intent.putExtra("templateName","gxy_zx.xml");
-                startActivity(intent);
-            }
-        });
+    }
 
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(MainActivity.this, TemplateActivity.class);
+        if(v.getId() == R.id.gxy_zx)
+            intent.putExtra("templateName", "高血压专项");
+        else if(v.getId() == R.id.gxy_pg)
+            intent.putExtra("templateName", "高血压评估");
+        else if(v.getId() == R.id.gxy_sf)
+            intent.putExtra("templateName", "高血压随访");
+        startActivity(intent);
     }
 }

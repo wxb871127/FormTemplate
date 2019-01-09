@@ -28,4 +28,8 @@
     <color name="D7">#7D7D7D</color>
     <color name="md_grey_400">#bdbdbd</color>
     <color name="B0">#B0B0B0</color>
+    <color name="green_dark">#4CC1AF</color>
+    <color name="gray_light">#F0F0F0</color>
+    <color name="orange_dark">#FF8400</color>
+    <color name="orange">#ffa800</color>
 </resources>
