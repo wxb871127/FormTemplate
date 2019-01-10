@@ -2,15 +2,13 @@ package activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import org.json.JSONArray;
-import org.json.JSONException;
+import android.widget.Toast;
+import activity.state.PGTemplateState;
 import activity.state.TemplateStateContext;
 import template.com.form.R;
-import template.config.TemplateConfig;
 import template.widget.TemplateView;
 
 /**
@@ -23,31 +21,21 @@ public class TemplateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.template_activity);
-        String templateName = getIntent().getStringExtra("templateName");
-        setTitle(templateName);
-
         stateContext = new TemplateStateContext();
+        String templateName = getIntent().getStringExtra("templateName");
+        initView(templateName);
+    }
+
+    private void initView(String templateName){
         stateContext.initContext(this, templateName);
+        setTitle(stateContext.getTemplateState().getTemplateName());
         if(stateContext.getTemplateState() == null){
-            Log.e("TemplateActivity", "找不到对应的服务配置");
+            Toast.makeText(this, "找不到对应的服务配置", Toast.LENGTH_LONG).show();
             return;
         }
         stateContext.getTemplateState().showBottomView(this,(ViewGroup)findViewById(R.id.template_bottom));
-
-        TemplateConfig.initConfig(this);
         TemplateView templateView = (TemplateView) findViewById(R.id.templateView);
-        templateView.initTemplate(stateContext.getTemplateState().getTemplateRes());
-        templateView.setValue("xm", "林浩");
-        templateView.setValue("jtdh","122");
-        templateView.setValue("jzlx","1");
-        templateView.setValue("lrr","124");
-        templateView.setValue("ycqshfszlcsxs","1,3");
-        try {
-            templateView.setValue("gmsList",new JSONArray("[ {\"xh\":\"1\",\"gmy\":\"1\",\"fsrq\":\"2018-11-21\",\"bz\":\"是非观\"}, {\"xh\":\"2\",\"gmy\":\"2\",\"fsrq\":\"2018-12-21\",\"bz\":\"手工课\"}]"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        templateView.notifyData();
+        stateContext.getTemplateState().initTempltaView(templateView);
     }
 
     @Override
@@ -59,6 +47,9 @@ public class TemplateActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         stateContext.getTemplateState().onMenuSelected(item.getItemId());
+//        stateContext.setTemplateState(new PGTemplateState());
+//        initView("高血压随访");
+//        invalidateOptionsMenu();
         return super.onOptionsItemSelected(item);
     }
 }

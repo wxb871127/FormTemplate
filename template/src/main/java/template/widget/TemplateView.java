@@ -51,6 +51,10 @@ public class TemplateView extends RecyclerView {
         setAdapter(templateAdapter);
     }
 
+    public void setEditMode(boolean edit){
+        templateAdapter.setEditMode(edit);
+    }
+
     public <T extends Object> void setValue(String key, T value){
         templateAdapter.putValue(key, value);
     }

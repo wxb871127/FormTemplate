@@ -2,8 +2,11 @@ package activity.state;
 
 import android.content.Context;
 import android.view.Menu;
+import android.view.View;
 import android.view.ViewGroup;
 import org.w3c.dom.Element;
+
+import template.widget.TemplateView;
 
 public abstract class TemplateState {
     enum TemplateBusiness {
@@ -36,5 +39,6 @@ public abstract class TemplateState {
     public abstract String getBusinessType();
     public abstract void addMenuView(Menu menu);
     public abstract void onMenuSelected(int id);
+    public abstract void initTempltaView(TemplateView templateView);
     public abstract void showBottomView(Context context, ViewGroup parent);
 }

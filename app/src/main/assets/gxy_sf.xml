@@ -66,7 +66,7 @@
         <radio
             name="hzzgzz"
             initValue="0"
-            label="患者症状(可多选)"
+            label="有无者症状"
             required="true" >
 
             <item
@@ -79,6 +79,7 @@
         </radio>
 
         <select
+            label="患者症状"
             name="hzzgzzxs"
             show="hzzgzz == 1" >
 
@@ -136,6 +137,7 @@
         </select>
 
         <input
+            label="其他症状"
             name="qtzzxs"
             show="hzzgzzxs contains 13" />
 

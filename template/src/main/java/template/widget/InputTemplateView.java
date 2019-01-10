@@ -69,7 +69,8 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
             if(!TextUtils.isEmpty(template.hint))
                 editText.setHint("请输入" + template.hint);
             else
-                editText.setHint("请输入" + template.label);
+                editText.setHint("请输入" + template.getShowName(template.label, null));
+
 
             if (TextUtils.isEmpty(template.inputType)) {
                 editText.setInputType(0x20001);

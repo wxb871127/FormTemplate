@@ -1,6 +1,8 @@
 package template.widget;
 
 import android.content.Context;
+import android.text.TextUtils;
+
 import template.bean.SelectTemplate;
 
 public class SelectTemplateView extends BaseTemplateView<SelectTemplate>{
@@ -19,7 +21,8 @@ public class SelectTemplateView extends BaseTemplateView<SelectTemplate>{
         super.initView(holder, template, value, editable);
         hint.setText("请选择（可多选）");
         hint.setVisibility(VISIBLE);
-
+        editText.setSingleLine(true);
+        editText.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
         editText.setText(value);
     }
 }

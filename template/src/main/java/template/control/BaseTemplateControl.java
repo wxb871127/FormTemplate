@@ -1,11 +1,8 @@
 package template.control;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
-
 import java.util.Map;
-
 import base.util.CommonUtil;
 import template.bean.BaseTemplate;
 import template.widget.BaseTemplateView;
@@ -55,10 +52,15 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         return CommonUtil.compute(template.show, valueMap, true);
     }
 
-    public void initView(final Context context, final BaseViewHolder holder, final T template, final Map<String, Object> valueMap){
+    public void initView(final Context context, final BaseViewHolder holder, final T template, final Map<String, Object> valueMap, boolean editMode){
         this.valueMap = valueMap;
         view = getTemplateView(context);
-        view.initView(holder, template, template.getShowName(valueMap.get(template.name), context),isEditable(valueMap));
+        boolean editable;
+        if(!editMode)
+            editable = editMode;
+        else editable = isEditable(valueMap);
+
+        view.initView(holder, template, template.getShowName(valueMap.get(template.name), context),editable);
 
         holder.setShow(isShow(valueMap));
         view.setOnTemplateListener(new template.widget.OnTemplateListener() {

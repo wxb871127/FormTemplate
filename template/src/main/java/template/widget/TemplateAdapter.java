@@ -12,13 +12,14 @@ import template.bean.BaseTemplate;
 import template.bean.TemplateList;
 import template.config.TemplateConfig;
 import template.control.BaseTemplateControl;
+import util.StringUtil;
 
 public class TemplateAdapter extends BaseTemplateAdapter {
     protected TemplateList templates;
     protected Context context;
     protected LayoutInflater mLayoutInflater;
-
     protected Map<String, Object> valueMap;//表单数据
+    private boolean editMode = true;//整张表单是否可编辑状态, 该状态优先级大于字段的editable
 
     public TemplateAdapter(Context context, TemplateList templates){// List<BaseTemplateControl> templates) {
         this(context, templates, new HashMap<String, Object>());
@@ -55,7 +56,7 @@ public class TemplateAdapter extends BaseTemplateAdapter {
     protected void onBindItemViewHolder(RecyclerView.ViewHolder holder, final int position) {
         BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
         if(templateControl != null)
-            templateControl.initView(context, (BaseViewHolder) holder, templateControl.getTemplate(), valueMap);
+            templateControl.initView(context, (BaseViewHolder) holder, templateControl.getTemplate(), valueMap, editMode);
         templateControl.setTemplateListener(new BaseTemplateControl.OnTemplateListener() {
             @Override
             public void onTemplateUpdate(String key, Object value) {
@@ -94,5 +95,10 @@ public class TemplateAdapter extends BaseTemplateAdapter {
     public void setValueMap(Map<String, Object> map){
         this.valueMap.clear();
         this.valueMap = map;
+    }
+
+    public void setEditMode(boolean edit){
+        editMode = edit;
+        notifyDataSetChanged();
     }
 }

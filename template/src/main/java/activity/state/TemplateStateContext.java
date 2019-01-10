@@ -19,7 +19,7 @@ public class TemplateStateContext {
                 Element element = (Element) nodeList.item(i);
                 if(templateName.equals(element.getAttribute("name"))){
                     String type = element.getAttribute("type");
-                    state = (TemplateState) Class.forName("activity.state.ZXTemplateState").newInstance();
+                    state = (TemplateState) Class.forName("activity.state." + type).newInstance();
                     state.parseBusiness(element);
                     break;
                 }
@@ -32,5 +32,9 @@ public class TemplateStateContext {
 
     public TemplateState getTemplateState(){
         return state;
+    }
+
+    public void setTemplateState(TemplateState state){
+        this.state = state;
     }
 }

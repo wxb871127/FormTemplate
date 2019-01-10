@@ -35,7 +35,7 @@ public abstract class BaseTemplate {
     }
 
     public String getShowName(Object object, Context context){
-        if(object == null)
+        if(object == null || "null".equalsIgnoreCase(object.toString()))
             return "";
         return object.toString();
     }

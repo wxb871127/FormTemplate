@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import java.util.List;
+
 import activity.TemplateActivity;
+import template.config.TemplateConfig;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -14,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TemplateConfig.initConfig(this);//静态类初始化方法应只调用一次
     }
 
     @Override
