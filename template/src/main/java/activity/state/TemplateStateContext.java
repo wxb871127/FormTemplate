@@ -8,8 +8,18 @@ import java.io.InputStream;
 import util.XmlUtil;
 
 public class TemplateStateContext {
+    private Context context;
     private TemplateState state;
-    public void initContext(Context context, String templateName){
+
+    public TemplateStateContext(Context context){
+        this.context = context;
+    }
+
+    public TemplateState getTemplateState(){
+        return state;
+    }
+
+    public void setTemplateState(String templateName){
         try {
             InputStream inputStream = null;
             inputStream = context.getAssets().open("template_business.xml");
@@ -24,17 +34,8 @@ public class TemplateStateContext {
                     break;
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public TemplateState getTemplateState(){
-        return state;
-    }
-
-    public void setTemplateState(TemplateState state){
-        this.state = state;
     }
 }

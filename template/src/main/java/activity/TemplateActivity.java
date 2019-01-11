@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import activity.state.PGTemplateState;
 import activity.state.TemplateStateContext;
 import template.com.form.R;
 import template.widget.TemplateView;
@@ -21,13 +20,13 @@ public class TemplateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.template_activity);
-        stateContext = new TemplateStateContext();
+        stateContext = new TemplateStateContext(this);
         String templateName = getIntent().getStringExtra("templateName");
         initView(templateName);
     }
 
     private void initView(String templateName){
-        stateContext.initContext(this, templateName);
+        stateContext.setTemplateState(templateName);
         setTitle(stateContext.getTemplateState().getTemplateName());
         if(stateContext.getTemplateState() == null){
             Toast.makeText(this, "找不到对应的服务配置", Toast.LENGTH_LONG).show();

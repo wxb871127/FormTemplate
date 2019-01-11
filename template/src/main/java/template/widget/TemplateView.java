@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import util.TemplateParse;
 /**
  *  自定义表单View
  */
-public class TemplateView extends RecyclerView {
+public class TemplateView extends RecyclerView implements TemplateViewInterface{
     private TemplateAdapter templateAdapter;
     private Context mContext;
 
@@ -69,5 +70,15 @@ public class TemplateView extends RecyclerView {
 
     public void notifyData(){
         templateAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setNavigationBar(View view) {
+
+    }
+
+    @Override
+    public void setTheme() {
+
     }
 }
