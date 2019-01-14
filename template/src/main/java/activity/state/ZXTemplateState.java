@@ -14,6 +14,8 @@ import org.w3c.dom.Element;
 
 import template.com.form.R;
 import template.widget.TemplateView;
+import template.widget.decorator.AbstractTemplateDecorator;
+import template.widget.decorator.TemplateViewDecor;
 
 /**
  * 专项表单
@@ -38,7 +40,7 @@ public class ZXTemplateState extends TemplateState {
     }
 
     @Override
-    public void initTempltaView(TemplateView templateView) {
+    public void initTempltaView(AbstractTemplateDecorator templateView) {
         templateView.initTemplate(getTemplateRes());
         templateView.setValue("xm", "林浩");
         templateView.setValue("jtdh","122");

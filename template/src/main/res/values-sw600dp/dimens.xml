@@ -13,6 +13,7 @@
     <dimen name="dp15">22.5dp</dimen>
     <dimen name="dp30">45dp</dimen>
     <dimen name="dp60">90dp</dimen>
+    <dimen name="dp100">150dp</dimen>
     <dimen name="dp125">125dp</dimen>
     <dimen name="dptext">25dp</dimen>
     <dimen name="dp230">230dp</dimen>

@@ -188,6 +188,7 @@
             <input
                 name="bmi"
                 editable="false"
+                initValue="sg / tz"
                 label="体质指数" />
 
             <input

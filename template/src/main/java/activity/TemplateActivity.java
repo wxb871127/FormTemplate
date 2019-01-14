@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import activity.state.TemplateStateContext;
 import template.com.form.R;
+import template.widget.TemplateMenuView;
 import template.widget.TemplateView;
+import template.widget.decorator.TemplateViewDecor;
 
 /**
  * 废弃继承方式，防止Activity类数量爆炸
@@ -33,7 +35,10 @@ public class TemplateActivity extends AppCompatActivity {
             return;
         }
         stateContext.getTemplateState().showBottomView(this,(ViewGroup)findViewById(R.id.template_bottom));
-        TemplateView templateView = (TemplateView) findViewById(R.id.templateView);
+        //暂时手动配置需要使用的DecorView
+        TemplateViewDecor templateView = (TemplateViewDecor) findViewById(R.id.templateView);
+        templateView.initView();
+        templateView.setNavigationBar(new TemplateMenuView(this), this);
         stateContext.getTemplateState().initTempltaView(templateView);
     }
 

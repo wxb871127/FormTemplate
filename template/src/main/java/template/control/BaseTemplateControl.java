@@ -1,13 +1,15 @@
 package template.control;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import java.util.Map;
+
+import base.util.Calculator;
 import base.util.CommonUtil;
 import template.bean.BaseTemplate;
 import template.widget.BaseTemplateView;
 import template.widget.BaseViewHolder;
-import template.widget.OnTemplateListener;
 import template.widget.dialog.BaseTemplateDialog;
 
 /**
@@ -60,7 +62,21 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
             editable = editMode;
         else editable = isEditable(valueMap);
 
-        view.initView(holder, template, template.getShowName(valueMap.get(template.name), context),editable);
+        String showName = "";
+        Object value = valueMap.get(template.name);
+        if(template.initValue!= null && !TextUtils.isEmpty(template.initValue)
+                && (value == null || TextUtils.isEmpty(value.toString()))) {
+            if(!Calculator.isExpression(template.initValue)) {//非表达式的默认值
+                showName = template.getShowName(valueMap.get(template.name), context);
+            }else {//计算表达式值
+                Double db = Calculator.executeExpression(template.initValue, valueMap);
+                if (db != null && !TextUtils.isEmpty(db.toString())) {
+                    showName = db.toString();
+                }
+            }
+        }else showName = template.getShowName(valueMap.get(template.name), context);
+
+        view.initView(holder, template, showName, editable);
 
         holder.setShow(isShow(valueMap));
         view.setOnTemplateListener(new template.widget.OnTemplateListener() {

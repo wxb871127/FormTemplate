@@ -1,9 +1,11 @@
 package template.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import java.util.HashMap;
 import java.util.Map;

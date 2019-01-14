@@ -1,5 +1,6 @@
 package template.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +23,7 @@ import util.TemplateParse;
  */
 public class TemplateView extends RecyclerView implements TemplateViewInterface{
     private TemplateAdapter templateAdapter;
-    private Context mContext;
+    protected Context mContext;
 
     public TemplateView(Context context) {
         super(context);
@@ -52,6 +53,10 @@ public class TemplateView extends RecyclerView implements TemplateViewInterface{
         setAdapter(templateAdapter);
     }
 
+    public TemplateList getTemplateList(){
+        return templateAdapter.getTemplateList();
+    }
+
     public void setEditMode(boolean edit){
         templateAdapter.setEditMode(edit);
     }
@@ -73,7 +78,7 @@ public class TemplateView extends RecyclerView implements TemplateViewInterface{
     }
 
     @Override
-    public void setNavigationBar(View view) {
+    public void setNavigationBar(View view, Activity activity) {
 
     }
 

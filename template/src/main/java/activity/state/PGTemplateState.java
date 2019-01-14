@@ -10,6 +10,8 @@ import org.w3c.dom.Element;
 
 import template.com.form.R;
 import template.widget.TemplateView;
+import template.widget.decorator.AbstractTemplateDecorator;
+import template.widget.decorator.TemplateViewDecor;
 
 /**
  * 评估表单
@@ -32,7 +34,7 @@ public class PGTemplateState extends TemplateState{
     }
 
     @Override
-    public void initTempltaView(TemplateView templateView) {
+    public void initTempltaView(AbstractTemplateDecorator templateView) {
         templateView.initTemplate(getTemplateRes());
     }
 

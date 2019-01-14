@@ -63,7 +63,6 @@ public class TemplateAdapter extends BaseTemplateAdapter {
                 valueMap.put(key, value);
                 if(getItemViewType(position) != 1)
                     notifyDataSetChanged();
-
             }
         });
     }
@@ -74,6 +73,10 @@ public class TemplateAdapter extends BaseTemplateAdapter {
         templateControl = TemplateConfig.getTemplateControlByTag(tp.tag());
         templateControl.setTemplate(template);
         return templateControl;
+    }
+
+    public TemplateList getTemplateList(){
+        return templates;
     }
 
     private View getItemView(int layoutResId, ViewGroup parent){
