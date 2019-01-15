@@ -1,9 +1,9 @@
 package template.widget;
 
 import android.app.Activity;
-import android.view.View;
+import android.view.ViewGroup;
 
 public interface TemplateViewInterface {
-    void setNavigationBar(View view, Activity activity);//设置导航栏
-    void setTheme();//设置主题
+    void setTheme(int theme);//设置主题
+    void setDecoratorView(ViewGroup viewGroup, Activity activity);//设置装饰
 }

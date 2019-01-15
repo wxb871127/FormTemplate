@@ -1,4 +1,4 @@
-package template.widget;
+package template.widget.decorator;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import template.com.form.R;
+import template.widget.TemplateView;
 
 public class TemplateMenuAdapter extends BaseAdapter {
     private Context context;

@@ -5,27 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
-    <LinearLayout
-        android:orientation="vertical"
+
+    <template.widget.TemplateView
+        android:id="@id/template_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/tool_bar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/red" />
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <template.widget.decorator.TemplateViewDecor
-                android:id="@id/template_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="0dp"/>
-        </FrameLayout>
-    </LinearLayout>
-    <LinearLayout
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"/>
+
+    <template.widget.decorator.TemplateMenuView
         android:id="@+id/drawer_menu"
         android:orientation="vertical"
         android:layout_gravity="left"

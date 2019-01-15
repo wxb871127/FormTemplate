@@ -1,4 +1,4 @@
-package template.widget;
+package template.widget.decorator;
 
 import android.content.Context;
 import android.util.AttributeSet;

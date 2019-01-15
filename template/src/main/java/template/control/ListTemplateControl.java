@@ -46,6 +46,7 @@ public class ListTemplateControl extends BaseTemplateControl{
                 dialog = getDialog(context);
                 if (dialog != null) {
                     jsonArray = (JSONArray) valueMap.get(template.name);
+                    if(jsonArray == null) return;
                     dialog.initDialog(template, null);
                     dialog.setOnTemplateListener(new template.widget.OnTemplateListener() {
                         @Override

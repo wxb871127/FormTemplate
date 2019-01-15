@@ -1,5 +1,6 @@
 package activity.state;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,14 +11,16 @@ import android.widget.Button;
 
 import template.com.form.R;
 import template.widget.TemplateView;
-import template.widget.decorator.AbstractTemplateDecorator;
-import template.widget.decorator.TemplateViewDecor;
 
 /**
  * 随访表单
  */
 
 public class SFTemplateState extends TemplateState{
+    public SFTemplateState(Context context, Activity activity) {
+        super(context, activity);
+    }
+
     @Override
     public String getBusinessType() {
         return "SF";
@@ -39,7 +42,7 @@ public class SFTemplateState extends TemplateState{
     }
 
     @Override
-    public void initTempltaView(AbstractTemplateDecorator templateView) {
+    public void initTemplateView(TemplateView templateView) {
         templateView.initTemplate(getTemplateRes());
         templateView.setValue("sg","174");
         templateView.setValue("tz","68");
@@ -47,9 +50,9 @@ public class SFTemplateState extends TemplateState{
     }
 
     @Override
-    public void showBottomView(Context context, ViewGroup parent) {
-        parent.removeAllViews();
-        View view = LayoutInflater.from(context).inflate(R.layout.sf_template_state, parent, true);
+    public void initBottomView() {
+//        parent.removeAllViews();
+        View view = LayoutInflater.from(context).inflate(R.layout.sf_template_state, null);
         Button save = view.findViewById(R.id.template_save);
         Button submit = view.findViewById(R.id.template_submit);
         save.setOnClickListener(new View.OnClickListener() {

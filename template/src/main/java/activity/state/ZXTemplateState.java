@@ -1,5 +1,6 @@
 package activity.state;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,12 +11,9 @@ import android.view.ViewGroup;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.w3c.dom.Element;
 
 import template.com.form.R;
 import template.widget.TemplateView;
-import template.widget.decorator.AbstractTemplateDecorator;
-import template.widget.decorator.TemplateViewDecor;
 
 /**
  * 专项表单
@@ -23,6 +21,11 @@ import template.widget.decorator.TemplateViewDecor;
 
 public class ZXTemplateState extends TemplateState {
     TemplateView templateView;
+
+    public ZXTemplateState(Context context, Activity activity) {
+        super(context, activity);
+    }
+
     @Override
     public String getBusinessType() {
         return "ZX";
@@ -40,7 +43,7 @@ public class ZXTemplateState extends TemplateState {
     }
 
     @Override
-    public void initTempltaView(AbstractTemplateDecorator templateView) {
+    public void initTemplateView(TemplateView templateView) {
         templateView.initTemplate(getTemplateRes());
         templateView.setValue("xm", "林浩");
         templateView.setValue("jtdh","122");
@@ -57,9 +60,9 @@ public class ZXTemplateState extends TemplateState {
     }
 
     @Override
-    public void showBottomView(Context context, ViewGroup parent) {
-        parent.removeAllViews();
-        View view = LayoutInflater.from(context).inflate(R.layout.zx_template_state, parent, true);
+    public void initBottomView() {
+//        parent.removeAllViews();
+        View view = LayoutInflater.from(context).inflate(R.layout.zx_template_state, null);
         view.findViewById(R.id.template_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

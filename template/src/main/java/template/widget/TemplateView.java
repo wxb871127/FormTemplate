@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,13 +78,14 @@ public class TemplateView extends RecyclerView implements TemplateViewInterface{
         templateAdapter.notifyDataSetChanged();
     }
 
+
     @Override
-    public void setNavigationBar(View view, Activity activity) {
+    public void setTheme(int theme) {
 
     }
 
     @Override
-    public void setTheme() {
-
+    public void setDecoratorView(ViewGroup viewGroup, Activity activity) {
+        //Nothing to do
     }
 }

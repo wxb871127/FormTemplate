@@ -1,18 +1,24 @@
 package activity.state;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
+
 import util.XmlUtil;
 
 public class TemplateStateContext {
     private Context context;
     private TemplateState state;
+    private Activity activity;
 
-    public TemplateStateContext(Context context){
+    public TemplateStateContext(Context context, Activity activity){
         this.context = context;
+        this.activity = activity;
     }
 
     public TemplateState getTemplateState(){
@@ -29,7 +35,9 @@ public class TemplateStateContext {
                 Element element = (Element) nodeList.item(i);
                 if(templateName.equals(element.getAttribute("name"))){
                     String type = element.getAttribute("type");
-                    state = (TemplateState) Class.forName("activity.state." + type).newInstance();
+                    Class stateClass = Class.forName("activity.state."+type);
+                    Constructor constructor = stateClass.getDeclaredConstructor(new Class[]{Context.class, Activity.class});
+                    state = (TemplateState)constructor.newInstance(context, activity);
                     state.parseBusiness(element);
                     break;
                 }
@@ -37,5 +45,11 @@ public class TemplateStateContext {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static class Build{
+
+
+
     }
 }
