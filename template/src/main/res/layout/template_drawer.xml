@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
+<template.view.NavigationTemplateView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:template="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
+    template:rigthtPadding="@dimen/dp750"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <template.view.NavigationMenuView
+            android:id="@+id/drawer_menu"
+            android:orientation="vertical"
+            android:layout_gravity="left"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"/>
 
-    <template.widget.TemplateView
-        android:id="@id/template_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"/>
-
-    <template.widget.decorator.TemplateMenuView
-        android:id="@+id/drawer_menu"
-        android:orientation="vertical"
-        android:layout_gravity="left"
-        android:layout_width="250dp"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"/>
-</android.support.v4.widget.DrawerLayout>
+        <template.view.TemplateView
+            android:id="@id/template_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"/>
+    </LinearLayout>
+</template.view.NavigationTemplateView>

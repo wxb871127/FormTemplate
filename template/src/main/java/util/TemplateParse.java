@@ -1,10 +1,16 @@
 package util;
 
 import android.content.Context;
+
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import java.io.InputStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import template.bean.BaseTemplate;
 import template.bean.SectionTemplate;
 import template.bean.TemplateList;
@@ -18,7 +24,7 @@ public class TemplateParse {
         try {
             InputStream inputStream = null;
             inputStream = context.getAssets().open("template_styles.xml");
-            templateStyleElement = XmlUtil.getDocumentElement(inputStream);
+            templateStyleElement = getDocumentElement(inputStream);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,7 +46,7 @@ public class TemplateParse {
     }
 
     public static TemplateList parseStream(InputStream inputStream) {
-        return parseElement(XmlUtil.getDocumentElement(inputStream));
+        return parseElement(getDocumentElement(inputStream));
     }
 
     public static TemplateList parseElement(Element rootElement) {
@@ -84,5 +90,19 @@ public class TemplateParse {
         }
 
         return templates;
+    }
+
+    public static Element getDocumentElement(InputStream inputStream) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory
+                    .newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(inputStream);
+            return doc.getDocumentElement();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

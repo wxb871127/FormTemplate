@@ -17,6 +17,7 @@
     <dimen name="dp125">125dp</dimen>
     <dimen name="dptext">25dp</dimen>
     <dimen name="dp230">230dp</dimen>
+    <dimen name="dp750">1125dp</dimen>
     <dimen name="dp0">0dp</dimen>
     <dimen name="dp_10">10dp</dimen>
     <dimen name="dp12">12dp</dimen>

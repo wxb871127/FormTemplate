@@ -18,7 +18,7 @@ public class TemplateAdapter extends BaseTemplateAdapter {
     protected TemplateList templates;
     protected Context context;
     protected LayoutInflater mLayoutInflater;
-    protected Map<String, Object> valueMap;//表单数据
+    public Map<String, Object> valueMap;//表单数据
     private boolean editMode = true;//整张表单是否可编辑状态, 该状态优先级大于字段的editable
 
     public TemplateAdapter(Context context, TemplateList templates){// List<BaseTemplateControl> templates) {

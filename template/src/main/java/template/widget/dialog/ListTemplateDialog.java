@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import template.bean.ListTemplate;
-import template.widget.TemplateView;
+import template.view.TemplateView;
 
 public class ListTemplateDialog extends BaseTemplateDialog<ListTemplate>{
 

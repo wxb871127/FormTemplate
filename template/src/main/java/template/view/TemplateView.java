@@ -1,4 +1,4 @@
-package template.widget;
+package template.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,12 +17,13 @@ import template.bean.BaseTemplate;
 import template.bean.TemplateList;
 import template.config.TemplateConfig;
 import template.control.BaseTemplateControl;
+import template.widget.TemplateAdapter;
 import util.TemplateParse;
 
 /**
  *  自定义表单View
  */
-public class TemplateView extends RecyclerView implements TemplateViewInterface{
+public class TemplateView extends RecyclerView{
     private TemplateAdapter templateAdapter;
     protected Context mContext;
 
@@ -76,16 +77,5 @@ public class TemplateView extends RecyclerView implements TemplateViewInterface{
 
     public void notifyData(){
         templateAdapter.notifyDataSetChanged();
-    }
-
-
-    @Override
-    public void setTheme(int theme) {
-
-    }
-
-    @Override
-    public void setDecoratorView(ViewGroup viewGroup, Activity activity) {
-        //Nothing to do
     }
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="rightPadding" format="dimension"/> <!--滑动结束为止，右内边距-->
+
+    <declare-styleable name="SliddingMenu">
+        <attr name="rigthtPadding"/>
+    </declare-styleable>
+</resources>
