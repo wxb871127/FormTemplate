@@ -188,8 +188,16 @@
             <input
                 name="bmi"
                 editable="false"
-                initValue="sg / tz"
+                initValue="tz / Math.pow(sg / 100 , 2)"
                 label="体质指数" />
+
+            <input
+                name="jytz"
+                label="建议体重"
+                editable="false"
+                compute = "bmi > 24"
+                />
+            <!--initValue="(sg - 100) * 0.9"-->
 
             <input
                 name="yw"

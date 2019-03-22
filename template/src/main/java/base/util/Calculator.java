@@ -1,10 +1,14 @@
 package base.util;
 
 import android.text.TextUtils;
+import android.util.Log;
+
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,12 +48,24 @@ public class Calculator {
      * @return
      */
     public static boolean isNumeric(String str){
-        Pattern pattern = Pattern.compile("\\d+");
+        Pattern pattern = Pattern.compile("-?\\d+\\.?\\d*");
         Matcher isNum = pattern.matcher(str);
-        if( !isNum.matches() ){
-            return false;
-        }
-        return true;
+        return isNum.matches();
+    }
+
+    /**
+     * 判断是否为运算符
+     * @param str
+     * @return
+     */
+    public static boolean isOption(String str){
+        if(OPT_PRIORITY_MAP.containsKey(str))
+            return true;
+        else if(str.startsWith("Math."))
+            return true;
+        else if(str.equals(","))
+            return true;
+        return false;
     }
 
     public static boolean isExpression(String str){
@@ -58,8 +74,7 @@ public class Calculator {
         return !isExpression.matches();
     }
 
-
-    public static double executeExpression(String expression, Map<String, Object> valueMap){
+    public static Double executeExpression(String expression, Map<String, Object> valueMap){
         expression = expression.replaceAll(Pattern.quote("("), " ( ");
         expression = expression.replaceAll(Pattern.quote(")"), " ) ");
         expression = expression.replaceAll(Pattern.quote("!="), "_notequal");
@@ -72,10 +87,61 @@ public class Calculator {
             if (!TextUtils.isEmpty(string)) {
                 if(valueMap.get(string) != null && !TextUtils.isEmpty(valueMap.get(string).toString())){
                     finalExpression.append(valueMap.get(string).toString());
-                }else finalExpression.append(string);
+                }else{
+                    if(!isOption(string) && !isNumeric(string))//如果是变量，map中找不到对应的值就返回
+                        return null;
+                    finalExpression.append(string);
+                }
             }
         }
-        return executeExpression(finalExpression.toString());
+        double ret = 0f;
+        try {
+//            if(finalExpression.toString().contains("Math.")){
+                clcMathExpression(finalExpression.toString());
+//            }
+//            ret = executeExpression(finalExpression.toString());
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    //计算Math数学库的表达式
+    private static void clcMathExpression(String expression){
+        Pattern pattern = Pattern.compile("Math\\.\\w+\\(.*\\)");
+        Matcher matcher = pattern.matcher(expression);
+        while (matcher.find()){
+            String mathExpression = matcher.group();
+            try {
+                int dotindex = mathExpression.indexOf(".");
+                int leftbrackets = mathExpression.indexOf("(");
+                int rightbrackets = mathExpression.indexOf(")");
+                String mathMethod = mathExpression.substring(dotindex+1, leftbrackets);
+                String mathParams = mathExpression.substring(leftbrackets+1, rightbrackets);
+                Object[] invokParams = null;
+                if(mathParams != null) {
+                    String[] params = mathParams.split(",");
+                    invokParams = new Object[params.length];
+                    for (int i=0; i<params.length; i++) {
+                        if(!isNumeric(params[i]))
+                            params[i] =  String.valueOf(executeExpression(params[i]));
+                        invokParams[i] = params[i];
+                    }
+                }
+                Class mathCls = Class.forName("java.lang.Math");
+                Method[] methods = mathCls.getDeclaredMethods();
+                for(Method method : methods){
+                    if(method.equals(mathMethod)){
+                        Class returnType = method.getReturnType();
+                        Class[] c = method.getParameterTypes();
+                        Object object = method.invoke(null,invokParams);
+                        Log.e("xxx", (double)object + "");
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

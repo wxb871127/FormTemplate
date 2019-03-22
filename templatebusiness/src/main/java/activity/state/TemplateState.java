@@ -65,8 +65,11 @@ public abstract class TemplateState {
             NavigationTemplateView navigationTemplateView = new NavigationTemplateView(context);
             viewGroup.addView(navigationTemplateView);
         }else if("2".equals(business.style)){
-            SlidPageTemplateView slidPageTemplateView = new SlidPageTemplateView(context);
-            viewGroup.addView(slidPageTemplateView);
+//            SlidPageTemplateView slidPageTemplateView = new SlidPageTemplateView(context);
+//            viewGroup.addView(slidPageTemplateView);
+            templateView = new TemplateView(context);
+            viewGroup.addView(templateView);
+            templateView.initTemplate(business.res);
         }
 
     }

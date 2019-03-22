@@ -61,7 +61,7 @@ public class TemplateAdapter extends BaseTemplateAdapter {
             @Override
             public void onTemplateUpdate(String key, Object value) {
                 valueMap.put(key, value);
-                if(getItemViewType(position) != 1)
+//                if(getItemViewType(position) != 1)
                     notifyDataSetChanged();
             }
         });
