@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <views>
     <input
-        name="jtdz"
-        label="家庭地址" />
+        name="sg"
+        inputType="numberDecimal"
+        label="身高"
+        unit="cm" />
+
+    <input
+        name="tz"
+        inputType="numberDecimal"
+        label="体重"
+        required="true"
+        unit="kg" />
+
+    <input
+        name="bmi"
+        editable="false"
+        initValue="1 + 2 / 3"
+        label="体质指数" />
+    <!--initValue="tz / Math.pow(sg / 100 , 2)"-->
+
+    <!--<input-->
+        <!--name="jytz"-->
+        <!--label="建议体重"-->
+        <!--editable="false"-->
+        <!--compute = "(bmi > 24) ? (tz-100) * 0.9 : tz"/>-->
 </views>

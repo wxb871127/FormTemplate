@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import java.math.MathContext;
+import java.text.StringCharacterIterator;
+
 import activity.TemplateActivity;
 import template.config.TemplateConfig;
 
@@ -25,7 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if(v.getId() == R.id.gxy_pg)
             intent.putExtra("templateName", "高血压评估");
         else if(v.getId() == R.id.gxy_sf)
-            intent.putExtra("templateName", "高血压随访");
+            intent.putExtra("templateName", "测试");
+//            intent.putExtra("templateName", "高血压随访");
         startActivity(intent);
     }
 }

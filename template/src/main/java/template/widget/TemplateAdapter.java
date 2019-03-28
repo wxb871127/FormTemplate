@@ -31,6 +31,7 @@ public class TemplateAdapter extends BaseTemplateAdapter {
         this.templates = templates;
         valueMap = new HashMap<>();
         this.valueMap.putAll(outMap);
+        setHasStableIds(true);//防止刷新recyckerView焦点丢失问题
     }
 
     @Override
@@ -50,6 +51,11 @@ public class TemplateAdapter extends BaseTemplateAdapter {
     @Override
     public int getItemCount() {
         return templates.size();
+    }
+
+    @Override
+    public long getItemId(int position) {//防止刷新recyckerView焦点丢失问题
+        return position;
     }
 
     @Override

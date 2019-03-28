@@ -49,6 +49,7 @@ public class TemplateView extends RecyclerView{
     }
 
     public void initTemplate(TemplateList templates){
+        setItemAnimator(null);//防止刷新recyckerView焦点丢失问题
         templateAdapter = new TemplateAdapter(mContext, templates);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         setLayoutManager(layoutManager);

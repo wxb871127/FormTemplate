@@ -3,4 +3,5 @@
 	<service name="高血压专项" type="ZX" res="gxy_zx.xml" getData="getGxyZxda" updateData="updateGxyZxda" style="0"/>
 	<service name="高血压评估" type="PG" res="gxy_pg.xml" getData="getGxyFcpg" updateData="updateGxyFcpg" style="1"/>
 	<service name="高血压随访" type="SF" res="gxy_sf.xml" getData="getGxySfjl" updateData="updateGxySfjl" style="2"/>
+	<service name="测试" type="ZX" res="test.xml" getData="getGxyZxda" updateData="updateGxyZxda" style="0"/>
 </business>

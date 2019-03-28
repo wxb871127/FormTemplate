@@ -97,9 +97,9 @@ public class Calculator {
         double ret = 0f;
         try {
 //            if(finalExpression.toString().contains("Math.")){
-                clcMathExpression(finalExpression.toString());
+//                clcMathExpression(finalExpression.toString());
 //            }
-//            ret = executeExpression(finalExpression.toString());
+            ret = executeExpression(finalExpression.toString());
         }catch (IllegalArgumentException e){
             e.printStackTrace();
         }
