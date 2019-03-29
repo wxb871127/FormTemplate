@@ -3,8 +3,10 @@ package template.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import java.util.HashMap;
@@ -60,7 +62,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     }
 
     @Override
-    public void initView(BaseViewHolder holder, final InputTemplate template, String value, boolean editable) {
+    public void initView(BaseViewHolder holder, final InputTemplate template, String value, final boolean editable) {
         super.initView(holder, template, value, editable);
         holder.getConvertView().setClickable(false);
 
@@ -84,6 +86,11 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
            }
 
             editText.setText(value);
+            if (template.maxLength > 0) {
+                editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(template.maxLength)});
+            }
+//            editText.setGravity(Gravity.RIGHT|Gravity.CENTER_VERTICAL);
+            editText.setSelection(editText.getText().length());
             TextWatcher textWatcher = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -97,6 +104,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
 
                 @Override
                 public void afterTextChanged(Editable s) {
+
                     if(templateListener != null)
                         templateListener.onDataChange(template.name, s.toString());
                 }
