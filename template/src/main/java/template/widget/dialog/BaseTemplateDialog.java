@@ -1,6 +1,7 @@
 package template.widget.dialog;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 
 import template.bean.BaseTemplate;
@@ -10,7 +11,7 @@ public class BaseTemplateDialog<T extends BaseTemplate> {
     protected T template;
     Object value;
     protected Context mContext;
-    protected AlertDialog dialog;
+    protected Dialog dialog;
     protected OnTemplateListener listener;
 
     public void setOnTemplateListener(OnTemplateListener listener){

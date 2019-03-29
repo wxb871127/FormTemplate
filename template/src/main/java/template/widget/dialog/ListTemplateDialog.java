@@ -1,8 +1,9 @@
 package template.widget.dialog;
 
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,18 +12,21 @@ import java.util.Iterator;
 import java.util.Map;
 
 import template.bean.ListTemplate;
+import template.com.form.R;
 import template.view.TemplateView;
 
 public class ListTemplateDialog extends BaseTemplateDialog<ListTemplate>{
 
     public ListTemplateDialog(Context mContext) {
         super(mContext);
+
     }
 
     @Override
     public <S> void initDialog(final ListTemplate template, S value) {
         super.initDialog(template, value);
-        final TemplateView templateView = new TemplateView(mContext);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.list_template_dialog, null);
+        final TemplateView templateView = view.findViewById(R.id.templateView);
         templateView.initTemplate(template.templates);
         if(value != null) {
             JSONObject jsonObject = (JSONObject) value;
@@ -38,17 +42,29 @@ public class ListTemplateDialog extends BaseTemplateDialog<ListTemplate>{
             }
         }
 
-        dialog = new AlertDialog.Builder(mContext).setView(templateView)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Map<String, Object> map = templateView.getValueMap();
-                        JSONObject jsonObject = new JSONObject(map);
-                        if(listener != null)
-                            listener.onDataChange(template.name, jsonObject);
-                    }
-                }).setNegativeButton("取消", (DialogInterface.OnClickListener) null)
-                .create();
+        dialog = new Dialog(mContext);
+        dialog.setContentView(view);
+        View cancel = view.findViewById(R.id.btn_cancel);
+        View sure = view.findViewById(R.id.btn_sure);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(dialog != null)
+                    dialog.dismiss();
+            }
+        });
+
+        sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String, Object> map = templateView.getValueMap();
+                JSONObject jsonObject = new JSONObject(map);
+                if(dialog != null)
+                    dialog.dismiss();
+                if(listener != null)
+                    listener.onDataChange(template.name, jsonObject);
+            }
+        });
         dialog.setTitle(template.label);
     }
 }

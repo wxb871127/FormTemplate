@@ -1,22 +1,13 @@
 package template.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import base.annotation.Template;
-import template.bean.BaseTemplate;
 import template.bean.TemplateList;
-import template.config.TemplateConfig;
-import template.control.BaseTemplateControl;
 import template.widget.TemplateAdapter;
 import util.TemplateParse;
 
@@ -28,17 +19,15 @@ public class TemplateView extends RecyclerView{
     protected Context mContext;
 
     public TemplateView(Context context) {
-        super(context);
-        mContext = context;
+        this(context, null);
+    }
+
+    public TemplateView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
     public TemplateView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mContext = context;
-    }
-
-    public TemplateView(Context context, AttributeSet attrs) {
-        super(context, attrs);
         mContext = context;
     }
 

@@ -33,7 +33,6 @@ public class DateTemplateDialog extends BaseTemplateDialog<DateTemplate>
         dialog = new DatePickerDialog(mContext, this, calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         dialog.setCanceledOnTouchOutside(false);
-        dialog.setButton(DialogInterface.BUTTON_NEUTRAL, "清空", this);
     }
 
     @Override
@@ -49,6 +48,5 @@ public class DateTemplateDialog extends BaseTemplateDialog<DateTemplate>
     public void onClick(DialogInterface dialog, int which) {
         if(listener != null)
             listener.onDataChange(template.name, "");
-//            listener.onDataClean();
     }
 }

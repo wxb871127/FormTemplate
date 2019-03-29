@@ -103,10 +103,10 @@
             showArgs="gmy"
             showFormat="过敏源：%s" >
 
-            <input
-                name="xh"
-                label="序号 "
-                show="false" />
+            <!--<input-->
+                <!--name="xh"-->
+                <!--label="序号 "-->
+                <!--show="false" />-->
 
             <radio
                 name="gmy"

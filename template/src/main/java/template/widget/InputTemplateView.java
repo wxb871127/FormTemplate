@@ -89,7 +89,6 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
             if (template.maxLength > 0) {
                 editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(template.maxLength)});
             }
-//            editText.setGravity(Gravity.RIGHT|Gravity.CENTER_VERTICAL);
             editText.setSelection(editText.getText().length());
             TextWatcher textWatcher = new TextWatcher() {
                 @Override
