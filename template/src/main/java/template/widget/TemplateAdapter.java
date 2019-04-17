@@ -5,14 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import base.annotation.Template;
 import template.bean.BaseTemplate;
 import template.bean.TemplateList;
 import template.config.TemplateConfig;
 import template.control.BaseTemplateControl;
-import util.StringUtil;
 
 public class TemplateAdapter extends BaseTemplateAdapter {
     protected TemplateList templates;
@@ -67,7 +68,6 @@ public class TemplateAdapter extends BaseTemplateAdapter {
             @Override
             public void onTemplateUpdate(String key, Object value) {
                 valueMap.put(key, value);
-//                if(getItemViewType(position) != 1)
                 try {
                     notifyDataSetChanged();
                 }catch (Exception e){

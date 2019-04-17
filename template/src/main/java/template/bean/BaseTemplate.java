@@ -16,7 +16,8 @@ public abstract class BaseTemplate {
     public String unit;//单位
     public String editable;//是否可编辑的表达式
     public String show;//是否显示的表达式
-    public String initValue;//表达式计算字段值 优先级低于 直接赋值
+    public String initValue;//初始化值
+    public String value;//表达式计算字段值
     protected SectionTemplate sectionTemplate;//所属section
 
     public void parseElement(Element e) {

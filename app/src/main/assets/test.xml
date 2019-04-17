@@ -16,13 +16,13 @@
     <input
         name="bmi"
         editable="false"
-        initValue="1 + 2 / 3"
+        value="tz / pow(sg/100, 2)"
+        decimalFormat="0.00"
         label="体质指数" />
-    <!--initValue="tz / Math.pow(sg / 100 , 2)"-->
 
-    <!--<input-->
-        <!--name="jytz"-->
-        <!--label="建议体重"-->
-        <!--editable="false"-->
-        <!--compute = "(bmi > 24) ? (tz-100) * 0.9 : tz"/>-->
+    <input
+        name="jytz"
+        label="建议体重"
+        editable="false"
+        value = "(bmi > 24) ? (sg-100) * 0.9 : null"/>
 </views>

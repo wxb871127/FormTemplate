@@ -3,10 +3,11 @@ package template.control;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+
+import java.util.HashMap;
 import java.util.Map;
 
-import base.util.Calculator;
-import base.util.CommonUtil;
+import base.util.ExpressionUtil;
 import template.bean.BaseTemplate;
 import template.widget.BaseTemplateView;
 import template.widget.BaseViewHolder;
@@ -47,14 +48,25 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
     }
 
     public boolean isEditable(Map<String, Object> valueMap){
-       return CommonUtil.compute(template.editable, valueMap, true);
+        try {
+           return ExpressionUtil.getExpressionUtil().logicExpression(template.editable, valueMap, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     public boolean isShow(Map<String, Object> valueMap){
-        return CommonUtil.compute(template.show, valueMap, true);
+        try {
+            return ExpressionUtil.getExpressionUtil().logicExpression(template.show, valueMap, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
-    public void initView(final Context context, final BaseViewHolder holder, final T template, final Map<String, Object> valueMap, boolean editMode){
+    public void initView(final Context context, final BaseViewHolder holder, final T template,
+                         final Map<String, Object> valueMap, boolean editMode){
         this.valueMap = valueMap;
         view = getTemplateView(context);
         boolean editable;
@@ -64,17 +76,22 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
 
         String showName = "";
         Object value = valueMap.get(template.name);
+
+        ////初始化赋值
         if(template.initValue!= null && !TextUtils.isEmpty(template.initValue)
                 && (value == null || TextUtils.isEmpty(value.toString()))) {
-            if(!Calculator.isExpression(template.initValue)) {//非表达式的默认值
-                showName = template.getShowName(valueMap.get(template.name), context);
-            }else {//计算表达式值
-                Double db = Calculator.executeExpression(template.initValue, valueMap);
-                if (db != null && !TextUtils.isEmpty(db.toString())) {
-                    showName = db.toString();
-                }
+            showName = template.getShowName(valueMap.get(template.name), context);
+        }
+
+        if(template.value != null && !TextUtils.isEmpty(template.value)){
+            ////根据value表达式计算值
+            Object object = ExpressionUtil.getExpressionUtil().executeExpression(template.value, valueMap);
+            if(object != null) {
+                showName = object.toString();
+                valueMap.put(template.name, object);
             }
-        }else showName = template.getShowName(valueMap.get(template.name), context);
+        }else
+            showName = template.getShowName(valueMap.get(template.name), context);
 
         view.initView(holder, template, showName, editable);
 

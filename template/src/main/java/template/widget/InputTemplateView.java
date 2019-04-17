@@ -9,6 +9,9 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,6 +68,14 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     public void initView(BaseViewHolder holder, final InputTemplate template, String value, final boolean editable) {
         super.initView(holder, template, value, editable);
         holder.getConvertView().setClickable(false);
+        if(value != null && template.decimalFormat != null) {
+            try {
+                DecimalFormat format = new DecimalFormat(template.decimalFormat);
+                value = format.format(new BigDecimal(value));
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+            }
+        }
 
         if(editable){
             text.setVisibility(View.INVISIBLE);
@@ -103,9 +114,12 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-
-                    if(templateListener != null)
-                        templateListener.onDataChange(template.name, s.toString());
+                    if (templateListener != null) {
+                        if("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
+                            templateListener.onDataChange(template.name, new BigDecimal(s.toString()));
+                        }else
+                            templateListener.onDataChange(template.name, s.toString());
+                    }
                 }
             };
             editText.setTag(textWatcher);
