@@ -11,7 +11,7 @@ import template.widget.dialog.BaseTemplateDialog;
 import template.widget.dialog.SearchTemplateDialog;
 
 @Template(tag="search")
-public class SearchTemplateControl extends BaseTemplateControl{
+public class SearchTemplateControl<T extends BaseTemplate> extends BaseTemplateControl{
     @Override
     public Class<? extends BaseTemplate> getTemplateClass() {
         return SearchTemplate.class;
@@ -23,7 +23,7 @@ public class SearchTemplateControl extends BaseTemplateControl{
     }
 
     @Override
-    public BaseTemplateDialog getDialog(Context context) {
+    public BaseTemplateDialog getDialog(Context context, BaseTemplate template) {
         SearchTemplateDialog dialog = new SearchTemplateDialog(context);
         return dialog;
     }

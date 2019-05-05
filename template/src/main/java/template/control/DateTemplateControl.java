@@ -11,7 +11,7 @@ import template.widget.dialog.BaseTemplateDialog;
 import template.widget.dialog.DateTemplateDialog;
 
 @Template(tag = "date")
-public class DateTemplateControl extends BaseTemplateControl{
+public class DateTemplateControl<T extends BaseTemplate> extends BaseTemplateControl{
 
 
     @Override
@@ -26,7 +26,7 @@ public class DateTemplateControl extends BaseTemplateControl{
     }
 
     @Override
-    public BaseTemplateDialog getDialog(Context context) {
+    public BaseTemplateDialog getDialog(Context context, BaseTemplate template) {
         DateTemplateDialog dialog = new DateTemplateDialog(context);
         return dialog;
     }

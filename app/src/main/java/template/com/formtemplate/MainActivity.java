@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.math.MathContext;
 import java.text.StringCharacterIterator;
 import java.util.HashMap;
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TemplateConfig.initConfig(this);//静态类初始化方法应只调用一次
+
     }
 
     @Override
@@ -36,5 +40,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("templateName", "测试");
 //            intent.putExtra("templateName", "高血压随访");
         startActivity(intent);
+
+//        Proxy.newProxyInstance(MainActivity.this.getClassLoader(), null, new InvocationHandler() {
+//            @Override
+//            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+//                return null;
+//            }
+//        });
     }
 }

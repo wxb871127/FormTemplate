@@ -11,7 +11,7 @@ import template.widget.dialog.BaseTemplateDialog;
 import template.widget.dialog.SelectTemplateDialog;
 
 @Template(tag = "select")
-public class SelectTemplateControl extends BaseTemplateControl{
+public class SelectTemplateControl<T extends BaseTemplate> extends BaseTemplateControl{
     @Override
     public Class<? extends BaseTemplate> getTemplateClass() {
         return SelectTemplate.class;
@@ -23,7 +23,7 @@ public class SelectTemplateControl extends BaseTemplateControl{
     }
 
     @Override
-    public BaseTemplateDialog getDialog(Context context) {
+    public BaseTemplateDialog getDialog(Context context, BaseTemplate template) {
         SelectTemplateDialog selectTemplateDialog = new SelectTemplateDialog(context);
         return selectTemplateDialog;
     }

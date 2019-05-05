@@ -28,7 +28,8 @@ public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate>
         if(value != null)
             v = value.toString();
         boolean[] checkedItem = template.getSelectItems(v);
-        items = template.getNames();
+//        items = template.getNames();
+        items = template.getshowItemNames();
         selectedItem.clear();
         if(v.contains(",")) {
             java.lang.String[] vs = v.split(",");

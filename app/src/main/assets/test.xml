@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <views>
+    <!--
     <input
         name="sg"
         inputType="numberDecimal"
@@ -25,4 +26,101 @@
         label="建议体重"
         editable="false"
         value = "(bmi > 24) ? (sg-100) * 0.9 : null"/>
+
+    <radio
+        name="yjqk"
+        label="目前饮酒情况" >
+
+        <item
+            name="不饮酒"
+            code="1"/>
+
+        <item
+            name="已戒酒"
+            code="2"/>
+
+        <item
+            name="经常饮酒"
+            code="3"/>
+
+        <item
+            name="偶尔饮酒"
+            code="4"/>
+    </radio>
+    <select
+        name="ycqshfszlcsxs"
+        label="请选择"
+        >
+
+        <item
+            name="减少食盐摄入"
+            code="1"/>
+
+        <item
+            name="减少膳食脂肪"
+            code="2"/>
+
+        <item
+            name="规律运动"
+            code="3"/>
+
+        <item
+            name="减少吸烟量或戒烟"
+            code="4"/>
+
+        <item
+            name="减少饮酒量或戒酒"
+            code="5"/>
+
+        <item
+            name="控制体重"
+            code="6"/>
+
+        <item
+            name="心理调整"
+            code="7"/>
+    </select>
+    <date
+        name="zdrq"
+        label="确诊时间"
+        required="true" />
+    <radio
+        name="ydqk"
+        label="目前运动情况" >
+
+        <item
+            name="规律运动"
+            code="1"/>
+
+        <item
+            name="不规律运动"
+            code="2"/>
+
+        <item
+            name="不运动"
+            code="3"/>
+    </radio>
+-->
+    <radio
+        name="xb"
+        label="性别">
+
+        <item name="男" code="1"/>
+
+        <item name="女" code="2"/>
+
+        <item name="未说明的性别" code="9"/>
+
+    </radio>
+
+    <radio name="xy" label="xy">
+
+        <item name="林浩1" code="1" show="xb == 1"/>
+
+        <item name="林浩2" code="2" show="xb == 2"/>
+
+        <item name="林浩3" code="3" show="xb contains 1"/>
+
+    </radio>
+
 </views>

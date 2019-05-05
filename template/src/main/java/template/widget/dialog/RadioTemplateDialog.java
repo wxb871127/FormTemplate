@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.Map;
+
 import template.bean.RadioTemplate;
 import template.com.form.R;
 
@@ -32,7 +34,8 @@ public class RadioTemplateDialog extends BaseTemplateDialog<RadioTemplate> {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setView(view);
-        radioAdapter=new RadioDialogAdapter(template.getNames());
+
+        radioAdapter=new RadioDialogAdapter(template.getshowItemNames());
         list.setAdapter(radioAdapter);
         dialog = builder.create();
         clean.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +69,7 @@ public class RadioTemplateDialog extends BaseTemplateDialog<RadioTemplate> {
 
         @Override
         public int getCount() {
+            if(items == null) return 0;
             return items.length;
         }
 

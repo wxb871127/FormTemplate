@@ -2,8 +2,6 @@ package template.control;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.v4.app.NavUtils;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,12 +12,11 @@ import template.bean.BaseTemplate;
 import template.bean.ListTemplate;
 import template.widget.BaseTemplateView;
 import template.widget.ListTemplateView;
-import template.widget.OnTemplateListener;
 import template.widget.dialog.BaseTemplateDialog;
 import template.widget.dialog.ListTemplateDialog;
 
 @Template(tag = "list")
-public class ListTemplateControl extends BaseTemplateControl{
+public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateControl{
     JSONArray jsonArray = null;
 
     @Override
@@ -43,7 +40,7 @@ public class ListTemplateControl extends BaseTemplateControl{
 
             @Override
             public void onClickAdd() {
-                dialog = getDialog(context);
+                dialog = getDialog(context, null);
                 if (dialog != null) {
                     jsonArray = (JSONArray) valueMap.get(template.name);
                     dialog.initDialog(template, null);
@@ -63,7 +60,7 @@ public class ListTemplateControl extends BaseTemplateControl{
 
             @Override
             public void onItemViewClick(final int index) {
-                dialog = getDialog(context);
+                dialog = getDialog(context, null);
                 if(dialog != null) {
                     try {
                         jsonArray = (JSONArray) valueMap.get(template.name);
@@ -92,7 +89,7 @@ public class ListTemplateControl extends BaseTemplateControl{
     }
 
     @Override
-    public BaseTemplateDialog getDialog(Context context) {
+    public BaseTemplateDialog getDialog(Context context, BaseTemplate template) {
         ListTemplateDialog dialog = new ListTemplateDialog(context);
         return dialog;
     }

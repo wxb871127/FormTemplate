@@ -16,6 +16,13 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url ('http://172.18.13.214:8090/repository/maven-releases/')
+            credentials {
+                username 'admin'
+                password 'admin123'
+            }
+        }
         google()
         jcenter()
     }

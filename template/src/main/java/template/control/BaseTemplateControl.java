@@ -7,6 +7,7 @@ import android.view.View;
 import java.util.HashMap;
 import java.util.Map;
 
+import base.annotation.Template;
 import base.util.ExpressionUtil;
 import template.bean.BaseTemplate;
 import template.widget.BaseTemplateView;
@@ -43,7 +44,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         return template;
     }
 
-    public BaseTemplateDialog getDialog(Context context){
+    public BaseTemplateDialog getDialog(Context context, T template){
         return null;
     }
 
@@ -108,7 +109,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         holder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = getDialog(context);
+                dialog = getDialog(context, template);
                 if(dialog != null) {
                     dialog.initDialog(template, valueMap.get(template.name));
                     dialog.showDialog();

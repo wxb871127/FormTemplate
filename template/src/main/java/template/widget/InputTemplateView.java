@@ -116,7 +116,11 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
                 public void afterTextChanged(Editable s) {
                     if (templateListener != null) {
                         if("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
-                            templateListener.onDataChange(template.name, new BigDecimal(s.toString()));
+                            try {
+                                templateListener.onDataChange(template.name, new BigDecimal(s.toString()));
+                            }catch (NumberFormatException e){
+                                e.printStackTrace();
+                            }
                         }else
                             templateListener.onDataChange(template.name, s.toString());
                     }
