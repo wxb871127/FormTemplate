@@ -16,17 +16,17 @@ public class SearchTemplateView extends BaseTemplateView<SearchTemplate>{
     }
 
     @Override
-    public void initView(BaseViewHolder holder, SearchTemplate template, String value, boolean editable) {
+    public void initView(BaseViewHolder holder, SearchTemplate template, Object value, boolean editable) {
         holder.getConvertView().setClickable(editable);
         super.initView(holder, template, value, editable);
         if(editable){
             text.setVisibility(View.INVISIBLE);
             editText.setVisibility(View.VISIBLE);
-            editText.setText(value);
+            editText.setText(value.toString());
         }else {
             text.setVisibility(View.VISIBLE);
             editText.setVisibility(View.INVISIBLE);
-            text.setText(value);
+            text.setText(value.toString());
         }
     }
 }

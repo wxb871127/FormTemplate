@@ -11,6 +11,7 @@ public class InputTemplate extends BaseTemplate{
     public int maxLength;
     public String unit;//字段单位
     public String decimalFormat;//小数点格式 如“0.00”
+    public String domain;
 
     @Override
     public void parseElement(Element e) {

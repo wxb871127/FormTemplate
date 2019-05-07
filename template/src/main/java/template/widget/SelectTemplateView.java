@@ -17,14 +17,14 @@ public class SelectTemplateView extends BaseTemplateView<SelectTemplate>{
     }
 
     @Override
-    public void initView(BaseViewHolder holder, SelectTemplate template, String value, boolean editable) {
+    public void initView(BaseViewHolder holder, SelectTemplate template, Object value, boolean editable) {
         holder.getConvertView().setClickable(editable);
         super.initView(holder, template, value, editable);
 
         hint.setVisibility(VISIBLE);
         editText.setVisibility(View.GONE);
-        if (value != null && !TextUtils.isEmpty(value)) {
-            text.setText(value);
+        if (value != null && !TextUtils.isEmpty(value.toString())) {
+            text.setText(value.toString());
             hint.setText("");
         } else {
             text.setText("");

@@ -62,7 +62,7 @@ public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate>
             selected =  "";
             selectedItem.clear();
             if(listener != null)
-                listener.onDataChange(template.name, "");
+                listener.onDataChange(template, "");
         }else if(DialogInterface.BUTTON_POSITIVE == which){
             for(int i=0; i<selectedItem.size(); i++){
                 if(i != selectedItem.size())
@@ -70,7 +70,7 @@ public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate>
                 else selected += selectedItem.get(i);
             }
             if(listener != null)
-                listener.onDataChange(template.name, selected);
+                listener.onDataChange(template, selected);
         }
     }
 }

@@ -17,13 +17,13 @@ public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
     }
 
     @Override
-    public void initView(final BaseViewHolder holder, RadioTemplate template, String value, boolean editable) {
+    public void initView(final BaseViewHolder holder, RadioTemplate template, Object value, boolean editable) {
         holder.getConvertView().setClickable(editable);
         super.initView(holder, template, value, editable);
         hint.setVisibility(VISIBLE);
         editText.setVisibility(View.GONE);
-        if (value != null && !TextUtils.isEmpty(value)) {
-            text.setText(value);
+        if (value != null && !TextUtils.isEmpty(value.toString())) {
+            text.setText(value.toString());
             hint.setText("");
         } else {
             text.setText("");

@@ -22,7 +22,7 @@ public class SectionTemplateView extends BaseTemplateView<SectionTemplate> {
     }
 
     @Override
-    public void initView(final BaseViewHolder holder, final SectionTemplate template, final String value, boolean editable) {
+    public void initView(final BaseViewHolder holder, final SectionTemplate template, final Object value, boolean editable) {
         TextView label = (TextView) holder.getViewById(R.id.template_label);
         label.setText(template.label);
     }

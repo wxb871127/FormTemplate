@@ -46,7 +46,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
      * @param template  view的xml配置属性
      * @param value     数据值
      */
-    public void initView(final BaseViewHolder holder, final T template, final String value, boolean editable){
+    public void initView(final BaseViewHolder holder, final T template, final Object value, boolean editable){
         this.template = template;
         this.value = value;
         required = (TextView) holder.getViewById(R.id.template_required);

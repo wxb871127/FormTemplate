@@ -29,7 +29,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
     public abstract BaseTemplateView getTemplateView(Context context);
 
     public interface OnTemplateListener{
-        public void onTemplateUpdate(String key, Object value);
+        public void onTemplateUpdate(BaseTemplate key, Object value);
     }
 
     public void setTemplateListener(OnTemplateListener listener){
@@ -99,9 +99,8 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         holder.setShow(isShow(valueMap));
         view.setOnTemplateListener(new template.widget.OnTemplateListener() {
             @Override
-            public void onDataChange(String name,Object object) {
-                if(listener != null)
-                    listener.onTemplateUpdate(name, object);
+            public void onDataChange(BaseTemplate template1,Object object) {
+                verifyData(template1, object, holder);
             }
         });
 
@@ -115,14 +114,19 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
                     dialog.showDialog();
                     dialog.setOnTemplateListener(new template.widget.OnTemplateListener() {
                         @Override
-                        public void onDataChange(String name, Object object) {
+                        public void onDataChange(BaseTemplate name, Object object) {
                             if (listener != null)
-                                listener.onTemplateUpdate(template.name, object);
+                                listener.onTemplateUpdate(template, object);
                         }
                     });
                 }
             }
         });
+    }
+
+    protected void verifyData(BaseTemplate name, Object object,BaseViewHolder holder){
+        if(listener != null)
+            listener.onTemplateUpdate(name, object);
     }
 
 }

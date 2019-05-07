@@ -66,8 +66,8 @@ public class TemplateAdapter extends BaseTemplateAdapter {
             templateControl.initView(context, (BaseViewHolder) holder, templateControl.getTemplate(), valueMap, editMode);
         templateControl.setTemplateListener(new BaseTemplateControl.OnTemplateListener() {
             @Override
-            public void onTemplateUpdate(String key, Object value) {
-                valueMap.put(key, value);
+            public void onTemplateUpdate(BaseTemplate key, Object value) {
+                valueMap.put(key.name, value);
                 try {
                     notifyDataSetChanged();
                 }catch (Exception e){

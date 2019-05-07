@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <views>
-    <!--
+
     <input
         name="sg"
         inputType="numberDecimal"
+        domain="sg >= 10 &amp;&amp; sg &lt;= 200"
         label="身高"
         unit="cm" />
 
@@ -100,7 +101,7 @@
             name="不运动"
             code="3"/>
     </radio>
--->
+
     <radio
         name="xb"
         label="性别">

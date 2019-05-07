@@ -43,7 +43,7 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
     }
 
     @Override
-    public  void initView(BaseViewHolder holder, ListTemplate template, String value, boolean editable) {
+    public  void initView(BaseViewHolder holder, ListTemplate template, Object value, boolean editable) {
         holder.getConvertView().setClickable(false);
         super.initView(holder, template, value, editable);
         ImageView add = (ImageView) holder.getViewById(R.id.template_list_add);
@@ -59,8 +59,8 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setClickable(editable);
         String[] ret = null;
-        if(!TextUtils.isEmpty(value))
-            ret =  value.split("/");
+        if(!TextUtils.isEmpty(value.toString()))
+            ret =  value.toString().split("/");
 
         recyclerView.setAdapter(new Adapter(ret));
     }

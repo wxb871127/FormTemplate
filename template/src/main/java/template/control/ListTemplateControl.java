@@ -35,7 +35,7 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                     jsonArray.remove(index);
                 }
                 if(listener != null)
-                    listener.onTemplateUpdate(template.name, jsonArray);
+                    listener.onTemplateUpdate(template, jsonArray);
             }
 
             @Override
@@ -46,7 +46,7 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                     dialog.initDialog(template, null);
                     dialog.setOnTemplateListener(new template.widget.OnTemplateListener() {
                         @Override
-                        public void onDataChange(String name, Object object) {
+                        public void onDataChange(BaseTemplate name, Object object) {
                             if(jsonArray == null)
                                 jsonArray = new JSONArray();
                             jsonArray.put((JSONObject) object);
@@ -68,7 +68,7 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                         dialog.initDialog(template, jsonObject);
                         dialog.setOnTemplateListener(new template.widget.OnTemplateListener() {
                             @Override
-                            public void onDataChange(String name, Object object) {
+                            public void onDataChange(BaseTemplate name, Object object) {
                                 try {
                                     jsonArray.put(index, (JSONObject)object);
                                     if(listener != null)

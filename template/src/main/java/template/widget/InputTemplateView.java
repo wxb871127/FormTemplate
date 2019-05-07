@@ -65,13 +65,13 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     }
 
     @Override
-    public void initView(BaseViewHolder holder, final InputTemplate template, String value, final boolean editable) {
+    public void initView(BaseViewHolder holder, final InputTemplate template, Object value, final boolean editable) {
         super.initView(holder, template, value, editable);
         holder.getConvertView().setClickable(false);
         if(value != null && template.decimalFormat != null) {
             try {
                 DecimalFormat format = new DecimalFormat(template.decimalFormat);
-                value = format.format(new BigDecimal(value));
+                value = format.format(new BigDecimal(value.toString()));
             }catch (NumberFormatException e){
                 e.printStackTrace();
             }
@@ -96,7 +96,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
                 editText.removeTextChangedListener((TextWatcher)editText.getTag());
            }
 
-            editText.setText(value);
+            editText.setText(value.toString());
             if (template.maxLength > 0) {
                 editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(template.maxLength)});
             }
@@ -117,12 +117,12 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
                     if (templateListener != null) {
                         if("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
                             try {
-                                templateListener.onDataChange(template.name, new BigDecimal(s.toString()));
+                                templateListener.onDataChange(template, new BigDecimal(s.toString()));
                             }catch (NumberFormatException e){
                                 e.printStackTrace();
                             }
                         }else
-                            templateListener.onDataChange(template.name, s.toString());
+                            templateListener.onDataChange(template, s.toString());
                     }
                 }
             };
@@ -131,7 +131,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
         }else {
             text.setVisibility(View.VISIBLE);
             editText.setVisibility(View.INVISIBLE);
-            text.setText(value);
+            text.setText(value.toString());
         }
     }
 }

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.ql.util.express.DefaultContext;
 import com.ql.util.express.ExpressRunner;
 import com.ql.util.express.IExpressContext;
+import com.ql.util.express.Operator;
 
 import java.util.Map;
 
@@ -14,6 +15,14 @@ public class ExpressionUtil {
 
     private ExpressionUtil(){
 
+    }
+
+    public static class Contains extends Operator {
+        public Boolean executeInner(Object[] list) throws Exception {
+            String opdata1 = list[0].toString();
+            String opdata2 = list[1].toString();
+            return opdata1.contains(opdata2);
+        }
     }
 
     public static ExpressionUtil getExpressionUtil(){
@@ -38,6 +47,7 @@ public class ExpressionUtil {
                 new String[] { "double" }, null);
         runner.addFunctionOfClassMethod("pow", Math.class.getName(), "pow",
                 new String[] { "double", "double" }, null);
+        runner.addOperator("contains", new Contains());
     }
 
     public Object executeExpression(String expression, Map<String, Object> map){
