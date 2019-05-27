@@ -3,19 +3,9 @@ package template.com.formtemplate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-import java.math.MathContext;
-import java.text.StringCharacterIterator;
-import java.util.HashMap;
-import java.util.Map;
-
 import activity.TemplateActivity;
-import base.util.ExpressionUtil;
 import template.config.TemplateConfig;
 
 
@@ -31,6 +21,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
+
+//        UserDao.createTable(, );
+
+
+
+
         Intent intent = new Intent(MainActivity.this, TemplateActivity.class);
         if(v.getId() == R.id.gxy_zx) {
             intent.putExtra("templateName", "高血压专项");
@@ -40,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("templateName", "测试");
 //            intent.putExtra("templateName", "高血压随访");
         startActivity(intent);
+
+
+
 
 //        Proxy.newProxyInstance(MainActivity.this.getClassLoader(), null, new InvocationHandler() {
 //            @Override

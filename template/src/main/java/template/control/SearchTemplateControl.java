@@ -19,6 +19,7 @@ public class SearchTemplateControl<T extends BaseTemplate> extends BaseTemplateC
 
     @Override
     public BaseTemplateView getTemplateView(Context context) {
+        this.context = context;
         return new SearchTemplateView(context);
     }
 

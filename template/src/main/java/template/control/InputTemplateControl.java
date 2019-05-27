@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 import base.annotation.Template;
@@ -19,7 +20,7 @@ import template.widget.InputTemplateView;
 
 @Template(tag = "input")
 public class InputTemplateControl extends BaseTemplateControl{
-    private Context context;
+
 
     @Override
     public Class<? extends BaseTemplate> getTemplateClass() {
@@ -33,24 +34,22 @@ public class InputTemplateControl extends BaseTemplateControl{
     }
 
     @Override
-    protected void verifyData(BaseTemplate name, Object object,BaseViewHolder holder) {
-        String domain = ((InputTemplate)name).domain;
-        if(TextUtils.isEmpty(domain)){
-            super.verifyData(name, object, holder);
-            return;
-        }
+    protected void handleException(BaseTemplate template, Object object,BaseViewHolder holder) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put(name.name, object.toString());
+        if(object instanceof BigDecimal){
+            map.put (template.name, ((BigDecimal) object).doubleValue());
+        }else
+            map.put(template.name, object);
         try {
-            Boolean ret = ExpressionUtil.getExpressionUtil().logicExpression(domain, map, false);
-            if(!ret){
-                Toast.makeText(context, "输入的数据超出范围，请重新输入", Toast.LENGTH_SHORT).show();
+            if(template.editable != null && ExpressionUtil.getExpressionUtil().logicExpression(template.editable,  map, false)){
+                Toast.makeText(context, "数据异常,请重新输入", Toast.LENGTH_SHORT).show();
                 View view = getTemplateView(context);
-                ((BaseTemplateView) view).initView(holder, name, "", true);
+//                ((BaseTemplateView) view).initView(holder, name, "", true);
             }else
-                super.verifyData(name, object, holder);
+                super.handleException(template, object, holder);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }

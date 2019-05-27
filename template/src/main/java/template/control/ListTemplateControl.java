@@ -26,6 +26,7 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
 
     @Override
     public BaseTemplateView getTemplateView(final Context context) {
+        this.context = context;
         final ListTemplateView listTemplateView = new ListTemplateView(context);
         listTemplateView.setTemplateViewListener(new ListTemplateView.OnListTemplateViewListener() {
             @Override

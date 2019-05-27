@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <views>
 
+    <search name="yyjl" label="用药记录" style="Drug"/>
+    <button name="ycqk" label="牙齿情况" onClick="1001"/>
+
     <input
         name="sg"
         inputType="numberDecimal"
-        domain="sg >= 10 &amp;&amp; sg &lt;= 200"
         label="身高"
         unit="cm" />
 
     <input
         name="tz"
         inputType="numberDecimal"
+        exception="tz >= 300"
         label="体重"
         required="true"
         unit="kg" />
@@ -19,7 +22,9 @@
         name="bmi"
         editable="false"
         value="tz / pow(sg/100, 2)"
+        inputType="numberDecimal"
         decimalFormat="0.00"
+        exception="bmi >= 24"
         label="体质指数" />
 
     <input
@@ -30,6 +35,7 @@
 
     <radio
         name="yjqk"
+        exception="yjqk == 3 || yjqk == 4"
         label="目前饮酒情况" >
 
         <item
@@ -48,10 +54,10 @@
             name="偶尔饮酒"
             code="4"/>
     </radio>
+
     <select
-        name="ycqshfszlcsxs"
-        label="请选择"
-        >
+        name="ysxg"
+        label="请选择">
 
         <item
             name="减少食盐摄入"
@@ -81,6 +87,7 @@
             name="心理调整"
             code="7"/>
     </select>
+
     <date
         name="zdrq"
         label="确诊时间"
@@ -95,10 +102,12 @@
 
         <item
             name="不规律运动"
+            exception="true"
             code="2"/>
 
         <item
             name="不运动"
+            exception="true"
             code="3"/>
     </radio>
 
@@ -114,13 +123,15 @@
 
     </radio>
 
+    <input name="sg1" label="身高1" exception="xb equals '1' ? (sg1&lt;100) : (sg1&lt;80)"/>
+
     <radio name="xy" label="xy">
 
-        <item name="林浩1" code="1" show="xb == 1"/>
+        <item name="林浩1" code="1" show="xb equals '1'"/>
 
-        <item name="林浩2" code="2" show="xb == 2"/>
+        <item name="林浩2" code="2" show="xb equals '2'"/>
 
-        <item name="林浩3" code="3" show="xb contains 1"/>
+        <item name="林浩3" code="3" show="xb contains '1'"/>
 
     </radio>
 

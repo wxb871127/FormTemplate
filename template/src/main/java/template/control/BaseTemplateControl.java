@@ -3,7 +3,9 @@ package template.control;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +26,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
     protected BaseTemplateView view;
     protected BaseTemplateDialog dialog;
     protected OnTemplateListener listener;
+    protected Context context;
 
     public abstract Class<? extends BaseTemplate> getTemplateClass();
     public abstract BaseTemplateView getTemplateView(Context context);
@@ -100,7 +103,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         view.setOnTemplateListener(new template.widget.OnTemplateListener() {
             @Override
             public void onDataChange(BaseTemplate template1,Object object) {
-                verifyData(template1, object, holder);
+                verifyData(template1, object, valueMap, holder);
             }
         });
 
@@ -108,25 +111,50 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         holder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = getDialog(context, template);
-                if(dialog != null) {
-                    dialog.initDialog(template, valueMap.get(template.name));
-                    dialog.showDialog();
-                    dialog.setOnTemplateListener(new template.widget.OnTemplateListener() {
-                        @Override
-                        public void onDataChange(BaseTemplate name, Object object) {
-                            if (listener != null)
-                                listener.onTemplateUpdate(template, object);
-                        }
-                    });
-                }
+                onClickHolder(holder);
             }
         });
     }
 
-    protected void verifyData(BaseTemplate name, Object object,BaseViewHolder holder){
-        if(listener != null)
-            listener.onTemplateUpdate(name, object);
+    protected void onClickHolder(final BaseViewHolder holder){
+        dialog = getDialog(context, template);
+        if(dialog != null) {
+            dialog.initDialog(template, valueMap.get(template.name));
+            dialog.showDialog();
+            dialog.setOnTemplateListener(new template.widget.OnTemplateListener() {
+                @Override
+                public void onDataChange(BaseTemplate template1, Object object) {
+                    verifyData(template1, object, valueMap, holder);
+                }
+            });
+        }
     }
 
+    protected void verifyData(BaseTemplate template, Object object, final Map<String, Object> valueMap, BaseViewHolder holder){
+        if(TextUtils.isEmpty(template.exception)){
+            if(listener != null)
+                listener.onTemplateUpdate(template, object);
+            return;
+        }
+
+        if(object instanceof BigDecimal){
+            valueMap.put (template.name, ((BigDecimal) object).doubleValue());
+        }else
+            valueMap.put(template.name, object);
+        try {
+            Boolean ret = ExpressionUtil.getExpressionUtil().logicExpression(template.exception, valueMap, false);
+            if(ret){
+                handleException(template, object, holder);
+            }else {
+                if(listener != null)
+                    listener.onTemplateUpdate(template, object);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void handleException(BaseTemplate template, Object object, BaseViewHolder holder)  {
+        Toast.makeText(context, template.label+"数据异常", Toast.LENGTH_SHORT).show();
+    }
 }

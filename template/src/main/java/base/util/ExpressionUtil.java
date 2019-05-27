@@ -25,6 +25,14 @@ public class ExpressionUtil {
         }
     }
 
+    public static class Equals extends Operator{
+        public Boolean executeInner(Object[] list) throws Exception{
+            String opdata1 = list[0].toString();
+            String opdata2 = list[1].toString();
+            return opdata1.equals(opdata2);
+        }
+    }
+
     public static ExpressionUtil getExpressionUtil(){
         if(expressionUtil == null){
             synchronized (ExpressionUtil.class) {
@@ -48,6 +56,7 @@ public class ExpressionUtil {
         runner.addFunctionOfClassMethod("pow", Math.class.getName(), "pow",
                 new String[] { "double", "double" }, null);
         runner.addOperator("contains", new Contains());
+        runner.addOperator("equals", new Equals());
     }
 
     public Object executeExpression(String expression, Map<String, Object> map){

@@ -1,6 +1,7 @@
 package template.config;
 
 import android.content.Context;
+import android.widget.Button;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,7 +10,9 @@ import java.util.List;
 
 import base.annotation.Template;
 import template.bean.BaseTemplate;
+import template.bean.ButtonTemplate;
 import template.control.BaseTemplateControl;
+import template.control.ButtonTemplateControl;
 import template.control.DateTemplateControl;
 import template.control.InputTemplateControl;
 import template.control.ListTemplateControl;
@@ -46,6 +49,7 @@ public class TemplateConfig {
         list.add(SelectTemplateControl.class);
         list.add(DateTemplateControl.class);
         list.add(SearchTemplateControl.class);
+        list.add(ButtonTemplateControl.class);
         list.add(ListTemplateControl.class);
 
         for(Class cl : list){
@@ -61,7 +65,7 @@ public class TemplateConfig {
                 templateInfo.type = templateView.getType();
 
                 method = cl.getMethod("getTemplateClass", null);
-                Class<? extends BaseTemplate>  aClass = (Class<? extends BaseTemplate>) method.invoke(cl.newInstance(), null);
+                Class<? extends BaseTemplate>  aClass = (Class<? extends BaseTemplate>) method.invoke(cl.newInstance(),null);
                 templateInfo.template = aClass;
                 templateInfoList.add(templateInfo);
             } catch (NoSuchMethodException e) {

@@ -19,15 +19,15 @@ import util.TemplateParse;
 public class SearchTemplate extends BaseTemplate{
     public String style;//数据库表名
     public String showFormat;
-    private String showColumn = null;//对应显示字段的数据库表列名
-    public Map<String, String> columnMap;//存放 item中的<name,column>键值对，可以用来给与name值一致的字段赋值
+    public String selection;
+    public String showColumn = null;//select要查询的字段名
+    public String primaryKey;//主键
     public Map<String, String> nameMap;// 存放template_styles.xml 的 <name:value>键值对
 
     @Override
     public void parseElement(Element e) {
         super.parseElement(e);
         nameMap = new HashMap<>();
-        columnMap = new HashMap<>();
 
         if (!TextUtils.isEmpty(style)) {
             Element element = TemplateParse.getTemplateStyleElement();
@@ -45,24 +45,18 @@ public class SearchTemplate extends BaseTemplate{
                 }
             }
         }
-
-        NodeList nodeList = e.getElementsByTagName("item");
-        for (int i = 0; i < nodeList.getLength(); i++) {
-            Element item = (Element) nodeList.item(i);
-            String column = item.getAttribute("column");
-            String name = item.getAttribute("name");
-            columnMap.put(name, column);
-            if(showColumn == null)
-                showColumn = column;
-        }
+        showColumn = nameMap.get("showColumn");
+        selection = nameMap.get("selection");
+        primaryKey = nameMap.get("primaryKey");
     }
 
     @Override
     public String getShowName(Object object, Context context) {
         if(object == null || TextUtils.isEmpty(object.toString()))
             return "";
+
         Database database = DaoManager.getInstance(context).getDaoSession().getDatabase();
-        String where = "select " + showColumn + " from " + style + " where " + nameMap.get("selectionShow");
+        String where = "select * from " + style + " where " + primaryKey + " = ?";
         Cursor cursor = database.rawQuery(where,  new String[]{object.toString()});
         cursor.moveToFirst();
         String showname = "";

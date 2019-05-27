@@ -21,6 +21,7 @@ public class DateTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
 
     @Override
     public BaseTemplateView getTemplateView(Context context) {
+        this.context = context;
         DateTemplateView dateTemplateView = new DateTemplateView(context);
         return dateTemplateView;
     }

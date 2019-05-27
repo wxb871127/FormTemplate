@@ -24,6 +24,7 @@ import template.bean.SearchTemplate;
 import template.com.form.R;
 import template.com.templatedb.Area;
 import template.com.templatedb.DaoManager;
+import template.com.templatedb.Drug;
 
 public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
     private View view;
@@ -36,7 +37,7 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
     }
 
     @Override
-    public <S> void initDialog(SearchTemplate template, S value) {
+    public <S> void initDialog(final SearchTemplate template, S value) {
         super.initDialog(template, value);
         view = LayoutInflater.from(mContext).inflate(R.layout.search_template_dialog, null);
         editText = (EditText) view.findViewById(R.id.template_search_dialog_text);
@@ -48,7 +49,8 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
             editText.removeTextChangedListener((TextWatcher)editText.getTag());
         }
         if(value != null)
-            editText.setText(value.toString());
+            editText.setText(template.getShowName(value.toString(), mContext));
+//            editText.setText(value.toString());
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -62,11 +64,8 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
 
             @Override
             public void afterTextChanged(Editable s) {
-
-
                 if (s.length() > 0) {
-                    AreaDao areaDao = DaoManager.getInstance(mContext).getDaoSession().getAreaDao();
-                    String where = "select * from Area where qhmc like ? or pym like ?";
+                    String where = "select * from " + template.style + " where " + template.selection;
                     Database database = DaoManager.getInstance(mContext).getDaoSession().getDatabase();
                     Cursor cursor = database.rawQuery(where, new String[]{s.toString(), s.toString()});
                     cursor.moveToFirst();
@@ -95,15 +94,15 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
         public void bindView(View view, Context context, Cursor cursor) {
             TextView tvText = (TextView) view.findViewById(R.id.template_search_dialog_item_text);
             final CheckBox checkBox = (CheckBox) view.findViewById(R.id.template_search_dialog_item_checkbox);
-            final String c = cursor.getString(cursor.getColumnIndex("qhqc"));
-
-            tvText.setText(c);
+            final String showColumn = cursor.getString(cursor.getColumnIndex(template.showColumn));
+            final String primaryKey = cursor.getString(cursor.getColumnIndex(template.primaryKey));
+            tvText.setText(showColumn);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(listener != null)
-                        listener.onDataChange(template, c);
+                        listener.onDataChange(template, primaryKey);
                     if(dialog != null)
                         dialog.dismiss();
                 }
