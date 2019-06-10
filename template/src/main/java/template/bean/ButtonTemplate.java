@@ -4,5 +4,5 @@ import base.annotation.Template;
 
 @Template(tag = "button")
 public class ButtonTemplate extends BaseTemplate{
-    public String onClick;
+    public String command;
 }

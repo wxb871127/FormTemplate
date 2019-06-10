@@ -1,8 +1,6 @@
 package template.control;
 
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 import base.annotation.Template;
 import template.bean.BaseTemplate;
@@ -26,6 +24,8 @@ public class ButtonTemplateControl extends BaseTemplateControl{
 
     @Override
     protected void onClickHolder(BaseViewHolder holder) {
-        Log.e("xxxxxxxxxxxxx", "button on click.........");
+        if(commandListener != null)
+            commandListener.onTemplateCommand(template.name, ((ButtonTemplate)template).command);
     }
+
 }

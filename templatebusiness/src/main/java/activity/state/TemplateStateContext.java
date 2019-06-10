@@ -27,6 +27,7 @@ public class TemplateStateContext {
         stateClassList.add(PGTemplateState.class);
         stateClassList.add(ZXTemplateState.class);
         stateClassList.add(SFTemplateState.class);
+        stateClassList.add(TJTemplateState.class);
     }
 
     public Class getStateClassByType(String type){

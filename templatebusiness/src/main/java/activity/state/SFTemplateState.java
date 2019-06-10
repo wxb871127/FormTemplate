@@ -14,7 +14,7 @@ import template.com.form.R;
 import template.view.TemplateView;
 
 /**
- * 随访表单
+ * 随访：编辑、引入、设备菜单；提交、暂存按钮
  */
 
 @State(state = "SF")

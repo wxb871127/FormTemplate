@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -16,9 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import template.bean.InputTemplate;
+import template.com.form.R;
 
 public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     private static final Map<String, Integer> INPUT_TYPE = new HashMap<String, Integer>();
+    private ImageView quote;
     static {
         INPUT_TYPE.put("none", 0x0);
         INPUT_TYPE.put("text", 0x1);
@@ -68,6 +71,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     public void initView(BaseViewHolder holder, final InputTemplate template, Object value, final boolean editable) {
         super.initView(holder, template, value, editable);
         holder.getConvertView().setClickable(false);
+        quote = (ImageView)holder.getViewById(R.id.common_template_quote);
         if(value != null && template.decimalFormat != null) {
             try {
                 DecimalFormat format = new DecimalFormat(template.decimalFormat);
@@ -75,6 +79,9 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
             }catch (NumberFormatException e){
                 e.printStackTrace();
             }
+        }
+        if("true".equals(template.quote)){
+            quote.setVisibility(VISIBLE);
         }
 
         if(editable){

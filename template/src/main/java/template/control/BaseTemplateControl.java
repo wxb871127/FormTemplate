@@ -12,6 +12,7 @@ import java.util.Map;
 import base.annotation.Template;
 import base.util.ExpressionUtil;
 import template.bean.BaseTemplate;
+import template.interfaces.OnTemplateCommandListener;
 import template.widget.BaseTemplateView;
 import template.widget.BaseViewHolder;
 import template.widget.dialog.BaseTemplateDialog;
@@ -27,16 +28,21 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
     protected BaseTemplateDialog dialog;
     protected OnTemplateListener listener;
     protected Context context;
+    protected OnTemplateCommandListener commandListener;
 
     public abstract Class<? extends BaseTemplate> getTemplateClass();
     public abstract BaseTemplateView getTemplateView(Context context);
 
     public interface OnTemplateListener{
-        public void onTemplateUpdate(BaseTemplate key, Object value);
+        void onTemplateUpdate(BaseTemplate key, Object value);//更新数据
     }
 
     public void setTemplateListener(OnTemplateListener listener){
         this.listener = listener;
+    }
+
+    public void setCommandListener(OnTemplateCommandListener listener){
+        this.commandListener = listener;
     }
 
     public void setTemplate(T template){

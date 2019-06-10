@@ -1,6 +1,7 @@
 package template.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -30,5 +31,7 @@ public class ButtonTemplateView extends BaseTemplateView<ButtonTemplate>{
             text.setText("");
             hint.setText("请选择");
         }
+
+
     }
 }

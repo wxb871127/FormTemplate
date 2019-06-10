@@ -11,7 +11,7 @@ import template.com.form.R;
 import template.view.TemplateView;
 
 /**
- * 评估表单
+ * 评估: 只有提交按钮
  */
 @State(state = "PG")
 public class PGTemplateState extends TemplateState{

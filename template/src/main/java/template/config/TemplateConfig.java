@@ -42,7 +42,6 @@ public class TemplateConfig {
 //        List<String> list = ClassUtil.getClazzName("template.config", false);
 
         List<Class> list = new ArrayList<>();
-
         list.add(SectionTemplateControl.class);
         list.add(InputTemplateControl.class);
         list.add(RadioTemplateControl.class);

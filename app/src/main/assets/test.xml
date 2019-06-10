@@ -2,12 +2,13 @@
 <views>
 
     <search name="yyjl" label="用药记录" style="Drug"/>
-    <button name="ycqk" label="牙齿情况" onClick="1001"/>
+    <button name="ycqk" label="牙齿情况" command="1001"/>
 
     <input
         name="sg"
         inputType="numberDecimal"
         label="身高"
+        quote="11"
         unit="cm" />
 
     <input

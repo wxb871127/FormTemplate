@@ -7,7 +7,9 @@ import android.util.AttributeSet;
 
 import java.util.Map;
 
+import template.bean.BaseTemplate;
 import template.bean.TemplateList;
+import template.interfaces.OnTemplateCommandListener;
 import template.widget.TemplateAdapter;
 import util.TemplateParse;
 
@@ -17,6 +19,7 @@ import util.TemplateParse;
 public class TemplateView extends RecyclerView{
     private TemplateAdapter templateAdapter;
     protected Context mContext;
+//    private OnTemplateCommandListener listener;
 
     public TemplateView(Context context) {
         this(context, null);
@@ -31,6 +34,10 @@ public class TemplateView extends RecyclerView{
         mContext = context;
     }
 
+//    public void setListener(OnTemplateCommandListener listener){
+//        this.listener = listener;
+//    }
+
     public void initTemplate(String templateXml){
         TemplateParse.initTemplateStyle(mContext);
         TemplateList templates = TemplateParse.parseTemplateFile(mContext, templateXml);
@@ -43,10 +50,27 @@ public class TemplateView extends RecyclerView{
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         setLayoutManager(layoutManager);
         setAdapter(templateAdapter);
+//        templateAdapter.setListener(new OnTemplateCommandListener() {
+//            @Override
+//            public void onTemplateCommand(String name, String command) {
+//                if(listener != null)
+//                    listener.onTemplateCommand(name, command);
+//            }
+//        });
     }
 
     public TemplateList getTemplateList(){
         return templateAdapter.getTemplateList();
+    }
+
+    public void setTemplateListener(final OnTemplateCommandListener listener){
+        templateAdapter.setListener(new OnTemplateCommandListener() {
+            @Override
+            public void onTemplateCommand(String name, String command) {
+                listener.onTemplateCommand(name, command);
+            }
+        });
+
     }
 
     public void setEditMode(boolean edit){

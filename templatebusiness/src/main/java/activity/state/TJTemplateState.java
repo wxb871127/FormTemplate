@@ -10,22 +10,16 @@ import android.view.ViewGroup;
 
 import com.business.annotation.State;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import template.com.templatebusiness.R;
 import template.view.TemplateView;
 
-
 /**
- * 专项：编辑菜单；提交按钮
+ *
  */
+@State(state = "TJ")
+public class TJTemplateState extends TemplateState{
 
-@State(state = "ZX")
-public class ZXTemplateState extends TemplateState {
-    TemplateView templateView;
-
-    public ZXTemplateState(Context context) {
+    public TJTemplateState(Context context) {
         super(context);
     }
 
@@ -40,23 +34,6 @@ public class ZXTemplateState extends TemplateState {
 
     }
 
-//    @Override
-//    public void initTemplateView(TemplateView templateView) {
-//        templateView.initTemplate(getTemplateRes());
-//        templateView.setValue("xm", "林浩");
-//        templateView.setValue("jtdh","122");
-//        templateView.setValue("jzlx","1");
-//        templateView.setValue("lrr","124");
-//        templateView.setValue("ycqshfszlcsxs","1,3");
-//        try {
-//            templateView.setValue("gmsList",new JSONArray("[ {\"xh\":\"1\",\"gmy\":\"1\",\"fsrq\":\"2018-11-21\",\"bz\":\"是非观\"}, {\"xh\":\"2\",\"gmy\":\"2\",\"fsrq\":\"2018-12-21\",\"bz\":\"手工课\"}]"));
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        templateView.setEditMode(false);
-//        this.templateView = templateView;
-//    }
-
     @Override
     public void initBottomView(ViewGroup viewGroup) {
         viewGroup.removeAllViews();
@@ -65,7 +42,6 @@ public class ZXTemplateState extends TemplateState {
             @Override
             public void onClick(View v) {
                 Log.e("updateData is ", business.updateData);
-            templateView.setEditMode(true);
             }
         });
     }

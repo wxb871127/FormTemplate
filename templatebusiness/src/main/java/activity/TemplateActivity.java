@@ -18,18 +18,18 @@ import template.com.form.R;
 public class TemplateActivity extends AppCompatActivity {
     TemplateStateContext stateContext;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.template_activity);
-        ViewGroup content = (ViewGroup) findViewById(R.id.template_content);
-        ViewGroup bottom = (ViewGroup)findViewById(R.id.template_bottom);
+        ViewGroup content =  findViewById(R.id.template_content);
+        ViewGroup bottom = findViewById(R.id.template_bottom);
 
         stateContext = new TemplateStateContext(this);
         String templateName = getIntent().getStringExtra("templateName");
         stateContext.setTemplateState(templateName);
-
+        String templateRes = getIntent().getStringExtra("templateRes");
+        stateContext.getTemplateState().setRes(templateRes);
         initView(content, bottom);
     }
 

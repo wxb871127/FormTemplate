@@ -106,14 +106,14 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/common_template_common_expression"
+        android:id="@+id/common_template_quote"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/dp5"
         android:layout_marginRight="@dimen/dp5"
         android:paddingLeft="@dimen/dp5"
         android:paddingRight="@dimen/dp5"
-        android:src="@drawable/common_template_common_expression"
+        android:src="@drawable/common_template_quote"
         android:visibility="gone" />
 
 </LinearLayout>

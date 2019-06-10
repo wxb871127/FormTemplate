@@ -14,6 +14,7 @@ import template.bean.BaseTemplate;
 import template.bean.TemplateList;
 import template.config.TemplateConfig;
 import template.control.BaseTemplateControl;
+import template.interfaces.OnTemplateCommandListener;
 
 public class TemplateAdapter extends BaseTemplateAdapter {
     protected TemplateList templates;
@@ -21,6 +22,7 @@ public class TemplateAdapter extends BaseTemplateAdapter {
     protected LayoutInflater mLayoutInflater;
     public Map<String, Object> valueMap;//表单数据
     private boolean editMode = true;//整张表单是否可编辑状态, 该状态优先级大于字段的editable
+    private OnTemplateCommandListener listener;
 
     public TemplateAdapter(Context context, TemplateList templates){// List<BaseTemplateControl> templates) {
         this(context, templates, new HashMap<String, Object>());
@@ -33,6 +35,10 @@ public class TemplateAdapter extends BaseTemplateAdapter {
         valueMap = new HashMap<>();
         this.valueMap.putAll(outMap);
         setHasStableIds(true);//防止刷新recyckerView焦点丢失问题
+    }
+
+    public void setListener(OnTemplateCommandListener listener){
+        this.listener = listener;
     }
 
     @Override
@@ -64,17 +70,24 @@ public class TemplateAdapter extends BaseTemplateAdapter {
         BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
         if(templateControl != null)
             templateControl.initView(context, (BaseViewHolder) holder, templateControl.getTemplate(), valueMap, editMode);
-        templateControl.setTemplateListener(new BaseTemplateControl.OnTemplateListener() {
-            @Override
-            public void onTemplateUpdate(BaseTemplate key, Object value) {
-                valueMap.put(key.name, value);
-                try {
-                    notifyDataSetChanged();
-                }catch (Exception e){
-                    e.printStackTrace();
+            templateControl.setTemplateListener(new BaseTemplateControl.OnTemplateListener() {
+                @Override
+                public void onTemplateUpdate(BaseTemplate key, Object value) {
+                    valueMap.put(key.name, value);
+                    try {
+                        notifyDataSetChanged();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
-            }
-        });
+            });
+            templateControl.setCommandListener(new OnTemplateCommandListener() {
+                @Override
+                public void onTemplateCommand(String name, String command) {
+                    if(listener != null)
+                        listener.onTemplateCommand(name, command);
+                }
+            });
     }
 
     private BaseTemplateControl getTemplateControl(BaseTemplate template){

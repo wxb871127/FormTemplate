@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <business>
-	<service name="高血压专项" type="ZX" res="gxy_zx.xml" getData="getGxyZxda" updateData="updateGxyZxda" style="0"/>
-	<service name="高血压评估" type="PG" res="gxy_pg.xml" getData="getGxyFcpg" updateData="updateGxyFcpg" style="1"/>
-	<service name="高血压随访" type="SF" res="gxy_sf.xml" getData="getGxySfjl" updateData="updateGxySfjl" style="2"/>
-	<service name="测试" type="ZX" res="test.xml" getData="getGxyZxda" updateData="updateGxyZxda" style="0"/>
+	<service name="专项" type="ZX" res="gxy_zx.xml" getData="getGxyZxda" updateData="updateGxyZxda" style="0"/>
+	<service name="评估" type="PG" res="gxy_pg.xml" getData="getGxyFcpg" updateData="updateGxyFcpg" style="1"/>
+	<service name="随访" type="SF" res="gxy_sf.xml" getData="getGxySfjl" updateData="updateGxySfjl" style="2"/>
+	<service name="体检" type="TJ" res="test1.xml" getData="getGxyZxda" updateData="updateGxyZxda" style="0"/>
 
-	<service name="数据汇总" type="dj" res="" style="0"/>
-	<service name="科室体检数据" type="tj" res="" style=""/>
-	<service name="其他科室体检数据" type="cktj" res="" style=""/>
+	<command name="1001"  showtext="true" type="ActivityCommand"/>
+	<command name="1002"  showtext="false" type="ActivityCommand"/>
+	<command name="1003"  showtext="true" type="ActivityCommand"/>
 </business>

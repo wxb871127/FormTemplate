@@ -21,31 +21,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
-
-//        UserDao.createTable(, );
-
-
-
-
         Intent intent = new Intent(MainActivity.this, TemplateActivity.class);
         if(v.getId() == R.id.gxy_zx) {
-            intent.putExtra("templateName", "高血压专项");
+            intent.putExtra("templateName", "专项");
         }else if(v.getId() == R.id.gxy_pg)
-            intent.putExtra("templateName", "高血压评估");
+            intent.putExtra("templateName", "评估");
         else if(v.getId() == R.id.gxy_sf)
-            intent.putExtra("templateName", "测试");
-//            intent.putExtra("templateName", "高血压随访");
+            intent.putExtra("templateName", "随访");
+        else if(v.getId() == R.id.gxy_tj) {
+            intent.putExtra("templateName", "体检");
+            intent.putExtra("templateRes", "test.xml");
+        }
         startActivity(intent);
-
-
-
-
-//        Proxy.newProxyInstance(MainActivity.this.getClassLoader(), null, new InvocationHandler() {
-//            @Override
-//            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-//                return null;
-//            }
-//        });
     }
 }
