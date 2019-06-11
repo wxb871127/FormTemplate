@@ -1,9 +1,13 @@
 package template.view;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 
 import java.util.Map;
 
@@ -17,9 +21,11 @@ import util.TemplateParse;
  *  自定义表单View
  */
 public class TemplateView extends RecyclerView{
+    public static final int FLAG_EXCEPTION = 0x1;//异常标志
+    public static final int FLAG_REFUSE = 0x2;//拒检标志
+    private int mFlag = 0x0;
     private TemplateAdapter templateAdapter;
     protected Context mContext;
-//    private OnTemplateCommandListener listener;
 
     public TemplateView(Context context) {
         this(context, null);
@@ -34,10 +40,6 @@ public class TemplateView extends RecyclerView{
         mContext = context;
     }
 
-//    public void setListener(OnTemplateCommandListener listener){
-//        this.listener = listener;
-//    }
-
     public void initTemplate(String templateXml){
         TemplateParse.initTemplateStyle(mContext);
         TemplateList templates = TemplateParse.parseTemplateFile(mContext, templateXml);
@@ -50,13 +52,6 @@ public class TemplateView extends RecyclerView{
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         setLayoutManager(layoutManager);
         setAdapter(templateAdapter);
-//        templateAdapter.setListener(new OnTemplateCommandListener() {
-//            @Override
-//            public void onTemplateCommand(String name, String command) {
-//                if(listener != null)
-//                    listener.onTemplateCommand(name, command);
-//            }
-//        });
     }
 
     public TemplateList getTemplateList(){
@@ -71,6 +66,11 @@ public class TemplateView extends RecyclerView{
             }
         });
 
+    }
+
+    public void addFlags(int flag){
+        mFlag |= flag;
+        templateAdapter.setTemplateFlag(mFlag);
     }
 
     public void setEditMode(boolean edit){

@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import template.com.form.R;
+
 public class BaseViewHolder extends RecyclerView.ViewHolder{
 
     public BaseViewHolder(View itemView) {
@@ -39,6 +41,20 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
             layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             itemView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    //设置标志位 用于判断是否显示异常、拒检
+    public void setFlag(int flag){
+        if((flag & 1) != 0x0){
+            View view = getViewById(R.id.template_exception);
+            if(view != null)
+                view.setVisibility(View.VISIBLE);
+        }
+        if((flag & 2) != 0x00){
+            View view = getViewById(R.id.template_refuse);
+            if(view != null)
+                view.setVisibility(View.VISIBLE);
         }
     }
 }

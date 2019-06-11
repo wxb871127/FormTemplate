@@ -23,6 +23,7 @@ public class TemplateAdapter extends BaseTemplateAdapter {
     public Map<String, Object> valueMap;//表单数据
     private boolean editMode = true;//整张表单是否可编辑状态, 该状态优先级大于字段的editable
     private OnTemplateCommandListener listener;
+    private int mFlag = 0x0;
 
     public TemplateAdapter(Context context, TemplateList templates){// List<BaseTemplateControl> templates) {
         this(context, templates, new HashMap<String, Object>());
@@ -41,6 +42,10 @@ public class TemplateAdapter extends BaseTemplateAdapter {
         this.listener = listener;
     }
 
+    public void setTemplateFlag(int flag){
+        this.mFlag = flag;
+    }
+
     @Override
     protected BaseViewHolder getItemViewHolder(ViewGroup parent, int viewType) {
         int id = TemplateConfig.getTemplateLayoutByType(viewType);
@@ -57,6 +62,7 @@ public class TemplateAdapter extends BaseTemplateAdapter {
 
     @Override
     public int getItemCount() {
+        if(templates == null) return 0;
         return templates.size();
     }
 
@@ -68,7 +74,8 @@ public class TemplateAdapter extends BaseTemplateAdapter {
     @Override
     protected void onBindItemViewHolder(RecyclerView.ViewHolder holder, final int position) {
         BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
-        if(templateControl != null)
+        ((BaseViewHolder)holder).setFlag(mFlag);
+        if(templateControl != null) {
             templateControl.initView(context, (BaseViewHolder) holder, templateControl.getTemplate(), valueMap, editMode);
             templateControl.setTemplateListener(new BaseTemplateControl.OnTemplateListener() {
                 @Override
@@ -76,7 +83,7 @@ public class TemplateAdapter extends BaseTemplateAdapter {
                     valueMap.put(key.name, value);
                     try {
                         notifyDataSetChanged();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -84,10 +91,11 @@ public class TemplateAdapter extends BaseTemplateAdapter {
             templateControl.setCommandListener(new OnTemplateCommandListener() {
                 @Override
                 public void onTemplateCommand(String name, String command) {
-                    if(listener != null)
+                    if (listener != null)
                         listener.onTemplateCommand(name, command);
                 }
             });
+        }
     }
 
     private BaseTemplateControl getTemplateControl(BaseTemplate template){

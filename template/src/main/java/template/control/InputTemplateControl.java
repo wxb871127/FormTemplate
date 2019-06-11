@@ -42,9 +42,7 @@ public class InputTemplateControl extends BaseTemplateControl{
             map.put(template.name, object);
         try {
             if(template.editable != null && ExpressionUtil.getExpressionUtil().logicExpression(template.editable,  map, false)){
-                Toast.makeText(context, "数据异常,请重新输入", Toast.LENGTH_SHORT).show();
-                View view = getTemplateView(context);
-//                ((BaseTemplateView) view).initView(holder, name, "", true);
+                view.setException(true);
             }else
                 super.handleException(template, object, holder);
         } catch (Exception e) {

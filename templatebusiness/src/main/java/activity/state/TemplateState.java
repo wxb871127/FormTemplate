@@ -33,6 +33,7 @@ import static util.TemplateParse.getDocumentElement;
 
 
 public abstract class TemplateState {
+    protected TemplateView templateView = null;
     enum TemplateBusiness {
         ZX,
         PG,
@@ -69,28 +70,30 @@ public abstract class TemplateState {
         return business.res;
     }
 
-    public void initContentView(ViewGroup viewGroup){
-        TemplateView templateView = null;
-        if("0".equals(business.style)){
-            templateView = new TemplateView(context);
-            viewGroup.addView(templateView);
-            templateView.initTemplate(business.res);
-        }else if("1".equals(business.style)){
-            NavigationTemplateView navigationTemplateView = new NavigationTemplateView(context);
-            viewGroup.addView(navigationTemplateView);
-        }else if("2".equals(business.style)){
-            templateView = new TemplateView(context);
-            viewGroup.addView(templateView);
-            templateView.initTemplate(business.res);
-        }
+    protected void setTemplateFlag(){
 
-        final TemplateView finalTemplateView = templateView;
+    }
+
+    public void initContentView(ViewGroup viewGroup){
+//        if("0".equals(business.style)){
+            templateView = new TemplateView(context);
+            viewGroup.addView(templateView);
+            templateView.initTemplate(business.res);
+//        }else if("1".equals(business.style)){
+//            NavigationTemplateView navigationTemplateView = new NavigationTemplateView(context);
+//            viewGroup.addView(navigationTemplateView);
+//        }else if("2".equals(business.style)){
+//            templateView = new TemplateView(context);
+//            viewGroup.addView(templateView);
+//            templateView.initTemplate(business.res);
+//        }
+        setTemplateFlag();
         templateView.setTemplateListener(new OnTemplateCommandListener() {
             @Override
             public void onTemplateCommand(final String name, String command) {
                 CommandMsg commandmsg = CommandManager.getInstance(context).parseCommand(command);
-                if(finalTemplateView.getValue(name) != null)
-                    commandmsg.params = finalTemplateView.getValue(name).toString();
+                if(templateView.getValue(name) != null)
+                    commandmsg.params = templateView.getValue(name).toString();
 
                 CommandManager.getInstance(context).execute(commandmsg, new CommandCallback() {
                     @Override
@@ -100,8 +103,8 @@ public abstract class TemplateState {
 
                     @Override
                     public void onSuccess(Object object) {
-                         finalTemplateView.setValue(name, object);
-                         finalTemplateView.notifyData();
+                        templateView.setValue(name, object);
+                        templateView.notifyData();
                     }
                 });
             }

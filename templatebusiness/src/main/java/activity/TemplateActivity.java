@@ -29,7 +29,8 @@ public class TemplateActivity extends AppCompatActivity {
         String templateName = getIntent().getStringExtra("templateName");
         stateContext.setTemplateState(templateName);
         String templateRes = getIntent().getStringExtra("templateRes");
-        stateContext.getTemplateState().setRes(templateRes);
+        if(templateRes != null)
+            stateContext.getTemplateState().setRes(templateRes);
         initView(content, bottom);
     }
 

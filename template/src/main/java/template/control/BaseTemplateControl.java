@@ -99,6 +99,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
             if(object != null) {
                 showName = object.toString();
                 valueMap.put(template.name, object);
+                verifyData(template, object, valueMap, holder);
             }
         }else
             showName = template.getShowName(valueMap.get(template.name), context);
@@ -109,6 +110,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         view.setOnTemplateListener(new template.widget.OnTemplateListener() {
             @Override
             public void onDataChange(BaseTemplate template1,Object object) {
+                valueMap.put(template1.name, object);
                 verifyData(template1, object, valueMap, holder);
             }
         });
@@ -151,16 +153,17 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
             Boolean ret = ExpressionUtil.getExpressionUtil().logicExpression(template.exception, valueMap, false);
             if(ret){
                 handleException(template, object, holder);
-            }else {
-                if(listener != null)
-                    listener.onTemplateUpdate(template, object);
             }
+
+            if(listener != null)
+                listener.onTemplateUpdate(template, object);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     protected void handleException(BaseTemplate template, Object object, BaseViewHolder holder)  {
-        Toast.makeText(context, template.label+"数据异常", Toast.LENGTH_SHORT).show();
+        view.setException(true);
     }
 }

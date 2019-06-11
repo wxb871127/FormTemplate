@@ -35,6 +35,12 @@ public class TJTemplateState extends TemplateState{
     }
 
     @Override
+    protected void setTemplateFlag() {
+        super.setTemplateFlag();
+        templateView.addFlags(TemplateView.FLAG_EXCEPTION | TemplateView.FLAG_REFUSE);
+    }
+
+    @Override
     public void initBottomView(ViewGroup viewGroup) {
         viewGroup.removeAllViews();
         View view = LayoutInflater.from(context).inflate(R.layout.template_zx_state_bottom, viewGroup);
