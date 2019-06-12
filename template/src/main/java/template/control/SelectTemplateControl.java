@@ -35,9 +35,7 @@ public class SelectTemplateControl<T extends BaseTemplate> extends BaseTemplateC
 
     @Override
     public BaseTemplateDialog getDialog(Context context, BaseTemplate template) {
-//        SelectTemplateDialog selectTemplateDialog = new SelectTemplateDialog(context);
-//        return selectTemplateDialog;
-        RadioTemplateDialog dialog = new RadioTemplateDialog(context);
+        SelectTemplateDialog selectTemplateDialog = new SelectTemplateDialog(context);
         List<Item> itemList = new ArrayList<>();
         try {
             Map codeMap = ((RadioTemplate)template).getCodeMap();
@@ -56,6 +54,6 @@ public class SelectTemplateControl<T extends BaseTemplate> extends BaseTemplateC
             e.printStackTrace();
         }
         ((RadioTemplate) template).setShowItem(itemList);
-        return dialog;
+        return selectTemplateDialog;
     }
 }

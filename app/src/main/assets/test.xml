@@ -58,7 +58,7 @@
 
     <select
         name="ysxg"
-        label="请选择">
+        label="饮食习惯">
 
         <item
             name="减少食盐摄入"

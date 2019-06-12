@@ -27,10 +27,8 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected TextView hint;
     protected View refuse;//拒检
     protected ImageView refuseIcon;
-    protected boolean refuseState = false;
     protected View exception;//异常
     protected ImageView exceptionIcon;
-    protected boolean exceptionState = false;
     protected T template;
     protected Object value;
     protected OnTemplateListener templateListener;
@@ -76,8 +74,8 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             refuse.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    refuseState = !refuseState;
-                    setRefuse(refuseState);
+                    template.isRefuse = !template.isRefuse;
+                    setRefuse(template.isRefuse);
                 }
             });
         }
@@ -86,8 +84,8 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             exception.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    exceptionState = !exceptionState;
-                    setException(exceptionState);
+                    template.isException = !template.isException;
+                    setException(template.isException);
                 }
             });
         }
@@ -118,7 +116,6 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     }
 
     public void setRefuse(boolean ret){
-        refuseState = ret;
         if(refuseIcon == null) return;
         if(ret){
             refuseIcon.setBackground(getResources().getDrawable(R.drawable.radio_confim));
@@ -127,7 +124,6 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     }
 
     public void setException(boolean ret){
-        exceptionState = ret;
         if(exceptionIcon == null) return;
         if(ret){
             exceptionIcon.setBackground(getResources().getDrawable(R.drawable.radio_confim));

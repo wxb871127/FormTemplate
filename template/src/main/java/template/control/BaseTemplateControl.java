@@ -24,7 +24,7 @@ import template.widget.dialog.BaseTemplateDialog;
 public abstract class BaseTemplateControl<T extends BaseTemplate> {
     T template;
     protected Map<String, Object> valueMap;
-    protected BaseTemplateView view;
+//    protected BaseTemplateView view;
     protected BaseTemplateDialog dialog;
     protected OnTemplateListener listener;
     protected Context context;
@@ -78,7 +78,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
     public void initView(final Context context, final BaseViewHolder holder, final T template,
                          final Map<String, Object> valueMap, boolean editMode){
         this.valueMap = valueMap;
-        view = getTemplateView(context);
+        final BaseTemplateView templateView = getTemplateView(context);
         boolean editable;
         if(!editMode)
             editable = editMode;
@@ -88,30 +88,33 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         Object value = valueMap.get(template.name);
 
         ////初始化赋值
-        if(template.initValue!= null && !TextUtils.isEmpty(template.initValue)
-                && (value == null || TextUtils.isEmpty(value.toString()))) {
+        if(!TextUtils.isEmpty(template.initValue)
+                && (TextUtils.isEmpty(value.toString()))) {
             showName = template.getShowName(valueMap.get(template.name), context);
+            templateView.initView(holder, template, showName, editable);
         }
 
-        if(template.value != null && !TextUtils.isEmpty(template.value)){
+        if(!TextUtils.isEmpty(template.value)){
             ////根据value表达式计算值
             Object object = ExpressionUtil.getExpressionUtil().executeExpression(template.value, valueMap);
             if(object != null) {
                 showName = object.toString();
+                templateView.initView(holder, template, showName, editable);
                 valueMap.put(template.name, object);
-                verifyData(template, object, valueMap, holder);
+                verifyData(template, object, valueMap,templateView, holder);
             }
-        }else
+        }else {
             showName = template.getShowName(valueMap.get(template.name), context);
-
-        view.initView(holder, template, showName, editable);
+            templateView.initView(holder, template, showName, editable);
+        }
+//        templateView.initView(holder, template, showName, editable);
 
         holder.setShow(isShow(valueMap));
-        view.setOnTemplateListener(new template.widget.OnTemplateListener() {
+        templateView.setOnTemplateListener(new template.widget.OnTemplateListener() {
             @Override
             public void onDataChange(BaseTemplate template1,Object object) {
                 valueMap.put(template1.name, object);
-                verifyData(template1, object, valueMap, holder);
+                verifyData(template1, object, valueMap, templateView,holder);
             }
         });
 
@@ -119,26 +122,26 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         holder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickHolder(holder);
+                onClickHolder(templateView, holder, template);
             }
         });
     }
 
-    protected void onClickHolder(final BaseViewHolder holder){
+    protected void onClickHolder(final BaseTemplateView templateView ,final BaseViewHolder holder, T template){
         dialog = getDialog(context, template);
         if(dialog != null) {
             dialog.initDialog(template, valueMap.get(template.name));
             dialog.showDialog();
             dialog.setOnTemplateListener(new template.widget.OnTemplateListener() {
                 @Override
-                public void onDataChange(BaseTemplate template1, Object object) {
-                    verifyData(template1, object, valueMap, holder);
+                public void onDataChange(BaseTemplate template, Object object) {
+                    verifyData(template, object, valueMap, templateView, holder);
                 }
             });
         }
     }
 
-    protected void verifyData(BaseTemplate template, Object object, final Map<String, Object> valueMap, BaseViewHolder holder){
+    protected void verifyData(BaseTemplate template, Object object, final Map<String, Object> valueMap, final BaseTemplateView templateView, BaseViewHolder holder){
         if(TextUtils.isEmpty(template.exception)){
             if(listener != null)
                 listener.onTemplateUpdate(template, object);
@@ -152,7 +155,10 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         try {
             Boolean ret = ExpressionUtil.getExpressionUtil().logicExpression(template.exception, valueMap, false);
             if(ret){
-                handleException(template, object, holder);
+                handleException(template, object, templateView, holder);
+            }else{
+                template.isException = false;
+                templateView.setException(false);
             }
 
             if(listener != null)
@@ -163,7 +169,8 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         }
     }
 
-    protected void handleException(BaseTemplate template, Object object, BaseViewHolder holder)  {
-        view.setException(true);
+    protected void handleException(BaseTemplate template, Object object, final BaseTemplateView templateView, BaseViewHolder holder)  {
+        template.isException = true;
+        templateView.setException(true);
     }
 }
