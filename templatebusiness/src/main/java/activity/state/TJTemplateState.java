@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 
 import com.business.annotation.State;
 
+import org.json.JSONObject;
+
+import java.util.Map;
+
 import template.com.templatebusiness.R;
 import template.view.TemplateView;
 
@@ -47,7 +51,8 @@ public class TJTemplateState extends TemplateState{
         view.findViewById(R.id.template_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("updateData is ", business.updateData);
+//                Log.e("updateData is ", business.updateData);
+
             }
         });
     }

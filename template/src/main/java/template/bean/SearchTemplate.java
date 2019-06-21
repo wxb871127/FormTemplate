@@ -13,7 +13,7 @@ import java.util.Map;
 
 import base.annotation.Template;
 import template.com.templatedb.DaoManager;
-import util.TemplateParse;
+import base.util.TemplateParse;
 
 @Template(tag = "search")
 public class SearchTemplate extends BaseTemplate{

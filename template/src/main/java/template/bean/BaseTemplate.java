@@ -8,9 +8,14 @@ import org.w3c.dom.Element;
 import java.lang.reflect.Field;
 
 import base.util.ReflectUtil;
+import template.widget.tree.annotation.TreeNodeId;
+import template.widget.tree.annotation.TreeNodeParentId;
 
 public abstract class BaseTemplate {
+    @TreeNodeId
     public String name;//字段名
+    @TreeNodeParentId
+    public String parentName;//父节点的字段名
     public String label;//标题
     public String required;//必填项
     public String unit;//单位

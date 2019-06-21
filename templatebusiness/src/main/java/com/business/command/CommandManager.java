@@ -1,12 +1,10 @@
 package com.business.command;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.business.callback.CommandCallback;
 import com.business.command.bean.CommandMsg;
 import com.business.command.commands.ActivityCommand;
-import com.business.command.commands.ICommand;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,7 +13,7 @@ import org.w3c.dom.NodeList;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static util.TemplateParse.getDocumentElement;
+import static base.util.TemplateParse.getDocumentElement;
 
 
 public class CommandManager {

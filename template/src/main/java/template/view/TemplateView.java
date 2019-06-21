@@ -1,21 +1,16 @@
 package template.view;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 
 import java.util.Map;
 
-import template.bean.BaseTemplate;
 import template.bean.TemplateList;
 import template.interfaces.OnTemplateCommandListener;
 import template.widget.TemplateAdapter;
-import util.TemplateParse;
+import base.util.TemplateParse;
 
 /**
  *  自定义表单View
@@ -81,13 +76,15 @@ public class TemplateView extends RecyclerView{
         templateAdapter.putValue(key, value);
     }
 
-    public <T extends Object> T getValue(String key){
+    public Object  getValue(String key){
         return templateAdapter.getValue(key);
     }
 
     public Map<String, Object> getValueMap(){
         return templateAdapter.valueMap;
     }
+
+
 
     public void notifyData(){
         templateAdapter.notifyDataSetChanged();

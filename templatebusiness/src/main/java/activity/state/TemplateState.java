@@ -1,35 +1,23 @@
 package activity.state;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.business.annotation.State;
 import com.business.callback.CommandCallback;
 import com.business.command.CommandManager;
 import com.business.command.bean.CommandMsg;
-import com.business.command.commands.ActivityCommand;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.Map;
 
-import template.com.templatebusiness.R;
 import template.interfaces.OnTemplateCommandListener;
-import template.view.NavigationMenuView;
-import template.view.NavigationTemplateView;
-import template.view.SlidPageTemplateView;
 import template.view.TemplateView;
-
-import static util.TemplateParse.getDocumentElement;
 
 
 public abstract class TemplateState {
@@ -110,6 +98,22 @@ public abstract class TemplateState {
             }
         });
 
+    }
+
+    protected Map<String, Object> getValueMap(){
+        return templateView.getValueMap();
+    }
+
+    protected JSONObject getValueData(){
+        Map<String, Object> map = templateView.getValueMap();
+        Gson gson = new Gson();
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(gson.toJson(map));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 
     public void setRes(String res){

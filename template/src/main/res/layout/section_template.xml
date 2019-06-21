@@ -5,28 +5,24 @@
     android:gravity="center_vertical"
     android:background="@drawable/list_item_buttom_selector"
     android:padding="@dimen/dp10">
-
+    <!--
+    >
+-->
     <FrameLayout
         android:id="@+id/section_template_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp">
-
-        <!--<ImageView-->
-            <!--android:layout_width="@dimen/dp5"-->
-            <!--android:layout_height="@dimen/dp15"-->
-            <!--android:layout_marginLeft="@dimen/dp8"-->
-            <!--android:layout_marginRight="@dimen/dp7"-->
-            <!--android:background="@color/cfbad22"-->
-            <!--/>-->
+        <!---->
 
         <ImageView
             android:layout_width="@dimen/dp7"
             android:layout_height="@dimen/dp15"
-            android:layout_marginLeft="@dimen/dp7"
+
             android:layout_marginRight="@dimen/dp7"
             android:background="@drawable/bg_section_selector"
             />
+        <!--android:layout_marginLeft="@dimen/dp7"-->
 
         <TextView
             android:layout_width="wrap_content"

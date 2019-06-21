@@ -6,7 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import base.annotation.Template;
@@ -15,8 +19,10 @@ import template.bean.TemplateList;
 import template.config.TemplateConfig;
 import template.control.BaseTemplateControl;
 import template.interfaces.OnTemplateCommandListener;
+import template.widget.tree.Node;
+import template.widget.tree.TreeViewAdapter;
 
-public class TemplateAdapter extends BaseTemplateAdapter {
+public class TemplateAdapter extends TreeViewAdapter {
     protected TemplateList templates;
     protected Context context;
     protected LayoutInflater mLayoutInflater;
@@ -25,11 +31,15 @@ public class TemplateAdapter extends BaseTemplateAdapter {
     private OnTemplateCommandListener listener;
     private int mFlag = 0x0;
 
-    public TemplateAdapter(Context context, TemplateList templates){// List<BaseTemplateControl> templates) {
+    public TemplateAdapter(Context context, TemplateList templates){
         this(context, templates, new HashMap<String, Object>());
     }
 
-    TemplateAdapter(Context context, TemplateList templates, Map<String, Object> outMap) {
+    TemplateAdapter(Context context, TemplateList templates, Map<String, Object> outMap){
+        ArrayList list = templates;
+        setDatas(list);
+        setLevel(2);
+        initSetting();
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
         this.templates = templates;
@@ -61,20 +71,15 @@ public class TemplateAdapter extends BaseTemplateAdapter {
     }
 
     @Override
-    public int getItemCount() {
-        if(templates == null) return 0;
-        return templates.size();
-    }
-
-    @Override
     public long getItemId(int position) {//防止刷新recyckerView焦点丢失问题
         return position;
     }
 
     @Override
-    protected void onBindItemViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    protected void onBindItemViewHolder(RecyclerView.ViewHolder holder, final int position, final Node node) {
         BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
         ((BaseViewHolder)holder).setFlag(mFlag);
+        ((BaseViewHolder) holder).getConvertView().setPadding(node.getLevel() * 30,3,3,3);
         if(templateControl != null) {
             templateControl.initView(context, (BaseViewHolder) holder, templateControl.getTemplate(), valueMap, editMode);
             templateControl.setTemplateListener(new BaseTemplateControl.OnTemplateListener() {
@@ -114,12 +119,12 @@ public class TemplateAdapter extends BaseTemplateAdapter {
         return mLayoutInflater.inflate(layoutResId, parent, false);
     }
 
-    public <T extends Object> void putValue(String key, T value){
+    public void putValue(String key, Object value){
         valueMap.put(key, value);
     }
 
-    public <T extends Object> T getValue(String key){
-        return (T) valueMap.get(key);
+    public Object getValue(String key){
+        return  valueMap.get(key);
     }
 
     public void addValueMap(Map<String, Object> outMap){

@@ -1,4 +1,4 @@
-package util;
+package base.util;
 
 import android.content.Context;
 
@@ -73,6 +73,8 @@ public class TemplateParse {
                 if (templateClass != null) {
                     BaseTemplate template = templateClass.newInstance();
                     template.parseElement(element);
+                    Element e = (Element) element.getParentNode();
+                    template.parentName = e.getAttribute("name");
                     if (sectionTemplate != null) {
                         template.setSectionTemplate(sectionTemplate);
                     }
