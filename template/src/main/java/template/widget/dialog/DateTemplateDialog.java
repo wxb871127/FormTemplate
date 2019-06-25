@@ -3,13 +3,8 @@ package template.widget.dialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.widget.DatePicker;
-
 import java.util.Calendar;
-import java.util.Date;
-
 import base.util.DateUtil;
 import template.bean.DateTemplate;
 
@@ -20,7 +15,7 @@ public class DateTemplateDialog extends BaseTemplateDialog<DateTemplate>
     }
 
     @Override
-    public <S> void initDialog(DateTemplate template, S value) {
+    public void initDialog(DateTemplate template, Object value) {
         super.initDialog(template, value);
         updateDialog(value);
     }

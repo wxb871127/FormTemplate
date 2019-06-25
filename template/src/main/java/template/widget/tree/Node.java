@@ -66,11 +66,9 @@ public class Node
     {
         isExpand = expand;
         //设置收缩状态
-        if(!isExpand)
-        {
+        if(!isExpand) {
             //所有子节点都设置成false
-            for(Node node : children)
-            {
+            for(Node node : children) {
                 node.setExpand(isExpand);
             }
         }

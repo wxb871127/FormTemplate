@@ -3,7 +3,6 @@ package template.widget;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-
 import template.bean.SelectTemplate;
 
 public class SelectTemplateView extends BaseTemplateView<SelectTemplate>{
@@ -30,5 +29,9 @@ public class SelectTemplateView extends BaseTemplateView<SelectTemplate>{
             text.setText("");
             hint.setText("请选择（可多选）");
         }
+
+        String codes = template.getCodes(value);
+        if(!TextUtils.isEmpty(codes))
+            notifyItemViewData(codes);
     }
 }

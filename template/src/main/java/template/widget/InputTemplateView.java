@@ -71,24 +71,24 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     public void initView(BaseViewHolder holder, final InputTemplate template, Object value, final boolean editable) {
         super.initView(holder, template, value, editable);
         holder.getConvertView().setClickable(false);
-        quote = (ImageView)holder.getViewById(R.id.common_template_quote);
-        if(value != null && template.decimalFormat != null) {
+        quote = (ImageView) holder.getViewById(R.id.common_template_quote);
+        if (value != null && template.decimalFormat != null) {
             try {
                 DecimalFormat format = new DecimalFormat(template.decimalFormat);
                 value = format.format(new BigDecimal(value.toString()));
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
         }
-        if("true".equals(template.quote)){
+        if ("true".equals(template.quote)) {
             quote.setVisibility(VISIBLE);
         }
 
-        if(editable){
+        if (editable) {
             text.setVisibility(View.INVISIBLE);
             editText.setVisibility(View.VISIBLE);
             editText.setHint("");
-            if(!TextUtils.isEmpty(template.hint))
+            if (!TextUtils.isEmpty(template.hint))
                 editText.setHint("请输入" + template.hint);
             else
                 editText.setHint("请输入" + template.getShowName(template.label, null));
@@ -96,12 +96,12 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
 
             if (TextUtils.isEmpty(template.inputType)) {
                 editText.setInputType(0x20001);
-            }else
+            } else
                 editText.setInputType(INPUT_TYPE.get(template.inputType));
 
-           if(editText.getTag() instanceof TextWatcher){//防止recyclerView刷新 触发TextWatcher事件
-                editText.removeTextChangedListener((TextWatcher)editText.getTag());
-           }
+            if (editText.getTag() instanceof TextWatcher) {//防止recyclerView刷新 触发TextWatcher事件
+                editText.removeTextChangedListener((TextWatcher) editText.getTag());
+            }
 
             editText.setText(value.toString());
             if (template.maxLength > 0) {
@@ -121,24 +121,33 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    if (templateListener != null) {
-                        if("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
-                            try {
-                                templateListener.onDataChange(template, new BigDecimal(s.toString()));
-                            }catch (NumberFormatException e){
-                                e.printStackTrace();
-                            }
-                        }else
-                            templateListener.onDataChange(template, s.toString());
-                    }
+                    if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
+                        try {
+                            notifyItemViewData(new BigDecimal(s.toString()));
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
+                    } else
+                        notifyItemViewData(s.toString());
                 }
             };
             editText.setTag(textWatcher);
             editText.addTextChangedListener(textWatcher);
-        }else {
+        } else {
             text.setVisibility(View.VISIBLE);
             editText.setVisibility(View.INVISIBLE);
             text.setText(value.toString());
+        }
+
+        if (value != null && !TextUtils.isEmpty(value.toString())) {
+            if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
+                try {
+                    notifyItemViewData(new BigDecimal(value.toString()));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            } else
+                notifyItemViewData(value.toString());
         }
     }
 }

@@ -4,11 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.TextUtils;
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import template.bean.SelectTemplate;
 
 public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate>
@@ -22,7 +19,7 @@ public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate>
     }
 
     @Override
-    public <String> void initDialog(SelectTemplate template, String value) {
+    public void initDialog(SelectTemplate template, Object value) {
         super.initDialog(template, value);
         java.lang.String v = "";
         if(value != null)
@@ -65,7 +62,7 @@ public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate>
                 listener.onDataChange(template, "");
         }else if(DialogInterface.BUTTON_POSITIVE == which){
             for(int i=0; i<selectedItem.size(); i++){
-                if(i != selectedItem.size())
+                if(i != selectedItem.size()-1)
                     selected += selectedItem.get(i) + ",";
                 else selected += selectedItem.get(i);
             }

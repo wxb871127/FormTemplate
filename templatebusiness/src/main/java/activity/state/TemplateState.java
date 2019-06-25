@@ -9,12 +9,16 @@ import com.business.callback.CommandCallback;
 import com.business.command.CommandManager;
 import com.business.command.bean.CommandMsg;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Element;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import template.interfaces.OnTemplateCommandListener;
 import template.view.TemplateView;
@@ -106,12 +110,23 @@ public abstract class TemplateState {
 
     protected JSONObject getValueData(){
         Map<String, Object> map = templateView.getValueMap();
-        Gson gson = new Gson();
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = new JSONObject(gson.toJson(map));
-        } catch (JSONException e) {
-            e.printStackTrace();
+//        Gson gson = new Gson();
+//        JSONObject jsonObject = null;
+//        try {
+//            jsonObject = new JSONObject(gson.toJson(map));
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+        Set<String> keys = map.keySet();
+        JSONObject jsonObject = new JSONObject();
+        for (String key : keys) {
+            Object v = map.get(key);
+            String value = null == v ? "" : v.toString();
+            try {
+                jsonObject.put(key, value);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         return jsonObject;
     }

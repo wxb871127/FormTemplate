@@ -3,10 +3,8 @@ package template.widget.dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.database.Cursor;
-import android.hardware.Camera;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +13,10 @@ import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.templatedb.greendao.AreaDao;
-
 import org.greenrobot.greendao.database.Database;
-
 import template.bean.SearchTemplate;
 import template.com.form.R;
-import template.com.templatedb.Area;
 import template.com.templatedb.DaoManager;
-import template.com.templatedb.Drug;
 
 public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
     private View view;
@@ -37,7 +29,7 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
     }
 
     @Override
-    public <S> void initDialog(final SearchTemplate template, S value) {
+    public void initDialog(final SearchTemplate template, Object value) {
         super.initDialog(template, value);
         view = LayoutInflater.from(mContext).inflate(R.layout.search_template_dialog, null);
         editText = (EditText) view.findViewById(R.id.template_search_dialog_text);

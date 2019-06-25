@@ -56,21 +56,15 @@ public class TreeViewHelper {
     private static void settingNodeRelation(List<Node> nodes)
     {
         //设置关系
-        for(int i = 0;i < nodes.size();i++)
-        {
+        for(int i = 0;i < nodes.size();i++) {
             Node n = nodes.get(i);
-            for(int j = i + 1;j < nodes.size();j++)
-            {
+            for(int j = i + 1;j < nodes.size();j++) {
                 Node m = nodes.get(j);
                 //n的父节点的id等于m节点的id;也就是m节点是n的父节点
-                if(n.getpId() == m.getId())
-                {
+                if(n.getpId() == m.getId()) {
                     m.getChildren().add(n);
                     n.setParent(m);
-                }
-                //同理
-                else if(m.getpId() == n.getId())
-                {
+                } else if(m.getpId() == n.getId()) {
                     n.getChildren().add(m);
                     m.setParent(n);
                 }
@@ -83,8 +77,7 @@ public class TreeViewHelper {
      */
     private static void settingNodeIcon(List<Node> nodes)
     {
-        for(Node no : nodes)
-        {
+        for(Node no : nodes) {
             setNodeIcon(no);
         }
     }
@@ -96,11 +89,9 @@ public class TreeViewHelper {
     public static void setNodeIcon(Node node)
     {
         //有子节点
-        if(node.getChildren().size() > 0)
-        {
+        if(node.getChildren().size() > 0) {
             //展开
-            if(node.isExpand())
-            {
+            if(node.isExpand()) {
 //                node.setIconId(R.mipmap.icon_expand);
                 return;
             }
@@ -129,15 +120,12 @@ public class TreeViewHelper {
          * 类似于采用深度遍历树
          * PS:另外的方法，前序遍历树
          */
-        //***********************************************************
         //获取根节点
         List<Node> rootNodes = getRootNodes(oldNodes);
-        for(Node node : rootNodes)
-        {
+        for(Node node : rootNodes) {
             //默认级别为1
             addNode(newNodes,node,defaultLevel,CURRENT_LEVEL);
         }
-        //***********************************************************
         return newNodes;
     }
 
@@ -154,16 +142,14 @@ public class TreeViewHelper {
         //添加节点
         newNodes.add(node);
         //设置展开的级别
-        if(defaultLevel >= currentLevel)
-        {
+        if(defaultLevel >= currentLevel) {
             node.setExpand(true);
         }
         //叶子节点，也就是最后了，不用再遍历
         if(node.isLeaf())
             return;
         //遍历子节点
-        for(int i = 0;i < node.getChildren().size();i++)
-        {
+        for(int i = 0;i < node.getChildren().size();i++) {
             addNode(newNodes,node.getChildren().get(i),defaultLevel,currentLevel + 1);
         }
 
@@ -177,10 +163,8 @@ public class TreeViewHelper {
 
         List<Node> visibleNodes = new ArrayList<>();
 
-        for(Node node : nodes)
-        {
-            if(node.isRoot() || node.isParentExpand())
-            {
+        for(Node node : nodes) {
+            if(node.isRoot() || node.isParentExpand()) {
                 //设置节点的图标
                 setNodeIcon(node);
 
@@ -200,10 +184,8 @@ public class TreeViewHelper {
     private static List<Node> getRootNodes(List<Node> oldNodes)
     {
         List<Node> rootNode = new ArrayList<>();
-        for(Node node : oldNodes)
-        {
-            if(node.isRoot())
-            {
+        for(Node node : oldNodes) {
+            if(node.isRoot()) {
                 rootNode.add(node);
             }
         }

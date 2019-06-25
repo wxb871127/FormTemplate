@@ -51,8 +51,8 @@ public class TJTemplateState extends TemplateState{
         view.findViewById(R.id.template_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Log.e("updateData is ", business.updateData);
-
+                JSONObject jsonObject = getValueData();
+                Log.e("xxxxxxx", jsonObject.toString());
             }
         });
     }

@@ -85,29 +85,15 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         else editable = isEditable(valueMap);
 
         String showName = "";
-        Object value = valueMap.get(template.name);
-
-        ////初始化赋值
-        if(!TextUtils.isEmpty(template.initValue)
-                && (TextUtils.isEmpty(value.toString()))) {
-            showName = template.getShowName(valueMap.get(template.name), context);
-            templateView.initView(holder, template, showName, editable);
-        }
-
-        if(!TextUtils.isEmpty(template.value)){
-            ////根据value表达式计算值
+        if(!TextUtils.isEmpty(template.value)){////value表达式不为空 计算表达式值
             Object object = ExpressionUtil.getExpressionUtil().executeExpression(template.value, valueMap);
-            if(object != null) {
+            if(object != null)
                 showName = object.toString();
-                templateView.initView(holder, template, showName, editable);
-                valueMap.put(template.name, object);
-                verifyData(template, object, valueMap,templateView, holder);
-            }
-        }else {
+        }else {//当前值为空则赋值初始值 当前值不为空使用当前值
             showName = template.getShowName(valueMap.get(template.name), context);
-            templateView.initView(holder, template, showName, editable);
+            if(TextUtils.isEmpty(showName) && !TextUtils.isEmpty(template.initValue))
+                showName = template.getShowName(template.initValue, context);
         }
-//        templateView.initView(holder, template, showName, editable);
 
         holder.setShow(isShow(valueMap));
         templateView.setOnTemplateListener(new template.widget.OnTemplateListener() {
@@ -117,6 +103,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
                 verifyData(template1, object, valueMap, templateView,holder);
             }
         });
+        templateView.initView(holder, template, showName, editable);
 
         if(isEditable(valueMap))
         holder.setOnClickListener(new View.OnClickListener() {
@@ -142,31 +129,24 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
     }
 
     protected void verifyData(BaseTemplate template, Object object, final Map<String, Object> valueMap, final BaseTemplateView templateView, BaseViewHolder holder){
-        if(TextUtils.isEmpty(template.exception)){
-            if(listener != null)
-                listener.onTemplateUpdate(template, object);
-            return;
-        }
-
-        if(object instanceof BigDecimal){
-            valueMap.put (template.name, ((BigDecimal) object).doubleValue());
-        }else
-            valueMap.put(template.name, object);
-        try {
-            Boolean ret = ExpressionUtil.getExpressionUtil().logicExpression(template.exception, valueMap, false);
-            if(ret){
-                handleException(template, object, templateView, holder);
-            }else{
-                template.isException = false;
-                templateView.setException(false);
+        valueMap.put(template.name, object);
+        if(TextUtils.isEmpty(object.toString()))//清空值时同时清空初始值
+            template.initValue = "";
+        if(!TextUtils.isEmpty(template.exception)) {
+            try {
+                Boolean ret = ExpressionUtil.getExpressionUtil().logicExpression(template.exception, valueMap, false);
+                if (ret) {
+                    handleException(template, object, templateView, holder);
+                } else {
+                    template.isException = false;
+                    templateView.setException(false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            if(listener != null)
-                listener.onTemplateUpdate(template, object);
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        if (listener != null)
+            listener.onTemplateUpdate(template, object);
     }
 
     protected void handleException(BaseTemplate template, Object object, final BaseTemplateView templateView, BaseViewHolder holder)  {

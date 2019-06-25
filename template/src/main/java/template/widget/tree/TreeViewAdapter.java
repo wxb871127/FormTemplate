@@ -3,7 +3,6 @@ package template.widget.tree;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import java.util.List;
-
 import template.widget.BaseViewHolder;
 
 public abstract class TreeViewAdapter<T> extends RecyclerView.Adapter {

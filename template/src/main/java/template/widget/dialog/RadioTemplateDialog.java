@@ -25,7 +25,7 @@ public class RadioTemplateDialog extends BaseTemplateDialog<RadioTemplate> {
     }
 
     @Override
-    public <String> void initDialog(final RadioTemplate template, String value) {
+    public void initDialog(final RadioTemplate template, Object value) {
         super.initDialog(template, value);
         view = LayoutInflater.from(mContext).inflate(R.layout.radio_template_dialog, null);
         TextView title = (TextView) view.findViewById(R.id.radio_template_dialog_title);

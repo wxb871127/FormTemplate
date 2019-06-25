@@ -29,5 +29,9 @@ public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
             text.setText("");
             hint.setText("请选择");
         }
+        if (value != null && !TextUtils.isEmpty(value.toString())) {
+            String code = template.getCode(value.toString());
+            notifyItemViewData(code);
+        }
     }
 }

@@ -35,4 +35,16 @@ public class SelectTemplate extends RadioTemplate{
         }
         return name;
     }
+
+    public String getCodes(Object object){
+        if(object == null) return "";
+        String[] showName = object.toString().split(",");
+        String codes = "";
+        for(int i=0; i < showName.length; i++){
+            if(i != showName.length-1)
+                codes += getCode(showName[i]) + ",";
+            else codes += getCode(showName[i]);
+        }
+        return codes;
+    }
 }

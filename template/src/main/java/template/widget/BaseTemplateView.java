@@ -113,6 +113,12 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
                     text.setTextColor(getResources().getColor(R.color.B0));
             }
         }
+//        notifyItemViewData(value);
+    }
+
+    protected void notifyItemViewData(Object object){
+        if(templateListener != null)
+            templateListener.onDataChange(template, object);
     }
 
     public void setRefuse(boolean ret){

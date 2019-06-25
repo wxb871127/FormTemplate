@@ -1,9 +1,7 @@
 package template.widget.dialog;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-
 import template.bean.BaseTemplate;
 import template.widget.OnTemplateListener;
 
@@ -22,7 +20,7 @@ public class BaseTemplateDialog<T extends BaseTemplate> {
         this.mContext = mContext;
     }
 
-    public <S extends Object> void initDialog(T template, S value){
+    public void initDialog(T template, Object value){
         this.template = template;
         this.value = value;
     }
