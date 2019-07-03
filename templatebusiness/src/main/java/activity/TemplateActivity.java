@@ -2,10 +2,16 @@ package activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.convert.TemplateConverterFactory;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import activity.state.TemplateStateContext;
 import template.com.form.R;
@@ -31,6 +37,13 @@ public class TemplateActivity extends AppCompatActivity {
         String templateRes = getIntent().getStringExtra("templateRes");
         if(templateRes != null)
             stateContext.getTemplateState().setRes(templateRes);
+        String templateData = getIntent().getStringExtra("templateData");
+        try {
+            if(!TextUtils.isEmpty(templateData))
+                stateContext.getTemplateState().setTemplateData(new JSONObject(templateData));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         initView(content, bottom);
     }
 

@@ -1,6 +1,10 @@
 package base.util;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+
+import base.annotation.AttrTemplate;
+import template.widget.tree.annotation.TreeNodeId;
 
 public class ReflectUtil {
 
@@ -80,5 +84,35 @@ public class ReflectUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public static Field[] findFieldByAnnotation(Class clazz, Class annotation){
+        if(clazz.getName().equals("java.lang.Object"))
+            return null;
+		Field[] fields = clazz.getDeclaredFields();
+		boolean find = false;
+		for(int i = 0; i < fields.length; i++) {
+			if(fields[i].getAnnotation(annotation) == null){
+				fields[i] = null;
+			}else
+				find = true;
+		}
+		if(find)
+			return fields;
+		return findFieldByAnnotation(clazz.getSuperclass(), annotation);
+	}
+
+	public static Object getFieldValue(Class clazz, String fieldName){
+		try {
+			Field field = clazz.getField(fieldName);
+            return field.get(clazz.newInstance());
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		}catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

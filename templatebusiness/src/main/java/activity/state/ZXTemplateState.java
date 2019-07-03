@@ -68,5 +68,8 @@ public class ZXTemplateState extends TemplateState {
             templateView.setEditMode(true);
             }
         });
+        if(!Boolean.parseBoolean(business.edit)){
+            view.setVisibility(View.GONE);
+        }
     }
 }

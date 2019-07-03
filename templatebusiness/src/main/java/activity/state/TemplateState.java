@@ -8,15 +8,13 @@ import com.business.annotation.State;
 import com.business.callback.CommandCallback;
 import com.business.command.CommandManager;
 import com.business.command.bean.CommandMsg;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.convert.Converter;
+import com.convert.TemplateConverterFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Element;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,14 +32,18 @@ public abstract class TemplateState {
         protected String getData;
         protected String updateData;
         protected String name;
+        protected String edit;//初始化是否可编辑
         protected String res;//对应的表单xml文件
         protected String style;//0 不带装饰 1 带有导航栏 2左右滑动页 3带导航的左右滑动页
     }
     TemplateBusiness business;
     protected Context context;
+    protected Converter.Factory factory;
+    private JSONObject jsonObject;
 
     public TemplateState(Context context){
         this.context = context;
+        factory = new TemplateConverterFactory();
     }
 
     public void parseBusiness(Element element){
@@ -52,6 +54,7 @@ public abstract class TemplateState {
         business.res = element.getAttribute("res");
         business.updateData = element.getAttribute("updateData");
         business.style = element.getAttribute("style");
+        business.edit = element.getAttribute("edit");
     }
 
     public String getTemplateName(){
@@ -66,19 +69,29 @@ public abstract class TemplateState {
 
     }
 
+    public void setConverterFactory(Converter.Factory factory){
+        this.factory = factory;
+    }
+
+    public void setTemplateData(JSONObject jsonObject){
+        this.jsonObject = jsonObject;
+    }
+
     public void initContentView(ViewGroup viewGroup){
-//        if("0".equals(business.style)){
-            templateView = new TemplateView(context);
-            viewGroup.addView(templateView);
-            templateView.initTemplate(business.res);
-//        }else if("1".equals(business.style)){
-//            NavigationTemplateView navigationTemplateView = new NavigationTemplateView(context);
-//            viewGroup.addView(navigationTemplateView);
-//        }else if("2".equals(business.style)){
-//            templateView = new TemplateView(context);
-//            viewGroup.addView(templateView);
-//            templateView.initTemplate(business.res);
-//        }
+        templateView = new TemplateView(context);
+        viewGroup.addView(templateView);
+        templateView.initTemplate(business.res);
+        templateView.setEditMode(Boolean.parseBoolean(business.edit));
+
+        if(jsonObject != null) {
+            Map map = (Map<String, Object>) factory.inputConverter().convert(jsonObject);
+            templateView.setValue(map);
+            if(factory.attrInputConverter() != null) {
+                Map attrMap = (Map<String, Object>) factory.attrInputConverter().convert(jsonObject);
+                if (attrMap != null)
+                    templateView.setAttrValue(attrMap);
+            }
+        }
         setTemplateFlag();
         templateView.setTemplateListener(new OnTemplateCommandListener() {
             @Override
@@ -110,24 +123,8 @@ public abstract class TemplateState {
 
     protected JSONObject getValueData(){
         Map<String, Object> map = templateView.getValueMap();
-//        Gson gson = new Gson();
-//        JSONObject jsonObject = null;
-//        try {
-//            jsonObject = new JSONObject(gson.toJson(map));
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-        Set<String> keys = map.keySet();
-        JSONObject jsonObject = new JSONObject();
-        for (String key : keys) {
-            Object v = map.get(key);
-            String value = null == v ? "" : v.toString();
-            try {
-                jsonObject.put(key, value);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+        Map<String, Object> attrMap = templateView.getAttrValueMap();
+        JSONObject jsonObject = factory.outputConverter().convert(map,attrMap);
         return jsonObject;
     }
 

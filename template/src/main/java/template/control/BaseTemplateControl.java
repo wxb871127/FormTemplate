@@ -3,14 +3,19 @@ package template.control;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Field;
+import java.sql.Ref;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
-import base.annotation.Template;
+import base.annotation.AttrTemplate;
 import base.util.ExpressionUtil;
+import base.util.ReflectUtil;
 import template.bean.BaseTemplate;
 import template.interfaces.OnTemplateCommandListener;
 import template.widget.BaseTemplateView;
@@ -76,7 +81,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
     }
 
     public void initView(final Context context, final BaseViewHolder holder, final T template,
-                         final Map<String, Object> valueMap, boolean editMode){
+                         final Map<String, Object> valueMap, final Map<String, Object> attrMap,boolean editMode){
         this.valueMap = valueMap;
         final BaseTemplateView templateView = getTemplateView(context);
         boolean editable;
@@ -95,12 +100,45 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
                 showName = template.getShowName(template.initValue, context);
         }
 
+        if(attrMap != null){
+            JSONObject jsonObject = (JSONObject) attrMap.get(template.name);
+            if(jsonObject != null) {
+                Iterator<String> iterator = jsonObject.keys();
+                while (iterator.hasNext()) {
+                    String key = iterator.next();
+                    Field[] fields = ReflectUtil.findFieldByAnnotation(template.getClass(), AttrTemplate.class);
+                    for(Field field : fields){
+                        if(field != null){
+                            AttrTemplate attrTemplate = field.getAnnotation(AttrTemplate.class);
+                            if(key.equals(attrTemplate.attr()))
+                                ReflectUtil.setFiled(template, field, String.valueOf(jsonObject.optBoolean(key)));
+                        }
+                    }
+                }
+            }
+        }
+
         holder.setShow(isShow(valueMap));
         templateView.setOnTemplateListener(new template.widget.OnTemplateListener() {
             @Override
             public void onDataChange(BaseTemplate template1,Object object) {
                 valueMap.put(template1.name, object);
                 verifyData(template1, object, valueMap, templateView,holder);
+            }
+
+            @Override
+            public void onAttrClick(BaseTemplate template, String attrName) {
+                try {
+                    JSONObject jsonObject = (JSONObject) attrMap.get(template.name);
+                    Object object = ReflectUtil.getFieldValue(template.getClass(), attrName);
+                    if(object != null) {
+                        if(jsonObject == null)
+                            jsonObject = new JSONObject();
+                        jsonObject.put(attrName, object);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
         templateView.initView(holder, template, showName, editable);
@@ -123,6 +161,11 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
                 @Override
                 public void onDataChange(BaseTemplate template, Object object) {
                     verifyData(template, object, valueMap, templateView, holder);
+                }
+
+                @Override
+                public void onAttrClick(BaseTemplate template, String attrName) {
+
                 }
             });
         }

@@ -13,9 +13,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import template.bean.BaseTemplate;
 import template.bean.SectionTemplate;
-import template.bean.TemplateList;
 import template.config.TemplateConfig;
-import template.control.BaseTemplateControl;
 
 public class TemplateParse {
     private static Element templateStyleElement = null;

@@ -4,35 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/gxy_zx"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="专项"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/gxy_zx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="专项"/>
 
-    <Button
-        android:id="@+id/gxy_pg"
+        <Button
+            android:id="@+id/gxy_pg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="评估"/>
+
+        <Button
+            android:id="@+id/gxy_sf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="随访"/>
+
+        <Button
+            android:id="@+id/gxy_tj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="体检"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp20"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="评估"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/history_zx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="专项记录"/>
 
-    <Button
-        android:id="@+id/gxy_sf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="随访"/>
+        <Button
+            android:id="@+id/history_pg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="评估记录"/>
 
-    <Button
-        android:id="@+id/gxy_tj"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="体检"/>
+        <Button
+            android:id="@+id/history_sf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="随访记录"/>
 
+        <Button
+            android:id="@+id/history_tj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="体检记录"/>
+    </LinearLayout>
 </LinearLayout>

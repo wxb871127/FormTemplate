@@ -5,12 +5,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import base.annotation.AttrTemplate;
 import base.annotation.Template;
+import base.util.ReflectUtil;
 import template.bean.BaseTemplate;
-import template.bean.TemplateList;
+import base.util.TemplateList;
 import template.config.TemplateConfig;
 import template.control.BaseTemplateControl;
 import template.interfaces.OnTemplateCommandListener;
@@ -22,6 +30,7 @@ public class TemplateAdapter extends TreeViewAdapter {
     protected Context context;
     protected LayoutInflater mLayoutInflater;
     public Map<String, Object> valueMap;//表单数据
+    public Map<String, Object> attrMap;//model属性数据
     private boolean editMode = true;//整张表单是否可编辑状态, 该状态优先级大于字段的editable
     private OnTemplateCommandListener listener;
     private int mFlag = 0x0;
@@ -39,6 +48,23 @@ public class TemplateAdapter extends TreeViewAdapter {
         mLayoutInflater = LayoutInflater.from(context);
         this.templates = templates;
         valueMap = new HashMap<>();
+        attrMap = new HashMap<>();
+        for(BaseTemplate template : templates){
+            valueMap.put(template.name, null);
+            Field[] fields = ReflectUtil.findFieldByAnnotation(template.getClass(), AttrTemplate.class);
+            JSONObject jsonObject = new JSONObject();
+            for(Field field : fields){
+                if(field != null){
+                    AttrTemplate attrTemplate = field.getAnnotation(AttrTemplate.class);
+                    try {
+                        jsonObject.put(attrTemplate.attr(), false);//暂时写死false
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            attrMap.put(template.name, jsonObject);
+        }
         this.valueMap.putAll(outMap);
         setHasStableIds(true);//防止刷新recyckerView焦点丢失问题
     }
@@ -76,7 +102,7 @@ public class TemplateAdapter extends TreeViewAdapter {
         ((BaseViewHolder)holder).setFlag(mFlag);
         ((BaseViewHolder) holder).getConvertView().setPadding(node.getLevel() * 30,3,3,3);
         if(templateControl != null) {
-            templateControl.initView(context, (BaseViewHolder) holder, templateControl.getTemplate(), valueMap, editMode);
+            templateControl.initView(context, (BaseViewHolder) holder, templateControl.getTemplate(), valueMap, attrMap, editMode);
             templateControl.setTemplateListener(new BaseTemplateControl.OnTemplateListener() {
                 @Override
                 public void onTemplateUpdate(BaseTemplate key, Object value) {
@@ -118,17 +144,34 @@ public class TemplateAdapter extends TreeViewAdapter {
         valueMap.put(key, value);
     }
 
+    public void putAttrValue(String key, Object value){
+        attrMap.put(key, value);
+    }
+
     public Object getValue(String key){
         return  valueMap.get(key);
+    }
+
+    public Object getAttrValue(String key) {
+        return attrMap.get(key);
     }
 
     public void addValueMap(Map<String, Object> outMap){
         this.valueMap.putAll(outMap);
     }
 
+    public void addAttrMap(Map<String, Object> map){
+        this.attrMap.putAll(map);
+    }
+
     public void setValueMap(Map<String, Object> map){
         this.valueMap.clear();
         this.valueMap = map;
+    }
+
+    public void setAttrMap(Map<String, Object> map){
+        this.attrMap.clear();
+        this.attrMap = map;
     }
 
     public void setEditMode(boolean edit){

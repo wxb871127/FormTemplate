@@ -3,6 +3,7 @@ package activity.state;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.business.annotation.State;
@@ -33,6 +34,9 @@ public class PGTemplateState extends TemplateState{
     @Override
     public void initBottomView(ViewGroup viewGroup) {
         viewGroup.removeAllViews();
-        LayoutInflater.from(context).inflate(R.layout.template_zx_state_bottom, viewGroup);
+        View view = LayoutInflater.from(context).inflate(R.layout.template_zx_state_bottom, viewGroup);
+        if(!Boolean.parseBoolean(business.edit)){
+            view.setVisibility(View.GONE);
+        }
     }
 }

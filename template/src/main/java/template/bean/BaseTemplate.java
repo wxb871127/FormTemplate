@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 
 import java.lang.reflect.Field;
 
+import base.annotation.AttrTemplate;
 import base.util.ReflectUtil;
 import template.widget.tree.annotation.TreeNodeId;
 import template.widget.tree.annotation.TreeNodeParentId;
@@ -24,9 +25,10 @@ public abstract class BaseTemplate {
     public String initValue;//初始化值
     public String value;//表达式计算字段值
     public String exception;//是否异常表达式 对应表单配置
+    @AttrTemplate(attr = "refuse")
     public boolean isRefuse;//是否拒绝
+    @AttrTemplate(attr = "exception")
     public boolean isException;//是否异常 对应产生的数据
-
     protected SectionTemplate sectionTemplate;//所属section
 
     public void parseElement(Element e) {

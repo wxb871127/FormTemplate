@@ -1,0 +1,46 @@
+{
+  "jbxx": [
+    {
+      "code": "sg",
+      "value": 182,
+      "exception": true,
+      "refuse": false
+    }, 
+    {
+      "code": "ysxg",
+      "value": "2,3",
+      "exception": false, 
+      "refuse": true
+    }, 
+    {
+      "code": "tz",
+      "value": 87,
+      "exception": false, 
+      "refuse": false
+    },
+    {
+      "code": "bmi",
+      "value": 26.3,
+      "exception": false,
+      "refuse": false
+    }
+  ], 
+  "yyjl": [
+    {
+      "YWMC": "阿莫西林", 
+      "YWYF": "口服", 
+      "YWYL": "1", 
+      "YWSJ": "7-1", 
+      "FYYCX": "规律", 
+      "ZJL": "2"
+    }, 
+    {
+      "YWMC": "阿莫西林", 
+      "YWYF": "口服", 
+      "YWYL": "1", 
+      "YWSJ": "7-1", 
+      "FYYCX": "规律", 
+      "ZJL": "2"
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Element;
 
 import base.annotation.Template;
+import base.util.TemplateList;
 import base.util.TemplateParse;
 
 @Template(tag = "list")

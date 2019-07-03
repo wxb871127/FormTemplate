@@ -54,6 +54,11 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                             if(listener != null)
                                 listener.onTemplateUpdate(name, jsonArray);
                         }
+
+                        @Override
+                        public void onAttrClick(BaseTemplate template, String attrName) {
+
+                        }
                     });
                     dialog.showDialog();
                 }
@@ -77,6 +82,11 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                            }
+
+                            @Override
+                            public void onAttrClick(BaseTemplate template, String attrName) {
+
                             }
                         });
                         dialog.showDialog();

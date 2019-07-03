@@ -2,13 +2,12 @@
 <views>
     <section name="jbxx" label="基本信息">
 
-                <search name="yyjl" label="用药记录" style="Drug"/>
+                <search name="yyjl3" label="用药记录" style="Drug"/>
                 <button name="ycqk" label="牙齿情况" command="1001"/>
                 <section name="sgxx" label="身高信息">
                     <input
                         name="sg"
                         inputType="numberDecimal"
-                        initValue="181"
                         label="身高"
                         quote="11"
                         unit="cm" />
@@ -61,7 +60,6 @@
                                 </radio>
                 <select
                     name="ysxg"
-                    initValue="2,3"
                     label="饮食习惯">
 
                     <item

@@ -1,7 +1,8 @@
-package template.bean;
+package base.util;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import template.bean.BaseTemplate;
 
 public class TemplateList extends ArrayList<BaseTemplate> {
 

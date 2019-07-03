@@ -32,6 +32,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected T template;
     protected Object value;
     protected OnTemplateListener templateListener;
+    private boolean isRefuse;
 
     public void setOnTemplateListener(OnTemplateListener listener){
         this.templateListener = listener;
@@ -70,12 +71,17 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         exceptionIcon = (ImageView)holder.getViewById(R.id.template_exception_icon);
 
         if(refuse != null) {
+            setException(template.isException);
+            setRefuse(template.isRefuse);
             refuse.setClickable(true);
             refuse.setOnClickListener(new OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
                     template.isRefuse = !template.isRefuse;
                     setRefuse(template.isRefuse);
+                    if(templateListener != null)
+                        templateListener.onAttrClick(template, "refuse");
                 }
             });
         }
@@ -86,6 +92,8 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
                 public void onClick(View v) {
                     template.isException = !template.isException;
                     setException(template.isException);
+                    if(templateListener != null)
+                        templateListener.onAttrClick(template, "exception");
                 }
             });
         }
@@ -113,7 +121,6 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
                     text.setTextColor(getResources().getColor(R.color.B0));
             }
         }
-//        notifyItemViewData(value);
     }
 
     protected void notifyItemViewData(Object object){

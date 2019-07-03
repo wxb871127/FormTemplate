@@ -1,6 +1,7 @@
 package activity.state;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.business.annotation.State;
+
+import org.json.JSONObject;
 
 import template.com.form.R;
 import template.view.TemplateView;
@@ -53,8 +56,12 @@ public class SFTemplateState extends TemplateState{
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                JSONObject jsonObject = getValueData();
+                Log.e("xxxxxxx", jsonObject.toString());
             }
         });
+        if(!Boolean.parseBoolean(business.edit)){
+            view.setVisibility(View.GONE);
+        }
     }
 }

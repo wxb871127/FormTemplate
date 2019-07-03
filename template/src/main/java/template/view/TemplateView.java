@@ -4,10 +4,8 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-
 import java.util.Map;
-
-import template.bean.TemplateList;
+import base.util.TemplateList;
 import template.interfaces.OnTemplateCommandListener;
 import template.widget.TemplateAdapter;
 import base.util.TemplateParse;
@@ -60,7 +58,6 @@ public class TemplateView extends RecyclerView{
                 listener.onTemplateCommand(name, command);
             }
         });
-
     }
 
     public void addFlags(int flag){
@@ -72,19 +69,37 @@ public class TemplateView extends RecyclerView{
         templateAdapter.setEditMode(edit);
     }
 
-    public <T extends Object> void setValue(String key, T value){
+    public void setValue(String key, Object value){
         templateAdapter.putValue(key, value);
+    }
+
+    public void setAttrValue(String key, Object value){
+        templateAdapter.putAttrValue(key, value);
+    }
+
+    public void setValue(Map<String, Object> value){
+        templateAdapter.setValueMap(value);
+    }
+
+    public void setAttrValue(Map<String, Object> value){
+        templateAdapter.setAttrMap(value);
     }
 
     public Object  getValue(String key){
         return templateAdapter.getValue(key);
     }
 
+    public Object getAttrValue(String key){
+        return templateAdapter.getAttrValue(key);
+    }
+
     public Map<String, Object> getValueMap(){
         return templateAdapter.valueMap;
     }
 
-
+    public Map<String, Object> getAttrValueMap(){
+        return templateAdapter.attrMap;
+    }
 
     public void notifyData(){
         templateAdapter.notifyDataSetChanged();
