@@ -12,6 +12,8 @@
     <dimen name="dp14">21.0dp</dimen>
     <dimen name="dp15">22.5dp</dimen>
     <dimen name="dp30">45dp</dimen>
+    <dimen name="dp40">60dp</dimen>
+    <dimen name="dp50">75dp</dimen>
     <dimen name="dp60">90dp</dimen>
     <dimen name="dp100">150dp</dimen>
     <dimen name="dp125">125dp</dimen>

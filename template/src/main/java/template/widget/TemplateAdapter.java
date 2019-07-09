@@ -57,7 +57,12 @@ public class TemplateAdapter extends TreeViewAdapter {
                 if(field != null){
                     AttrTemplate attrTemplate = field.getAnnotation(AttrTemplate.class);
                     try {
-                        jsonObject.put(attrTemplate.attr(), false);//暂时写死false
+                        String type = field.getType().getName();
+                        if (type.equals("java.lang.Boolean") || type.equals("boolean"))
+                            jsonObject.put(attrTemplate.attr(), false);
+                        else
+                            jsonObject.put(attrTemplate.attr(), null);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

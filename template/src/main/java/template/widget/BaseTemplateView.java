@@ -22,6 +22,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected TextView label;
     protected TextView tvUnit;
     protected View vBox;
+    protected View attrBox;
     protected EditText editText;
     protected TextView text;
     protected TextView hint;
@@ -61,6 +62,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         required = (TextView) holder.getViewById(R.id.template_required);
         label = (TextView)holder.getViewById(R.id.template_label);
         vBox = holder.getViewById(R.id.common_template_box);
+        attrBox = holder.getViewById(R.id.template_attr);
         editText = (EditText) holder.getViewById(R.id.template_edit);
         text = (TextView)holder.getViewById(R.id.template_text);
         hint = (TextView) holder.getViewById(R.id.common_template_hint);
@@ -73,7 +75,8 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         if(refuse != null) {
             setException(template.isException);
             setRefuse(template.isRefuse);
-            refuse.setClickable(true);
+//            refuse.setClickable(editable);
+            refuse.setEnabled(editable);
             refuse.setOnClickListener(new OnClickListener() {
 
                 @Override
@@ -86,7 +89,8 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             });
         }
         if(exception != null) {
-            exception.setClickable(true);
+//            exception.setClickable(editable);
+            exception.setEnabled(editable);
             exception.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -113,10 +117,12 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         if(vBox != null) {
             if (editable) {
                 vBox.setBackgroundResource(R.drawable.bg_color_white_border);
+                attrBox.setBackgroundResource(R.drawable.bg_color_white_border);
                 if(text != null)
                     text.setTextColor(getResources().getColor(R.color.black));
             }else {
                 vBox.setBackgroundResource(R.drawable.bg_color_gray_border);
+                attrBox.setBackgroundResource(R.drawable.bg_color_gray_border);
                 if(text != null)
                     text.setTextColor(getResources().getColor(R.color.B0));
             }

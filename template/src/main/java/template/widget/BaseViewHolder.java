@@ -1,5 +1,6 @@
 package template.widget;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,15 +45,25 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
         }
     }
 
-    //设置标志位 用于判断是否显示异常、拒检
+    //设置标志位 用于判断是否显示属性控件异常、拒检
     public void setFlag(int flag){
-        if((flag & 1) != 0x0){
+        boolean show = false;
+        if((flag & 1) != 0x0) {
             View view = getViewById(R.id.template_exception);
-            if(view != null)
+            if (view != null) {
                 view.setVisibility(View.VISIBLE);
+                show = true;
+            }
         }
-        if((flag & 2) != 0x00){
+        if((flag & 2) != 0x00) {
             View view = getViewById(R.id.template_refuse);
+            if (view != null) {
+                view.setVisibility(View.VISIBLE);
+                show = true;
+            }
+        }
+        if(show){
+            View view = getViewById(R.id.template_attr);
             if(view != null)
                 view.setVisibility(View.VISIBLE);
         }
