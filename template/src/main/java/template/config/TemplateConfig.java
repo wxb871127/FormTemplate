@@ -1,16 +1,22 @@
 package template.config;
 
 import android.content.Context;
-import android.widget.Button;
+import android.util.Log;
 
+import org.reflections.Reflections;
+import org.reflections.scanners.FieldAnnotationsScanner;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.util.ConfigurationBuilder;
+
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import base.annotation.Template;
 import template.bean.BaseTemplate;
-import template.bean.ButtonTemplate;
 import template.control.BaseTemplateControl;
 import template.control.ButtonTemplateControl;
 import template.control.DateTemplateControl;
@@ -21,6 +27,8 @@ import template.control.SearchTemplateControl;
 import template.control.SectionTemplateControl;
 import template.control.SelectTemplateControl;
 import template.widget.BaseTemplateView;
+
+import static base.util.ClassUtil.getAllAssignedClass;
 
 public class TemplateConfig {
     private static final List<TemplateInfo> templateInfoList = new ArrayList<>();
@@ -40,6 +48,10 @@ public class TemplateConfig {
 //        List<Class> list = ClassUtil.getAllClassByInterface(BaseTemplate.class);
 //        List<Class> list = ClassUtil.getAllClass("template.config");
 //        List<String> list = ClassUtil.getClazzName("template.config", false);
+
+//        Reflections reflections1 = new Reflections("template.control");
+//        Reflections reflections = new Reflections(new ConfigurationBuilder().forPackages("template.control").addScanners(new SubTypesScanner()).addScanners(new FieldAnnotationsScanner()));
+//        Set<Class<? extends BaseTemplateControl>> classes = reflections.getSubTypesOf(BaseTemplateControl.class);
 
         List<Class> list = new ArrayList<>();
         list.add(SectionTemplateControl.class);

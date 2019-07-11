@@ -19,6 +19,4 @@ public class SectionTemplateControl extends BaseTemplateControl{
     public BaseTemplateView getTemplateView(Context context) {
         return new SectionTemplateView(context);
     }
-
-
 }

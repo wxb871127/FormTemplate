@@ -36,4 +36,5 @@ dependencies {
     api 'com.android.support:recyclerview-v7:27.1.1'
 //    api project(path: ':templatedb')
     implementation 'com.wadata:templatedb:1.0.0'
+    implementation 'org.reflections:reflections:0.9.11'
 }

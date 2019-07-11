@@ -34,7 +34,7 @@ public abstract class TemplateState {
         protected String name;
         protected String edit;//初始化是否可编辑
         protected String res;//对应的表单xml文件
-        protected String style;//0 不带装饰 1 带有导航栏 2左右滑动页 3带导航的左右滑动页
+        protected String style;//0 不带装饰 1带有导航栏 2左右滑动页 3带导航的左右滑动页
     }
     TemplateBusiness business;
     protected Context context;

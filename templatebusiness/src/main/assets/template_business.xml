@@ -6,11 +6,11 @@
 	<service name="评估记录" type="PG" edit="false" res="gxy_pg.xml" getData="getGxyFcpg" updateData="updateGxyFcpg" style="1"/>
 	<service name="随访" 		type="SF" edit="true"  res="gxy_sf.xml" getData="getGxySfjl" updateData="updateGxySfjl" style="2"/>
 	<service name="随访记录" type="SF" edit="false" res="gxy_sf.xml" getData="getGxySfjl" updateData="updateGxySfjl" style="2"/>
-	<service name="体检" 		type="TJ" edit="true"  res="test.xml" getData="getGxyZxda" updateData="updateGxyZxda" style="0"/>
-	<service name="体检记录" type="TJ" edit="false" res="test.xml" getData="getGxyZxda" updateData="updateGxyZxda" style="0"/>
+	<service name="体检" 		type="TJ" edit="true"  res="test.xml" 	  getData="getGxyZxda" updateData="updateGxyZxda" style="0"/>
+	<service name="体检记录" type="TJ" edit="false" res="test.xml"   getData="getGxyZxda" updateData="updateGxyZxda" style="0"/>
 
 
-	<command name="1001"  showtext="true" type="ActivityCommand"/>
+	<command name="1001"  showtext="true"  type="ActivityCommand"/>
 	<command name="1002"  showtext="false" type="ActivityCommand"/>
-	<command name="1003"  showtext="true" type="ActivityCommand"/>
+	<command name="1003"  showtext="true"  type="ActivityCommand"/>
 </business>
