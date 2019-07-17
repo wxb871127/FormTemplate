@@ -117,12 +117,14 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         if(vBox != null) {
             if (editable) {
                 vBox.setBackgroundResource(R.drawable.bg_color_white_border);
-                attrBox.setBackgroundResource(R.drawable.bg_color_white_border);
+                if(attrBox != null)
+                    attrBox.setBackgroundResource(R.drawable.bg_color_white_border);
                 if(text != null)
                     text.setTextColor(getResources().getColor(R.color.black));
             }else {
                 vBox.setBackgroundResource(R.drawable.bg_color_gray_border);
-                attrBox.setBackgroundResource(R.drawable.bg_color_gray_border);
+                if(attrBox != null)
+                    attrBox.setBackgroundResource(R.drawable.bg_color_gray_border);
                 if(text != null)
                     text.setTextColor(getResources().getColor(R.color.B0));
             }

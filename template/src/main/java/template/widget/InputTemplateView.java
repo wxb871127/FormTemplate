@@ -139,15 +139,15 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
             text.setText(value.toString());
         }
 
-        if (value != null && !TextUtils.isEmpty(value.toString())) {
-            if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
-                try {
-                    notifyItemViewData(new BigDecimal(value.toString()));
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-            } else
-                notifyItemViewData(value.toString());
-        }
+//        if (value != null && !TextUtils.isEmpty(value.toString())) {
+//            if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
+//                try {
+//                    notifyItemViewData(new BigDecimal(value.toString()));
+//                } catch (NumberFormatException e) {
+//                    e.printStackTrace();
+//                }
+//            } else
+//                notifyItemViewData(value.toString());
+//        }
     }
 }

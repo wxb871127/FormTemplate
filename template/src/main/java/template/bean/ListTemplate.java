@@ -32,6 +32,8 @@ public class ListTemplate extends BaseTemplate{
         String values = "";
         try {
             data = new JSONArray(object.toString());
+            if(data.length() == 0)
+                return "";
             String[] formats = showFormat.split(",");
             String[] args = showArgs.split(",");
             for(int i=0; i<data.length(); i++){

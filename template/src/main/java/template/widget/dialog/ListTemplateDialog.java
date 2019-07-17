@@ -31,8 +31,11 @@ public class ListTemplateDialog extends BaseTemplateDialog<ListTemplate>{
             while (it.hasNext()) {
                 try {
                     String key = it.next();
-                    String jvalue = jsonObject.getString(key);
-                    templateView.setValue(key, jvalue);
+                    String tvalue = jsonObject.getString(key);
+                    if(tvalue.equalsIgnoreCase("null"))
+                        templateView.setValue(key, null);
+                    else
+                        templateView.setValue(key, tvalue);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

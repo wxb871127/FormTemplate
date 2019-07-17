@@ -35,6 +35,8 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     jsonArray.remove(index);
                 }
+                if(jsonArray.length() == 0)
+                    jsonArray = null;
                 if(listener != null)
                     listener.onTemplateUpdate(template, jsonArray);
             }
