@@ -2,146 +2,147 @@
 <views>
     <section name="jbxx" label="基本信息">
 
-                <search name="yyjl3" label="用药记录" style="Drug"/>
-                <button name="ycqk" label="牙齿情况" command="1001"/>
-                <section name="sgxx" label="身高信息">
-                    <input
-                        name="sg"
-                        inputType="numberDecimal"
-                        label="身高"
-                        quote="11"
-                        unit="cm" />
-                </section>
+        <search name="yyjl3" label="用药记录" style="Drug"/>
+        <button name="ycqk" label="牙齿情况" command="1001"/>
 
-                <input
-                    name="tz"
-                    inputType="numberDecimal"
-                    exception="tz >= 300"
-                    label="体重"
-                    required="true"
-                    unit="kg" />
+        <section name="sgxx" label="生理体征">
 
-                        <input
-                            name="bmi"
-                            editable="false"
-                            value="tz / pow(sg/100, 2)"
-                            inputType="numberDecimal"
-                            decimalFormat="0.00"
-                            exception="bmi >= 24"
-                            label="体质指数" />
+            <input
+                name="sg"
+                inputType="numberDecimal"
+                label="身高"
+                quote="11"
+                unit="cm" />
+            <input
+                name="tz"
+                inputType="numberDecimal"
+                exception="tz >= 300"
+                label="体重"
+                required="true"
+                unit="kg" />
 
-                        <input
-                            name="jytz"
-                            label="建议体重"
-                            editable="false"
-                            value = "(bmi > 24) ? (sg-100) * 0.9 : null"/>
+            <input
+                name="bmi"
+                editable="false"
+                value="tz / pow(sg/100, 2)"
+                inputType="numberDecimal"
+                decimalFormat="0.00"
+                exception="bmi >= 24"
+                label="体质指数" />
 
-                                <radio
-                                    name="yjqk"
-                                    exception="yjqk == 3 || yjqk == 4"
-                                    initValue="1"
-                                    label="目前饮酒情况" >
+            <input
+                name="jytz"
+                label="建议体重"
+                editable="false"
+                value = "(bmi > 24) ? (sg-100) * 0.9 : null"/>
+        </section>
 
-                                    <item
-                                        name="不饮酒"
-                                        code="1"/>
+        <radio
+            name="yjqk"
+            exception="yjqk == 3 || yjqk == 4"
+            initValue="1"
+            label="目前饮酒情况" >
 
-                                    <item
-                                        name="已戒酒"
-                                        code="2"/>
+            <item
+                name="不饮酒"
+                code="1"/>
 
-                                    <item
-                                        name="经常饮酒"
-                                        code="3"/>
+            <item
+                name="已戒酒"
+                code="2"/>
 
-                                    <item
-                                        name="偶尔饮酒"
-                                        code="4"/>
-                                </radio>
-                <select
-                    name="ysxg"
-                    label="饮食习惯">
+            <item
+                name="经常饮酒"
+                code="3"/>
 
-                    <item
-                        name="减少食盐摄入"
-                        code="1"/>
+            <item
+                name="偶尔饮酒"
+                code="4"/>
+        </radio>
+        <select
+            name="ysxg"
+            label="饮食习惯">
 
-                    <item
-                        name="减少膳食脂肪"
-                        code="2"/>
+            <item
+                name="减少食盐摄入"
+                code="1"/>
 
-                    <item
-                        name="规律运动"
-                        code="3"/>
+            <item
+                name="减少膳食脂肪"
+                code="2"/>
 
-                    <item
-                        name="减少吸烟量或戒烟"
-                        code="4"/>
+            <item
+                name="规律运动"
+                code="3"/>
 
-                    <item
-                        name="减少饮酒量或戒酒"
-                        code="5"/>
+            <item
+                name="减少吸烟量或戒烟"
+                code="4"/>
 
-                    <item
-                        name="控制体重"
-                        code="6"/>
+            <item
+                name="减少饮酒量或戒酒"
+                code="5"/>
 
-                    <item
-                        name="心理调整"
-                        code="7"/>
-                </select>
+            <item
+                name="控制体重"
+                code="6"/>
+
+            <item
+                name="心理调整"
+                code="7"/>
+        </select>
 
 
-                        <date
-                            name="zdrq"
-                            initValue="2016-09-20"
-                            label="确诊时间"
-                            required="true" />
-                         <radio
-                            name="ydqk"
-                            label="目前运动情况" >
+        <date
+            name="zdrq"
+            initValue="2016-09-20"
+            label="确诊时间"
+            required="true" />
+         <radio
+            name="ydqk"
+            label="目前运动情况" >
 
-                            <item
-                                name="规律运动"
-                                code="1"/>
+            <item
+                name="规律运动"
+                code="1"/>
 
-                            <item
-                                name="不规律运动"
-                                exception="true"
-                                code="2"/>
+            <item
+                name="不规律运动"
+                exception="true"
+                code="2"/>
 
-                            <item
-                                name="不运动"
-                                exception="true"
-                                code="3"/>
-                        </radio>
+            <item
+                name="不运动"
+                exception="true"
+                code="3"/>
+        </radio>
 
-                        <radio
-                            name="xb"
-                            label="性别">
+        <radio
+            name="xb"
+            label="性别">
 
-                            <item name="男" code="1"/>
+            <item name="男" code="1"/>
 
-                            <item name="女" code="2"/>
+            <item name="女" code="2"/>
 
-                            <item name="未说明的性别" code="9"/>
+            <item name="未说明的性别" code="9"/>
 
-                        </radio>
+        </radio>
 
-                        <list name="yyqk11" label="用药记录" showArgs="sg1"
-                            showFormat="身高1：%s">
+                <list name="yyqk11" label="用药记录" showArgs="ywmc"
+                    showFormat="药物名称：%s">
 
-                            <input name="sg1" label="身高1" exception="xb equals '1' ? (sg1&lt;100) : (sg1&lt;80)"/>
+                    <input name="ywmc" label="药物名称" />
+                    <radio name="yf" label="用法">
 
-                            <radio name="xy" label="xy">
+                        <item name="口服" code="1"/>
 
-                                <item name="林浩1" code="1" show="xb equals '1'"/>
+                        <item name="注射" code="2" />
 
-                                <item name="林浩2" code="2" show="xb equals '2'"/>
+                        <item name="外敷" code="3" show="xb contains '1'" />
 
-                                <item name="林浩3" code="3" show="xb contains '1'"/>
+                    </radio>
+                </list>
 
-                            </radio>
-                        </list>
     </section>
 </views>

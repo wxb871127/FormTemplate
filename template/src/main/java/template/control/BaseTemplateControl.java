@@ -92,8 +92,10 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         String showName = "";
         if(!TextUtils.isEmpty(template.value)){////value表达式不为空 计算表达式值
             Object object = ExpressionUtil.getExpressionUtil().executeExpression(template.value, valueMap);
-            if(object != null)
+            if(object != null) {
                 showName = object.toString();
+                valueMap.put(template.name, object);//计算完值立即存储数据，便于其他字段计算
+            }
         }else {//当前值为空则赋值初始值 当前值不为空使用当前值
             showName = template.getShowName(valueMap.get(template.name), context);
             if(TextUtils.isEmpty(showName) && !TextUtils.isEmpty(template.initValue))
