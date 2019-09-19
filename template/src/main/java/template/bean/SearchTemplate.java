@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import org.greenrobot.greendao.database.Database;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -14,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import base.annotation.Template;
-import template.com.templatedb.DaoManager;
 import base.util.TemplateParse;
 
 @Template(tag = "search")

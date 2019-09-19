@@ -3,11 +3,11 @@ apply plugin: 'org.greenrobot.greendao'
 apply from: './nexus-push.gradle'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -31,7 +31,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api 'org.greenrobot:greendao:3.2.2'
 //    implementation 'org.greenrobot:greendao-generator:3.2.2'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'net.zetetic:android-database-sqlcipher:3.5.7'
 }
 

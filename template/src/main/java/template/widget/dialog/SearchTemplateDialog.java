@@ -15,10 +15,8 @@ import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import org.greenrobot.greendao.database.Database;
 import template.bean.SearchTemplate;
 import template.com.form.R;
-import template.com.templatedb.DaoManager;
 
 public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
     private View view;
