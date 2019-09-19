@@ -8,7 +8,7 @@ artifacts {
     archives sourcesJar
 }
 
-def debug = false
+def debug = true
 
 //任务名
 uploadArchives {

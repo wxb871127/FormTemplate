@@ -1,8 +1,10 @@
 package template.widget.dialog;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -57,9 +59,19 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() > 0) {
-                    String where = "select * from " + template.style + " where " + template.selection;
-                    Database database = DaoManager.getInstance(mContext).getDaoSession().getDatabase();
-                    Cursor cursor = database.rawQuery(where, new String[]{s.toString(), s.toString()});
+                    String selection = template.selection;
+                    int count = 0;
+                    while(selection.indexOf("?")!=-1){
+                        selection = selection.substring(selection.indexOf("?")+1);
+                        count++;
+                    }
+                    String[] selectionArg = new String[count];
+                    for(int i=0; i<count; i++)
+                        selectionArg[i] = s.toString();
+
+                    ContentResolver contentResolver = mContext.getContentResolver();
+                    Cursor cursor = contentResolver.query(Uri.parse(template.uri), null,
+                            template.selection, selectionArg, null, null);
                     cursor.moveToFirst();
                     adapter.changeCursor(cursor);
                 }

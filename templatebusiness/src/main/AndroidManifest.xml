@@ -8,5 +8,7 @@
             android:name="activity.TemplateActivity"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity android:name="activity.command.ToothActivity"/>
+        
+
     </application>
 </manifest>

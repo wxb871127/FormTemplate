@@ -28,6 +28,16 @@ public class TemplateParse {
         }
     }
 
+    public static void initTemplateStyle(Context context, String styleXml){
+        try {
+            InputStream inputStream = null;
+            inputStream = context.getAssets().open(styleXml);
+            templateStyleElement = getDocumentElement(inputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Element getTemplateStyleElement(){
         return templateStyleElement;
     }

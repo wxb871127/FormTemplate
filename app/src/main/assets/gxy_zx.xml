@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <views>
-
     <!-- 基本信息 -->
 
     <section
@@ -104,9 +103,9 @@
             showFormat="过敏源：%s" >
 
             <!--<input-->
-                <!--name="xh"-->
-                <!--label="序号 "-->
-                <!--show="false" />-->
+            <!--name="xh"-->
+            <!--label="序号 "-->
+            <!--show="false" />-->
 
             <radio
                 name="gmy"
@@ -547,7 +546,83 @@
                 label="舒张压"
                 unit="mmHg" />
         </section>
+        <section
+            name="jqsfsyjyy"
+            label="近期是否使用降压药" >
 
+            <radio
+                name="sfsyjyy"
+                initValue="0"
+                label="近期是否使用降压药" >
+
+                <item
+                    name="是"
+                    code="1"/>
+
+                <item
+                    name="否"
+                    code="0"/>
+            </radio>
+
+
+            <list
+                name="yyjl"
+                label="降压药列表"
+                show="sfsyjyy == 1"
+                showArgs="ypid"
+                showFormat="药品名称：%s"
+                ywlx="6" >
+
+                <search
+                    name="ypid"
+                    style="Drug"
+                    label="药品名称"
+                    required="true" >
+
+                    <item
+                        name="ypmc"
+                        column="ypmc"/>
+
+                    <item
+                        name="ypid"
+                        column="ypid"/>
+
+                    <item
+                        name="jl"
+                        column="jl"/>
+
+                    <item
+                        name="fyff"
+                        column="fyfs"/>
+
+                    <item
+                        name="ffcs"
+                        column="ffcs"/>
+
+                    <item
+                        name="bz"
+                        column="bz"/>
+                </search>
+
+                <input
+                    name="jl"
+                    label="单次剂量"
+                    required="true" />
+
+                <input
+                    name="ffcs"
+                    label="每日次数"
+                    required="true" />
+
+                <input
+                    name="blfy"
+                    label="不良反应" />
+
+                <input
+                    name="bz"
+                    label="备注" />
+            </list>
+        </section>
         <radio
             name="ywxxgbwxys"
             initValue="0"
@@ -873,81 +948,7 @@
         </section>
     </section>
 
-    <section
-        name="jqsfsyjyy"
-        label="近期是否使用降压药" >
 
-        <radio
-            name="sfsyjyy"
-            initValue="0"
-            label="近期是否使用降压药" >
-
-            <item
-                name="是"
-                code="1"/>
-
-            <item
-                name="否"
-                code="0"/>
-        </radio>
-
-        <list
-            name="yyjl"
-            label="降压药列表"
-            show="sfsyjyy == 1"
-            showFormat="药品名称：%s"
-            ywlx="6" >
-
-            <search
-                name="ypid"
-                style="Drug"
-                label="药品名称"
-                required="true" >
-
-                <item
-                    name="ypmc"
-                    column="ypmc"/>
-
-                <item
-                    name="ypid"
-                    column="ypid"/>
-
-                <item
-                    name="jl"
-                    column="jl"/>
-
-                <item
-                    name="fyff"
-                    column="fyfs"/>
-
-                <item
-                    name="ffcs"
-                    column="ffcs"/>
-
-                <item
-                    name="bz"
-                    column="bz"/>
-            </search>
-
-            <input
-                name="jl"
-                label="单次剂量"
-                required="true" />
-
-            <input
-                name="ffcs"
-                label="每日次数"
-                required="true" />
-
-            <input
-                name="blfy"
-                label="不良反应" />
-
-            <input
-                name="bz"
-                label="备注" />
-        </list>
-    </section>
 
     <!-- 近期检查结果 -->
 
@@ -1329,5 +1330,4 @@
             initValueCommon="today"
             label="录入日期" />
     </section>
-
 </views>

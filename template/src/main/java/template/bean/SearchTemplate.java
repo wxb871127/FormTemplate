@@ -1,7 +1,9 @@
 package template.bean;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import org.greenrobot.greendao.database.Database;
@@ -18,6 +20,7 @@ import base.util.TemplateParse;
 @Template(tag = "search")
 public class SearchTemplate extends BaseTemplate{
     public String style;//数据库表名
+    public String uri;//ContentProvider Uri
     public String showFormat;
     public String selection;
     public String showColumn = null;//select要查询的字段名
@@ -35,6 +38,7 @@ public class SearchTemplate extends BaseTemplate{
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element styleElement = (Element) nodeList.item(i);
                 if (style.equals(styleElement.getAttribute("name"))) {
+                    uri = styleElement.getAttribute("uri");
                     NodeList items = styleElement.getElementsByTagName("item");
                     for (int j = 0; j < items.getLength(); j++) {
                         Element item = (Element) items.item(j);
@@ -54,10 +58,9 @@ public class SearchTemplate extends BaseTemplate{
     public String getShowName(Object object, Context context) {
         if(object == null || TextUtils.isEmpty(object.toString()))
             return "";
-
-        Database database = DaoManager.getInstance(context).getDaoSession().getDatabase();
-        String where = "select * from " + style + " where " + primaryKey + " = ?";
-        Cursor cursor = database.rawQuery(where,  new String[]{object.toString()});
+        ContentResolver contentResolver = context.getContentResolver();
+        Cursor cursor = contentResolver.query(Uri.parse(uri), null,
+                primaryKey+" = ?", new String[]{object.toString()}, null, null);
         cursor.moveToFirst();
         String showname = "";
         int column = cursor.getColumnIndex(showColumn);

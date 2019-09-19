@@ -39,6 +39,12 @@ public class TemplateView extends RecyclerView{
         initTemplate(templates);
     }
 
+    public void initTemplate(String templateXml, String styleXml){
+        TemplateParse.initTemplateStyle(mContext,styleXml);
+        TemplateList templates = TemplateParse.parseTemplateFile(mContext, templateXml);
+        initTemplate(templates);
+    }
+
     public void initTemplate(TemplateList templates){
         setItemAnimator(null);//防止刷新recyckerView焦点丢失问题
         templateAdapter = new TemplateAdapter(mContext, templates);

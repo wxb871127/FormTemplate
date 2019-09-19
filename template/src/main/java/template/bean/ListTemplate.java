@@ -40,7 +40,7 @@ public class ListTemplate extends BaseTemplate{
                 JSONObject jsonObject = data.getJSONObject(i);
                 String showString = "";
                 for(int j=0; j<args.length; j++) {
-                    showString += String.format(formats[j], jsonObject.get(args[j]));
+                    showString += String.format(formats[j], getShowString(context,args[j],jsonObject));
                     if(j != args.length-1)
                         showString += ",";
                 }
@@ -53,5 +53,11 @@ public class ListTemplate extends BaseTemplate{
         }
 
         return values;
+    }
+
+    //获取showArgs中的参数
+    private String getShowString(Context context, String arg, JSONObject jsonObject){
+        BaseTemplate template = templates.getTemplate(arg);
+        return template.getShowName(jsonObject.opt(arg), context);
     }
 }

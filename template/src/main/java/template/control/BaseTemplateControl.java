@@ -28,7 +28,7 @@ import template.widget.dialog.BaseTemplateDialog;
  */
 public abstract class BaseTemplateControl<T extends BaseTemplate> {
     T template;
-    protected Map<String, Object> valueMap;
+    protected Map<String, Object> valueMap;//保存整张表单的map
 //    protected BaseTemplateView view;
     protected BaseTemplateDialog dialog;
     protected OnTemplateListener listener;

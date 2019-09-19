@@ -1,2 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="template.com.templatedb" />
+    package="template.com.templatedb" >
+    <application>
+        <provider
+            android:authorities="com.provider.CommonProvider"
+            android:name="com.provider.CommonProvider"/>
+    </application>
+</manifest>
