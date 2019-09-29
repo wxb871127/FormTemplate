@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+
+import java.io.InputStream;
 import java.util.Map;
 import base.util.TemplateList;
 import template.interfaces.OnTemplateCommandListener;
@@ -45,9 +47,25 @@ public class TemplateView extends RecyclerView{
         initTemplate(templates);
     }
 
+    public void initTemplate(InputStream templateXml, InputStream styleXml){
+        TemplateParse.initTemplateStyle(mContext, styleXml);
+        TemplateList templates = TemplateParse.parseStream(templateXml);
+        initTemplate(templates);
+    }
+
+    public void initTemplate(InputStream templateXml){
+        TemplateParse.initTemplateStyle(mContext);
+        TemplateList templates = TemplateParse.parseStream(templateXml);
+        initTemplate(templates);
+    }
+
     public void initTemplate(TemplateList templates){
+        if(templates == null) throw new IllegalArgumentException("templates is null, please check form xml");
         setItemAnimator(null);//防止刷新recyckerView焦点丢失问题
-        templateAdapter = new TemplateAdapter(mContext, templates);
+        if(templateAdapter == null)
+            templateAdapter = new TemplateAdapter(mContext, templates);
+        else
+            templateAdapter.init(templates);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         setLayoutManager(layoutManager);
         setAdapter(templateAdapter);

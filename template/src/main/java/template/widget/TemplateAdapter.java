@@ -40,15 +40,21 @@ public class TemplateAdapter extends TreeViewAdapter {
     }
 
     TemplateAdapter(Context context, TemplateList templates, Map<String, Object> outMap){
+        this.context = context;
+        mLayoutInflater = LayoutInflater.from(context);
+        valueMap = new HashMap<>();
+        attrMap = new HashMap<>();
+        this.valueMap.putAll(outMap);
+        init(templates);
+        setHasStableIds(true);//防止刷新recyckerView焦点丢失问题
+    }
+
+    public void init(TemplateList templates){
         ArrayList list = templates;
         setDatas(list);
         setLevel(2);
         initSetting();
-        this.context = context;
-        mLayoutInflater = LayoutInflater.from(context);
         this.templates = templates;
-        valueMap = new HashMap<>();
-        attrMap = new HashMap<>();
         for(BaseTemplate template : templates){
             valueMap.put(template.name, null);
             Field[] fields = ReflectUtil.findFieldByAnnotation(template.getClass(), AttrTemplate.class);
@@ -70,8 +76,6 @@ public class TemplateAdapter extends TreeViewAdapter {
             }
             attrMap.put(template.name, jsonObject);
         }
-        this.valueMap.putAll(outMap);
-        setHasStableIds(true);//防止刷新recyckerView焦点丢失问题
     }
 
     public void setListener(OnTemplateCommandListener listener){

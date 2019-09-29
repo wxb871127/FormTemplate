@@ -6,6 +6,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -19,23 +23,42 @@ public class TemplateParse {
     private static Element templateStyleElement = null;
 
     public static void initTemplateStyle(Context context){
+        InputStream inputStream = null;
         try {
-            InputStream inputStream = null;
             inputStream = context.getAssets().open("template_styles.xml");
             templateStyleElement = getDocumentElement(inputStream);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if(inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     public static void initTemplateStyle(Context context, String styleXml){
         try {
             InputStream inputStream = null;
-            inputStream = context.getAssets().open(styleXml);
-            templateStyleElement = getDocumentElement(inputStream);
+            File file = new File(styleXml);
+            if(file.exists())
+                inputStream = new FileInputStream(file);
+            if(inputStream != null)
+                templateStyleElement = getDocumentElement(inputStream);
+            else {
+                inputStream = context.getAssets().open(styleXml);
+                templateStyleElement = getDocumentElement(inputStream);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void initTemplateStyle(Context context, InputStream styleXml){
+        templateStyleElement = getDocumentElement(styleXml);
     }
 
     public static Element getTemplateStyleElement(){
@@ -43,12 +66,25 @@ public class TemplateParse {
     }
 
     public static TemplateList parseTemplateFile(Context context, String fileName) {
+        InputStream inputStream = null;
         try {
-            InputStream inputStream = null;
+            File file = new File(fileName);
+            if(file.exists())
+                inputStream = new FileInputStream(file);
+            if(inputStream != null)
+                return parseStream(inputStream);
             inputStream = context.getAssets().open(fileName);
             return parseStream(inputStream);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if(inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return null;
     }
