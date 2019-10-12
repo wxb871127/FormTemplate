@@ -33,6 +33,7 @@ public class TemplateView extends RecyclerView{
     public TemplateView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
+        templateAdapter = new TemplateAdapter(mContext);
     }
 
     public void initTemplate(String templateXml){
@@ -62,10 +63,7 @@ public class TemplateView extends RecyclerView{
     public void initTemplate(TemplateList templates){
         if(templates == null) throw new IllegalArgumentException("templates is null, please check form xml");
         setItemAnimator(null);//防止刷新recyckerView焦点丢失问题
-        if(templateAdapter == null)
-            templateAdapter = new TemplateAdapter(mContext, templates);
-        else
-            templateAdapter.init(templates);
+        templateAdapter.init(templates);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         setLayoutManager(layoutManager);
         setAdapter(templateAdapter);

@@ -35,17 +35,17 @@ public class TemplateAdapter extends TreeViewAdapter {
     private OnTemplateCommandListener listener;
     private int mFlag = 0x0;
 
-    public TemplateAdapter(Context context, TemplateList templates){
-        this(context, templates, new HashMap<String, Object>());
+    public TemplateAdapter(Context context){
+        this(context, new HashMap<String, Object>());
     }
 
-    TemplateAdapter(Context context, TemplateList templates, Map<String, Object> outMap){
+    TemplateAdapter(Context context, Map<String, Object> outMap){
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
         valueMap = new HashMap<>();
         attrMap = new HashMap<>();
         this.valueMap.putAll(outMap);
-        init(templates);
+//        init(templates);
         setHasStableIds(true);//防止刷新recyckerView焦点丢失问题
     }
 
