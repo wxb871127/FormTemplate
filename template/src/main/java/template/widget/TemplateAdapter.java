@@ -19,6 +19,7 @@ import base.annotation.Template;
 import base.util.ReflectUtil;
 import template.bean.BaseTemplate;
 import base.util.TemplateList;
+import template.bean.SectionTemplate;
 import template.config.TemplateConfig;
 import template.control.BaseTemplateControl;
 import template.interfaces.OnTemplateCommandListener;
@@ -56,6 +57,7 @@ public class TemplateAdapter extends TreeViewAdapter {
         initSetting();
         this.templates = templates;
         for(BaseTemplate template : templates){
+            if(template instanceof SectionTemplate) continue;
             valueMap.put(template.name, null);
             Field[] fields = ReflectUtil.findFieldByAnnotation(template.getClass(), AttrTemplate.class);
             JSONObject jsonObject = new JSONObject();

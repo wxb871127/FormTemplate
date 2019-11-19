@@ -1,6 +1,6 @@
 apply plugin: 'maven'
 
-def debug = true
+def debug = false
 
 //任务名
 uploadArchives {
@@ -21,7 +21,7 @@ uploadArchives {
             // library的项目名
             pom.artifactId = 'template'
             // library的版本号
-            pom.version = '1.0.6'
+            pom.version = '1.0.7'
 
             pom.project {
                 licenses {

@@ -53,7 +53,7 @@ public class TJTemplateState extends TemplateState{
             @Override
             public void onClick(View v) {
                 JSONObject jsonObject = getValueData();
-                Log.e("xxxxxxx", jsonObject.toString());
+                Log.e("xx", jsonObject.toString());
             }
         });
         if(!Boolean.parseBoolean(business.edit)){
