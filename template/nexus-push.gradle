@@ -1,0 +1,36 @@
+apply plugin: 'maven'
+
+def debug = true
+
+//任务名
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            if(debug){
+                repository(url : uri('../templateRepo'))
+            }else {
+                repository(url: "http://172.18.13.233:8081/repository/maven-releases/") {
+                    // nexus账号的用户名和密码，我这里没用默认的admin
+                    authentication(userName: "admin", password: "lizhaohui123")
+                }
+            }
+
+            // 下面这三项pom参数，在调用的时候是这个样子 ： compile 'com.jcking.jbottomtabbar:jbottomtabbar:0.0.1'
+            // library的包名
+            pom.groupId = 'com.template'
+            // library的项目名
+            pom.artifactId = 'template'
+            // library的版本号
+            pom.version = '1.0.6'
+
+            pom.project {
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+            }
+        }
+    }
+}
