@@ -26,5 +26,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(path: ':templatebusiness')
 //    implementation 'com.wadata:loggerlib:1.0.1'
-//    implementation project(path:':templatedb')
+    implementation project(path:':templatedb')
 }
