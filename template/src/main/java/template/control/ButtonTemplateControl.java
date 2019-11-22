@@ -23,9 +23,8 @@ public class ButtonTemplateControl extends BaseTemplateControl{
     }
 
     @Override
-    protected void onClickHolder(final BaseTemplateView templateView,BaseViewHolder holder, BaseTemplate template) {
+    protected void onClickHolder(BaseTemplate template, Object value){
         if(commandListener != null)
             commandListener.onTemplateCommand(template.name, ((ButtonTemplate)template).command);
     }
-
 }

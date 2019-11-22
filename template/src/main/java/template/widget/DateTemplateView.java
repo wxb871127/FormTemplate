@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 
+import template.bean.Attr;
 import template.bean.DateTemplate;
 
 public class DateTemplateView extends BaseTemplateView<DateTemplate>{
@@ -18,9 +19,9 @@ public class DateTemplateView extends BaseTemplateView<DateTemplate>{
     }
 
     @Override
-    public  void initView(BaseViewHolder holder, DateTemplate template, Object value, boolean editable) {
-        holder.getConvertView().setClickable(editable);
-        super.initView(holder, template, value, editable);
+    public  void initView(BaseViewHolder holder, DateTemplate template, Object value, Attr attr) {
+        holder.getConvertView().setClickable(attr.editable);
+        super.initView(holder, template, value, attr);
 
         hint.setVisibility(VISIBLE);
         editText.setVisibility(View.GONE);

@@ -114,7 +114,6 @@ public abstract class TemplateState {
                 });
             }
         });
-
     }
 
     protected Map<String, Object> getValueMap(){

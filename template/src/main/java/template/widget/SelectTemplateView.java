@@ -3,6 +3,8 @@ package template.widget;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+
+import template.bean.Attr;
 import template.bean.SelectTemplate;
 
 public class SelectTemplateView extends BaseTemplateView<SelectTemplate>{
@@ -16,9 +18,9 @@ public class SelectTemplateView extends BaseTemplateView<SelectTemplate>{
     }
 
     @Override
-    public void initView(BaseViewHolder holder, SelectTemplate template, Object value, boolean editable) {
-        holder.getConvertView().setClickable(editable);
-        super.initView(holder, template, value, editable);
+    public void initView(BaseViewHolder holder, SelectTemplate template, Object value, Attr attr) {
+        holder.getConvertView().setClickable(attr.editable);
+        super.initView(holder, template, value, attr);
 
         hint.setVisibility(VISIBLE);
         editText.setVisibility(View.GONE);

@@ -38,7 +38,7 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                 if(jsonArray.length() == 0)
                     jsonArray = null;
                 if(listener != null)
-                    listener.onTemplateUpdate(template, jsonArray);
+                    listener.onDataChanged(template, jsonArray);
             }
 
             @Override
@@ -54,11 +54,11 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                                 jsonArray = new JSONArray();
                             jsonArray.put((JSONObject) object);
                             if(listener != null)
-                                listener.onTemplateUpdate(name, jsonArray);
+                                listener.onDataChanged(name, jsonArray);
                         }
 
                         @Override
-                        public void onAttrClick(BaseTemplate template, String attrName) {
+                        public void onAttrClick(BaseTemplate template, String attrName, Object value) {
 
                         }
                     });
@@ -80,14 +80,14 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                                 try {
                                     jsonArray.put(index, (JSONObject)object);
                                     if(listener != null)
-                                        listener.onTemplateUpdate(name, jsonArray);
+                                        listener.onDataChanged(name, jsonArray);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
 
                             @Override
-                            public void onAttrClick(BaseTemplate template, String attrName) {
+                            public void onAttrClick(BaseTemplate template, String attrName, Object value) {
 
                             }
                         });

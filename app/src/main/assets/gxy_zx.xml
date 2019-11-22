@@ -580,14 +580,6 @@
                     required="true" >
 
                     <item
-                        name="ypmc"
-                        column="ypmc"/>
-
-                    <item
-                        name="ypid"
-                        column="ypid"/>
-
-                    <item
                         name="jl"
                         column="jl"/>
 
@@ -602,6 +594,7 @@
                     <item
                         name="bz"
                         column="bz"/>
+
                 </search>
 
                 <input

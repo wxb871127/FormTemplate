@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import base.annotation.AttrTemplate;
+import template.bean.Attr;
 import template.bean.BaseTemplate;
 import template.com.form.R;
 
@@ -56,7 +58,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
      * @param template  view的xml配置属性
      * @param value     数据值
      */
-    public void initView(final BaseViewHolder holder, final T template, final Object value, boolean editable){
+    public void initView(final BaseViewHolder holder, final T template, final Object value, final Attr attr){
         this.template = template;
         this.value = value;
         required = (TextView) holder.getViewById(R.id.template_required);
@@ -73,31 +75,30 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         exceptionIcon = (ImageView)holder.getViewById(R.id.template_exception_icon);
 
         if(refuse != null) {
-            setException(template.isException);
-            setRefuse(template.isRefuse);
-//            refuse.setClickable(editable);
-            refuse.setEnabled(editable);
+            setException(attr.isException);
+            setRefuse(attr.isRefuse);
+            refuse.setEnabled(attr.editable);
             refuse.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    template.isRefuse = !template.isRefuse;
-                    setRefuse(template.isRefuse);
-                    if(templateListener != null)
-                        templateListener.onAttrClick(template, "refuse");
+                    attr.isRefuse = !attr.isRefuse;
+                    setRefuse(attr.isRefuse);
+                    if (templateListener != null) {
+                        templateListener.onAttrClick(template, "refuse", attr.isRefuse);
+                    }
                 }
             });
         }
         if(exception != null) {
-//            exception.setClickable(editable);
-            exception.setEnabled(editable);
+            exception.setEnabled(attr.editable);
             exception.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    template.isException = !template.isException;
-                    setException(template.isException);
+                    attr.isException = !attr.isException;
+                    setException(attr.isException);
                     if(templateListener != null)
-                        templateListener.onAttrClick(template, "exception");
+                        templateListener.onAttrClick(template, "exception", attr.isException);
                 }
             });
         }
@@ -115,7 +116,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             }
         }
         if(vBox != null) {
-            if (editable) {
+            if (attr.editable) {
                 vBox.setBackgroundResource(R.drawable.bg_color_white_border);
                 if(attrBox != null)
                     attrBox.setBackgroundResource(R.drawable.bg_color_white_border);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 
+import template.bean.Attr;
 import template.bean.RadioTemplate;
 
 public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
@@ -17,9 +18,9 @@ public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
     }
 
     @Override
-    public void initView(final BaseViewHolder holder, RadioTemplate template, Object value, boolean editable) {
-        holder.getConvertView().setClickable(editable);
-        super.initView(holder, template, value, editable);
+    public void initView(final BaseViewHolder holder, RadioTemplate template, Object value, Attr attr) {
+        holder.getConvertView().setClickable(attr.editable);
+        super.initView(holder, template, value, attr);
         hint.setVisibility(VISIBLE);
         editText.setVisibility(View.GONE);
         if (value != null && !TextUtils.isEmpty(value.toString())) {

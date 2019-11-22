@@ -32,23 +32,4 @@ public class InputTemplateControl extends BaseTemplateControl{
         this.context = context;
         return new InputTemplateView(context);
     }
-
-    @Override
-    protected void handleException(BaseTemplate template, Object object, final BaseTemplateView templateView,BaseViewHolder holder) {
-        HashMap<String, Object> map = new HashMap<>();
-        if(object instanceof BigDecimal){
-            map.put (template.name, ((BigDecimal) object).doubleValue());
-        }else
-            map.put(template.name, object);
-        try {
-            if(template.editable != null && ExpressionUtil.getExpressionUtil().logicExpression(template.editable,  map, false)){
-                template.isException = true;
-                templateView.setException(true);
-            }else
-                super.handleException(template, object,templateView, holder);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 }

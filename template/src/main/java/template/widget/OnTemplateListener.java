@@ -4,5 +4,5 @@ import template.bean.BaseTemplate;
 
 public interface OnTemplateListener {
     void onDataChange(BaseTemplate template, Object object);
-    void onAttrClick(BaseTemplate template, String attrName);
+    void onAttrClick(BaseTemplate template, String attrName, Object value);
 }

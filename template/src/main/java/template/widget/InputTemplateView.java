@@ -16,6 +16,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import template.bean.Attr;
 import template.bean.InputTemplate;
 import template.com.form.R;
 
@@ -68,8 +69,8 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     }
 
     @Override
-    public void initView(BaseViewHolder holder, final InputTemplate template, Object value, final boolean editable) {
-        super.initView(holder, template, value, editable);
+    public void initView(BaseViewHolder holder, final InputTemplate template, Object value, Attr attr) {
+        super.initView(holder, template, value, attr);
         holder.getConvertView().setClickable(false);
         quote = (ImageView) holder.getViewById(R.id.common_template_quote);
         if (value != null && template.decimalFormat != null) {
@@ -84,7 +85,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
             quote.setVisibility(VISIBLE);
         }
 
-        if (editable) {
+        if (attr.editable) {
             text.setVisibility(View.INVISIBLE);
             editText.setVisibility(View.VISIBLE);
             editText.setHint("");

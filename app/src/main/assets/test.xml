@@ -2,7 +2,6 @@
 <views>
     <section name="jbxx" label="基本信息">
 
-        <search name="yyjl3" label="用药记录" style="Drug"/>
         <button name="ycqk" label="牙齿情况" command="1001"/>
 
         <section name="sgxx" label="生理体征">
@@ -129,20 +128,14 @@
 
         </radio>
 
-                <list name="yyqk11" label="用药记录" showArgs="ywmc"
-                    showFormat="药物名称：%s">
-
-                    <input name="ywmc" label="药物名称" />
-                    <radio name="yf" label="用法">
-
-                        <item name="口服" code="1"/>
-
-                        <item name="注射" code="2" />
-
-                        <item name="外敷" code="3" show="xb contains '1'" />
-
-                    </radio>
-                </list>
-
+        <list name="yyqk11" label="用药记录" showArgs="ywmc"
+            showFormat="药物名称：%s" exception="xb == 9">
+            <search name="ywmc" label="药物名称" style="Drug">
+                <item name="yf" column="fyfs"/>
+                <item name="cs" column="ffcs"/>
+            </search>
+            <input name="yf" label="用法"/>
+            <input name="cs" label="分服次数"/>
+        </list>
     </section>
 </views>

@@ -5,18 +5,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import base.annotation.AttrTemplate;
 import base.annotation.Template;
 import base.util.ReflectUtil;
+import template.bean.Attr;
 import template.bean.BaseTemplate;
 import base.util.TemplateList;
 import template.bean.SectionTemplate;
@@ -46,7 +44,6 @@ public class TemplateAdapter extends TreeViewAdapter {
         valueMap = new HashMap<>();
         attrMap = new HashMap<>();
         this.valueMap.putAll(outMap);
-//        init(templates);
         setHasStableIds(true);//防止刷新recyckerView焦点丢失问题
     }
 
@@ -59,7 +56,7 @@ public class TemplateAdapter extends TreeViewAdapter {
         for(BaseTemplate template : templates){
             if(template instanceof SectionTemplate) continue;
             valueMap.put(template.name, null);
-            Field[] fields = ReflectUtil.findFieldByAnnotation(template.getClass(), AttrTemplate.class);
+            Field[] fields = ReflectUtil.findFieldByAnnotation(Attr.class, AttrTemplate.class);
             JSONObject jsonObject = new JSONObject();
             for(Field field : fields){
                 if(field != null){
@@ -70,7 +67,6 @@ public class TemplateAdapter extends TreeViewAdapter {
                             jsonObject.put(attrTemplate.attr(), false);
                         else
                             jsonObject.put(attrTemplate.attr(), null);
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -116,7 +112,7 @@ public class TemplateAdapter extends TreeViewAdapter {
             templateControl.initView(context, (BaseViewHolder) holder, templateControl.getTemplate(), valueMap, attrMap, editMode);
             templateControl.setTemplateListener(new BaseTemplateControl.OnTemplateListener() {
                 @Override
-                public void onTemplateUpdate(BaseTemplate key, Object value) {
+                public void onDataChanged(BaseTemplate key, Object value) {
                     valueMap.put(key.name, value);
                     try {
                         notifyDataSetChanged();
@@ -124,6 +120,25 @@ public class TemplateAdapter extends TreeViewAdapter {
                         e.printStackTrace();
                     }
                 }
+
+                @Override
+                public void onAttrChanged(BaseTemplate key, String attr, Object value) {
+                    try {
+                        ((JSONObject)attrMap.get(key.name)).put(attr, value);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onDatasChanged(Map<String, Object> map) {
+                    for(String key : map.keySet()){
+                        if(valueMap.containsKey(key))
+                            valueMap.put(key, map.get(key));
+                    }
+                    notifyDataSetChanged();
+                }
+
             });
             templateControl.setCommandListener(new OnTemplateCommandListener() {
                 @Override

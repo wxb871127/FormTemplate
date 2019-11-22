@@ -2,6 +2,8 @@ package template.widget;
 
 import android.content.Context;
 import android.widget.TextView;
+
+import template.bean.Attr;
 import template.bean.SectionTemplate;
 import template.com.form.R;
 
@@ -22,7 +24,7 @@ public class SectionTemplateView extends BaseTemplateView<SectionTemplate> {
     }
 
     @Override
-    public void initView(final BaseViewHolder holder, final SectionTemplate template, final Object value, boolean editable) {
+    public void initView(final BaseViewHolder holder, final SectionTemplate template, final Object value, Attr attr) {
         TextView label = (TextView) holder.getViewById(R.id.template_label);
         label.setText(template.label);
     }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
+import template.bean.Attr;
 import template.bean.ButtonTemplate;
 
 public class ButtonTemplateView extends BaseTemplateView<ButtonTemplate>{
@@ -18,9 +19,9 @@ public class ButtonTemplateView extends BaseTemplateView<ButtonTemplate>{
     }
 
     @Override
-    public void initView(BaseViewHolder holder, ButtonTemplate template, Object value, boolean editable) {
-        holder.getConvertView().setClickable(editable);
-        super.initView(holder, template, value, editable);
+    public void initView(BaseViewHolder holder, ButtonTemplate template, Object value, Attr attr) {
+        holder.getConvertView().setClickable(attr.editable);
+        super.initView(holder, template, value, attr);
         text.setVisibility(View.INVISIBLE);
         editText.setVisibility(View.VISIBLE);
         hint.setVisibility(VISIBLE);

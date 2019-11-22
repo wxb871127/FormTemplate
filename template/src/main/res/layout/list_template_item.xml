@@ -11,7 +11,7 @@
         android:id="@+id/common_template_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp105"
+        android:layout_marginLeft="@dimen/dp30"
         android:background="@drawable/bg_white_selector"
         android:gravity="center_vertical"
         android:orientation="horizontal"

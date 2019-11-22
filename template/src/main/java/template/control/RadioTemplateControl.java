@@ -60,10 +60,4 @@ public class RadioTemplateControl<T extends BaseTemplate> extends BaseTemplateCo
         ((RadioTemplate) template).setShowItem(itemList);
         return dialog;
     }
-
-//    @Override
-//    protected void verifyData(BaseTemplate name, Object object, BaseViewHolder holder) {
-//        super.handleException(name, object, holder);
-//
-//    }
 }

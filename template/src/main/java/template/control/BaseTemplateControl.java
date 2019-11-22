@@ -3,20 +3,14 @@ package template.control;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.lang.reflect.Field;
-import java.sql.Ref;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
-
 import base.annotation.AttrTemplate;
 import base.util.ExpressionUtil;
-import base.util.ReflectUtil;
+import template.bean.Attr;
 import template.bean.BaseTemplate;
+import template.bean.SectionTemplate;
 import template.interfaces.OnTemplateCommandListener;
 import template.widget.BaseTemplateView;
 import template.widget.BaseViewHolder;
@@ -28,8 +22,7 @@ import template.widget.dialog.BaseTemplateDialog;
  */
 public abstract class BaseTemplateControl<T extends BaseTemplate> {
     T template;
-    protected Map<String, Object> valueMap;//保存整张表单的map
-//    protected BaseTemplateView view;
+    protected Map<String, Object> valueMap;
     protected BaseTemplateDialog dialog;
     protected OnTemplateListener listener;
     protected Context context;
@@ -37,9 +30,15 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
 
     public abstract Class<? extends BaseTemplate> getTemplateClass();
     public abstract BaseTemplateView getTemplateView(Context context);
+    protected void onDialogDataChanged(BaseTemplate template, Object object){
+        if(listener != null)
+            listener.onDataChanged(template, object);
+    }
 
     public interface OnTemplateListener{
-        void onTemplateUpdate(BaseTemplate key, Object value);//更新数据
+        void onDataChanged(BaseTemplate key, Object value);//数据发生改变
+        void onAttrChanged(BaseTemplate key, String attr, Object value);//属性发生改变
+        void onDatasChanged(Map<String, Object> map);//多个数据发生改变
     }
 
     public void setTemplateListener(OnTemplateListener listener){
@@ -81,7 +80,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
     }
 
     public void initView(final Context context, final BaseViewHolder holder, final T template,
-                         final Map<String, Object> valueMap, final Map<String, Object> attrMap,boolean editMode){
+                         final Map<String, Object> valueMap, final Map<String, Object> attrMap,boolean editMode) {
         this.valueMap = valueMap;
         final BaseTemplateView templateView = getTemplateView(context);
         boolean editable;
@@ -102,100 +101,66 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
                 showName = template.getShowName(template.initValue, context);
         }
 
-        if(attrMap != null){
-            JSONObject jsonObject = (JSONObject) attrMap.get(template.name);
-            if(jsonObject != null) {
-                Iterator<String> iterator = jsonObject.keys();
-                while (iterator.hasNext()) {
-                    String key = iterator.next();
-                    Field[] fields = ReflectUtil.findFieldByAnnotation(template.getClass(), AttrTemplate.class);
-                    for(Field field : fields){
-                        if(field != null){
-                            AttrTemplate attrTemplate = field.getAnnotation(AttrTemplate.class);
-                            if(key.equals(attrTemplate.attr()))
-                                ReflectUtil.setFiled(template, field, String.valueOf(jsonObject.optBoolean(key)));
-                        }
-                    }
-                }
-            }
+        Boolean exception = false;
+        Boolean refuse = false;
+        try {
+            exception = ExpressionUtil.getExpressionUtil().logicExpression(template.exception, valueMap, false);
+            refuse =  ((JSONObject)attrMap.get(template.name)).optBoolean("refuse");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         holder.setShow(isShow(valueMap));
         templateView.setOnTemplateListener(new template.widget.OnTemplateListener() {
             @Override
             public void onDataChange(BaseTemplate template1,Object object) {
-                valueMap.put(template1.name, object);
-                verifyData(template1, object, valueMap, templateView,holder);
+                if (listener != null)
+                    listener.onDataChanged(template, object);
             }
 
             @Override
-            public void onAttrClick(BaseTemplate template, String attrName) {
+            public void onAttrClick(BaseTemplate template, String attrName, Object value) {
                 try {
                     JSONObject jsonObject = (JSONObject) attrMap.get(template.name);
-                    Object object = ReflectUtil.getFieldValue(template.getClass(), attrName);
-                    if(object != null) {
-                        if(jsonObject == null)
-                            jsonObject = new JSONObject();
-                        jsonObject.put(attrName, object);
-                    }
+                    if(jsonObject == null)
+                        jsonObject = new JSONObject();
+                    jsonObject.put(attrName, value);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
-        templateView.initView(holder, template, showName, editable);
+        templateView.initView(holder, template, showName, new Attr(refuse, exception, editable));
+
 
         if(isEditable(valueMap))
         holder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickHolder(templateView, holder, template);
+                onClickHolder(template, valueMap.get(template.name));
             }
         });
     }
 
-    protected void onClickHolder(final BaseTemplateView templateView ,final BaseViewHolder holder, T template){
+    protected void onClickHolder(T template, Object value){
         dialog = getDialog(context, template);
         if(dialog != null) {
-            dialog.initDialog(template, valueMap.get(template.name));
+            dialog.initDialog(template, value);
             dialog.showDialog();
             dialog.setOnTemplateListener(new template.widget.OnTemplateListener() {
+
                 @Override
                 public void onDataChange(BaseTemplate template, Object object) {
-                    verifyData(template, object, valueMap, templateView, holder);
+                    onDialogDataChanged(template, object);
                 }
 
                 @Override
-                public void onAttrClick(BaseTemplate template, String attrName) {
-
+                public void onAttrClick(BaseTemplate template, String attrName, Object value) {
+                    if(listener != null)
+                        listener.onAttrChanged(template, attrName, value);
                 }
             });
         }
     }
 
-    protected void verifyData(BaseTemplate template, Object object, final Map<String, Object> valueMap, final BaseTemplateView templateView, BaseViewHolder holder){
-        valueMap.put(template.name, object);
-        if(TextUtils.isEmpty(object.toString()))//清空值时同时清空初始值
-            template.initValue = "";
-        if(!TextUtils.isEmpty(template.exception)) {
-            try {
-                Boolean ret = ExpressionUtil.getExpressionUtil().logicExpression(template.exception, valueMap, false);
-                if (ret) {
-                    handleException(template, object, templateView, holder);
-                } else {
-                    template.isException = false;
-                    templateView.setException(false);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        if (listener != null)
-            listener.onTemplateUpdate(template, object);
-    }
-
-    protected void handleException(BaseTemplate template, Object object, final BaseTemplateView templateView, BaseViewHolder holder)  {
-        template.isException = true;
-        templateView.setException(true);
-    }
 }

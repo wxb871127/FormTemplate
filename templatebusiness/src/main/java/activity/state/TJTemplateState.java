@@ -21,6 +21,7 @@ import template.view.TemplateView;
  */
 @State(state = "TJ")
 public class TJTemplateState extends TemplateState{
+    private boolean edit = true;
 
     public TJTemplateState(Context context) {
         super(context);
@@ -35,7 +36,12 @@ public class TJTemplateState extends TemplateState{
 
     @Override
     public void onMenuSelected(int id) {
-
+        switch (id){
+            case 1:
+                edit = !edit;
+                templateView.setEditMode(edit);
+                break;
+        }
     }
 
     @Override

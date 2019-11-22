@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.TextUtils;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import template.bean.SelectTemplate;
 
 public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate>
@@ -28,7 +30,8 @@ public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate>
 //        items = template.getNames();
         items = template.getshowItemNames();
         selectedItem.clear();
-        if(v.contains(",")) {
+//        if(v.contains(",")) {
+        if(!TextUtils.isEmpty(v)){
             java.lang.String[] vs = v.split(",");
             for (int i = 0; i < vs.length; i++)
                 selectedItem.add(vs[i]);

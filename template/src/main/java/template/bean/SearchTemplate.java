@@ -24,12 +24,21 @@ public class SearchTemplate extends BaseTemplate{
     public String showColumn = null;//select要查询的字段名
     public String primaryKey;//主键
     public Map<String, String> nameMap;// 存放template_styles.xml 的 <name:value>键值对
+    public Map<String, String> columnMap;
 
     @Override
     public void parseElement(Element e) {
         super.parseElement(e);
-        nameMap = new HashMap<>();
+        //解析子节点item的相关属性
+        columnMap = new HashMap<>();
+        NodeList titems = e.getElementsByTagName("item");
+        for (int i = 0; i < titems.getLength(); i++) {
+            Element item = (Element) titems.item(i);
+            columnMap.put(item.getAttribute("column"), item.getAttribute("name"));
+        }
 
+        //解析style.xml的相关属性
+        nameMap = new HashMap<>();
         if (!TextUtils.isEmpty(style)) {
             Element element = TemplateParse.getTemplateStyleElement();
             NodeList nodeList = element.getElementsByTagName("style");
