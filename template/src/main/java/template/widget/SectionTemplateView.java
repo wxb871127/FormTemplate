@@ -20,7 +20,7 @@ public class SectionTemplateView extends BaseTemplateView<SectionTemplate> {
 
     @Override
     public int getType() {
-        return 0;
+        return SECTION_TYPE;
     }
 
     @Override

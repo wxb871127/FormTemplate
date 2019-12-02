@@ -1,24 +1,19 @@
 package template.config;
 
 import android.content.Context;
-import android.util.Log;
 
-import org.reflections.Reflections;
-import org.reflections.scanners.FieldAnnotationsScanner;
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.util.ConfigurationBuilder;
-
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-
+import java.util.Map;
 import base.annotation.Template;
+import base.util.TemplateList;
 import template.bean.BaseTemplate;
 import template.control.BaseTemplateControl;
 import template.control.ButtonTemplateControl;
+import template.control.CustomTemplateControl;
 import template.control.DateTemplateControl;
 import template.control.InputTemplateControl;
 import template.control.ListTemplateControl;
@@ -27,8 +22,6 @@ import template.control.SearchTemplateControl;
 import template.control.SectionTemplateControl;
 import template.control.SelectTemplateControl;
 import template.widget.BaseTemplateView;
-
-import static base.util.ClassUtil.getAllAssignedClass;
 
 public class TemplateConfig {
     private static final List<TemplateInfo> templateInfoList = new ArrayList<>();
@@ -39,20 +32,13 @@ public class TemplateConfig {
         Class<? extends BaseTemplate> template;
         BaseTemplateControl templateControl;
     }
+    private static Map<Integer, CustomView> customMap = new HashMap();
 
     /*
         扫描被注解为Template的class
         表单支持的展示类型、xml的标签名、Template类的注解一致
      */
     public static void initConfig(Context context){
-//        List<Class> list = ClassUtil.getAllClassByInterface(BaseTemplate.class);
-//        List<Class> list = ClassUtil.getAllClass("template.config");
-//        List<String> list = ClassUtil.getClazzName("template.config", false);
-
-//        Reflections reflections1 = new Reflections("template.control");
-//        Reflections reflections = new Reflections(new ConfigurationBuilder().forPackages("template.control").addScanners(new SubTypesScanner()).addScanners(new FieldAnnotationsScanner()));
-//        Set<Class<? extends BaseTemplateControl>> classes = reflections.getSubTypesOf(BaseTemplateControl.class);
-
         List<Class> list = new ArrayList<>();
         list.add(SectionTemplateControl.class);
         list.add(InputTemplateControl.class);
@@ -62,6 +48,7 @@ public class TemplateConfig {
         list.add(SearchTemplateControl.class);
         list.add(ButtonTemplateControl.class);
         list.add(ListTemplateControl.class);
+        list.add(CustomTemplateControl.class);
 
         for(Class cl : list){
             try {
@@ -108,10 +95,27 @@ public class TemplateConfig {
     }
 
     public static int getTemplateLayoutByType(int type){
+        int layout = -1;
         for(TemplateInfo templateInfo : templateInfoList){
-            if(type == templateInfo.type)
-                return templateInfo.layout;
+            if(type == templateInfo.type) {
+                layout = templateInfo.layout;
+                break;
+            }
         }
-        return -1;
+        if(layout == -1)
+            return getCustomLayout(type);
+        return layout;
+    }
+
+    public static void registerCustomView(String command, CustomView customView){
+        customMap.put(Integer.valueOf(command), customView);
+    }
+
+    private static int getCustomLayout(int command){
+        return customMap.get(command).getLayout();
+    }
+
+    public static CustomView getCustomView(int command){
+        return customMap.get(command);
     }
 }

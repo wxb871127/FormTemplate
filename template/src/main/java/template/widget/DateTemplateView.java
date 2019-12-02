@@ -15,7 +15,7 @@ public class DateTemplateView extends BaseTemplateView<DateTemplate>{
 
     @Override
     public int getType() {
-        return 4;
+        return DATE_TYPE;
     }
 
     @Override

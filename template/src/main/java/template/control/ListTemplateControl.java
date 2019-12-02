@@ -7,9 +7,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 import base.annotation.Template;
 import template.bean.BaseTemplate;
 import template.bean.ListTemplate;
+import template.interfaces.OnTemplateListener;
 import template.widget.BaseTemplateView;
 import template.widget.ListTemplateView;
 import template.widget.dialog.BaseTemplateDialog;
@@ -47,18 +50,23 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                 if (dialog != null) {
                     jsonArray = (JSONArray) valueMap.get(template.name);
                     dialog.initDialog(template, null);
-                    dialog.setOnTemplateListener(new template.widget.OnTemplateListener() {
+                    dialog.setOnTemplateListener(new OnTemplateListener() {
                         @Override
-                        public void onDataChange(BaseTemplate name, Object object) {
+                        public void onDataChanged(BaseTemplate key, Object value) {
                             if(jsonArray == null)
                                 jsonArray = new JSONArray();
-                            jsonArray.put((JSONObject) object);
+                            jsonArray.put((JSONObject) value);
                             if(listener != null)
-                                listener.onDataChanged(name, jsonArray);
+                                listener.onDataChanged(key, jsonArray);
                         }
 
                         @Override
-                        public void onAttrClick(BaseTemplate template, String attrName, Object value) {
+                        public void onAttrChanged(BaseTemplate key, String attr, Object value) {
+
+                        }
+
+                        @Override
+                        public void onDatasChanged(Map<String, Object> map) {
 
                         }
                     });
@@ -74,20 +82,25 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                         jsonArray = (JSONArray) valueMap.get(template.name);
                         JSONObject jsonObject = jsonArray.getJSONObject(index);
                         dialog.initDialog(template, jsonObject);
-                        dialog.setOnTemplateListener(new template.widget.OnTemplateListener() {
+                        dialog.setOnTemplateListener(new OnTemplateListener() {
                             @Override
-                            public void onDataChange(BaseTemplate name, Object object) {
+                            public void onDataChanged(BaseTemplate key, Object value) {
                                 try {
-                                    jsonArray.put(index, (JSONObject)object);
+                                    jsonArray.put(index, (JSONObject)value);
                                     if(listener != null)
-                                        listener.onDataChanged(name, jsonArray);
+                                        listener.onDataChanged(key, jsonArray);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
 
                             @Override
-                            public void onAttrClick(BaseTemplate template, String attrName, Object value) {
+                            public void onAttrChanged(BaseTemplate key, String attr, Object value) {
+
+                            }
+
+                            @Override
+                            public void onDatasChanged(Map<String, Object> map) {
 
                             }
                         });

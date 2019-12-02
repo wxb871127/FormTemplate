@@ -10,21 +10,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import org.json.JSONArray;
-
 import template.bean.Attr;
 import template.bean.ListTemplate;
 import template.com.form.R;
 
 public class ListTemplateView extends BaseTemplateView<ListTemplate>{
     private RecyclerView recyclerView;
-    private JSONArray data;
+    private ImageView add;
+    private Adapter adapter;
     private OnListTemplateViewListener templateViewListener;
 
     public interface OnListTemplateViewListener{
-        public void onDataDelete(int index);
-        public void onClickAdd();
-        public void onItemViewClick(int index);
+        void onDataDelete(int index);
+        void onClickAdd();
+        void onItemViewClick(int index);
     }
 
     public void setTemplateViewListener(OnListTemplateViewListener listener){
@@ -37,7 +36,7 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
 
     @Override
     public int getType() {
-        return 6;
+        return LIST_TYPE;
     }
 
     @Override
@@ -48,8 +47,11 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
     @Override
     public  void initView(BaseViewHolder holder, ListTemplate template, Object value, Attr attr) {
         holder.getConvertView().setClickable(false);
+        add = (ImageView) holder.getViewById(R.id.template_list_add);
+        recyclerView = (RecyclerView) holder.getViewById(R.id.template_list_list);
+        adapter = new Adapter();
+
         super.initView(holder, template, value, attr);
-        ImageView add = (ImageView) holder.getViewById(R.id.template_list_add);
         add.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,28 +59,42 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
                     templateViewListener.onClickAdd();
             }
         });
-//        add.setClickable(editable);
-        if(!attr.editable)
-            add.setVisibility(View.INVISIBLE);
-        else add.setVisibility(View.VISIBLE);
-
-        recyclerView = (RecyclerView) holder.getViewById(R.id.template_list_list);
+        setEdit(attr.editable);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setClickable(attr.editable);
         String[] ret = null;
         if(!TextUtils.isEmpty(value.toString()))
             ret =  value.toString().split("/");
+        adapter.setEdit(attr.editable);
+        adapter.setValue(ret);
+        recyclerView.setAdapter(adapter);
+    }
 
-        recyclerView.setAdapter(new Adapter(ret, attr.editable));
+    @Override
+    protected void setEdit(boolean editable) {
+        adapter.setEdit(editable);
+        if(!editable) {
+            add.setVisibility(View.INVISIBLE);
+        }else{
+            add.setVisibility(View.VISIBLE);
+        }
+        adapter.notifyDataSetChanged();
     }
 
     public class Adapter extends RecyclerView.Adapter{
         private String[] value;
         private boolean edit;
 
-        public Adapter(String[] strings, boolean edit){
+        public Adapter(){
+
+        }
+
+        public void setEdit(boolean edit){
+            this.edit = edit;
+        }
+
+        public void setValue(String[] strings){
             this.value = strings;
-            this.edit  = edit;
         }
 
         @Override
@@ -114,6 +130,7 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
                 linearLayout.setBackgroundResource(R.drawable.bg_color_gray_border);
                 itemText.setTextColor(getResources().getColor(R.color.B0));
             } else {
+                delete.setVisibility(VISIBLE);
                 linearLayout.setBackgroundResource(R.drawable.bg_color_white_border);
                 itemText.setTextColor(getResources().getColor(R.color.black));
             }
@@ -126,6 +143,4 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
             return this.value.length;
         }
     }
-
-
 }

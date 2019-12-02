@@ -12,7 +12,8 @@ public class ToothActivity extends AppCompatActivity {
         ImageView imageView = new ImageView(this);
         imageView.setBackground(getResources().getDrawable(template.com.form.R.mipmap.ic_launcher));
         setContentView(imageView);
-        String params = getIntent().getStringExtra("params");
+//        String params = getIntent().getStringExtra("params");
+        getIntent().getParcelableExtra("params");
 
         setTitle("牙齿");
     }

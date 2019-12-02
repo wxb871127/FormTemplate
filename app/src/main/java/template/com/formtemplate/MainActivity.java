@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import activity.TemplateActivity;
 import template.config.TemplateConfig;
-
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -18,7 +19,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TemplateConfig.initConfig(this);//静态类初始化方法应只调用一次
-
+        TemplateConfig.registerCustomView("1001", new Subsection());
+        TemplateConfig.registerCustomView("1002", new Subsection2());
     }
 
     @Override

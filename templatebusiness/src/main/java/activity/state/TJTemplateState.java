@@ -11,7 +11,11 @@ import android.view.ViewGroup;
 import com.business.annotation.State;
 import com.convert.TjConverterFactory;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import template.com.templatebusiness.R;
 import template.view.TemplateView;
@@ -60,6 +64,20 @@ public class TJTemplateState extends TemplateState{
             public void onClick(View v) {
                 JSONObject jsonObject = getValueData();
                 Log.e("xx", jsonObject.toString());
+                try {
+                    Map map = new HashMap();
+                    map.put("show", "李朝辉");
+                    JSONObject json = new JSONObject();
+                    json.put("name", "林浩");
+                    json.put("num", 100);
+                    map.put("value", json);
+                    map.put("exception", true);
+
+                    templateView.setCommandValue("1001", map);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
         if(!Boolean.parseBoolean(business.edit)){

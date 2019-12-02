@@ -104,7 +104,7 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
                 @Override
                 public void onClick(View v) {
                     if(listener != null)
-                        listener.onDataChange(template, primaryKey);
+                        listener.onDataChanged(template, primaryKey);
                     if(dialog != null)
                         dialog.dismiss();
                 }

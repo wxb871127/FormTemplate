@@ -3,15 +3,14 @@ package template.control;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.Map;
-import base.annotation.AttrTemplate;
 import base.util.ExpressionUtil;
+import base.util.TemplateList;
 import template.bean.Attr;
 import template.bean.BaseTemplate;
-import template.bean.SectionTemplate;
 import template.interfaces.OnTemplateCommandListener;
+import template.interfaces.OnTemplateListener;
 import template.widget.BaseTemplateView;
 import template.widget.BaseViewHolder;
 import template.widget.dialog.BaseTemplateDialog;
@@ -35,11 +34,11 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
             listener.onDataChanged(template, object);
     }
 
-    public interface OnTemplateListener{
-        void onDataChanged(BaseTemplate key, Object value);//数据发生改变
-        void onAttrChanged(BaseTemplate key, String attr, Object value);//属性发生改变
-        void onDatasChanged(Map<String, Object> map);//多个数据发生改变
-    }
+//    public interface OnTemplateListener{
+//        void onDataChanged(BaseTemplate key, Object value);//数据发生改变
+//        void onAttrChanged(BaseTemplate key, String attr, Object value);//属性发生改变
+//        void onDatasChanged(Map<String, Object> map);//多个数据发生改变
+//    }
 
     public void setTemplateListener(OnTemplateListener listener){
         this.listener = listener;
@@ -79,8 +78,8 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         return true;
     }
 
-    public void initView(final Context context, final BaseViewHolder holder, final T template,
-                         final Map<String, Object> valueMap, final Map<String, Object> attrMap,boolean editMode) {
+    public void initView(final Context context, final BaseViewHolder holder, final TemplateList templates, final T template,
+                         final Map<String, Object> valueMap, final Map<String, Object> attrMap, boolean editMode, Map<String, Boolean> manual) {
         this.valueMap = valueMap;
         final BaseTemplateView templateView = getTemplateView(context);
         boolean editable;
@@ -104,34 +103,21 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         Boolean exception = false;
         Boolean refuse = false;
         try {
-            exception = ExpressionUtil.getExpressionUtil().logicExpression(template.exception, valueMap, false);
+            exception = ((JSONObject)attrMap.get(template.name)).optBoolean("exception");
             refuse =  ((JSONObject)attrMap.get(template.name)).optBoolean("refuse");
+            if(!manual.get(template.name)) {
+                if(!TextUtils.isEmpty(template.exception))
+                    exception = ExpressionUtil.getExpressionUtil().logicExpression(template.exception, valueMap, false);
+                ((JSONObject)attrMap.get(template.name)).put("exception", exception);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        manual.put(template.name, false);
 
         holder.setShow(isShow(valueMap));
-        templateView.setOnTemplateListener(new template.widget.OnTemplateListener() {
-            @Override
-            public void onDataChange(BaseTemplate template1,Object object) {
-                if (listener != null)
-                    listener.onDataChanged(template, object);
-            }
-
-            @Override
-            public void onAttrClick(BaseTemplate template, String attrName, Object value) {
-                try {
-                    JSONObject jsonObject = (JSONObject) attrMap.get(template.name);
-                    if(jsonObject == null)
-                        jsonObject = new JSONObject();
-                    jsonObject.put(attrName, value);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        templateView.setOnTemplateListener(listener);
         templateView.initView(holder, template, showName, new Attr(refuse, exception, editable));
-
 
         if(isEditable(valueMap))
         holder.setOnClickListener(new View.OnClickListener() {
@@ -147,17 +133,21 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         if(dialog != null) {
             dialog.initDialog(template, value);
             dialog.showDialog();
-            dialog.setOnTemplateListener(new template.widget.OnTemplateListener() {
-
+            dialog.setOnTemplateListener(new OnTemplateListener() {
                 @Override
-                public void onDataChange(BaseTemplate template, Object object) {
-                    onDialogDataChanged(template, object);
+                public void onDataChanged(BaseTemplate key, Object value) {
+                    onDialogDataChanged(key, value);
                 }
 
                 @Override
-                public void onAttrClick(BaseTemplate template, String attrName, Object value) {
+                public void onAttrChanged(BaseTemplate key, String attr, Object value) {
                     if(listener != null)
-                        listener.onAttrChanged(template, attrName, value);
+                        listener.onAttrChanged(key, attr, value);
+                }
+
+                @Override
+                public void onDatasChanged(Map<String, Object> map) {
+
                 }
             });
         }

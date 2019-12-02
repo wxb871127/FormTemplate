@@ -6,7 +6,6 @@ import base.annotation.Template;
 
 @Template(tag = "input")
 public class InputTemplate extends BaseTemplate{
-    public String hint;
     public String inputType;
     public int maxLength;
     public String quote;//引用语 引用常用语库

@@ -8,8 +8,6 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.convert.TemplateConverterFactory;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,7 +28,6 @@ public class TemplateActivity extends AppCompatActivity {
         setContentView(R.layout.template_activity);
         ViewGroup content =  findViewById(R.id.template_content);
         ViewGroup bottom = findViewById(R.id.template_bottom);
-
         stateContext = new TemplateStateContext(this);
         String templateName = getIntent().getStringExtra("templateName");
         stateContext.setTemplateState(templateName);

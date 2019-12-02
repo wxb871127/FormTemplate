@@ -3,20 +3,15 @@ package template.widget;
 import android.content.Context;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import base.annotation.AttrTemplate;
 import template.bean.Attr;
 import template.bean.BaseTemplate;
 import template.com.form.R;
+import template.interfaces.OnTemplateListener;
 
 public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeLayout{
     protected Context mContext;
@@ -35,7 +30,16 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected T template;
     protected Object value;
     protected OnTemplateListener templateListener;
-    private boolean isRefuse;
+    protected BaseViewHolder holder;
+
+    protected static final int SECTION_TYPE = 0;
+    protected static final int INPUT_TYPE = 1;
+    protected static final int RADIO_TYPE = 2;
+    protected static final int SELECT_TYPE = 3;
+    protected static final int DATE_TYPE = 4;
+    protected static final int SEARCH_TYPE = 5;
+    protected static final int LIST_TYPE = 6;
+    protected static final int BUTTON_TYPE = 7;
 
     public void setOnTemplateListener(OnTemplateListener listener){
         this.templateListener = listener;
@@ -60,6 +64,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
      */
     public void initView(final BaseViewHolder holder, final T template, final Object value, final Attr attr){
         this.template = template;
+        this.holder = holder;
         this.value = value;
         required = (TextView) holder.getViewById(R.id.template_required);
         label = (TextView)holder.getViewById(R.id.template_label);
@@ -83,9 +88,8 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
                 @Override
                 public void onClick(View v) {
                     attr.isRefuse = !attr.isRefuse;
-                    setRefuse(attr.isRefuse);
                     if (templateListener != null) {
-                        templateListener.onAttrClick(template, "refuse", attr.isRefuse);
+                        templateListener.onAttrChanged(template, "refuse", attr.isRefuse);
                     }
                 }
             });
@@ -96,9 +100,8 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
                 @Override
                 public void onClick(View v) {
                     attr.isException = !attr.isException;
-                    setException(attr.isException);
                     if(templateListener != null)
-                        templateListener.onAttrClick(template, "exception", attr.isException);
+                        templateListener.onAttrChanged(template, "exception", attr.isException);
                 }
             });
         }
@@ -115,14 +118,20 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
                 tvUnit.setText(Html.fromHtml(template.unit));
             }
         }
+        setEdit(attr.editable);
+    }
+
+    protected void setEdit(boolean editable){
         if(vBox != null) {
-            if (attr.editable) {
+            if (editable) {
+                holder.getConvertView().setClickable(true);
                 vBox.setBackgroundResource(R.drawable.bg_color_white_border);
                 if(attrBox != null)
                     attrBox.setBackgroundResource(R.drawable.bg_color_white_border);
                 if(text != null)
                     text.setTextColor(getResources().getColor(R.color.black));
             }else {
+                holder.getConvertView().setClickable(false);
                 vBox.setBackgroundResource(R.drawable.bg_color_gray_border);
                 if(attrBox != null)
                     attrBox.setBackgroundResource(R.drawable.bg_color_gray_border);
@@ -134,15 +143,18 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
 
     protected void notifyItemViewData(Object object){
         if(templateListener != null)
-            templateListener.onDataChange(template, object);
+            templateListener.onDataChanged(template, object);
     }
 
-    public void setRefuse(boolean ret){
-        if(refuseIcon == null) return;
-        if(ret){
+    public void setRefuse(boolean ret) {
+        if (refuseIcon == null) return;
+        if (ret) {
             refuseIcon.setBackground(getResources().getDrawable(R.drawable.radio_confim));
-        }else
+            setEdit(false);
+        } else {
             refuseIcon.setBackground(getResources().getDrawable(R.drawable.radio_nomal));
+            setEdit(true);
+        }
     }
 
     public void setException(boolean ret){

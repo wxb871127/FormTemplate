@@ -26,6 +26,8 @@ public abstract class BaseTemplate {
     public String value;//表达式计算字段值
     public String exception;//是否异常表达式 对应表单配置
     protected SectionTemplate sectionTemplate;//所属section
+    public String command;//按钮和自定义view中使用
+    public String hint;//输入和button中使用
 
     public void parseElement(Element e) {
         Element element = (Element) e.cloneNode(true);

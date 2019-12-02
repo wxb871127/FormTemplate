@@ -27,4 +27,12 @@ public class TemplateList extends ArrayList<BaseTemplate> {
         }
         return null;
     }
+
+    public BaseTemplate getTemplateByCommand(String command){
+        for(BaseTemplate template : this){
+            if(command.equals(template.command))
+                return template;
+        }
+        return null;
+    }
 }

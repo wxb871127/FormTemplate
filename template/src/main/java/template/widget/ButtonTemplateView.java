@@ -15,23 +15,32 @@ public class ButtonTemplateView extends BaseTemplateView<ButtonTemplate>{
 
     @Override
     public int getType() {
-        return 7;
+        return BUTTON_TYPE;
     }
 
     @Override
     public void initView(BaseViewHolder holder, ButtonTemplate template, Object value, Attr attr) {
         holder.getConvertView().setClickable(attr.editable);
         super.initView(holder, template, value, attr);
-        text.setVisibility(View.INVISIBLE);
-        editText.setVisibility(View.VISIBLE);
+        text.setVisibility(View.VISIBLE);
+        editText.setVisibility(View.INVISIBLE);
         hint.setVisibility(VISIBLE);
-        if (value != null && !TextUtils.isEmpty(value.toString())) {
-            text.setText(value.toString());
+        if (!TextUtils.isEmpty(template.hint)) {
+            text.setHint(template.hint);
             hint.setText("");
-        } else {
+        }else {
             text.setText("");
             hint.setText("请选择");
         }
+
+
+//        if (value != null && !TextUtils.isEmpty(value.toString())) {
+//            text.setText(value.toString());
+//            hint.setText("");
+//        } else {
+//            text.setText("");
+//            hint.setText("请选择");
+//        }
 
 
     }

@@ -14,7 +14,7 @@ public class SelectTemplateView extends BaseTemplateView<SelectTemplate>{
 
     @Override
     public int getType() {
-        return 3;
+        return SELECT_TYPE;
     }
 
     @Override

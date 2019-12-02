@@ -42,7 +42,7 @@ public class RadioTemplateDialog extends BaseTemplateDialog<RadioTemplate> {
             @Override
             public void onClick(View v) {
                 if(listener != null)
-                    listener.onDataChange(template,"");
+                    listener.onDataChanged(template,"");
                 dialog.dismiss();
             }
         });
@@ -103,7 +103,7 @@ public class RadioTemplateDialog extends BaseTemplateDialog<RadioTemplate> {
                 public void onClick(View v) {
                     String code = template.getCode(items[position]);
                     if(listener != null)
-                        listener.onDataChange(template, code);
+                        listener.onDataChanged(template, code);
                     dialog.dismiss();
                 }
             });

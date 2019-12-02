@@ -14,7 +14,7 @@ public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
 
     @Override
     public int getType() {
-        return 2;
+        return RADIO_TYPE;
     }
 
     @Override

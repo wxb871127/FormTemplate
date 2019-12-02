@@ -3,7 +3,7 @@ package template.widget.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import template.bean.BaseTemplate;
-import template.widget.OnTemplateListener;
+import template.interfaces.OnTemplateListener;
 
 public class BaseTemplateDialog<T extends BaseTemplate> {
     protected T template;

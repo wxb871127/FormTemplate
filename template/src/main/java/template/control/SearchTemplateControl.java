@@ -38,7 +38,6 @@ public class SearchTemplateControl<T extends BaseTemplate> extends BaseTemplateC
 
     @Override
     protected void onDialogDataChanged(BaseTemplate template1, Object object) {
-//        super.onDialogDataChanged(template, object);
         SearchTemplate template = (SearchTemplate)template1;
 
         ContentResolver contentResolver = context.getContentResolver();

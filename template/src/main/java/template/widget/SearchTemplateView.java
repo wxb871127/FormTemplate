@@ -13,7 +13,7 @@ public class SearchTemplateView extends BaseTemplateView<SearchTemplate>{
 
     @Override
     public int getType() {
-        return 5;
+        return SEARCH_TYPE;
     }
 
     @Override

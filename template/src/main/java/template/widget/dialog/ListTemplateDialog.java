@@ -62,7 +62,7 @@ public class ListTemplateDialog extends BaseTemplateDialog<ListTemplate>{
                 if(dialog != null)
                     dialog.dismiss();
                 if(listener != null)
-                    listener.onDataChange(template, jsonObject);
+                    listener.onDataChanged(template, jsonObject);
             }
         });
         dialog.setTitle(template.label);

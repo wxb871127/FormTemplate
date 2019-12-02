@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import java.io.InputStream;
 import java.util.Map;
 import base.util.TemplateList;
+import template.config.CustomView;
+import template.config.TemplateConfig;
 import template.interfaces.OnTemplateCommandListener;
 import template.widget.TemplateAdapter;
 import base.util.TemplateParse;
@@ -93,6 +95,10 @@ public class TemplateView extends RecyclerView{
 
     public void setValue(String key, Object value){
         templateAdapter.putValue(key, value);
+    }
+
+    public void setCommandValue(String command, Map map){
+        templateAdapter.setCommandValue(command, map);
     }
 
     public void setAttrValue(String key, Object value){
