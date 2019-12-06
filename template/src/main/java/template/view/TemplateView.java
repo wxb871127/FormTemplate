@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import java.io.InputStream;
 import java.util.Map;
 import base.util.TemplateList;
+import template.bean.TemplateValue;
 import template.config.CustomView;
 import template.config.TemplateConfig;
 import template.interfaces.OnTemplateCommandListener;
@@ -93,7 +94,7 @@ public class TemplateView extends RecyclerView{
         templateAdapter.setEditMode(edit);
     }
 
-    public void setValue(String key, Object value){
+    public void setValue(String key, TemplateValue value){
         templateAdapter.putValue(key, value);
     }
 
@@ -101,32 +102,19 @@ public class TemplateView extends RecyclerView{
         templateAdapter.setCommandValue(command, map);
     }
 
-    public void setAttrValue(String key, Object value){
-        templateAdapter.putAttrValue(key, value);
-    }
 
-    public void setValue(Map<String, Object> value){
+    public void setValue(Map<String, TemplateValue> value){
         templateAdapter.setValueMap(value);
     }
 
-    public void setAttrValue(Map<String, Object> value){
-        templateAdapter.setAttrMap(value);
-    }
 
     public Object  getValue(String key){
         return templateAdapter.getValue(key);
     }
 
-    public Object getAttrValue(String key){
-        return templateAdapter.getAttrValue(key);
-    }
 
-    public Map<String, Object> getValueMap(){
+    public Map<String, TemplateValue> getValueMap(){
         return templateAdapter.valueMap;
-    }
-
-    public Map<String, Object> getAttrValueMap(){
-        return templateAdapter.attrMap;
     }
 
     public void notifyData(){

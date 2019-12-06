@@ -10,11 +10,11 @@ import java.util.Map;
 /**
  *  标准表单输出格式转换  用于标准随访、专项、评估
  */
-public class OutputConverter implements Converter<Map, JSONObject>{
+public class OutputConverter implements Converter<Map, Object>{
     @Override
-    public JSONObject convert(Map... value) {
+    public JSONObject convert(Map value) {
         try {
-            return new JSONObject(new Gson().toJson(value[0]));
+            return new JSONObject(new Gson().toJson(value));
         } catch (JSONException e) {
             e.printStackTrace();
         }

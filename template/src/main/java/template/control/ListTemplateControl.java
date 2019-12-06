@@ -2,16 +2,14 @@ package template.control;
 
 import android.content.Context;
 import android.os.Build;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Map;
-
 import base.annotation.Template;
 import template.bean.BaseTemplate;
 import template.bean.ListTemplate;
+import template.bean.TemplateValue;
 import template.interfaces.OnTemplateListener;
 import template.widget.BaseTemplateView;
 import template.widget.ListTemplateView;
@@ -33,40 +31,42 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
         final ListTemplateView listTemplateView = new ListTemplateView(context);
         listTemplateView.setTemplateViewListener(new ListTemplateView.OnListTemplateViewListener() {
             @Override
-            public void onDataDelete(int index) {
-                jsonArray = (JSONArray) valueMap.get(template.name);
+            public void onDataDelete(BaseTemplate template,int index) {
+                TemplateValue templateValue = (TemplateValue) valueMap.get(template.name);
+                jsonArray = (JSONArray) templateValue.value;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     jsonArray.remove(index);
                 }
                 if(jsonArray.length() == 0)
                     jsonArray = null;
                 if(listener != null)
-                    listener.onDataChanged(template, jsonArray);
+                    listener.onDataChanged(template, jsonArray, true);
             }
 
             @Override
-            public void onClickAdd() {
+            public void onClickAdd(BaseTemplate template) {
                 dialog = getDialog(context, null);
                 if (dialog != null) {
-                    jsonArray = (JSONArray) valueMap.get(template.name);
+                    TemplateValue templateValue = (TemplateValue) valueMap.get(template.name);
+                    jsonArray = (JSONArray) (templateValue.value);
                     dialog.initDialog(template, null);
                     dialog.setOnTemplateListener(new OnTemplateListener() {
                         @Override
-                        public void onDataChanged(BaseTemplate key, Object value) {
+                        public void onDataChanged(BaseTemplate key, Object value, boolean notify) {
                             if(jsonArray == null)
                                 jsonArray = new JSONArray();
                             jsonArray.put((JSONObject) value);
                             if(listener != null)
-                                listener.onDataChanged(key, jsonArray);
+                                listener.onDataChanged(key, jsonArray, notify);
                         }
 
                         @Override
-                        public void onAttrChanged(BaseTemplate key, String attr, Object value) {
+                        public void onAttrChanged(BaseTemplate key, String attr, Object value, boolean notify) {
 
                         }
 
                         @Override
-                        public void onDatasChanged(Map<String, Object> map) {
+                        public void onDatasChanged(Map<String, Object> map, boolean notify) {
 
                         }
                     });
@@ -75,7 +75,7 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
             }
 
             @Override
-            public void onItemViewClick(final int index) {
+            public void onItemViewClick(BaseTemplate template, final int index) {
                 dialog = getDialog(context, null);
                 if(dialog != null) {
                     try {
@@ -84,23 +84,23 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                         dialog.initDialog(template, jsonObject);
                         dialog.setOnTemplateListener(new OnTemplateListener() {
                             @Override
-                            public void onDataChanged(BaseTemplate key, Object value) {
+                            public void onDataChanged(BaseTemplate key, Object value, boolean notify) {
                                 try {
                                     jsonArray.put(index, (JSONObject)value);
                                     if(listener != null)
-                                        listener.onDataChanged(key, jsonArray);
+                                        listener.onDataChanged(key, jsonArray, notify);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
 
                             @Override
-                            public void onAttrChanged(BaseTemplate key, String attr, Object value) {
+                            public void onAttrChanged(BaseTemplate key, String attr, Object value, boolean notify) {
 
                             }
 
                             @Override
-                            public void onDatasChanged(Map<String, Object> map) {
+                            public void onDatasChanged(Map<String, Object> map, boolean notify) {
 
                             }
                         });

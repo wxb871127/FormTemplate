@@ -37,7 +37,7 @@ public class SearchTemplateControl<T extends BaseTemplate> extends BaseTemplateC
     }
 
     @Override
-    protected void onDialogDataChanged(BaseTemplate template1, Object object) {
+    protected void onDialogDataChanged(BaseTemplate template1, Object object, boolean notify) {
         SearchTemplate template = (SearchTemplate)template1;
 
         ContentResolver contentResolver = context.getContentResolver();
@@ -52,6 +52,6 @@ public class SearchTemplateControl<T extends BaseTemplate> extends BaseTemplateC
         }
         map.put(template1.name, object);
         if(listener != null)
-            listener.onDatasChanged(map);
+            listener.onDatasChanged(map, notify);
     }
 }

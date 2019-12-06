@@ -6,8 +6,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import org.json.JSONException;
-import org.json.JSONObject;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,11 +13,11 @@ import java.util.Map;
 import base.annotation.AttrTemplate;
 import base.annotation.Template;
 import base.util.ReflectUtil;
-import template.bean.Attr;
-import template.bean.BaseTemplate;
 import base.util.TemplateList;
+import template.bean.BaseTemplate;
 import template.bean.CustomTemplate;
 import template.bean.SectionTemplate;
+import template.bean.TemplateValue;
 import template.config.TemplateConfig;
 import template.control.BaseTemplateControl;
 import template.control.CustomTemplateControl;
@@ -32,23 +30,23 @@ public class TemplateAdapter extends TreeViewAdapter {
     protected TemplateList templates;
     protected Context context;
     protected LayoutInflater mLayoutInflater;
-    public Map<String, Object> valueMap;//表单数据
-    public Map<String, Object> attrMap;//model属性数据
+    public Map<String, TemplateValue> valueMap;//表单数据
+    public Map<String, Object> codeMap;
     private boolean editMode = true;//整张表单是否可编辑状态, 该状态优先级大于字段的editable
     private OnTemplateCommandListener listener;
     private int mFlag = 0x0;
     private Map<String, Boolean> manual;//手动触发时，异常属性值不重新计算
 
     public TemplateAdapter(Context context){
-        this(context, new HashMap<String, Object>());
+        this(context, new HashMap<String, TemplateValue>());
     }
 
-    TemplateAdapter(Context context, Map<String, Object> outMap){
+    TemplateAdapter(Context context, Map<String, TemplateValue> outMap){
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
         valueMap = new HashMap<>();
-        attrMap = new HashMap<>();
         manual = new HashMap<>();
+        codeMap = new HashMap<>();
         this.valueMap.putAll(outMap);
         setHasStableIds(true);//防止刷新recyckerView焦点丢失问题
     }
@@ -61,24 +59,8 @@ public class TemplateAdapter extends TreeViewAdapter {
         this.templates = templates;
         for(BaseTemplate template : templates){
             if(template instanceof SectionTemplate) continue;
-            valueMap.put(template.name, null);
-            Field[] fields = ReflectUtil.findFieldByAnnotation(Attr.class, AttrTemplate.class);
-            JSONObject jsonObject = new JSONObject();
-            for(Field field : fields){
-                if(field != null){
-                    AttrTemplate attrTemplate = field.getAnnotation(AttrTemplate.class);
-                    try {
-                        String type = field.getType().getName();
-                        if (type.equals("java.lang.Boolean") || type.equals("boolean"))
-                            jsonObject.put(attrTemplate.attr(), false);
-                        else
-                            jsonObject.put(attrTemplate.attr(), null);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            attrMap.put(template.name, jsonObject);
+            valueMap.put(template.name, new TemplateValue(null, false, false, true));
+            codeMap.put(template.name, null);
         }
     }
 
@@ -115,43 +97,57 @@ public class TemplateAdapter extends TreeViewAdapter {
 
     @Override
     protected void onBindItemViewHolder(RecyclerView.ViewHolder holder, final int position, final Node node) {
-        BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
+        final BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
         ((BaseViewHolder)holder).setFlag(mFlag);
         ((BaseViewHolder) holder).getConvertView().setPadding(node.getLevel() * 30,3,3,3);
         if(templateControl != null) {
-            templateControl.initView(context, (BaseViewHolder) holder, templates, templateControl.getTemplate(), valueMap, attrMap, editMode, manual);
             templateControl.setTemplateListener(new OnTemplateListener() {
                 @Override
-                public void onDataChanged(BaseTemplate key, Object value) {
-                    valueMap.put(key.name, value);
-//                    manual.clear();
+                public void onDataChanged(BaseTemplate key, Object value, boolean notify) {
                     try {
-                        notifyDataSetChanged();
+                        TemplateValue templateValue = valueMap.get(key.name);
+                        templateValue.value = value;
+                        codeMap.put(key.name, value);
+                        if(notify)
+                            notifyDataSetChanged();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
 
                 @Override
-                public void onAttrChanged(BaseTemplate key, String attr, Object value) {
-                    try {
-                        ((JSONObject)attrMap.get(key.name)).put(attr, value);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                public void onAttrChanged(BaseTemplate key, String attr, Object value, boolean notify) {
+                    TemplateValue templateValue = valueMap.get(key.name);
+                    Field[] fields = ReflectUtil.findFieldByAnnotation(templateValue.getClass(), AttrTemplate.class);
+                    for(Field field : fields){
+                        if(field != null){
+                            AttrTemplate attrTemplate = field.getAnnotation(AttrTemplate.class);
+                            if(attr.equals(attrTemplate.attr())){
+                                try {
+                                    field.set(templateValue, value);
+                                } catch (IllegalAccessException e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            }
+                        }
                     }
-//                    if(attr.equals("exception"))
-                        manual.put(key.name, (Boolean) value);
-                    notifyDataSetChanged();
+                    manual.put(key.name, (Boolean) value);
+                    if(notify)
+                        notifyDataSetChanged();
                 }
 
                 @Override
-                public void onDatasChanged(Map<String, Object> map) {
-                    for(String key : map.keySet()){
-                        if(valueMap.containsKey(key))
-                            valueMap.put(key, map.get(key));
+                public void onDatasChanged(Map<String, Object> map, boolean notify) {
+                    for(String key : map.keySet()) {
+                        if (valueMap.containsKey(key)) {
+                            TemplateValue templateValue = valueMap.get(key);
+                            templateValue.value = map.get(key);
+                            codeMap.put(key, map.get(key));
+                        }
                     }
-//                    manual.clear();
-                    notifyDataSetChanged();
+                    if(notify)
+                        notifyDataSetChanged();
                 }
 
             });
@@ -162,6 +158,7 @@ public class TemplateAdapter extends TreeViewAdapter {
                         listener.onTemplateCommand(name, command);
                 }
             });
+            templateControl.initView(context, (BaseViewHolder) holder, templates, templateControl.getTemplate(), valueMap, codeMap, editMode, manual);
         }
     }
 
@@ -181,38 +178,26 @@ public class TemplateAdapter extends TreeViewAdapter {
         return mLayoutInflater.inflate(layoutResId, parent, false);
     }
 
-    public void putValue(String key, Object value){
+    public void putValue(String key, TemplateValue value){
         valueMap.put(key, value);
+        codeMap.put(key, value.value);
     }
 
-    public void putAttrValue(String key, Object value){
-        attrMap.put(key, value);
-    }
 
     public Object getValue(String key){
         return  valueMap.get(key);
     }
 
-    public Object getAttrValue(String key) {
-        return attrMap.get(key);
-    }
-
-    public void addValueMap(Map<String, Object> outMap){
+    public void addValueMap(Map<String, TemplateValue> outMap){
         this.valueMap.putAll(outMap);
+        for(String key : outMap.keySet()){
+            codeMap.put(key, outMap.get(key).value);
+        }
     }
 
-    public void addAttrMap(Map<String, Object> map){
-        this.attrMap.putAll(map);
-    }
-
-    public void setValueMap(Map<String, Object> map){
+    public void setValueMap(Map<String, TemplateValue> map){
         this.valueMap.clear();
         this.valueMap = map;
-    }
-
-    public void setAttrMap(Map<String, Object> map){
-        this.attrMap.clear();
-        this.attrMap = map;
     }
 
     public void setEditMode(boolean edit){
@@ -224,13 +209,12 @@ public class TemplateAdapter extends TreeViewAdapter {
         if(templates.isEmpty()) return;
         if(TextUtils.isEmpty(command)) throw new IllegalArgumentException("command can not null");
         BaseTemplate template = templates.getTemplateByCommand(command);
-        template.hint = map.get("show").toString();
-        valueMap.put(template.name, map.get("value"));
-        try {
-            ((JSONObject)attrMap.get(template.name)).put("exception", map.get("exception"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        TemplateValue templateValue = valueMap.get(template.name);
+        templateValue.showValue = map.get("show").toString();
+        templateValue.exception = Boolean.parseBoolean(String.valueOf(map.get("exception")));
+        templateValue.value = map.get("value");
+        valueMap.put(template.name, templateValue);
+        codeMap.put(template.name,map.get("value"));
         notifyDataSetChanged();
     }
 }

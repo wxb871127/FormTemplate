@@ -3,8 +3,8 @@ package template.widget;
 import android.content.Context;
 import android.view.View;
 
-import template.bean.Attr;
 import template.bean.SearchTemplate;
+import template.bean.TemplateValue;
 
 public class SearchTemplateView extends BaseTemplateView<SearchTemplate>{
     public SearchTemplateView(Context context) {
@@ -17,17 +17,17 @@ public class SearchTemplateView extends BaseTemplateView<SearchTemplate>{
     }
 
     @Override
-    public void initView(BaseViewHolder holder, SearchTemplate template, Object value, Attr attr) {
-        holder.getConvertView().setClickable(attr.editable);
-        super.initView(holder, template, value, attr);
-        if(attr.editable){
+    public void initView(BaseViewHolder holder, SearchTemplate template, TemplateValue value) {
+        holder.getConvertView().setClickable(value.editable);
+        super.initView(holder, template, value);
+        if(value.editable){
             text.setVisibility(View.INVISIBLE);
             editText.setVisibility(View.VISIBLE);
-            editText.setText(value.toString());
+            editText.setText(value.showValue);
         }else {
             text.setVisibility(View.VISIBLE);
             editText.setVisibility(View.INVISIBLE);
-            text.setText(value.toString());
+            text.setText(value.showValue);
         }
     }
 }

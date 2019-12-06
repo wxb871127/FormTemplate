@@ -36,12 +36,12 @@ public class DateTemplateDialog extends BaseTemplateDialog<DateTemplate>
         calendar.set(year, month, dayOfMonth);
         String date = DateUtil.getDateString(calendar.getTime(), "yyyy-MM-dd");
         if(listener != null)
-            listener.onDataChanged(template, date);
+            listener.onDataChanged(template, date, true);
     }
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if(listener != null)
-            listener.onDataChanged(template, "");
+            listener.onDataChanged(template, "", true);
     }
 }

@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.util.Iterator;
 import java.util.Map;
 import template.bean.ListTemplate;
+import template.bean.TemplateValue;
 import template.com.form.R;
 import template.view.TemplateView;
 
@@ -34,8 +35,11 @@ public class ListTemplateDialog extends BaseTemplateDialog<ListTemplate>{
                     String tvalue = jsonObject.getString(key);
                     if(tvalue.equalsIgnoreCase("null"))
                         templateView.setValue(key, null);
-                    else
-                        templateView.setValue(key, tvalue);
+                    else {
+                        TemplateValue templateValue = new TemplateValue();
+                        templateValue.value = tvalue;
+                        templateView.setValue(key, templateValue);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -57,12 +61,19 @@ public class ListTemplateDialog extends BaseTemplateDialog<ListTemplate>{
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String, Object> map = templateView.getValueMap();
-                JSONObject jsonObject = new JSONObject(map);
+                Map<String, TemplateValue> map = templateView.getValueMap();
+                JSONObject jsonObject = new JSONObject();
+                for(String key : map.keySet()){
+                    try {
+                        jsonObject.put(key, map.get(key).value);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
                 if(dialog != null)
                     dialog.dismiss();
                 if(listener != null)
-                    listener.onDataChanged(template, jsonObject);
+                    listener.onDataChanged(template, jsonObject, true);
             }
         });
         dialog.setTitle(template.label);

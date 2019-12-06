@@ -9,11 +9,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import base.util.TemplateList;
 import template.bean.CustomTemplate;
+import template.bean.TemplateValue;
 import template.config.CustomView;
 import template.interfaces.OnTemplateListener;
 import template.widget.BaseViewHolder;
@@ -32,21 +32,24 @@ public class Subsection implements CustomView {
     }
 
     @Override
-    public void initView(Context context, BaseViewHolder holder, Map valueMap, TemplateList templates, CustomTemplate template, Map attrMap, final OnTemplateListener listener) {
+    public void initView(Context context, BaseViewHolder holder, Map<String, TemplateValue> valueMap, TemplateList templates, CustomTemplate template, Map<String, Object> codeMap, final OnTemplateListener listener) {
         recyclerView = (RecyclerView) holder.getViewById(R.id.list);
         this.mContext = context;
         this.listener = listener;
         this.template = template;
         StringBuilder builder = new StringBuilder();
         map = new HashMap<>();
-        for(Object key : attrMap.keySet()){
-            boolean ret = ((JSONObject)attrMap.get(key)).optBoolean("exception");
+
+
+
+        for(String key : valueMap.keySet()){
+            boolean ret = valueMap.get(key).exception;
             if(ret){
-                builder.append(templates.getTemplate(key.toString()).label).append(":");
-                String showName = templates.getTemplate(key.toString()).getShowName(valueMap.get(key), context);
+                builder.append(templates.getTemplate(key).label).append(":");
+                String showName = templates.getTemplate(key).getShowName(valueMap.get(key).value, context);
                 if(showName != null)
                     builder.append(showName);
-                map.put(key.toString(), builder.toString());
+                map.put(key, builder.toString());
                 builder.delete(0, builder.length());
             }
         }
@@ -63,7 +66,7 @@ public class Subsection implements CustomView {
         }
 
         if(listener != null){
-            listener.onDataChanged(template, builder.toString());
+            listener.onDataChanged(template, builder.toString(), false);
         }
 
     }

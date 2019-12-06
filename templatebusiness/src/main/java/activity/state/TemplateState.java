@@ -11,11 +11,14 @@ import com.business.command.bean.CommandMsg;
 import com.convert.Converter;
 import com.convert.TemplateConverterFactory;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Element;
 
 import java.util.Map;
 
+import template.bean.TemplateValue;
 import template.interfaces.OnTemplateCommandListener;
 import template.view.TemplateView;
 
@@ -84,11 +87,11 @@ public abstract class TemplateState {
         if(jsonObject != null) {
             Map map = (Map<String, Object>) factory.inputConverter().convert(jsonObject);
             templateView.setValue(map);
-            if(factory.attrInputConverter() != null) {
-                Map attrMap = (Map<String, Object>) factory.attrInputConverter().convert(jsonObject);
-                if (attrMap != null)
-                    templateView.setAttrValue(attrMap);
-            }
+//            if(factory.attrInputConverter() != null) {
+//                Map attrMap = (Map<String, Object>) factory.attrInputConverter().convert(jsonObject);
+//                if (attrMap != null)
+//                    templateView.setAttrValue(attrMap);
+//            }
         }
         setTemplateFlag();
         templateView.setTemplateListener(new OnTemplateCommandListener() {
@@ -106,22 +109,28 @@ public abstract class TemplateState {
 
                     @Override
                     public void onSuccess(Object object) {
-                        templateView.setValue(name, object);
-                        templateView.notifyData();
+//                        templateView.setValue(name, object);
+
+//                        templateView.notifyData();
                     }
                 });
             }
         });
     }
 
-    protected Map<String, Object> getValueMap(){
+    protected Map<String, TemplateValue> getValueMap(){
         return templateView.getValueMap();
     }
 
     protected JSONObject getValueData(){
-        Map<String, Object> map = templateView.getValueMap();
-        Map<String, Object> attrMap = templateView.getAttrValueMap();
-        JSONObject jsonObject = factory.outputConverter().convert(map,attrMap);
+        Map<String, TemplateValue> map = templateView.getValueMap();
+        JSONArray jsonArray = (JSONArray)factory.outputConverter().convert(map);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("value", jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return jsonObject;
     }
 

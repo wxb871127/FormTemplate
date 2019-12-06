@@ -26,8 +26,8 @@ public class CustomTemplateControl extends BaseTemplateControl<CustomTemplate>{
     }
 
     @Override
-    public void initView(Context context, BaseViewHolder holder, final TemplateList templates, final CustomTemplate template, Map valueMap, Map attrMap, boolean editMode, Map manual) {
-        super.initView(context, holder, templates, template, valueMap, attrMap, editMode, manual);
-        TemplateConfig.getCustomView(Integer.parseInt(template.command)).initView(context, holder, valueMap, templates, template, attrMap, listener);
+    public void initView(Context context, BaseViewHolder holder, final TemplateList templates, final CustomTemplate template, Map valueMap, Map codeMap, boolean editMode, Map manual) {
+        super.initView(context, holder, templates, template, valueMap, codeMap, editMode, manual);
+        TemplateConfig.getCustomView(Integer.parseInt(template.command)).initView(context, holder, valueMap, templates, template, codeMap, listener);
     }
 }

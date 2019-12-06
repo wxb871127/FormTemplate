@@ -1,8 +1,9 @@
 package template.widget;
 
 import android.content.Context;
-import template.bean.Attr;
+
 import template.bean.CustomTemplate;
+import template.bean.TemplateValue;
 
 public class CustomTemplateView extends BaseTemplateView<CustomTemplate>{
     public CustomTemplateView(Context context) {
@@ -20,7 +21,7 @@ public class CustomTemplateView extends BaseTemplateView<CustomTemplate>{
     }
 
     @Override
-    public void initView(BaseViewHolder holder, CustomTemplate template, Object value, Attr attr) {
+    public void initView(BaseViewHolder holder, CustomTemplate template, TemplateValue value) {
 
     }
 }

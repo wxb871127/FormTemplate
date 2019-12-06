@@ -3,12 +3,11 @@ package template.control;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import org.json.JSONObject;
+import com.wadata.customexpressionlib.ExpressionHelper;
 import java.util.Map;
-import base.util.ExpressionUtil;
 import base.util.TemplateList;
-import template.bean.Attr;
 import template.bean.BaseTemplate;
+import template.bean.TemplateValue;
 import template.interfaces.OnTemplateCommandListener;
 import template.interfaces.OnTemplateListener;
 import template.widget.BaseTemplateView;
@@ -21,7 +20,7 @@ import template.widget.dialog.BaseTemplateDialog;
  */
 public abstract class BaseTemplateControl<T extends BaseTemplate> {
     T template;
-    protected Map<String, Object> valueMap;
+    protected Map<String, TemplateValue> valueMap;
     protected BaseTemplateDialog dialog;
     protected OnTemplateListener listener;
     protected Context context;
@@ -29,16 +28,10 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
 
     public abstract Class<? extends BaseTemplate> getTemplateClass();
     public abstract BaseTemplateView getTemplateView(Context context);
-    protected void onDialogDataChanged(BaseTemplate template, Object object){
+    protected void onDialogDataChanged(BaseTemplate template, Object object, boolean notify){
         if(listener != null)
-            listener.onDataChanged(template, object);
+            listener.onDataChanged(template, object, notify);
     }
-
-//    public interface OnTemplateListener{
-//        void onDataChanged(BaseTemplate key, Object value);//数据发生改变
-//        void onAttrChanged(BaseTemplate key, String attr, Object value);//属性发生改变
-//        void onDatasChanged(Map<String, Object> map);//多个数据发生改变
-//    }
 
     public void setTemplateListener(OnTemplateListener listener){
         this.listener = listener;
@@ -62,7 +55,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
 
     public boolean isEditable(Map<String, Object> valueMap){
         try {
-           return ExpressionUtil.getExpressionUtil().logicExpression(template.editable, valueMap, true);
+           return ExpressionHelper.getExpressionUtil().getExpressionUtil().logicExpression(template.editable, valueMap, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,59 +64,71 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
 
     public boolean isShow(Map<String, Object> valueMap){
         try {
-            return ExpressionUtil.getExpressionUtil().logicExpression(template.show, valueMap, true);
+            return ExpressionHelper.getExpressionUtil().getExpressionUtil().logicExpression(template.show, valueMap, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
     }
 
+    protected Object getRealValue(Object value){
+        return value;
+    }
+
     public void initView(final Context context, final BaseViewHolder holder, final TemplateList templates, final T template,
-                         final Map<String, Object> valueMap, final Map<String, Object> attrMap, boolean editMode, Map<String, Boolean> manual) {
+                         final Map<String, TemplateValue> valueMap, Map<String, Object> codeMap, boolean editMode, Map<String, Boolean> manual) {
         this.valueMap = valueMap;
+        TemplateValue templateValue = valueMap.get(template.name);
+        if(templateValue == null)
+            templateValue = new TemplateValue();
         final BaseTemplateView templateView = getTemplateView(context);
         boolean editable;
         if(!editMode)
             editable = editMode;
-        else editable = isEditable(valueMap);
+        else editable = isEditable(codeMap);
+        templateValue.editable = editable;
 
-        String showName = "";
-        if(!TextUtils.isEmpty(template.value)){////value表达式不为空 计算表达式值
-            Object object = ExpressionUtil.getExpressionUtil().executeExpression(template.value, valueMap);
-            if(object != null) {
-                showName = object.toString();
-                valueMap.put(template.name, object);//计算完值立即存储数据，便于其他字段计算
+        Object value = null;
+        if(!TextUtils.isEmpty(template.value)) {////value表达式不为空 计算表达式值
+            value = ExpressionHelper.getExpressionUtil().getExpressionUtil().executeExpression(template.value, codeMap);
+            templateValue.value = getRealValue(value);
+            codeMap.put(template.name, value);
+        }else if(templateValue.value == null){
+            if(!template.useinitValue && !TextUtils.isEmpty(template.initValue)){
+                value = getRealValue(template.initValue);
+                codeMap.put(template.name, value);
+                template.useinitValue = true;
+                templateValue.value = value;
             }
-        }else {//当前值为空则赋值初始值 当前值不为空使用当前值
-            showName = template.getShowName(valueMap.get(template.name), context);
-            if(TextUtils.isEmpty(showName) && !TextUtils.isEmpty(template.initValue))
-                showName = template.getShowName(template.initValue, context);
         }
+        templateValue.showValue = template.getShowName(templateValue.value, context);
 
         Boolean exception = false;
         Boolean refuse = false;
         try {
-            exception = ((JSONObject)attrMap.get(template.name)).optBoolean("exception");
-            refuse =  ((JSONObject)attrMap.get(template.name)).optBoolean("refuse");
+            exception = valueMap.get(template.name).exception;
+            refuse = valueMap.get(template.name).refuse;
             if(!manual.get(template.name)) {
                 if(!TextUtils.isEmpty(template.exception))
-                    exception = ExpressionUtil.getExpressionUtil().logicExpression(template.exception, valueMap, false);
-                ((JSONObject)attrMap.get(template.name)).put("exception", exception);
+                    exception = ExpressionHelper.getExpressionUtil().getExpressionUtil().logicExpression(template.exception, codeMap, false);
+                valueMap.get(template.name).exception = exception;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         manual.put(template.name, false);
+        templateValue.exception = exception;
+        templateValue.refuse = refuse;
 
-        holder.setShow(isShow(valueMap));
+        holder.setShow(isShow(codeMap));
         templateView.setOnTemplateListener(listener);
-        templateView.initView(holder, template, showName, new Attr(refuse, exception, editable));
+        templateView.initView(holder, template, templateValue);
 
-        if(isEditable(valueMap))
+        if(isEditable(codeMap))
         holder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickHolder(template, valueMap.get(template.name));
+                onClickHolder(template, valueMap.get(template.name).value);
             }
         });
     }
@@ -135,18 +140,18 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
             dialog.showDialog();
             dialog.setOnTemplateListener(new OnTemplateListener() {
                 @Override
-                public void onDataChanged(BaseTemplate key, Object value) {
-                    onDialogDataChanged(key, value);
+                public void onDataChanged(BaseTemplate key, Object value, boolean notify) {
+                    onDialogDataChanged(key, value, notify);
                 }
 
                 @Override
-                public void onAttrChanged(BaseTemplate key, String attr, Object value) {
+                public void onAttrChanged(BaseTemplate key, String attr, Object value, boolean notify) {
                     if(listener != null)
-                        listener.onAttrChanged(key, attr, value);
+                        listener.onAttrChanged(key, attr, value, notify);
                 }
 
                 @Override
-                public void onDatasChanged(Map<String, Object> map) {
+                public void onDatasChanged(Map<String, Object> map, boolean notify) {
 
                 }
             });

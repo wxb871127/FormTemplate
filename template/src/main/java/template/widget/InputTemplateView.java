@@ -1,23 +1,19 @@
 package template.widget;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import template.bean.Attr;
 import template.bean.InputTemplate;
+import template.bean.TemplateValue;
 import template.com.form.R;
 
 public class InputTemplateView extends BaseTemplateView<InputTemplate> {
@@ -68,14 +64,14 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     }
 
     @Override
-    public void initView(BaseViewHolder holder, final InputTemplate template, Object value, Attr attr) {
-        super.initView(holder, template, value, attr);
+    public void initView(BaseViewHolder holder, final InputTemplate template, TemplateValue value) {
+        super.initView(holder, template, value);
         holder.getConvertView().setClickable(false);
         quote = (ImageView) holder.getViewById(R.id.common_template_quote);
         if ("true".equals(template.quote)) {
             quote.setVisibility(VISIBLE);
         }
-        setEdit(attr.editable);
+        setEdit(value.editable);
     }
 
     @Override
@@ -104,7 +100,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
                 editText.removeTextChangedListener((TextWatcher) editText.getTag());
             }
 
-            editText.setText(value.toString());
+            editText.setText(value.showValue);
             if (template.maxLength > 0) {
                 editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(template.maxLength)});
             }
@@ -134,10 +130,18 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
             };
             editText.setTag(textWatcher);
             editText.addTextChangedListener(textWatcher);
+            vBox.setBackgroundResource(R.drawable.bg_color_white_border);
+            text.setTextColor(getResources().getColor(R.color.black));
+            attrBox.setBackgroundResource(R.drawable.bg_color_white_border);
+            holder.getConvertView().setClickable(true);
         } else {
             text.setVisibility(View.VISIBLE);
             editText.setVisibility(View.INVISIBLE);
-            text.setText(value.toString());
+            text.setText(value.showValue);
+            vBox.setBackgroundResource(R.drawable.bg_color_gray_border);
+            text.setTextColor(getResources().getColor(R.color.B0));
+            attrBox.setBackgroundResource(R.drawable.bg_color_gray_border);
+            holder.getConvertView().setClickable(false);
         }
     }
 

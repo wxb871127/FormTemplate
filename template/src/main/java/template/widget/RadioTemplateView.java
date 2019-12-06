@@ -4,8 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 
-import template.bean.Attr;
 import template.bean.RadioTemplate;
+import template.bean.TemplateValue;
 
 public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
     public RadioTemplateView(Context context) {
@@ -18,21 +18,21 @@ public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
     }
 
     @Override
-    public void initView(final BaseViewHolder holder, RadioTemplate template, Object value, Attr attr) {
-        holder.getConvertView().setClickable(attr.editable);
-        super.initView(holder, template, value, attr);
+    public void initView(final BaseViewHolder holder, RadioTemplate template, TemplateValue value) {
+        holder.getConvertView().setClickable(value.editable);
+        super.initView(holder, template, value);
         hint.setVisibility(VISIBLE);
         editText.setVisibility(View.GONE);
         if (value != null && !TextUtils.isEmpty(value.toString())) {
-            text.setText(value.toString());
+            text.setText(value.showValue);
             hint.setText("");
         } else {
             text.setText("");
             hint.setText("请选择");
         }
-        if (value != null && !TextUtils.isEmpty(value.toString())) {
-            String code = template.getCode(value.toString());
-            notifyItemViewData(code);
-        }
+//        if (value != null && !TextUtils.isEmpty(value.toString())) {
+//            String code = template.getCode(value.toString());
+//            notifyItemViewData(code);
+//        }
     }
 }

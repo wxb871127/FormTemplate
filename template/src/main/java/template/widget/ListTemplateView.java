@@ -10,8 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import template.bean.Attr;
+import template.bean.BaseTemplate;
 import template.bean.ListTemplate;
+import template.bean.TemplateValue;
 import template.com.form.R;
 
 public class ListTemplateView extends BaseTemplateView<ListTemplate>{
@@ -21,9 +22,9 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
     private OnListTemplateViewListener templateViewListener;
 
     public interface OnListTemplateViewListener{
-        void onDataDelete(int index);
-        void onClickAdd();
-        void onItemViewClick(int index);
+        void onDataDelete(BaseTemplate template, int index);
+        void onClickAdd(BaseTemplate template);
+        void onItemViewClick(BaseTemplate template, int index);
     }
 
     public void setTemplateViewListener(OnListTemplateViewListener listener){
@@ -45,27 +46,27 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
     }
 
     @Override
-    public  void initView(BaseViewHolder holder, ListTemplate template, Object value, Attr attr) {
+    public  void initView(BaseViewHolder holder, final ListTemplate template, TemplateValue value) {
         holder.getConvertView().setClickable(false);
         add = (ImageView) holder.getViewById(R.id.template_list_add);
         recyclerView = (RecyclerView) holder.getViewById(R.id.template_list_list);
         adapter = new Adapter();
 
-        super.initView(holder, template, value, attr);
+        super.initView(holder, template, value);
         add.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(templateViewListener != null)
-                    templateViewListener.onClickAdd();
+                    templateViewListener.onClickAdd(template);
             }
         });
-        setEdit(attr.editable);
+        setEdit(value.editable);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerView.setClickable(attr.editable);
+        recyclerView.setClickable(value.editable);
         String[] ret = null;
-        if(!TextUtils.isEmpty(value.toString()))
-            ret =  value.toString().split("/");
-        adapter.setEdit(attr.editable);
+        if(value.showValue != null && !TextUtils.isEmpty(value.showValue))
+            ret =  value.showValue.split("/");
+        adapter.setEdit(value.editable);
         adapter.setValue(ret);
         recyclerView.setAdapter(adapter);
     }
@@ -113,14 +114,14 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
                 @Override
                 public void onClick(View v) {
                     if (templateViewListener != null)
-                        templateViewListener.onDataDelete(position);
+                        templateViewListener.onDataDelete(template, position);
                 }
             });
             ((BaseViewHolder) holder).getConvertView().setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (templateViewListener != null)
-                        templateViewListener.onItemViewClick(position);
+                        templateViewListener.onItemViewClick(template, position);
                 }
             });
             ((BaseViewHolder) holder).getConvertView().setClickable(edit);

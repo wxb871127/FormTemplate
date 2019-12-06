@@ -1,6 +1,7 @@
 package template.bean;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -23,6 +24,7 @@ public abstract class BaseTemplate {
     public String editable;//是否可编辑的表达式
     public String show;//是否显示的表达式
     public String initValue;//初始化值
+    public boolean useinitValue;
     public String value;//表达式计算字段值
     public String exception;//是否异常表达式 对应表单配置
     protected SectionTemplate sectionTemplate;//所属section

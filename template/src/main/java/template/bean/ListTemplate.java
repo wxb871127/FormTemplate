@@ -1,6 +1,7 @@
 package template.bean;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,13 +35,19 @@ public class ListTemplate extends BaseTemplate{
             data = new JSONArray(object.toString());
             if(data.length() == 0)
                 return "";
+            if(TextUtils.isEmpty(showArgs)) return "";
+
+
             String[] formats = showFormat.split(",");
             String[] args = showArgs.split(",");
             for(int i=0; i<data.length(); i++){
                 JSONObject jsonObject = data.getJSONObject(i);
                 String showString = "";
                 for(int j=0; j<args.length; j++) {
-                    showString += String.format(formats[j], getShowString(context,args[j],jsonObject));
+                    if(TextUtils.isEmpty(showFormat))
+                        showString += getShowString(context,args[j],jsonObject);
+                    else
+                        showString += String.format(formats[j], getShowString(context,args[j],jsonObject));
                     if(j != args.length-1)
                         showString += ",";
                 }

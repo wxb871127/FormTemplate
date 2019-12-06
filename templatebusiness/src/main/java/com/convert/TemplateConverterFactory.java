@@ -9,12 +9,12 @@ import java.util.Map;
 
 public class TemplateConverterFactory extends Converter.Factory{
     @Override
-    public Converter<JSONObject, ?> inputConverter() {
+    public Converter<Object, ?> inputConverter() {
         return new InputConverter();
     }
 
     @Override
-    public Converter<Map, JSONObject> outputConverter() {
+    public Converter<Map, Object> outputConverter() {
         return new OutputConverter();
     }
 }

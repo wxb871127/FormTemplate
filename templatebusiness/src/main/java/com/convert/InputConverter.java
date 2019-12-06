@@ -9,10 +9,10 @@ import java.util.Map;
  *  标准表单输入格式转换  用于标准随访、专项、评估
  */
 
-public class InputConverter implements Converter<JSONObject, Map>{
+public class InputConverter implements Converter<Object, Map>{
 
     @Override
-    public Map convert(JSONObject... value) {
-        return new Gson().fromJson(value[0].toString(), Map.class);
+    public Map convert(Object value) {
+        return new Gson().fromJson(value.toString(), Map.class);
     }
 }
