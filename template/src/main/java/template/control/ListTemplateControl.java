@@ -79,7 +79,7 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                 dialog = getDialog(context, null);
                 if(dialog != null) {
                     try {
-                        jsonArray = (JSONArray) valueMap.get(template.name);
+                        jsonArray = (JSONArray) (((TemplateValue)valueMap.get(template.name)).value);
                         JSONObject jsonObject = jsonArray.getJSONObject(index);
                         dialog.initDialog(template, jsonObject);
                         dialog.setOnTemplateListener(new OnTemplateListener() {

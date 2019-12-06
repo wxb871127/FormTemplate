@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -67,6 +68,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     public void initView(BaseViewHolder holder, final InputTemplate template, TemplateValue value) {
         super.initView(holder, template, value);
         holder.getConvertView().setClickable(false);
+        holder.getConvertView().setBackground(null);
         quote = (ImageView) holder.getViewById(R.id.common_template_quote);
         if ("true".equals(template.quote)) {
             quote.setVisibility(VISIBLE);
@@ -90,46 +92,16 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
             else
                 editText.setHint("请输入" + template.getShowName(template.label, null));
 
-
             if (TextUtils.isEmpty(template.inputType)) {
                 editText.setInputType(0x20001);
             } else
                 editText.setInputType(TYPE.get(template.inputType));
-
-            if (editText.getTag() instanceof TextWatcher) {//防止recyclerView刷新 触发TextWatcher事件
-                editText.removeTextChangedListener((TextWatcher) editText.getTag());
-            }
-
+            editText();
             editText.setText(value.showValue);
             if (template.maxLength > 0) {
                 editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(template.maxLength)});
             }
             editText.setSelection(editText.getText().length());
-            TextWatcher textWatcher = new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
-                        try {
-                            notifyItemViewData(new BigDecimal(s.toString()));
-                        } catch (NumberFormatException e) {
-                            e.printStackTrace();
-                        }
-                    } else
-                        notifyItemViewData(s.toString());
-                }
-            };
-            editText.setTag(textWatcher);
-            editText.addTextChangedListener(textWatcher);
             vBox.setBackgroundResource(R.drawable.bg_color_white_border);
             text.setTextColor(getResources().getColor(R.color.black));
             attrBox.setBackgroundResource(R.drawable.bg_color_white_border);
@@ -145,4 +117,55 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
         }
     }
 
+    private void editText(){
+        editText.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+//                Log.e("xx", hasFocus + "");
+                if(!hasFocus){
+                    if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
+                        try {
+                            notifyItemViewData(new BigDecimal(editText.getText().toString()));
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
+                    } else
+                        notifyItemViewData(editText.getText().toString());
+                }
+            }
+        });
+        if (editText.getTag() instanceof TextWatcher) {//防止recyclerView刷新 触发TextWatcher事件
+            editText.removeTextChangedListener((TextWatcher) editText.getTag());
+        }
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+//                if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
+//                    try {
+//                        notifyItemViewData(new BigDecimal(s.toString()));
+//                    } catch (NumberFormatException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else
+//                    notifyItemViewData(s.toString());
+            }
+        };
+        editText.setTag(textWatcher);
+        editText.addTextChangedListener(textWatcher);
+    }
+
+    @Override
+    public void onFouces() {
+        editText.requestFocus();
+    }
 }

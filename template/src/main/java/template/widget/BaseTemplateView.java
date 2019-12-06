@@ -56,6 +56,10 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
 
     public abstract int getType();
 
+    public void onFouces(){
+
+    }
+
     /**
      *
      * @param holder    layout的view

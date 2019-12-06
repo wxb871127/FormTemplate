@@ -128,13 +128,18 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         holder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.setFocusable(true);
+                v.setFocusableInTouchMode(true);
+                v.requestFocus();
                 onClickHolder(template, valueMap.get(template.name).value);
+                templateView.onFouces();
             }
         });
     }
 
     protected void onClickHolder(T template, Object value){
         dialog = getDialog(context, template);
+
         if(dialog != null) {
             dialog.initDialog(template, value);
             dialog.showDialog();
