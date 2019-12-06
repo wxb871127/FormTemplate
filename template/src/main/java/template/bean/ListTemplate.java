@@ -2,14 +2,11 @@ package template.bean;
 
 import android.content.Context;
 import android.text.TextUtils;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Element;
-
 import java.util.Iterator;
-
 import base.annotation.Template;
 import base.util.TemplateList;
 import base.util.TemplateParse;
@@ -73,12 +70,13 @@ public class ListTemplate extends BaseTemplate{
                 while(it.hasNext()){
                     String key = it.next();
                     String value = jsonObject.getString(key);
-                    builder.append(templates.getTemplate(key).label).append(":").append(value).append("   ");
+                    if(!TextUtils.isEmpty(value))
+                        builder.append(templates.getTemplate(key).label).append(":").append(value).append("   ");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return builder.substring(0, builder.length()-1);
+            return builder.toString();
         }
         BaseTemplate template = templates.getTemplate(arg);
         return template.getShowName(jsonObject.opt(arg), context);

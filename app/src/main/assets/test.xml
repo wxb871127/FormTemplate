@@ -157,7 +157,7 @@
             <date name="SSRQ" label="手术日期"/>
             <input name="SSJG" label="手术机构"/>
         </list>
-<!--
+
         <input name="PL0000000010" label="腰围" required="true"/>
         <input name="PL0000000012" label="臀围" required="true"/>
         <button name="PL0000000171" label="老年人生活自理能力自我评估" command="1004"/>
@@ -197,6 +197,6 @@
             <input name="BAH" label="病案号"/>
         </list>
         <button name="xj" label="小节" command="2001"/>
-        -->
+
     </section>
 </views>
