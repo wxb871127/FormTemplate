@@ -8,6 +8,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Element;
 
+import java.util.Iterator;
+
 import base.annotation.Template;
 import base.util.TemplateList;
 import base.util.TemplateParse;
@@ -15,8 +17,8 @@ import base.util.TemplateParse;
 @Template(tag = "list")
 public class ListTemplate extends BaseTemplate{
     public TemplateList templates;//列表内部节点和外面一致 这里可以复用
-    public String showArgs;
-    public String showFormat;
+    public String showArgs = "";
+    public String showFormat = "";
 
     @Override
     public void parseElement(Element e) {
@@ -35,18 +37,18 @@ public class ListTemplate extends BaseTemplate{
             data = new JSONArray(object.toString());
             if(data.length() == 0)
                 return "";
-            if(TextUtils.isEmpty(showArgs)) return "";
-
-
             String[] formats = showFormat.split(",");
             String[] args = showArgs.split(",");
             for(int i=0; i<data.length(); i++){
                 JSONObject jsonObject = data.getJSONObject(i);
                 String showString = "";
                 for(int j=0; j<args.length; j++) {
-                    if(TextUtils.isEmpty(showFormat))
-                        showString += getShowString(context,args[j],jsonObject);
-                    else
+                    if(TextUtils.isEmpty(showFormat)) {
+                        if(!TextUtils.isEmpty(showArgs))
+                            showString += getShowString(context, args[j], jsonObject);
+                        else
+                            showString += getShowString(context, "", jsonObject);
+                    }else
                         showString += String.format(formats[j], getShowString(context,args[j],jsonObject));
                     if(j != args.length-1)
                         showString += ",";
@@ -64,6 +66,20 @@ public class ListTemplate extends BaseTemplate{
 
     //获取showArgs中的参数
     private String getShowString(Context context, String arg, JSONObject jsonObject){
+        if(TextUtils.isEmpty(arg)){
+            Iterator<String> it = jsonObject.keys();
+            StringBuilder builder = new StringBuilder();
+            try {
+                while(it.hasNext()){
+                    String key = it.next();
+                    String value = jsonObject.getString(key);
+                    builder.append(templates.getTemplate(key).label).append(":").append(value).append("   ");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return builder.substring(0, builder.length()-1);
+        }
         BaseTemplate template = templates.getTemplate(arg);
         return template.getShowName(jsonObject.opt(arg), context);
     }
