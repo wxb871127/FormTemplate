@@ -27,6 +27,7 @@ public class CommonProvider extends ContentProvider {
 
         //添加我们需要匹配的uri
         uriMatcher.addURI(AUTHORITY,"drug", MATCH_CODE);
+        uriMatcher.addURI(AUTHORITY, "commonExpression", MATCH_CODE);
     }
 
     protected String getTable(Uri uri) {

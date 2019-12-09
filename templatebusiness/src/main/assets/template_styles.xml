@@ -6,6 +6,12 @@
         <item name="primaryKey" value="ypid"/><!--主键 用来上传的字段值-->
     </style>
 
+    <style name="CommonExpression" uri="content://com.provider.CommonProvider/commonExpression">
+        <item name="selection" value="name like ?||'%'"/> <!-- 查询语句-->
+        <item name="showColumn" value="name"/> <!---查询字段-->
+        <item name="primaryKey" value="fieldid"/><!--主键 用来上传的字段值-->
+    </style>
+
     <style name="User" uri="content://com.provider.CommonProvider/user">
         <item name="selection" value="User.pym like ?||'%' or User.yhxm like ?||'%' and Institution.jgbh = User.jgbh"/>
         <item name="showColumn" value="yhxm"/>

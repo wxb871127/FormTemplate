@@ -31,6 +31,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected TemplateValue value;
     protected OnTemplateListener templateListener;
     protected BaseViewHolder holder;
+    protected ImageView quote;
 
     protected static final int SECTION_TYPE = 0;
     protected static final int INPUT_TYPE = 1;
@@ -82,7 +83,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         exception = holder.getViewById(R.id.template_exception);
         refuseIcon = (ImageView)holder.getViewById(R.id.template_refuse_icon);
         exceptionIcon = (ImageView)holder.getViewById(R.id.template_exception_icon);
-
+        quote = (ImageView) holder.getViewById(R.id.common_template_quote);
         if(refuse != null) {
             setException(value.exception);
             setRefuse(value.refuse);

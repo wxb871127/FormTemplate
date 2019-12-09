@@ -9,11 +9,13 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
 import template.com.templatedb.Area;
+import template.com.templatedb.CommonExpression;
 import template.com.templatedb.Drug;
 import template.com.templatedb.Institution;
 import template.com.templatedb.User;
 
 import com.templatedb.greendao.AreaDao;
+import com.templatedb.greendao.CommonExpressionDao;
 import com.templatedb.greendao.DrugDao;
 import com.templatedb.greendao.InstitutionDao;
 import com.templatedb.greendao.UserDao;
@@ -28,11 +30,13 @@ import com.templatedb.greendao.UserDao;
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig areaDaoConfig;
+    private final DaoConfig commonExpressionDaoConfig;
     private final DaoConfig drugDaoConfig;
     private final DaoConfig institutionDaoConfig;
     private final DaoConfig userDaoConfig;
 
     private final AreaDao areaDao;
+    private final CommonExpressionDao commonExpressionDao;
     private final DrugDao drugDao;
     private final InstitutionDao institutionDao;
     private final UserDao userDao;
@@ -44,6 +48,9 @@ public class DaoSession extends AbstractDaoSession {
         areaDaoConfig = daoConfigMap.get(AreaDao.class).clone();
         areaDaoConfig.initIdentityScope(type);
 
+        commonExpressionDaoConfig = daoConfigMap.get(CommonExpressionDao.class).clone();
+        commonExpressionDaoConfig.initIdentityScope(type);
+
         drugDaoConfig = daoConfigMap.get(DrugDao.class).clone();
         drugDaoConfig.initIdentityScope(type);
 
@@ -54,11 +61,13 @@ public class DaoSession extends AbstractDaoSession {
         userDaoConfig.initIdentityScope(type);
 
         areaDao = new AreaDao(areaDaoConfig, this);
+        commonExpressionDao = new CommonExpressionDao(commonExpressionDaoConfig, this);
         drugDao = new DrugDao(drugDaoConfig, this);
         institutionDao = new InstitutionDao(institutionDaoConfig, this);
         userDao = new UserDao(userDaoConfig, this);
 
         registerDao(Area.class, areaDao);
+        registerDao(CommonExpression.class, commonExpressionDao);
         registerDao(Drug.class, drugDao);
         registerDao(Institution.class, institutionDao);
         registerDao(User.class, userDao);
@@ -66,6 +75,7 @@ public class DaoSession extends AbstractDaoSession {
     
     public void clear() {
         areaDaoConfig.clearIdentityScope();
+        commonExpressionDaoConfig.clearIdentityScope();
         drugDaoConfig.clearIdentityScope();
         institutionDaoConfig.clearIdentityScope();
         userDaoConfig.clearIdentityScope();
@@ -73,6 +83,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public AreaDao getAreaDao() {
         return areaDao;
+    }
+
+    public CommonExpressionDao getCommonExpressionDao() {
+        return commonExpressionDao;
     }
 
     public DrugDao getDrugDao() {

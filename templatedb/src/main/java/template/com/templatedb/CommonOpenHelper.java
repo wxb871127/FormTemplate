@@ -7,6 +7,7 @@ import net.sqlcipher.database.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
 import com.templatedb.greendao.AreaDao;
+import com.templatedb.greendao.CommonExpressionDao;
 import com.templatedb.greendao.DrugDao;
 import com.templatedb.greendao.InstitutionDao;
 import com.templatedb.greendao.UserDao;
@@ -33,6 +34,7 @@ public class CommonOpenHelper extends SQLiteOpenHelper {
         AreaDao.createTable(greenDaoDb, true);
         InstitutionDao.createTable(greenDaoDb, true);
         UserDao.createTable(greenDaoDb, true);
+        CommonExpressionDao.createTable(greenDaoDb, true);
     }
 
     @Override

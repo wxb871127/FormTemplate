@@ -5,21 +5,18 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-
+import template.bean.BaseTemplate;
 import template.bean.InputTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
 
 public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     private static final Map<String, Integer> TYPE = new HashMap<String, Integer>();
-    private ImageView quote;
+
     static {
         TYPE.put("none", 0x0);
         TYPE.put("text", 0x1);
@@ -55,8 +52,17 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
         TYPE.put("time", 0x24);
     }
 
+    private OnInputTemplateViewListener listener;
+    public interface OnInputTemplateViewListener{
+        void onClickQuote(BaseTemplate template);
+    }
+
     public InputTemplateView(Context context) {
         super(context);
+    }
+
+    public void setListener(OnInputTemplateViewListener listener){
+        this.listener = listener;
     }
 
     @Override
@@ -69,11 +75,20 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
         super.initView(holder, template, value);
         holder.getConvertView().setClickable(false);
         holder.getConvertView().setBackground(null);
-        quote = (ImageView) holder.getViewById(R.id.common_template_quote);
+
         if ("true".equals(template.quote)) {
             quote.setVisibility(VISIBLE);
-        }
+        }else
+            quote.setVisibility(GONE);
+
         setEdit(value.editable);
+        quote.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listener != null)
+                    listener.onClickQuote(template);
+            }
+        });
     }
 
     @Override
@@ -106,6 +121,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
             text.setTextColor(getResources().getColor(R.color.black));
             attrBox.setBackgroundResource(R.drawable.bg_color_white_border);
             holder.getConvertView().setClickable(true);
+            quote.setClickable(true);
         } else {
             text.setVisibility(View.VISIBLE);
             editText.setVisibility(View.INVISIBLE);
@@ -114,6 +130,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
             text.setTextColor(getResources().getColor(R.color.B0));
             attrBox.setBackgroundResource(R.drawable.bg_color_gray_border);
             holder.getConvertView().setClickable(false);
+            quote.setClickable(false);
         }
     }
 
@@ -121,7 +138,6 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
         editText.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-//                Log.e("xx", hasFocus + "");
                 if(!hasFocus){
                     if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
                         try {
@@ -167,5 +183,9 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     @Override
     public void onFouces() {
         editText.requestFocus();
+    }
+
+    public int getSelectionStart(){
+        return editText.getSelectionStart();
     }
 }

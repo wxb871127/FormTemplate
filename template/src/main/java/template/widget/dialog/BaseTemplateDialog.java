@@ -31,7 +31,6 @@ public class BaseTemplateDialog<T extends BaseTemplate> {
 
     public void showDialog(){
         if(dialog != null) {
-
             dialog.show();
         }
     }

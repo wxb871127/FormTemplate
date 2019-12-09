@@ -2,15 +2,16 @@ package template.control;
 
 import android.content.Context;
 import android.text.TextUtils;
-
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-
 import base.annotation.Template;
 import template.bean.BaseTemplate;
 import template.bean.InputTemplate;
+import template.bean.TemplateValue;
 import template.widget.BaseTemplateView;
 import template.widget.InputTemplateView;
+import template.widget.dialog.BaseTemplateDialog;
+import template.widget.dialog.InputTemplateDialog;
 
 @Template(tag = "input")
 public class InputTemplateControl extends BaseTemplateControl{
@@ -21,9 +22,34 @@ public class InputTemplateControl extends BaseTemplateControl{
     }
 
     @Override
-    public BaseTemplateView getTemplateView(Context context) {
+    public BaseTemplateView getTemplateView(final Context context) {
         this.context = context;
-        return new InputTemplateView(context);
+        final InputTemplateView templateView = new InputTemplateView(context);
+        templateView.setListener(new InputTemplateView.OnInputTemplateViewListener() {
+            @Override
+            public void onClickQuote(final BaseTemplate template) {
+                dialog = getDialog(context, template);
+                if(dialog != null){
+                    dialog.initDialog(template, null);
+                    ((InputTemplateDialog)dialog).setListener(new InputTemplateDialog.OnInputDialogListener() {
+                        @Override
+                        public void addQuote(String quote) {
+                            int index = templateView.getSelectionStart();
+                            String value = "";
+                            TemplateValue templateValue = (TemplateValue) valueMap.get(template.name);
+                            if(templateValue.value != null)
+                                value = templateValue.value.toString();
+                            StringBuilder builder = new StringBuilder(value);
+                            builder.insert(index, quote);
+                            if(listener != null)
+                                listener.onDataChanged(template, builder.toString(), true);
+                        }
+                    });
+                    dialog.showDialog();
+                }
+            }
+        });
+        return templateView;
     }
 
     @Override
@@ -33,5 +59,11 @@ public class InputTemplateControl extends BaseTemplateControl{
             return super.getRealValue(value);
         BigDecimal decimal = new BigDecimal(value.toString());
         return new DecimalFormat(((InputTemplate)template).decimalFormat).format(decimal);
+    }
+
+    @Override
+    public BaseTemplateDialog getDialog(Context context, BaseTemplate template) {
+        InputTemplateDialog templateDialog = new InputTemplateDialog(context);
+        return templateDialog;
     }
 }

@@ -31,6 +31,7 @@ public abstract class BaseTemplate {
     public String command;//按钮和自定义view中使用
     public String hint;//输入和button中使用
 
+
     public void parseElement(Element e) {
         Element element = (Element) e.cloneNode(true);
 
