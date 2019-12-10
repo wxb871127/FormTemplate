@@ -135,21 +135,21 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     }
 
     private void editText(){
-        editText.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
-                        try {
-                            notifyItemViewData(new BigDecimal(editText.getText().toString()));
-                        } catch (NumberFormatException e) {
-                            e.printStackTrace();
-                        }
-                    } else
-                        notifyItemViewData(editText.getText().toString());
-                }
-            }
-        });
+//        editText.setOnFocusChangeListener(new OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if(!hasFocus){
+//                    if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
+//                        try {
+//                            notifyItemViewData(new BigDecimal(editText.getText().toString()));
+//                        } catch (NumberFormatException e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else
+//                        notifyItemViewData(editText.getText().toString());
+//                }
+//            }
+//        });
         if (editText.getTag() instanceof TextWatcher) {//防止recyclerView刷新 触发TextWatcher事件
             editText.removeTextChangedListener((TextWatcher) editText.getTag());
         }
@@ -166,14 +166,14 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
 
             @Override
             public void afterTextChanged(Editable s) {
-//                if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
-//                    try {
-//                        notifyItemViewData(new BigDecimal(s.toString()));
-//                    } catch (NumberFormatException e) {
-//                        e.printStackTrace();
-//                    }
-//                } else
-//                    notifyItemViewData(s.toString());
+                if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
+                    try {
+                        notifyItemViewData(new BigDecimal(s.toString()));
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                } else
+                    notifyItemViewData(s.toString());
             }
         };
         editText.setTag(textWatcher);
@@ -187,5 +187,9 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
 
     public int getSelectionStart(){
         return editText.getSelectionStart();
+    }
+
+    public String getText(){
+        return editText.getText().toString();
     }
 }

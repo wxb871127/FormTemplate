@@ -36,6 +36,8 @@ public class TJTemplateState extends TemplateState{
     public void addMenuView(Menu menu) {
         menu.add(Menu.NONE, 1, Menu.NONE, "编辑").setIcon(R.drawable.ico_edit)
                 .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(Menu.NONE,2,Menu.NONE,"设备").setIcon(R.drawable.ico_import)
+                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
     @Override
@@ -44,6 +46,9 @@ public class TJTemplateState extends TemplateState{
             case 1:
                 edit = !edit;
                 templateView.setEditMode(edit);
+                break;
+            case 2:
+                templateView.setDataSource("A001", "85");
                 break;
         }
     }

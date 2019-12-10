@@ -97,6 +97,7 @@ public class TemplateAdapter extends TreeViewAdapter {
 
     @Override
     protected void onBindItemViewHolder(RecyclerView.ViewHolder holder, final int position, final Node node) {
+        templates.get(position).position = position;
         final BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
         ((BaseViewHolder)holder).setFlag(mFlag);
         ((BaseViewHolder) holder).getConvertView().setPadding(node.getLevel() * 30,3,3,3);
@@ -109,6 +110,7 @@ public class TemplateAdapter extends TreeViewAdapter {
                         templateValue.value = value;
                         codeMap.put(key.name, value);
                         if(notify)
+//                            notifyExpressionData();
                             notifyDataSetChanged();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -118,6 +120,11 @@ public class TemplateAdapter extends TreeViewAdapter {
                 @Override
                 public void onAttrChanged(BaseTemplate key, String attr, Object value, boolean notify) {
                     TemplateValue templateValue = valueMap.get(key.name);
+                    if("refuse".equals(attr)){
+                        templateValue.refuse = (Boolean)value;
+                        notifyItemChanged(key.position);
+                        return;
+                    }
                     Field[] fields = ReflectUtil.findFieldByAnnotation(templateValue.getClass(), AttrTemplate.class);
                     for(Field field : fields){
                         if(field != null){
@@ -134,6 +141,7 @@ public class TemplateAdapter extends TreeViewAdapter {
                     }
                     manual.put(key.name, (Boolean) value);
                     if(notify)
+//                        notifyExpressionData();
                         notifyDataSetChanged();
                 }
 
@@ -147,6 +155,7 @@ public class TemplateAdapter extends TreeViewAdapter {
                         }
                     }
                     if(notify)
+//                        notifyExpressionData();
                         notifyDataSetChanged();
                 }
 
@@ -159,6 +168,14 @@ public class TemplateAdapter extends TreeViewAdapter {
                 }
             });
             templateControl.initView(context, (BaseViewHolder) holder, templates, templateControl.getTemplate(), valueMap, codeMap, editMode, manual);
+        }
+    }
+
+    private void notifyExpressionData(){
+        for(BaseTemplate template : templates){
+            if(template.expression){
+                notifyItemChanged(template.position);
+            }
         }
     }
 
@@ -215,6 +232,16 @@ public class TemplateAdapter extends TreeViewAdapter {
         templateValue.value = map.get("value");
         valueMap.put(template.name, templateValue);
         codeMap.put(template.name,map.get("value"));
+        notifyDataSetChanged();
+    }
+
+    public void setDataSource(String dataSource, Object value){
+        for(BaseTemplate template : templates){
+            if(dataSource.equals(template.dataSource)){
+                TemplateValue templateValue = valueMap.get(template.name);
+                templateValue.value = value;
+            }
+        }
         notifyDataSetChanged();
     }
 }

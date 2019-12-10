@@ -84,6 +84,8 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         refuseIcon = (ImageView)holder.getViewById(R.id.template_refuse_icon);
         exceptionIcon = (ImageView)holder.getViewById(R.id.template_exception_icon);
         quote = (ImageView) holder.getViewById(R.id.common_template_quote);
+
+        setEdit(value.editable);
         if(refuse != null) {
             setException(value.exception);
             setRefuse(value.refuse);
@@ -92,9 +94,8 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
 
                 @Override
                 public void onClick(View v) {
-                    value.refuse = !value.refuse;
                     if (templateListener != null) {
-                        templateListener.onAttrChanged(template, "refuse", value.refuse, true);
+                        templateListener.onAttrChanged(template, "refuse", !value.refuse, true);
                     }
                 }
             });
@@ -104,9 +105,8 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             exception.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    value.exception = !value.exception;
                     if(templateListener != null)
-                        templateListener.onAttrChanged(template, "exception", value.exception, true);
+                        templateListener.onAttrChanged(template, "exception", !value.exception, true);
                 }
             });
         }
@@ -123,7 +123,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
                 tvUnit.setText(Html.fromHtml(template.unit));
             }
         }
-        setEdit(value.editable);
+
     }
 
     protected void setEdit(boolean editable){
@@ -138,9 +138,9 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             }else {
                 holder.getConvertView().setClickable(false);
                 vBox.setBackgroundResource(R.drawable.bg_color_gray_border);
-                if(attrBox != null)
+                if (attrBox != null)
                     attrBox.setBackgroundResource(R.drawable.bg_color_gray_border);
-                if(text != null)
+                if (text != null)
                     text.setTextColor(getResources().getColor(R.color.B0));
             }
         }
@@ -160,6 +160,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             refuseIcon.setBackground(getResources().getDrawable(R.drawable.radio_nomal));
             setEdit(true);
         }
+        refuse.setBackgroundResource(R.drawable.bg_color_white_border);
     }
 
     public void setException(boolean ret){

@@ -7,7 +7,6 @@ import java.text.DecimalFormat;
 import base.annotation.Template;
 import template.bean.BaseTemplate;
 import template.bean.InputTemplate;
-import template.bean.TemplateValue;
 import template.widget.BaseTemplateView;
 import template.widget.InputTemplateView;
 import template.widget.dialog.BaseTemplateDialog;
@@ -35,10 +34,7 @@ public class InputTemplateControl extends BaseTemplateControl{
                         @Override
                         public void addQuote(String quote) {
                             int index = templateView.getSelectionStart();
-                            String value = "";
-                            TemplateValue templateValue = (TemplateValue) valueMap.get(template.name);
-                            if(templateValue.value != null)
-                                value = templateValue.value.toString();
+                            String value = templateView.getText();
                             StringBuilder builder = new StringBuilder(value);
                             builder.insert(index, quote);
                             if(listener != null)
@@ -50,6 +46,11 @@ public class InputTemplateControl extends BaseTemplateControl{
             }
         });
         return templateView;
+    }
+
+    @Override
+    protected void onClickHolder(BaseTemplate template, Object value) {
+
     }
 
     @Override

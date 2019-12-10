@@ -27,7 +27,7 @@ public class InputTemplateDialog extends BaseTemplateDialog<InputTemplate>{
     private Button btn_cancel;
     private Button btn_submit;
     private Adapter adapter;
-    private Map<String, String> map = new LinkedHashMap<>();
+    private Map<String, String> map = new LinkedHashMap<>();;
     public InputTemplateDialog(Context mContext) {
         super(mContext);
     }
@@ -50,7 +50,6 @@ public class InputTemplateDialog extends BaseTemplateDialog<InputTemplate>{
         btn_submit = view.findViewById(R.id.btn_submit);
         adapter = new Adapter(mContext, null);
         listView.setAdapter(adapter);
-
 
         ContentResolver contentResolver = mContext.getContentResolver();
         Cursor cursor = contentResolver.query(Uri.parse(template.uri), null,
@@ -77,6 +76,7 @@ public class InputTemplateDialog extends BaseTemplateDialog<InputTemplate>{
                     for(String key: map.keySet()){
                         builder.append(key);
                     }
+                    map.clear();
                     listener.addQuote(builder.toString());
                 }
                 if(dialog != null)

@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver;
 import java.io.InputStream;
 import java.util.Map;
 import base.util.TemplateList;
+import template.bean.BaseTemplate;
 import template.bean.TemplateValue;
 import template.config.CustomView;
 import template.config.TemplateConfig;
@@ -129,5 +130,9 @@ public class TemplateView extends RecyclerView{
 
     public void notifyData(){
         templateAdapter.notifyDataSetChanged();
+    }
+
+    public void setDataSource(String dataSource, Object value){
+        templateAdapter.setDataSource(dataSource, value);
     }
 }

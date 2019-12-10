@@ -30,7 +30,9 @@ public abstract class BaseTemplate {
     protected SectionTemplate sectionTemplate;//所属section
     public String command;//按钮和自定义view中使用
     public String hint;//输入和button中使用
-
+    public String dataSource;//数据来源（设备数据）
+    public boolean expression;//当前字段是否包含表达式
+    public int position;
 
     public void parseElement(Element e) {
         Element element = (Element) e.cloneNode(true);
@@ -41,6 +43,29 @@ public abstract class BaseTemplate {
             if (attr != null) {
                 ReflectUtil.setFiled(this, field, attr.getValue());
             }
+        }
+        setExpression();
+    }
+
+    private void setExpression(){
+        if(!TextUtils.isEmpty(exception) && !"true".equals(exception) && !"false".equals(exception)) {
+            expression = true;
+            return;
+        }
+
+        if(!TextUtils.isEmpty(value)) {
+            expression = true;
+            return;
+        }
+
+        if(!TextUtils.isEmpty(editable) && !"true".equals(editable) && !"false".equals(editable)) {
+            expression = true;
+            return;
+        }
+
+        if(!TextUtils.isEmpty(show) && !"true".equals(show) && !"false".equals(show)) {
+            expression = true;
+            return;
         }
     }
 

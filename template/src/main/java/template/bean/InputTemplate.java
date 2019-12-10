@@ -1,7 +1,5 @@
 package template.bean;
 
-import android.text.TextUtils;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -21,7 +19,6 @@ public class InputTemplate extends BaseTemplate{
     public String showColumn = null;//select要查询的字段名
     public String primaryKey;//主键
     public Map<String, String> nameMap;// 存放template_styles.xml 的 <name:value>键值对
-    public Map<String, String> columnMap;
     public String uri;//ContentProvider Uri
 
     @Override
