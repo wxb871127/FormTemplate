@@ -52,6 +52,7 @@ public class TemplateAdapter extends TreeViewAdapter {
     }
 
     public void init(TemplateList templates){
+        TemplateConfig.initCustomView();
         ArrayList list = templates;
         setDatas(list);
         setLevel(2);

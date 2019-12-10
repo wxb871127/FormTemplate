@@ -6,14 +6,6 @@
     android:padding="@dimen/dp6"
     android:background="@drawable/list_item_stroke_selector"
     android:orientation="horizontal">
-    <!--
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp6"
-        android:background="@drawable/list_item_stroke_selector"
-        android:orientation="horizontal">
--->
         <LinearLayout
             android:layout_gravity="center_vertical"
             android:layout_width="@dimen/dp130"
@@ -177,7 +169,5 @@
                     android:src="@drawable/radio_icon_selector"/>
             </LinearLayout>
         </LinearLayout>
-<!--
-    </LinearLayout>
--->
+
 </LinearLayout>

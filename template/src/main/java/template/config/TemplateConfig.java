@@ -32,7 +32,8 @@ public class TemplateConfig {
         Class<? extends BaseTemplate> template;
         BaseTemplateControl templateControl;
     }
-    private static Map<Integer, CustomView> customMap = new HashMap();
+    private static Map<Integer, Class> customMap = new HashMap();
+    private static Map<Integer, CustomView> customViewMap = new HashMap<>();
 
     /*
         扫描被注解为Template的class
@@ -107,15 +108,28 @@ public class TemplateConfig {
         return layout;
     }
 
-    public static void registerCustomView(String command, CustomView customView){
-        customMap.put(Integer.valueOf(command), customView);
+    public static void initCustomView(){
+        customViewMap.clear();
+        for(Integer index : customMap.keySet()){
+            try {
+                customViewMap.put(index, (CustomView) customMap.get(index).newInstance());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void registerCustomView(String command, Class clas){
+        customMap.put(Integer.valueOf(command), clas);
     }
 
     private static int getCustomLayout(int command){
-        return customMap.get(command).getLayout();
+        return customViewMap.get(command).getLayout();
     }
 
     public static CustomView getCustomView(int command){
-        return customMap.get(command);
+        return customViewMap.get(command);
     }
 }

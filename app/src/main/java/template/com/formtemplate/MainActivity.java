@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TemplateConfig.initConfig(this);//静态类初始化方法应只调用一次
-        TemplateConfig.registerCustomView("1001", new Subsection());
-        TemplateConfig.registerCustomView("1002", new Subsection2());
+        TemplateConfig.registerCustomView("1001", Subsection.class);
+        TemplateConfig.registerCustomView("1002", Subsection2.class);
     }
 
     @Override

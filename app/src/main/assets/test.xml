@@ -171,7 +171,7 @@
             <item name="未说明的性别" code="9"/>
 
         </radio>
-
+        <custom name="xj" label="小节" command="1001"/>
         <!--    <input name="PL0000000010" label="腰围" required="true"/>
             <input name="PL0000000012" label="臀围" required="true"/>
             <button name="PL0000000171" label="老年人生活自理能力自我评估" command="1004"/>
