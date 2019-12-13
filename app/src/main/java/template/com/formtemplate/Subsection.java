@@ -21,10 +21,10 @@ import template.widget.BaseViewHolder;
 public class Subsection implements CustomView {
     private RecyclerView recyclerView;
     private Map<String, Object> map;
-    private Map<String, String> bzMap = new HashMap<>();//医生备注
     private Context mContext;
     private OnTemplateListener listener;
     private CustomTemplate template;
+    private Map<String, TemplateValue> valueMap;
 
     @Override
     public int getLayout() {
@@ -32,14 +32,15 @@ public class Subsection implements CustomView {
     }
 
     @Override
-    public void initView(Context context, BaseViewHolder holder, Map<String, TemplateValue> valueMap, TemplateList templates, CustomTemplate template, Map<String, Object> codeMap, final OnTemplateListener listener) {
+    public void initView(Context context, BaseViewHolder holder, Map<String, TemplateValue> valueMap,
+                         TemplateList templates, CustomTemplate template, Map<String, Object> codeMap, final OnTemplateListener listener) {
         recyclerView = (RecyclerView) holder.getViewById(R.id.list);
         this.mContext = context;
         this.listener = listener;
         this.template = template;
         StringBuilder builder = new StringBuilder();
         map = new HashMap<>();
-
+        this.valueMap = valueMap;
 
 
         for(String key : valueMap.keySet()){
@@ -58,19 +59,6 @@ public class Subsection implements CustomView {
         recyclerView.setAdapter(adapter);
     }
 
-    public void onDataChanged(){
-        StringBuilder builder = new StringBuilder();
-        for(String key : map.keySet()){
-            builder.append(map.get(key));
-            builder.append(bzMap.get(key)).append(";");
-        }
-
-        if(listener != null){
-            listener.onDataChanged(template, builder.toString(), false);
-        }
-
-    }
-
     public class Adapter extends RecyclerView.Adapter{
         private Object keys[];
         public Adapter(Object keys[]){
@@ -87,7 +75,8 @@ public class Subsection implements CustomView {
             TextView excption =  (TextView) ((BaseViewHolder) holder).getViewById(R.id.excption);
             EditText bz = (EditText)((BaseViewHolder)holder).getViewById(R.id.bz);
             excption.setText(map.get(keys[position]).toString());
-            bz.setText(bzMap.get(keys[position]));
+            TemplateValue templateValue = valueMap.get(keys[position]);
+            bz.setText(templateValue.exceptionDesc);
 
             TextWatcher textWatcher = new TextWatcher() {
                 @Override
@@ -102,8 +91,9 @@ public class Subsection implements CustomView {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    bzMap.put(keys[position].toString(), s.toString());
-                    onDataChanged();
+                    TemplateValue templateValue = valueMap.get(keys[position]);
+                    templateValue.exceptionDesc = s.toString();
+                    valueMap.put(keys[position].toString(), templateValue);
                 }
             };
             bz.setTag(textWatcher);

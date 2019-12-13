@@ -3,6 +3,7 @@ package template.bean;
 public class TemplateValue {
     public Object value;//真实值
     public String showValue;//显示值
+    public String exceptionDesc;//异常描述
     @base.annotation.AttrTemplate(attr = "refuse")
     public Boolean refuse = false;//是否拒绝
     @base.annotation.AttrTemplate(attr = "exception")

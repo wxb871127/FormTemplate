@@ -1,9 +1,8 @@
 package template.widget;
 
 import android.content.Context;
-
 import template.bean.CustomTemplate;
-import template.bean.TemplateValue;
+import template.config.TemplateConfig;
 
 public class CustomTemplateView extends BaseTemplateView<CustomTemplate>{
     public CustomTemplateView(Context context) {
@@ -12,16 +11,16 @@ public class CustomTemplateView extends BaseTemplateView<CustomTemplate>{
 
     @Override
     public int getType() {
-        return -1;
+        return CUSTOM_TYPE;
     }
 
-    @Override
-    public int getlayout() {
-        return -1;
-    }
+//    @Override
+//    protected int getContentLayout() {
+//        return TemplateConfig.getCustomLayout(Integer.parseInt(template.command));
+//    }
 
     @Override
-    public void initView(BaseViewHolder holder, CustomTemplate template, TemplateValue value) {
-
+    protected int getSpinnerLayout() {
+        return TemplateConfig.getCustomLayout(Integer.parseInt(template.command));
     }
 }

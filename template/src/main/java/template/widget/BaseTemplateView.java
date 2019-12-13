@@ -1,11 +1,10 @@
 package template.widget;
 
 import android.content.Context;
-import android.text.Html;
-import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import template.bean.BaseTemplate;
@@ -17,12 +16,9 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected Context mContext;
     protected TextView required;
     protected TextView label;
-    protected TextView tvUnit;
-    protected View vBox;
-    protected View attrBox;
-    protected EditText editText;
-    protected TextView text;
-    protected TextView hint;
+    protected LinearLayout title;
+    protected LinearLayout viewContant;
+    protected LinearLayout spinner;
     protected View refuse;//拒检
     protected ImageView refuseIcon;
     protected View exception;//异常
@@ -31,7 +27,6 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected TemplateValue value;
     protected OnTemplateListener templateListener;
     protected BaseViewHolder holder;
-    protected ImageView quote;
 
     protected static final int SECTION_TYPE = 0;
     protected static final int INPUT_TYPE = 1;
@@ -41,6 +36,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected static final int SEARCH_TYPE = 5;
     protected static final int LIST_TYPE = 6;
     protected static final int BUTTON_TYPE = 7;
+    protected static final int CUSTOM_TYPE = 8;
 
     public void setOnTemplateListener(OnTemplateListener listener){
         this.templateListener = listener;
@@ -53,6 +49,18 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
 
     public int getlayout() {
         return R.layout.common_template;
+    }
+
+    protected int getContentLayout(){
+        return 0;
+    }
+
+    protected int getSpinnerLayout(){
+        return 0;
+    }
+
+    protected void initContentView(){
+
     }
 
     public abstract int getType();
@@ -73,19 +81,36 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         this.value = value;
         required = (TextView) holder.getViewById(R.id.template_required);
         label = (TextView)holder.getViewById(R.id.template_label);
-        vBox = holder.getViewById(R.id.common_template_box);
-        attrBox = holder.getViewById(R.id.template_attr);
-        editText = (EditText) holder.getViewById(R.id.template_edit);
-        text = (TextView)holder.getViewById(R.id.template_text);
-        hint = (TextView) holder.getViewById(R.id.common_template_hint);
-        tvUnit = (TextView)holder.getViewById(R.id.template_input_unit);
+        title = (LinearLayout)holder.getViewById(R.id.template_title);
+        viewContant = (LinearLayout)holder.getViewById(R.id.common_template_box);
+        spinner = (LinearLayout)holder.getViewById(R.id.template_spinner);
         refuse = holder.getViewById(R.id.template_refuse);
         exception = holder.getViewById(R.id.template_exception);
         refuseIcon = (ImageView)holder.getViewById(R.id.template_refuse_icon);
         exceptionIcon = (ImageView)holder.getViewById(R.id.template_exception_icon);
-        quote = (ImageView) holder.getViewById(R.id.common_template_quote);
+        if(viewContant != null && getContentLayout() != 0) {
+            viewContant.removeAllViews();
+            LayoutInflater.from(mContext).inflate(getContentLayout(), viewContant);
+        }
+        if(spinner != null) {
+            if (getSpinnerLayout() != 0) {
+                spinner.setVisibility(VISIBLE);
+                spinner.removeAllViews();
+                LayoutInflater.from(mContext).inflate(getSpinnerLayout(), spinner);
+            }else
+                spinner.setVisibility(GONE);
+        }
+        initContentView();
 
-        setEdit(value.editable);
+        if(value.refuse){
+            setValueEdit(false);
+            setExceptionEdit(false);
+        }else {
+            setValueEdit(value.editable);
+            setExceptionEdit(value.editable);
+            setRefuseEdit(value.editable);
+        }
+
         if(refuse != null) {
             setException(value.exception);
             setRefuse(value.refuse);
@@ -116,33 +141,18 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             required.setVisibility(VISIBLE);
         else
             required.setVisibility(GONE);
-        if(tvUnit != null) {
-            tvUnit.setText("");
-            if (!TextUtils.isEmpty(template.unit)) {
-                tvUnit.setVisibility(View.VISIBLE);
-                tvUnit.setText(Html.fromHtml(template.unit));
-            }
-        }
-
     }
 
-    protected void setEdit(boolean editable){
-        if(vBox != null) {
-            if (editable) {
-                holder.getConvertView().setClickable(true);
-                vBox.setBackgroundResource(R.drawable.bg_color_white_border);
-                if(attrBox != null)
-                    attrBox.setBackgroundResource(R.drawable.bg_color_white_border);
-                if(text != null)
-                    text.setTextColor(getResources().getColor(R.color.black));
-            }else {
-                holder.getConvertView().setClickable(false);
-                vBox.setBackgroundResource(R.drawable.bg_color_gray_border);
-                if (attrBox != null)
-                    attrBox.setBackgroundResource(R.drawable.bg_color_gray_border);
-                if (text != null)
-                    text.setTextColor(getResources().getColor(R.color.B0));
-            }
+    protected void setValueEdit(boolean editable){
+        if(viewContant == null) return;
+        if (editable) {
+            title.setBackgroundResource(R.drawable.bg_color_white_border);
+            viewContant.setBackgroundResource(R.drawable.bg_color_white_border);
+            viewContant.setClickable(true);
+        }else {
+            title.setBackgroundResource(R.drawable.bg_color_gray_border);
+            viewContant.setBackgroundResource(R.drawable.bg_color_gray_border);
+            viewContant.setClickable(false);
         }
     }
 
@@ -151,16 +161,34 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             templateListener.onDataChanged(template, object, true);
     }
 
+
     public void setRefuse(boolean ret) {
         if (refuseIcon == null) return;
         if (ret) {
             refuseIcon.setBackground(getResources().getDrawable(R.drawable.radio_confim));
-            setEdit(false);
         } else {
             refuseIcon.setBackground(getResources().getDrawable(R.drawable.radio_nomal));
-            setEdit(true);
         }
-        refuse.setBackgroundResource(R.drawable.bg_color_white_border);
+    }
+
+    protected void setRefuseEdit(boolean editable){
+        if (editable) {
+            refuse.setBackgroundResource(R.drawable.bg_color_white_border);
+            refuse.setClickable(true);
+        }else {
+            refuse.setBackgroundResource(R.drawable.bg_color_gray_border);
+            refuse.setClickable(false);
+        }
+    }
+
+    protected void setExceptionEdit(boolean editable){
+        if (editable) {
+            exception.setBackgroundResource(R.drawable.bg_color_white_border);
+            exception.setClickable(true);
+        }else {
+            exception.setBackgroundResource(R.drawable.bg_color_gray_border);
+            exception.setClickable(false);
+        }
     }
 
     public void setException(boolean ret){

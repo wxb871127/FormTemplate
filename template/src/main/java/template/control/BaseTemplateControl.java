@@ -126,14 +126,10 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         templateView.initView(holder, template, templateValue);
 
         if(isEditable(codeMap))
-        holder.setOnClickListener(new View.OnClickListener() {
+        holder.onClickContent(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setFocusable(true);
-                v.setFocusableInTouchMode(true);
-                v.requestFocus();
                 onClickHolder(template, valueMap.get(template.name).value);
-                templateView.onFouces();
             }
         });
     }

@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:paddingBottom="@dimen/dp5"
-    android:paddingRight="@dimen/dp10"
     android:paddingTop="@dimen/dp5" >
 
     <LinearLayout
@@ -43,7 +42,6 @@
             android:id="@id/template_list_item_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp5"
             android:src="@drawable/list_template_item_delete" />
     </LinearLayout>
 

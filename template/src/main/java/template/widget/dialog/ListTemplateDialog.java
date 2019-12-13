@@ -26,7 +26,7 @@ public class ListTemplateDialog extends BaseTemplateDialog<ListTemplate>{
         View view = LayoutInflater.from(mContext).inflate(R.layout.list_template_dialog, null);
         final TemplateView templateView = view.findViewById(R.id.templateView);
         templateView.initTemplate(template.templates);
-        if(value != null) {
+         if(value != null) {
             JSONObject jsonObject = (JSONObject) value;
             Iterator<String> it = jsonObject.keys();
             while (it.hasNext()) {

@@ -15,12 +15,10 @@ import base.annotation.Template;
 import base.util.ReflectUtil;
 import base.util.TemplateList;
 import template.bean.BaseTemplate;
-import template.bean.CustomTemplate;
 import template.bean.SectionTemplate;
 import template.bean.TemplateValue;
 import template.config.TemplateConfig;
 import template.control.BaseTemplateControl;
-import template.control.CustomTemplateControl;
 import template.interfaces.OnTemplateCommandListener;
 import template.interfaces.OnTemplateListener;
 import template.widget.tree.Node;
@@ -82,12 +80,8 @@ public class TemplateAdapter extends TreeViewAdapter {
     @Override
     public int getItemViewType(int position) {
         BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
-        if(templateControl != null) {
-            if(templateControl instanceof CustomTemplateControl)
-                return Integer.parseInt(((CustomTemplate)(templates.get(position))).command);
-            else
+        if(templateControl != null)
                 return templateControl.getTemplateView(context).getType();
-        }
         return 0;
     }
 
@@ -101,7 +95,7 @@ public class TemplateAdapter extends TreeViewAdapter {
         templates.get(position).position = position;
         final BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
         ((BaseViewHolder)holder).setFlag(mFlag);
-        ((BaseViewHolder) holder).getConvertView().setPadding(node.getLevel() * 30,3,3,3);
+        ((BaseViewHolder) holder).getConvertView().setPadding(node.getLevel() * 20,1,3,1);
         if(templateControl != null) {
             templateControl.setTemplateListener(new OnTemplateListener() {
                 @Override
@@ -111,7 +105,6 @@ public class TemplateAdapter extends TreeViewAdapter {
                         templateValue.value = value;
                         codeMap.put(key.name, value);
                         if(notify)
-//                            notifyExpressionData();
                             notifyDataSetChanged();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -142,7 +135,6 @@ public class TemplateAdapter extends TreeViewAdapter {
                     }
                     manual.put(key.name, (Boolean) value);
                     if(notify)
-//                        notifyExpressionData();
                         notifyDataSetChanged();
                 }
 
@@ -156,7 +148,6 @@ public class TemplateAdapter extends TreeViewAdapter {
                         }
                     }
                     if(notify)
-//                        notifyExpressionData();
                         notifyDataSetChanged();
                 }
 

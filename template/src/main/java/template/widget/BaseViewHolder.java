@@ -1,10 +1,8 @@
 package template.widget;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-
 import template.com.form.R;
 
 public class BaseViewHolder extends RecyclerView.ViewHolder{
@@ -21,9 +19,14 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
         return itemView.findViewById(id);
     }
 
+    public void onClickContent(View.OnClickListener listener){
+        setOnClickListener(R.id.common_template_box, listener);
+    }
+
     public void setOnClickListener(int viewId, View.OnClickListener listener){
         View view = itemView.findViewById(viewId);
-        view.setOnClickListener(listener);
+        if(view != null)
+            view.setOnClickListener(listener);
     }
 
     public void setOnClickListener(View.OnClickListener listener){
@@ -62,10 +65,11 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
                 show = true;
             }
         }
-        if(show){
-            View view = getViewById(R.id.template_attr);
-            if(view != null)
-                view.setVisibility(View.VISIBLE);
-        }
+
+        View view = getViewById(R.id.attr);
+        if(view == null) return;
+        if(show)
+            view.setVisibility(View.VISIBLE);
+        else view.setVisibility(View.GONE);
     }
 }

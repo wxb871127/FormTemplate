@@ -2,15 +2,26 @@ package template.widget;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.view.View;
+import android.widget.TextView;
 
 import template.bean.DateTemplate;
 import template.bean.TemplateValue;
+import template.com.form.R;
 
 public class DateTemplateView extends BaseTemplateView<DateTemplate>{
-
+    private TextView hint;
     public DateTemplateView(Context context) {
         super(context);
+    }
+
+    @Override
+    protected int getContentLayout() {
+        return R.layout.select_template_content;
+    }
+
+    @Override
+    protected void initContentView() {
+        hint = (TextView) holder.getViewById(R.id.common_template_hint);
     }
 
     @Override
@@ -22,15 +33,9 @@ public class DateTemplateView extends BaseTemplateView<DateTemplate>{
     public  void initView(BaseViewHolder holder, DateTemplate template, TemplateValue value) {
         holder.getConvertView().setClickable(value.editable);
         super.initView(holder, template, value);
-
-        hint.setVisibility(VISIBLE);
-        editText.setVisibility(View.GONE);
-        if (value != null && !TextUtils.isEmpty(value.toString())) {
-            text.setText(value.showValue);
-            hint.setText("");
-        } else {
-            text.setText("");
-            hint.setText("请选择");
-        }
+        if(!TextUtils.isEmpty(value.showValue))
+            hint.setText(value.showValue);
+        else
+            hint.setText("请选择（日期）");
     }
 }

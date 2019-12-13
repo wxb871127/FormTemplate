@@ -19,6 +19,11 @@ public class SectionTemplateView extends BaseTemplateView<SectionTemplate> {
     }
 
     @Override
+    protected int getContentLayout() {
+        return 0;
+    }
+
+    @Override
     public int getType() {
         return SECTION_TYPE;
     }

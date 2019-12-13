@@ -59,7 +59,7 @@
 
 
     <LinearLayout
-        android:id="@+id/template_attr"
+        android:id="@+id/attr"
         android:layout_width="wrap_content"
         android:layout_height="37dp"
         android:layout_marginStart="@dimen/dp6"

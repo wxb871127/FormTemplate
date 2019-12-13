@@ -1,7 +1,6 @@
 package template.config;
 
 import android.content.Context;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import base.annotation.Template;
-import base.util.TemplateList;
 import template.bean.BaseTemplate;
 import template.control.BaseTemplateControl;
 import template.control.ButtonTemplateControl;
@@ -96,16 +94,11 @@ public class TemplateConfig {
     }
 
     public static int getTemplateLayoutByType(int type){
-        int layout = -1;
         for(TemplateInfo templateInfo : templateInfoList){
-            if(type == templateInfo.type) {
-                layout = templateInfo.layout;
-                break;
-            }
+            if(type == templateInfo.type)
+                return templateInfo.layout;
         }
-        if(layout == -1)
-            return getCustomLayout(type);
-        return layout;
+        return -1;
     }
 
     public static void initCustomView(){
@@ -125,7 +118,7 @@ public class TemplateConfig {
         customMap.put(Integer.valueOf(command), clas);
     }
 
-    private static int getCustomLayout(int command){
+    public static int getCustomLayout(int command){
         return customViewMap.get(command).getLayout();
     }
 

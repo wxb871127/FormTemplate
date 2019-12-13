@@ -6,6 +6,9 @@ import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +54,10 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
         TYPE.put("date", 0x14);
         TYPE.put("time", 0x24);
     }
-
+    private TextView text;
+    private EditText editText;
+    private TextView unit;
+    private ImageView quote;
     private OnInputTemplateViewListener listener;
     public interface OnInputTemplateViewListener{
         void onClickQuote(BaseTemplate template);
@@ -71,17 +77,27 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     }
 
     @Override
+    protected int getContentLayout() {
+        return R.layout.input_template_content;
+    }
+
+    @Override
+    protected void initContentView() {
+        text = (TextView) holder.getViewById(R.id.template_text);
+        editText = (EditText) holder.getViewById(R.id.template_edit);
+        unit = (TextView) holder.getViewById(R.id.template_input_unit);
+        quote = (ImageView)holder.getViewById(R.id.common_template_quote);
+    }
+
+    @Override
     public void initView(BaseViewHolder holder, final InputTemplate template, TemplateValue value) {
         super.initView(holder, template, value);
-        holder.getConvertView().setClickable(false);
-        holder.getConvertView().setBackground(null);
-
+        unit.setText(template.unit);
         if ("true".equals(template.quote)) {
             quote.setVisibility(VISIBLE);
         }else
             quote.setVisibility(GONE);
 
-        setEdit(value.editable);
         quote.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,12 +108,8 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     }
 
     @Override
-    public void setRefuse(boolean ret) {
-        super.setRefuse(ret);
-        setEdit(!ret);
-    }
-
-    protected void setEdit(boolean editable){
+    protected void setValueEdit(boolean editable) {
+        super.setValueEdit(editable);
         if (editable) {
             text.setVisibility(View.INVISIBLE);
             editText.setVisibility(View.VISIBLE);
@@ -117,39 +129,20 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
                 editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(template.maxLength)});
             }
             editText.setSelection(editText.getText().length());
-            vBox.setBackgroundResource(R.drawable.bg_color_white_border);
             text.setTextColor(getResources().getColor(R.color.black));
-            attrBox.setBackgroundResource(R.drawable.bg_color_white_border);
             holder.getConvertView().setClickable(true);
             quote.setClickable(true);
         } else {
             text.setVisibility(View.VISIBLE);
             editText.setVisibility(View.INVISIBLE);
             text.setText(value.showValue);
-            vBox.setBackgroundResource(R.drawable.bg_color_gray_border);
             text.setTextColor(getResources().getColor(R.color.B0));
-            attrBox.setBackgroundResource(R.drawable.bg_color_gray_border);
             holder.getConvertView().setClickable(false);
             quote.setClickable(false);
         }
     }
 
     private void editText(){
-//        editText.setOnFocusChangeListener(new OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if(!hasFocus){
-//                    if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
-//                        try {
-//                            notifyItemViewData(new BigDecimal(editText.getText().toString()));
-//                        } catch (NumberFormatException e) {
-//                            e.printStackTrace();
-//                        }
-//                    } else
-//                        notifyItemViewData(editText.getText().toString());
-//                }
-//            }
-//        });
         if (editText.getTag() instanceof TextWatcher) {//防止recyclerView刷新 触发TextWatcher事件
             editText.removeTextChangedListener((TextWatcher) editText.getTag());
         }

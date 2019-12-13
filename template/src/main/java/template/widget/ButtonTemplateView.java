@@ -1,14 +1,27 @@
 package template.widget;
 
 import android.content.Context;
-import android.text.TextUtils;
-import android.view.View;
+import android.widget.TextView;
+
 import template.bean.ButtonTemplate;
 import template.bean.TemplateValue;
+import template.com.form.R;
 
 public class ButtonTemplateView extends BaseTemplateView<ButtonTemplate>{
+    private TextView hint;
+
     public ButtonTemplateView(Context context) {
         super(context);
+    }
+
+    @Override
+    protected int getContentLayout() {
+        return R.layout.select_template_content;
+    }
+
+    @Override
+    protected void initContentView() {
+        hint = (TextView) holder.getViewById(R.id.common_template_hint);
     }
 
     @Override
@@ -20,15 +33,6 @@ public class ButtonTemplateView extends BaseTemplateView<ButtonTemplate>{
     public void initView(BaseViewHolder holder, ButtonTemplate template, TemplateValue value) {
         holder.getConvertView().setClickable(value.editable);
         super.initView(holder, template, value);
-        text.setVisibility(View.VISIBLE);
-        editText.setVisibility(View.INVISIBLE);
-        hint.setVisibility(VISIBLE);
-        if (!TextUtils.isEmpty(value.showValue)) {
-            text.setHint(value.showValue);
-            hint.setText("");
-        }else {
-            text.setText("");
-            hint.setText("请选择");
-        }
+
     }
 }

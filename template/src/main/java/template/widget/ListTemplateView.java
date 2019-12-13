@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
+
 import template.bean.BaseTemplate;
 import template.bean.ListTemplate;
 import template.bean.TemplateValue;
@@ -17,7 +19,7 @@ import template.com.form.R;
 
 public class ListTemplateView extends BaseTemplateView<ListTemplate>{
     private RecyclerView recyclerView;
-    private ImageView add;
+    private LinearLayout add;
     private Adapter adapter;
     private OnListTemplateViewListener templateViewListener;
 
@@ -40,18 +42,29 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
         return LIST_TYPE;
     }
 
+
     @Override
-    public int getlayout() {
-        return R.layout.list_template;
+    protected int getContentLayout() {
+        return R.layout.list_template_content;
+    }
+
+    @Override
+    protected int getSpinnerLayout() {
+        return R.layout.list_template_spinner;
+    }
+
+    @Override
+    protected void initContentView() {
+        super.initContentView();
+        add = (LinearLayout) holder.getViewById(R.id.template_list_add);
+        recyclerView = (RecyclerView) holder.getViewById(R.id.template_list_list);
     }
 
     @Override
     public  void initView(BaseViewHolder holder, final ListTemplate template, TemplateValue value) {
         holder.getConvertView().setClickable(false);
-        add = (ImageView) holder.getViewById(R.id.template_list_add);
-        recyclerView = (RecyclerView) holder.getViewById(R.id.template_list_list);
-        adapter = new Adapter();
 
+        adapter = new Adapter();
         super.initView(holder, template, value);
         add.setOnClickListener(new OnClickListener() {
             @Override
@@ -71,7 +84,6 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
         recyclerView.setAdapter(adapter);
     }
 
-    @Override
     protected void setEdit(boolean editable) {
         adapter.setEdit(editable);
         if(!editable) {

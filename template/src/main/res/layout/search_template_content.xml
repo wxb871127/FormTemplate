@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/template_linelayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_item_stroke_selector"
+    android:orientation="horizontal">
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/dp10"
+        android:paddingRight="@dimen/dp10">
+
+        <TextView
+            android:id="@id/template_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingBottom="@dimen/dp7"
+            android:paddingTop="@dimen/dp7"
+            android:layout_marginRight="@dimen/dp10"
+            android:gravity="center_vertical|right"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+        <EditText
+            android:id="@id/template_edit"
+            android:layout_gravity="center_vertical|right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textCursorDrawable="@null"
+            android:textColorHint="@color/c_d1d1d1"
+            android:clickable="false"
+            android:textColor="@color/black"
+            android:gravity="center_vertical|right"
+            android:layout_marginRight="@dimen/dp10"
+            android:textSize="16sp"
+            />
+    </FrameLayout>
+</LinearLayout>
