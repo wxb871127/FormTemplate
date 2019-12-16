@@ -6,15 +6,16 @@
     android:orientation="vertical">
     <LinearLayout
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/dp6"
         android:background="@drawable/list_item_background_selector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_gravity="center_vertical"
             android:id="@+id/template_title"
+            android:paddingLeft="@dimen/dp6"
+            android:background="@drawable/bg_color_gray"
             android:layout_width="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="1"
             android:layout_height="wrap_content">
         <TextView
             android:id="@id/template_required"
@@ -28,7 +29,7 @@
 
         <TextView
             android:id="@id/template_label"
-            android:text="上海"
+            android:text=""
             android:paddingBottom="@dimen/dp7"
             android:paddingTop="@dimen/dp7"
             android:layout_width="wrap_content"
@@ -39,84 +40,72 @@
     </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/common_template_box"
-            android:layout_width="0dp"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:orientation="horizontal"
-            android:layout_weight="5"/>
+        android:id="@+id/common_template_box"
+        android:layout_width="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="3"/>
 
         <LinearLayout
-            android:id="@+id/attr"
+        android:id="@+id/attr"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="right"
+        android:paddingRight="@dimen/dp10"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/template_exception"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:paddingRight="@dimen/dp10"
-            android:gravity="right"
-            android:layout_gravity="center_vertical"
             android:orientation="horizontal">
-            <LinearLayout
-                android:id="@+id/template_exception"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+            <TextView
+                android:text="异常"
+                android:textSize="16sp"
                 android:paddingLeft="@dimen/dp15"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <TextView
-                    android:text="异常"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-                <ImageView
-                    android:id="@+id/template_exception_icon"
-                    android:layout_marginLeft="1dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/radio_icon_selector"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/template_refuse"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/dp15"
-                android:orientation="horizontal">
-                <TextView
-                    android:text="拒检"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-
-                <ImageView
-                    android:id="@+id/template_refuse_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="1dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/radio_icon_selector"/>
-            </LinearLayout>
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <ImageView
+                android:id="@+id/template_exception_icon"
+                android:layout_marginLeft="1dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/radio_icon_selector"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/template_refuse"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:text="拒检"
+                android:paddingLeft="@dimen/dp15"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/template_refuse_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_gravity="center"
+                android:src="@drawable/radio_icon_selector"/>
+        </LinearLayout>
+    </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/template_spinner"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/template_spinner"
-            android:layout_width="0dp"
-            android:layout_weight="6.5"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" />
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:paddingRight="@dimen/dp10"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

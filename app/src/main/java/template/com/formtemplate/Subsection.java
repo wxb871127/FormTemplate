@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import template.widget.BaseViewHolder;
 
 public class Subsection implements CustomView {
     private RecyclerView recyclerView;
+    private EditText kszj;
     private Map<String, Object> map;
     private Context mContext;
     private OnTemplateListener listener;
@@ -32,16 +34,17 @@ public class Subsection implements CustomView {
     }
 
     @Override
-    public void initView(Context context, BaseViewHolder holder, Map<String, TemplateValue> valueMap,
-                         TemplateList templates, CustomTemplate template, Map<String, Object> codeMap, final OnTemplateListener listener) {
+    public void initView(Context context, BaseViewHolder holder, final Map<String, TemplateValue> valueMap,
+                         TemplateList templates, final CustomTemplate template, Map<String, Object> codeMap, final OnTemplateListener listener) {
         recyclerView = (RecyclerView) holder.getViewById(R.id.list);
+        kszj = (EditText)holder.getViewById(R.id.kszj);
+        holder.getViewById(R.id.attr).setVisibility(View.GONE);
         this.mContext = context;
         this.listener = listener;
         this.template = template;
         StringBuilder builder = new StringBuilder();
         map = new HashMap<>();
         this.valueMap = valueMap;
-
 
         for(String key : valueMap.keySet()){
             boolean ret = valueMap.get(key).exception;
@@ -57,6 +60,29 @@ public class Subsection implements CustomView {
         Adapter adapter = new Adapter(map.keySet().toArray());
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(adapter);
+
+        TemplateValue value = valueMap.get(template.name);
+        kszj.setText(value.exceptionDesc);
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                TemplateValue templateValue = valueMap.get(template.name);
+                templateValue.exceptionDesc = s.toString();
+                valueMap.put(template.name, templateValue);
+            }
+        };
+        kszj.setTag(textWatcher);
+        kszj.addTextChangedListener(textWatcher);
     }
 
     public class Adapter extends RecyclerView.Adapter{
@@ -74,9 +100,11 @@ public class Subsection implements CustomView {
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             TextView excption =  (TextView) ((BaseViewHolder) holder).getViewById(R.id.excption);
             EditText bz = (EditText)((BaseViewHolder)holder).getViewById(R.id.bz);
+
             excption.setText(map.get(keys[position]).toString());
             TemplateValue templateValue = valueMap.get(keys[position]);
             bz.setText(templateValue.exceptionDesc);
+
 
             TextWatcher textWatcher = new TextWatcher() {
                 @Override
@@ -94,11 +122,20 @@ public class Subsection implements CustomView {
                     TemplateValue templateValue = valueMap.get(keys[position]);
                     templateValue.exceptionDesc = s.toString();
                     valueMap.put(keys[position].toString(), templateValue);
+
+
+                    TemplateValue templateValue2 = valueMap.get(template.name);
+                    StringBuilder builder = new StringBuilder();
+                    for(String key : map.keySet()){
+                        builder.append(map.get(key));
+                        builder.append(valueMap.get(key).exceptionDesc).append(";");
+                    }
+                    templateValue2.value = builder.toString();
+                    valueMap.put(template.name, templateValue2);
                 }
             };
             bz.setTag(textWatcher);
             bz.addTextChangedListener(textWatcher);
-
         }
 
         @Override

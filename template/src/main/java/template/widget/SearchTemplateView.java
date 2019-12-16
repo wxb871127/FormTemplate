@@ -5,6 +5,7 @@ import android.content.Context;
 import template.bean.SearchTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
+import template.widget.tree.Node;
 
 public class SearchTemplateView extends BaseTemplateView<SearchTemplate>{
     public SearchTemplateView(Context context) {
@@ -27,8 +28,8 @@ public class SearchTemplateView extends BaseTemplateView<SearchTemplate>{
     }
 
     @Override
-    public void initView(BaseViewHolder holder, SearchTemplate template, TemplateValue value) {
+    public void initView(BaseViewHolder holder, Node node, SearchTemplate template, TemplateValue value) {
         holder.getConvertView().setClickable(value.editable);
-        super.initView(holder, template, value);
+        super.initView(holder, node, template, value);
     }
 }

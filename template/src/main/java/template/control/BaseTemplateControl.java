@@ -13,6 +13,7 @@ import template.interfaces.OnTemplateListener;
 import template.widget.BaseTemplateView;
 import template.widget.BaseViewHolder;
 import template.widget.dialog.BaseTemplateDialog;
+import template.widget.tree.Node;
 
 /**
  * 使用模板方法模式 控制表单的级联项目（包括是否显示、是否可编辑）
@@ -75,7 +76,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         return value;
     }
 
-    public void initView(final Context context, final BaseViewHolder holder, final TemplateList templates, final T template,
+    public void initView(final Context context, final BaseViewHolder holder, Node node, final TemplateList templates, final T template,
                          final Map<String, TemplateValue> valueMap, Map<String, Object> codeMap, boolean editMode, Map<String, Boolean> manual) {
         this.valueMap = valueMap;
         TemplateValue templateValue = valueMap.get(template.name);
@@ -123,7 +124,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
 
         holder.setShow(isShow(codeMap));
         templateView.setOnTemplateListener(listener);
-        templateView.initView(holder, template, templateValue);
+        templateView.initView(holder, node, template, templateValue);
 
         if(isEditable(codeMap))
         holder.onClickContent(new View.OnClickListener() {

@@ -1,21 +1,23 @@
 package template.widget;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
-
 import template.bean.BaseTemplate;
 import template.bean.ListTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
+import template.widget.tree.Node;
 
 public class ListTemplateView extends BaseTemplateView<ListTemplate>{
     private RecyclerView recyclerView;
@@ -58,14 +60,25 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
         super.initContentView();
         add = (LinearLayout) holder.getViewById(R.id.template_list_add);
         recyclerView = (RecyclerView) holder.getViewById(R.id.template_list_list);
+        attr.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                attr.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                int attrWidth = attr.getMeasuredWidth();
+                Resources resources = getResources();
+                DisplayMetrics dm = resources.getDisplayMetrics();
+                int width = dm.widthPixels;
+                ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(width - attrWidth - node.getLevel()*20, ViewGroup.LayoutParams.WRAP_CONTENT);
+                spinner.setLayoutParams(layoutParams);
+            }
+        });
     }
 
     @Override
-    public  void initView(BaseViewHolder holder, final ListTemplate template, TemplateValue value) {
+    public  void initView(BaseViewHolder holder, Node node, final ListTemplate template, TemplateValue value) {
         holder.getConvertView().setClickable(false);
-
         adapter = new Adapter();
-        super.initView(holder, template, value);
+        super.initView(holder, node, template, value);
         add.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

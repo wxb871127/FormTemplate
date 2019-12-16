@@ -12,6 +12,7 @@
         android:textSize="16sp"
         android:paddingBottom="@dimen/dp7"
         android:paddingTop="@dimen/dp7"
+        android:paddingRight="@dimen/dp5"
         android:drawableRight="@drawable/list_template_add"/>
 
 </LinearLayout>

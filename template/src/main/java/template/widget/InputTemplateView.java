@@ -16,6 +16,7 @@ import template.bean.BaseTemplate;
 import template.bean.InputTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
+import template.widget.tree.Node;
 
 public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     private static final Map<String, Integer> TYPE = new HashMap<String, Integer>();
@@ -90,8 +91,8 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     }
 
     @Override
-    public void initView(BaseViewHolder holder, final InputTemplate template, TemplateValue value) {
-        super.initView(holder, template, value);
+    public void initView(BaseViewHolder holder, Node node, final InputTemplate template, TemplateValue value) {
+        super.initView(holder, node, template, value);
         unit.setText(template.unit);
         if ("true".equals(template.quote)) {
             quote.setVisibility(VISIBLE);

@@ -95,7 +95,7 @@ public class TemplateAdapter extends TreeViewAdapter {
         templates.get(position).position = position;
         final BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
         ((BaseViewHolder)holder).setFlag(mFlag);
-        ((BaseViewHolder) holder).getConvertView().setPadding(node.getLevel() * 20,1,3,1);
+        ((BaseViewHolder) holder).getConvertView().setPadding(node.getLevel() * 20,1,0,1);
         if(templateControl != null) {
             templateControl.setTemplateListener(new OnTemplateListener() {
                 @Override
@@ -159,7 +159,7 @@ public class TemplateAdapter extends TreeViewAdapter {
                         listener.onTemplateCommand(name, command);
                 }
             });
-            templateControl.initView(context, (BaseViewHolder) holder, templates, templateControl.getTemplate(), valueMap, codeMap, editMode, manual);
+            templateControl.initView(context, (BaseViewHolder) holder, node, templates, templateControl.getTemplate(), valueMap, codeMap, editMode, manual);
         }
     }
 

@@ -7,6 +7,7 @@ import android.widget.TextView;
 import template.bean.DateTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
+import template.widget.tree.Node;
 
 public class DateTemplateView extends BaseTemplateView<DateTemplate>{
     private TextView hint;
@@ -30,12 +31,15 @@ public class DateTemplateView extends BaseTemplateView<DateTemplate>{
     }
 
     @Override
-    public  void initView(BaseViewHolder holder, DateTemplate template, TemplateValue value) {
+    public  void initView(BaseViewHolder holder, Node node, DateTemplate template, TemplateValue value) {
         holder.getConvertView().setClickable(value.editable);
-        super.initView(holder, template, value);
-        if(!TextUtils.isEmpty(value.showValue))
+        super.initView(holder, node, template, value);
+        if (value != null && !TextUtils.isEmpty(value.showValue)) {
             hint.setText(value.showValue);
-        else
+            hint.setTextColor(getResources().getColor(R.color.black));
+        } else {
             hint.setText("请选择（日期）");
+            hint.setTextColor(getResources().getColor(R.color.c9));
+        }
     }
 }

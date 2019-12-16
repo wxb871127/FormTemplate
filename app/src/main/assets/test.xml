@@ -235,7 +235,7 @@
                                 editable="false"
                                 value="tz / pow(sg/100, 2)"
                                 inputType="numberDecimal"
-                                decimalFormat="0.00"
+
                                 exception="bmi >= 24"
                                 label="体质指数" />
 

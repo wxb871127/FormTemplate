@@ -7,6 +7,7 @@ import android.widget.TextView;
 import template.bean.RadioTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
+import template.widget.tree.Node;
 
 public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
     private TextView hint;
@@ -30,12 +31,15 @@ public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
     }
 
     @Override
-    public void initView(final BaseViewHolder holder, RadioTemplate template, TemplateValue value) {
+    public void initView(final BaseViewHolder holder, Node node, RadioTemplate template, TemplateValue value) {
         holder.getConvertView().setClickable(value.editable);
-        super.initView(holder, template, value);
-        if(!TextUtils.isEmpty(value.showValue))
+        super.initView(holder, node, template, value);
+        if(value != null && !TextUtils.isEmpty(value.showValue)) {
             hint.setText(value.showValue);
-        else
+            hint.setTextColor(getResources().getColor(R.color.black));
+        }else{
             hint.setText("请选择");
+            hint.setTextColor(getResources().getColor(R.color.c9));
+        }
     }
 }

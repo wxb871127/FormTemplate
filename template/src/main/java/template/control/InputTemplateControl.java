@@ -57,7 +57,7 @@ public class InputTemplateControl extends BaseTemplateControl{
     protected Object getRealValue(Object value) {
         if(value == null) return "";
         if(TextUtils.isEmpty(((InputTemplate)template).decimalFormat))
-            return super.getRealValue(value);
+            ((InputTemplate) template).decimalFormat = "0.00";
         BigDecimal decimal = new BigDecimal(value.toString());
         return new DecimalFormat(((InputTemplate)template).decimalFormat).format(decimal);
     }
