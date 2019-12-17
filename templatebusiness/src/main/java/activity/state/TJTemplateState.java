@@ -67,6 +67,8 @@ public class TJTemplateState extends TemplateState{
         view.findViewById(R.id.template_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!templateView.checkRequired())
+                    return;
                 JSONObject jsonObject = getValueData();
                 Log.e("xx", jsonObject.toString());
                 try {

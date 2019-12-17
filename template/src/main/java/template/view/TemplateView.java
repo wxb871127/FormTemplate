@@ -3,9 +3,11 @@ package template.view;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewTreeObserver;
+import android.widget.Toast;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -27,6 +29,7 @@ public class TemplateView extends RecyclerView{
     private int mFlag = 0x0;
     private TemplateAdapter templateAdapter;
     protected Context mContext;
+    private LinearLayoutManager layoutManager;
 
     public TemplateView(Context context) {
         this(context, null);
@@ -70,7 +73,7 @@ public class TemplateView extends RecyclerView{
         if(templates == null) throw new IllegalArgumentException("templates is null, please check form xml");
         setItemAnimator(null);//防止刷新recyckerView焦点丢失问题
         templateAdapter.init(templates);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        layoutManager = new LinearLayoutManager(mContext);
         setLayoutManager(layoutManager);
         setAdapter(templateAdapter);
     }
@@ -134,5 +137,32 @@ public class TemplateView extends RecyclerView{
 
     public void setDataSource(String dataSource, Object value){
         templateAdapter.setDataSource(dataSource, value);
+    }
+
+    public boolean checkRequired(){
+        for(BaseTemplate template : templateAdapter.getTemplateList()){
+            if("true".equals(template.required)){
+                TemplateValue templateValue = templateAdapter.valueMap.get(template.name);
+                if(templateValue.value == null || TextUtils.isEmpty(templateValue.value.toString())){
+                    moveToPosition(template.position);
+                    Toast.makeText(mContext, "必填项"+template.label + "未填写", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public  void moveToPosition(int n) {
+        int firstItem = layoutManager.findFirstVisibleItemPosition();
+        int lastItem = layoutManager.findLastVisibleItemPosition();
+        if (n <= firstItem) {
+            scrollToPosition(n);
+        } else if (n <= lastItem) {
+            int top = getChildAt(n - firstItem).getTop();
+            scrollBy(0, top);
+        } else {
+            scrollToPosition(n);
+        }
     }
 }

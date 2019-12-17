@@ -22,6 +22,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected Context mContext;
     protected TextView required;
     protected TextView label;
+    protected LinearLayout layout;
     protected LinearLayout title;
     protected LinearLayout viewContant;
     protected LinearLayout spinner;
@@ -88,6 +89,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         this.holder = holder;
         this.value = value;
         this.node = node;
+        layout = (LinearLayout) holder.getViewById(R.id.template_linelayout);
         required = (TextView) holder.getViewById(R.id.template_required);
         label = (TextView)holder.getViewById(R.id.template_label);
         title = (LinearLayout)holder.getViewById(R.id.template_title);
@@ -130,9 +132,10 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
 
                 @Override
                 public void onClick(View v) {
-                    if (templateListener != null) {
-                        templateListener.onAttrChanged(template, "refuse", !value.refuse, true);
-                    }
+                    value.refuse = !value.refuse;
+                    setRefuse(value.refuse);
+                    setValueEdit(!value.refuse);
+                    setExceptionEdit(!value.refuse);
                 }
             });
         }
@@ -159,12 +162,11 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         if (editable) {
             title.setBackgroundResource(R.drawable.bg_color_white_border);
             viewContant.setBackgroundResource(R.drawable.bg_color_white_border);
-            viewContant.setClickable(true);
         }else {
             title.setBackgroundResource(R.drawable.bg_color_gray_border);
             viewContant.setBackgroundResource(R.drawable.bg_color_gray_border);
-            viewContant.setClickable(false);
         }
+        viewContant.setClickable(editable);
     }
 
     protected void notifyItemViewData(Object object){
@@ -183,23 +185,19 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     }
 
     protected void setRefuseEdit(boolean editable){
-        if (editable) {
+        if (editable)
             refuse.setBackgroundResource(R.drawable.bg_color_white_border);
-            refuse.setClickable(true);
-        }else {
+        else
             refuse.setBackgroundResource(R.drawable.bg_color_gray_border);
-            refuse.setClickable(false);
-        }
+        refuse.setClickable(editable);
     }
 
     protected void setExceptionEdit(boolean editable){
-        if (editable) {
+        if (editable)
             exception.setBackgroundResource(R.drawable.bg_color_white_border);
-            exception.setClickable(true);
-        }else {
+        else
             exception.setBackgroundResource(R.drawable.bg_color_gray_border);
-            exception.setClickable(false);
-        }
+        exception.setClickable(editable);
     }
 
     public void setException(boolean ret){

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import activity.TemplateActivity;
+import activity.TestActivity;
 import template.config.TemplateConfig;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(MainActivity.this, TemplateActivity.class);
+//        Intent intent = new Intent(MainActivity.this, TestActivity.class);
         if(v.getId() == R.id.gxy_zx) {
             intent.putExtra("templateName", "专项");
         }else if(v.getId() == R.id.gxy_pg)

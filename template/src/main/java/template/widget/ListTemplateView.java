@@ -23,6 +23,7 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
     private RecyclerView recyclerView;
     private LinearLayout add;
     private Adapter adapter;
+    private int attrWidth;
     private OnListTemplateViewListener templateViewListener;
 
     public interface OnListTemplateViewListener{
@@ -64,10 +65,15 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
             @Override
             public void onGlobalLayout() {
                 attr.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                int attrWidth = attr.getMeasuredWidth();
-                Resources resources = getResources();
-                DisplayMetrics dm = resources.getDisplayMetrics();
-                int width = dm.widthPixels;
+                attrWidth = attr.getMeasuredWidth();
+            }
+        });
+
+        layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                label.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                int width = layout.getMeasuredWidth();
                 ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(width - attrWidth - node.getLevel()*20, ViewGroup.LayoutParams.WRAP_CONTENT);
                 spinner.setLayoutParams(layoutParams);
             }
@@ -86,7 +92,7 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
                     templateViewListener.onClickAdd(template);
             }
         });
-        setEdit(value.editable);
+        setValueEdit(value.editable);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setClickable(value.editable);
         String[] ret = null;
@@ -97,13 +103,13 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
         recyclerView.setAdapter(adapter);
     }
 
-    protected void setEdit(boolean editable) {
+    protected void setValueEdit(boolean editable) {
+        super.setValueEdit(editable);
         adapter.setEdit(editable);
-        if(!editable) {
+        if(!editable)
             add.setVisibility(View.INVISIBLE);
-        }else{
+        else
             add.setVisibility(View.VISIBLE);
-        }
         adapter.notifyDataSetChanged();
     }
 

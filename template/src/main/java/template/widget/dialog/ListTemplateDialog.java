@@ -14,7 +14,7 @@ import template.com.form.R;
 import template.view.TemplateView;
 
 public class ListTemplateDialog extends BaseTemplateDialog<ListTemplate>{
-
+    private TemplateView templateView;
     public ListTemplateDialog(Context mContext) {
         super(mContext);
 
@@ -24,7 +24,7 @@ public class ListTemplateDialog extends BaseTemplateDialog<ListTemplate>{
     public void initDialog(final ListTemplate template, Object value) {
         super.initDialog(template, value);
         View view = LayoutInflater.from(mContext).inflate(R.layout.list_template_dialog, null);
-        final TemplateView templateView = view.findViewById(R.id.templateView);
+        templateView = view.findViewById(R.id.templateView);
         templateView.initTemplate(template.templates);
          if(value != null) {
             JSONObject jsonObject = (JSONObject) value;
@@ -61,6 +61,8 @@ public class ListTemplateDialog extends BaseTemplateDialog<ListTemplate>{
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!templateView.checkRequired())
+                    return;
                 Map<String, TemplateValue> map = templateView.getValueMap();
                 JSONObject jsonObject = new JSONObject();
                 for(String key : map.keySet()){

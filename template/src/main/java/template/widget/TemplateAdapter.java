@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,11 +116,6 @@ public class TemplateAdapter extends TreeViewAdapter {
                 @Override
                 public void onAttrChanged(BaseTemplate key, String attr, Object value, boolean notify) {
                     TemplateValue templateValue = valueMap.get(key.name);
-                    if("refuse".equals(attr)){
-                        templateValue.refuse = (Boolean)value;
-                        notifyItemChanged(key.position);
-                        return;
-                    }
                     Field[] fields = ReflectUtil.findFieldByAnnotation(templateValue.getClass(), AttrTemplate.class);
                     for(Field field : fields){
                         if(field != null){
@@ -235,5 +232,18 @@ public class TemplateAdapter extends TreeViewAdapter {
             }
         }
         notifyDataSetChanged();
+    }
+
+    public boolean checkRequired(){
+        for(BaseTemplate template : templates){
+            if("true".equals(template.required)){
+                TemplateValue templateValue = valueMap.get(template.name);
+                if(templateValue.value == null || TextUtils.isEmpty(templateValue.value.toString())){
+                    Toast.makeText(context, "必填项"+template.label + "未填写", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

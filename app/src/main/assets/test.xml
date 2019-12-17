@@ -1,259 +1,152 @@
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<views>-->
-<!--    <section name="jbxx" label="基本信息">-->
-
-<!--                <button name="ycqk" label="牙齿情况" command="1001"/>-->
-
-<!--                <section name="sgxx" label="生理体征">-->
-
-<!--                    <input-->
-<!--                        name="sg"-->
-<!--                        inputType="numberDecimal"-->
-<!--                        hint="100-200"-->
-<!--                        label="身高"-->
-<!--                        quote="11"-->
-<!--                        unit="cm" />-->
-
-<!--                    <input-->
-<!--                        name="tz"-->
-<!--                        inputType="numberDecimal"-->
-<!--                        exception="tz >= 300"-->
-<!--                        label="体重"-->
-<!--                        required="true"-->
-<!--                        unit="kg" />-->
-
-<!--                    <input-->
-<!--                        name="bmi"-->
-<!--                        editable="false"-->
-<!--                        value="tz / pow(sg/100, 2)"-->
-<!--                        inputType="numberDecimal"-->
-<!--                        decimalFormat="0.00"-->
-<!--                        exception="bmi >= 24"-->
-<!--                        label="体质指数" />-->
-
-<!--                    <input-->
-<!--                        name="jytz"-->
-<!--                        label="建议体重"-->
-<!--                        editable="false"-->
-<!--                        value = "(bmi > 24) ? (sg-100) * 0.9 : null"/>-->
-
-<!--                </section>-->
-
-<!--                <radio-->
-<!--                    name="yjqk"-->
-<!--                    exception="yjqk == 3 || yjqk == 4"-->
-<!--                    initValue="1"-->
-<!--                    hint="xxx"-->
-<!--                    label="目前饮酒情况" >-->
-
-<!--                    <item-->
-<!--                        name="不饮酒"-->
-<!--                        code="1"/>-->
-
-<!--                    <item-->
-<!--                        name="已戒酒"-->
-<!--                        code="2"/>-->
-
-<!--                    <item-->
-<!--                        name="经常饮酒"-->
-<!--                        code="3"/>-->
-
-<!--                    <item-->
-<!--                        name="偶尔饮酒"-->
-<!--                        code="4"/>-->
-<!--                </radio>-->
-<!--                <select-->
-<!--                    name="ysxg"-->
-<!--                    label="饮食习惯">-->
-
-<!--                    <item-->
-<!--                        name="减少食盐摄入"-->
-<!--                        code="1"/>-->
-
-<!--                    <item-->
-<!--                        name="减少膳食脂肪"-->
-<!--                        code="2"/>-->
-
-<!--                    <item-->
-<!--                        name="规律运动"-->
-<!--                        code="3"/>-->
-
-<!--                    <item-->
-<!--                        name="减少吸烟量或戒烟"-->
-<!--                        code="4"/>-->
-
-<!--                    <item-->
-<!--                        name="减少饮酒量或戒酒"-->
-<!--                        code="5"/>-->
-
-<!--                    <item-->
-<!--                        name="控制体重"-->
-<!--                        code="6"/>-->
-
-<!--                    <item-->
-<!--                        name="心理调整"-->
-<!--                        code="7"/>-->
-<!--                </select>-->
-
-
-<!--                <date-->
-<!--                    name="zdrq"-->
-<!--                    initValue="2016-09-20"-->
-<!--                    label="确诊时间"-->
-<!--                    required="true" />-->
-<!--                 <radio-->
-<!--                    name="ydqk"-->
-<!--                    label="目前运动情况" >-->
-
-<!--                    <item-->
-<!--                        name="规律运动"-->
-<!--                        code="1"/>-->
-
-<!--                    <item-->
-<!--                        name="不规律运动"-->
-<!--                        exception="true"-->
-<!--                        code="2"/>-->
-
-<!--                    <item-->
-<!--                        name="不运动"-->
-<!--                        exception="true"-->
-<!--                        code="3"/>-->
-<!--                </radio>-->
-
-<!--                <radio-->
-<!--                    name="xb"-->
-<!--                    label="性别">-->
-
-<!--                    <item name="男" code="1"/>-->
-
-<!--                    <item name="女" code="2"/>-->
-
-<!--                    <item name="未说明的性别" code="9"/>-->
-
-<!--                </radio>-->
-
-<!--                <list name="yyqk11" label="用药记录" showArgs="ywmc"-->
-<!--                    showFormat="药物名称：%s" exception="xb == 9">-->
-<!--                    <search name="ywmc" label="药物名称" style="Drug">-->
-<!--                        <item name="yf" column="fyfs"/>-->
-<!--                        <item name="cs" column="ffcs"/>-->
-<!--                    </search>-->
-<!--                    <input name="yf" label="用法"/>-->
-<!--                    <input name="cs" label="分服次数"/>-->
-<!--                </list>-->
-
-<!--        <custom name="xj" label="小节" command="1001"/>-->
-
-<!--        <custom name="xj2" label="小节2" command="1002"/>-->
-
-<!--    </section>-->
-<!--</views>-->
-
-
+<?xml version="1.0" encoding="utf-8"?>
 <views>
-    <section label="丰富" name="96223">
+    <section name="jbxx" label="基本信息">
 
-        <button name="ycqk" label="牙齿情况" command="1001"/>
-        <select
-            name="ysxg"
-            label="饮食习惯">
+                <button name="ycqk" label="牙齿情况" command="1001"/>
 
-            <item
-                name="减少食盐摄入"
-                code="1"/>
+                <section name="sgxx" label="生理体征">
 
-            <item
-                name="减少膳食脂肪"
-                code="2"/>
+                    <input
+                        name="sg"
+                        inputType="numberDecimal"
+                        hint="100-200"
+                        label="身高"
+                        quote="11"
+                        unit="cm" />
 
-            <item
-                name="规律运动"
-                code="3"/>
+                    <input
+                        name="tz"
+                        inputType="numberDecimal"
+                        exception="tz >= 300"
+                        label="体重"
+                        required="true"
+                        unit="kg" />
 
-            <item
-                name="减少吸烟量或戒烟"
-                code="4"/>
+                    <input
+                        name="bmi"
+                        editable="false"
+                        value="tz / pow(sg/100, 2)"
+                        inputType="numberDecimal"
+                        decimalFormat="0.00"
+                        exception="bmi >= 24"
+                        label="体质指数" />
 
-            <item
-                name="减少饮酒量或戒酒"
-                code="5"/>
+                    <input
+                        name="jytz"
+                        label="建议体重"
+                        editable="false"
+                        value = "(bmi > 24) ? (sg-100) * 0.9 : null"/>
 
-            <item
-                name="控制体重"
-                code="6"/>
+                </section>
 
-            <item
-                name="心理调整"
-                code="7"/>
-        </select>
-        <radio
-            name="xb"
-            label="性别">
+                <radio
+                    name="yjqk"
+                    exception="yjqk == 3 || yjqk == 4"
+                    initValue="1"
+                    hint="xxx"
+                    label="目前饮酒情况" >
 
-            <item name="男" code="1"/>
+                    <item
+                        name="不饮酒"
+                        code="1"/>
 
-            <item name="女" code="2"/>
+                    <item
+                        name="已戒酒"
+                        code="2"/>
 
-            <item name="未说明的性别" code="9"/>
+                    <item
+                        name="经常饮酒"
+                        code="3"/>
 
-        </radio>
+                    <item
+                        name="偶尔饮酒"
+                        code="4"/>
+                </radio>
+                <select
+                    name="ysxg"
+                    label="饮食习惯">
 
-        <date
-            name="zdrq"
-            initValue="2016-09-20"
-            label="确诊时间"
-            required="true" />
+                    <item
+                        name="减少食盐摄入"
+                        code="1"/>
+
+                    <item
+                        name="减少膳食脂肪"
+                        code="2"/>
+
+                    <item
+                        name="规律运动"
+                        code="3"/>
+
+                    <item
+                        name="减少吸烟量或戒烟"
+                        code="4"/>
+
+                    <item
+                        name="减少饮酒量或戒酒"
+                        code="5"/>
+
+                    <item
+                        name="控制体重"
+                        code="6"/>
+
+                    <item
+                        name="心理调整"
+                        code="7"/>
+                </select>
 
 
-        <input name="PL0000000010" label="腰围" required="true" unit="cm"/>
+                <date
+                    name="zdrq"
+                    initValue="2016-09-20"
+                    label="确诊时间"
+                    required="true" />
+                 <radio
+                    name="ydqk"
+                    label="目前运动情况" >
 
-        <input name="PL0000000012" label="臀围" required="true"/>
+                    <item
+                        name="规律运动"
+                        code="1"/>
 
+                    <item
+                        name="不规律运动"
+                        exception="true"
+                        code="2"/>
 
-        <search name="ywmc" label="药物名称" style="Drug"/>
+                    <item
+                        name="不运动"
+                        exception="true"
+                        code="3"/>
+                </radio>
 
-                        <section name="sgxx" label="生理体征">
+                <radio
+                    name="xb"
+                    label="性别">
 
-                            <input
-                                name="sg"
-                                inputType="numberDecimal"
-                                hint="100-200"
-                                label="身高"
-                                quote="11"
-                                unit="cm" />
+                    <item name="男" code="1"/>
 
-                            <input
-                                name="tz"
-                                inputType="numberDecimal"
-                                exception="tz >= 300"
-                                label="体重"
-                                required="true"
-                                unit="kg" />
+                    <item name="女" code="2"/>
 
-                            <input
-                                name="bmi"
-                                editable="false"
-                                value="tz / pow(sg/100, 2)"
-                                inputType="numberDecimal"
+                    <item name="未说明的性别" code="9"/>
 
-                                exception="bmi >= 24"
-                                label="体质指数" />
+                </radio>
 
-                            <input
-                                name="jytz"
-                                label="建议体重"
-                                editable="false"
-                                value = "(bmi > 24) ? (sg-100) * 0.9 : null"/>
+                <list name="yyqk11" label="用药记录" showArgs="ywmc"
+                    showFormat="药物名称：%s" exception="xb == 9">
+                    <search name="ywmc" label="药物名称" style="Drug">
+                        <item name="yf" column="fyfs"/>
+                        <item name="cs" column="ffcs"/>
+                    </search>
+                    <input name="yf" label="用法"/>
+                    <input name="cs" label="分服次数"/>
+                </list>
 
-                        </section>
-        <list name="PL0000000238" label="病床史" showArgs="YMMC" >
-            <input name="YMMC" label="名称" required="true"/>
-            <input name="JZJGMC" label="接种机构名称" required="true"/>
-            <input name="JZRQ" label="接种日期" required="true"/>
-        </list>
         <custom name="xj" label="小节" command="1001"/>
 
-
+        <custom name="xj2" label="小节2" command="1002"/>
 
     </section>
 </views>
+
+
