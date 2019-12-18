@@ -23,7 +23,7 @@ public class ListTemplateDialog extends BaseTemplateDialog<ListTemplate>{
     @Override
     public void initDialog(final ListTemplate template, Object value) {
         super.initDialog(template, value);
-        View view = LayoutInflater.from(mContext).inflate(R.layout.list_template_dialog, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.template_list_dialog, null);
         templateView = view.findViewById(R.id.templateView);
         templateView.initTemplate(template.templates);
          if(value != null) {

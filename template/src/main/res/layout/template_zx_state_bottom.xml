@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/btn_color_green_selector"
+        android:background="@drawable/template_btn_color_green_selector"
         android:text="提交"
         android:textColor="@color/white"
         android:textSize="@dimen/dp16" />

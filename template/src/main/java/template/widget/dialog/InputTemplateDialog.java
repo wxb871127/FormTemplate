@@ -44,7 +44,7 @@ public class InputTemplateDialog extends BaseTemplateDialog<InputTemplate>{
     @Override
     public void initDialog(final InputTemplate template, Object value) {
         super.initDialog(template, value);
-        view = LayoutInflater.from(mContext).inflate(R.layout.input_template_dialog, null);
+        view = LayoutInflater.from(mContext).inflate(R.layout.template_input_dialog, null);
         listView =  view.findViewById(R.id.template_search_dialog_list);
         btn_cancel = view.findViewById(R.id.btn_cancel);
         btn_submit = view.findViewById(R.id.btn_submit);

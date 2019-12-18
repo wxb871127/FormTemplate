@@ -1,13 +1,8 @@
 package template.widget;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -57,7 +52,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     }
 
     public int getlayout() {
-        return R.layout.common_template;
+        return R.layout.template_common;
     }
 
     protected int getContentLayout(){
@@ -160,11 +155,11 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected void setValueEdit(boolean editable){
         if(viewContant == null) return;
         if (editable) {
-            title.setBackgroundResource(R.drawable.bg_color_white_border);
-            viewContant.setBackgroundResource(R.drawable.bg_color_white_border);
+            title.setBackgroundResource(R.drawable.template_bg_color_white_border);
+            viewContant.setBackgroundResource(R.drawable.template_bg_color_white_border);
         }else {
-            title.setBackgroundResource(R.drawable.bg_color_gray_border);
-            viewContant.setBackgroundResource(R.drawable.bg_color_gray_border);
+            title.setBackgroundResource(R.drawable.template_bg_color_gray_border);
+            viewContant.setBackgroundResource(R.drawable.template_bg_color_gray_border);
         }
         viewContant.setClickable(editable);
     }
@@ -178,33 +173,33 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     public void setRefuse(boolean ret) {
         if (refuseIcon == null) return;
         if (ret) {
-            refuseIcon.setBackground(getResources().getDrawable(R.drawable.radio_confim));
+            refuseIcon.setBackground(getResources().getDrawable(R.drawable.template_radio_confim));
         } else {
-            refuseIcon.setBackground(getResources().getDrawable(R.drawable.radio_nomal));
+            refuseIcon.setBackground(getResources().getDrawable(R.drawable.template_radio_nomal));
         }
     }
 
     protected void setRefuseEdit(boolean editable){
         if (editable)
-            refuse.setBackgroundResource(R.drawable.bg_color_white_border);
+            refuse.setBackgroundResource(R.drawable.template_bg_color_white_border);
         else
-            refuse.setBackgroundResource(R.drawable.bg_color_gray_border);
+            refuse.setBackgroundResource(R.drawable.template_bg_color_gray_border);
         refuse.setClickable(editable);
     }
 
     protected void setExceptionEdit(boolean editable){
         if (editable)
-            exception.setBackgroundResource(R.drawable.bg_color_white_border);
+            exception.setBackgroundResource(R.drawable.template_bg_color_white_border);
         else
-            exception.setBackgroundResource(R.drawable.bg_color_gray_border);
+            exception.setBackgroundResource(R.drawable.template_bg_color_gray_border);
         exception.setClickable(editable);
     }
 
     public void setException(boolean ret){
         if(exceptionIcon == null) return;
         if(ret){
-            exceptionIcon.setBackground(getResources().getDrawable(R.drawable.radio_confim));
+            exceptionIcon.setBackground(getResources().getDrawable(R.drawable.template_radio_confim));
         }else
-            exceptionIcon.setBackground(getResources().getDrawable(R.drawable.radio_nomal));
+            exceptionIcon.setBackground(getResources().getDrawable(R.drawable.template_radio_nomal));
     }
 }

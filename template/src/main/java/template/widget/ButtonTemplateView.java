@@ -18,7 +18,7 @@ public class ButtonTemplateView extends BaseTemplateView<ButtonTemplate>{
 
     @Override
     protected int getContentLayout() {
-        return R.layout.select_template_content;
+        return R.layout.template_select_content;
     }
 
     @Override

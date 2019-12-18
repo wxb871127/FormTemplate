@@ -3,7 +3,7 @@
     android:id="@+id/template_linelayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/list_item_stroke_selector"
+    android:background="@drawable/template_list_item_stroke_selector"
     android:orientation="horizontal">
     <FrameLayout
         android:layout_width="0dp"
@@ -63,5 +63,5 @@
         android:layout_marginRight="@dimen/dp5"
         android:paddingLeft="@dimen/dp5"
         android:paddingRight="@dimen/dp5"
-        android:src="@drawable/common_template_quote" />
+        android:src="@drawable/template_common_quote" />
 </LinearLayout>

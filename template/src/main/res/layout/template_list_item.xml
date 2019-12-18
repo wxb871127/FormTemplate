@@ -11,7 +11,7 @@
         android:id="@+id/common_template_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_white_selector"
+        android:background="@drawable/template_bg_white_selector"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/dp6" >
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/dp5"
-            android:src="@drawable/list_template_item_delete" />
+            android:src="@drawable/template_list_item_delete" />
     </LinearLayout>
 
 </LinearLayout>

@@ -14,7 +14,6 @@ import com.business.annotation.State;
 import org.json.JSONObject;
 
 import template.com.form.R;
-import template.view.TemplateView;
 
 /**
  * 随访：编辑、引入、设备菜单；提交、暂存按钮
@@ -28,11 +27,11 @@ public class SFTemplateState extends TemplateState{
 
     @Override
     public void addMenuView(Menu menu) {
-        menu.add(Menu.NONE, 1, Menu.NONE, "编辑").setIcon(R.drawable.ico_edit)
+        menu.add(Menu.NONE, 1, Menu.NONE, "编辑").setIcon(R.drawable.template_ico_edit)
                 .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(Menu.NONE, 2, Menu.NONE, "引入").setIcon(R.drawable.ico_import)
+        menu.add(Menu.NONE, 2, Menu.NONE, "引入").setIcon(R.drawable.template_ico_import)
                 .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(Menu.NONE, 3, Menu.NONE, "设备").setIcon(R.drawable.ico_device)
+        menu.add(Menu.NONE, 3, Menu.NONE, "设备").setIcon(R.drawable.template_ico_device)
                 .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 

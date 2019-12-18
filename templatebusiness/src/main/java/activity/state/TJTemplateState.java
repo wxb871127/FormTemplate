@@ -34,9 +34,9 @@ public class TJTemplateState extends TemplateState{
 
     @Override
     public void addMenuView(Menu menu) {
-        menu.add(Menu.NONE, 1, Menu.NONE, "编辑").setIcon(R.drawable.ico_edit)
+        menu.add(Menu.NONE, 1, Menu.NONE, "编辑").setIcon(R.drawable.template_ico_edit)
                 .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(Menu.NONE,2,Menu.NONE,"设备").setIcon(R.drawable.ico_import)
+        menu.add(Menu.NONE,2,Menu.NONE,"设备").setIcon(R.drawable.template_ico_import)
                 .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 

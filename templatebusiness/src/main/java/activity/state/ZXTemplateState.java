@@ -10,9 +10,6 @@ import android.view.ViewGroup;
 
 import com.business.annotation.State;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import template.com.templatebusiness.R;
 import template.view.TemplateView;
 
@@ -31,7 +28,7 @@ public class ZXTemplateState extends TemplateState {
 
     @Override
     public void addMenuView(Menu menu) {
-        menu.add(Menu.NONE, 1, Menu.NONE, "编辑").setIcon(R.drawable.ico_edit)
+        menu.add(Menu.NONE, 1, Menu.NONE, "编辑").setIcon(R.drawable.template_ico_edit)
                 .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 

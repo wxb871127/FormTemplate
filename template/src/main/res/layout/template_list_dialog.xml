@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginTop="-2dp"
-    android:background="@drawable/list_item_stroke_selector"
+    android:background="@drawable/template_list_item_stroke_selector"
     android:gravity="center_vertical"
     android:padding="@dimen/dp7">
 

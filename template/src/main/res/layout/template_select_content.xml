@@ -3,7 +3,7 @@
     android:id="@+id/template_linelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/list_item_stroke_selector"
+    android:background="@drawable/template_list_item_stroke_selector"
     android:orientation="horizontal">
 
     <TextView
@@ -14,7 +14,7 @@
         android:paddingTop="@dimen/dp7"
         android:layout_marginRight="12dp"
         android:drawablePadding="5dp"
-        android:drawableRight="@drawable/common_template_arrow"
+        android:drawableRight="@drawable/template_common_arrow"
         android:text="请选择"
         android:layout_gravity="center_vertical|right"
         android:gravity="center_vertical|right"

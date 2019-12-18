@@ -58,7 +58,7 @@ public class NavigationMenuView extends ListView {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if(convertView == null)
-                convertView = LayoutInflater.from(context).inflate(R.layout.common_menu, null);
+                convertView = LayoutInflater.from(context).inflate(R.layout.template_common_menu, null);
             TextView textView = convertView.findViewById(R.id.common_menu_text);
             textView.setText(getItem(position).toString());
             return convertView;

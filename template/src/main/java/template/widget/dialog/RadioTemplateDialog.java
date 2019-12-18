@@ -11,8 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.Map;
-
 import template.bean.RadioTemplate;
 import template.com.form.R;
 
@@ -27,7 +25,7 @@ public class RadioTemplateDialog extends BaseTemplateDialog<RadioTemplate> {
     @Override
     public void initDialog(final RadioTemplate template, Object value) {
         super.initDialog(template, value);
-        view = LayoutInflater.from(mContext).inflate(R.layout.radio_template_dialog, null);
+        view = LayoutInflater.from(mContext).inflate(R.layout.template_radio_dialog, null);
         TextView title = (TextView) view.findViewById(R.id.radio_template_dialog_title);
         ListView list = (ListView) view.findViewById(R.id.radio_template_dialog_list);
         TextView clean = (TextView) view.findViewById(R.id.radio_template_dialog_clean);
@@ -85,7 +83,7 @@ public class RadioTemplateDialog extends BaseTemplateDialog<RadioTemplate> {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            convertView= LayoutInflater.from(mContext).inflate(R.layout.radio_dialog_item,null);
+            convertView= LayoutInflater.from(mContext).inflate(R.layout.template_radio_dialog_item,null);
             final TextView itemName = (TextView) convertView.findViewById(R.id.itemName);
             ImageView icon = (ImageView)convertView.findViewById(R.id.icon);
             LinearLayout ll = (LinearLayout)convertView.findViewById(R.id.ll);

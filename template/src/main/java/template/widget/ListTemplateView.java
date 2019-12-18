@@ -1,11 +1,9 @@
 package template.widget;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,12 +46,12 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
 
     @Override
     protected int getContentLayout() {
-        return R.layout.list_template_content;
+        return R.layout.template_list_content;
     }
 
     @Override
     protected int getSpinnerLayout() {
-        return R.layout.list_template_spinner;
+        return R.layout.template_list_spinner;
     }
 
     @Override
@@ -131,7 +129,7 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new BaseViewHolder(LayoutInflater.from(mContext).inflate(R.layout.list_template_item, parent, false));
+            return new BaseViewHolder(LayoutInflater.from(mContext).inflate(R.layout.template_list_item, parent, false));
         }
 
         @Override
@@ -159,11 +157,11 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
 
             if (!edit) {
                 delete.setVisibility(GONE);
-                linearLayout.setBackgroundResource(R.drawable.bg_color_gray_border);
+                linearLayout.setBackgroundResource(R.drawable.template_bg_color_gray_border);
                 itemText.setTextColor(getResources().getColor(R.color.B0));
             } else {
                 delete.setVisibility(VISIBLE);
-                linearLayout.setBackgroundResource(R.drawable.bg_color_white_border);
+                linearLayout.setBackgroundResource(R.drawable.template_bg_color_white_border);
                 itemText.setTextColor(getResources().getColor(R.color.black));
             }
         }

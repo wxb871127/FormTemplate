@@ -13,7 +13,7 @@
             android:id="@id/template_search_dialog_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/search_template_dialog_edit"
+            android:background="@drawable/template_search_template_dialog_edit"
             android:paddingLeft="@dimen/dp8"
             android:paddingRight="@dimen/dp8"
             android:textSize="@dimen/dp13" />
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/dp8"
-            android:background="@drawable/common_search" />
+            android:background="@drawable/template_common_search" />
     </FrameLayout>
 
     <ImageView

@@ -31,7 +31,7 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
     @Override
     public void initDialog(final SearchTemplate template, Object value) {
         super.initDialog(template, value);
-        view = LayoutInflater.from(mContext).inflate(R.layout.search_template_dialog, null);
+        view = LayoutInflater.from(mContext).inflate(R.layout.template_search_dialog, null);
         editText = (EditText) view.findViewById(R.id.template_search_dialog_text);
         listView = (ListView) view.findViewById(R.id.template_search_dialog_list);
         adapter = new Adapter(mContext, null);

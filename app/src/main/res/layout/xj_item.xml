@@ -3,7 +3,7 @@
     android:id="@+id/template_linelayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/list_item_stroke_selector"
+    android:background="@drawable/template_list_item_stroke_selector"
     android:orientation="horizontal">
     <TextView
         android:id="@+id/excption"

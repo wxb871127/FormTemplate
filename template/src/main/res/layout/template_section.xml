@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:background="@drawable/list_item_buttom_selector">
+    android:background="@drawable/template_list_item_buttom_selector">
     <FrameLayout
         android:id="@+id/section_template_level"
         android:layout_width="wrap_content"
@@ -13,7 +13,7 @@
             android:layout_width="@dimen/dp7"
             android:layout_height="@dimen/dp15"
             android:layout_marginRight="@dimen/dp7"
-            android:background="@drawable/bg_section_selector" />
+            android:background="@drawable/template_bg_section_selector" />
 
         <TextView
             android:layout_width="wrap_content"

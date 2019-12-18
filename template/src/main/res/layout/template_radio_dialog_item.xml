@@ -22,7 +22,7 @@
             android:id="@+id/icon"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
-            android:background="@drawable/radio_icon_selector"
+            android:background="@drawable/template_radio_icon_selector"
             android:layout_width="20dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"

@@ -16,7 +16,7 @@ public class SectionTemplateView extends BaseTemplateView<SectionTemplate> {
 
     @Override
     public int getlayout() {
-        return R.layout.section_template;
+        return R.layout.template_section;
     }
 
     @Override

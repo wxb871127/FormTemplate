@@ -79,7 +79,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
 
     @Override
     protected int getContentLayout() {
-        return R.layout.input_template_content;
+        return R.layout.template_input_content;
     }
 
     @Override

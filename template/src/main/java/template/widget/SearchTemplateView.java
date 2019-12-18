@@ -14,7 +14,7 @@ public class SearchTemplateView extends BaseTemplateView<SearchTemplate>{
 
     @Override
     protected int getContentLayout() {
-        return R.layout.search_template_content;
+        return R.layout.template_search_content;
     }
 
     @Override
