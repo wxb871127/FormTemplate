@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 
 import com.business.annotation.State;
 
-import template.com.form.R;
-import template.view.TemplateView;
+import template.com.templatebusiness.R;
+
 
 /**
  * 评估: 只有提交按钮
