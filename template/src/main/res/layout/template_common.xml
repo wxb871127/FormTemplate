@@ -4,114 +4,142 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <LinearLayout
         android:id="@+id/template_item"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_gravity="center_vertical"
-            android:id="@+id/template_title"
-            android:paddingLeft="@dimen/dp6"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
-            <TextView
-            android:id="@id/template_required"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="*"
-            android:textColor="@color/cfc5837"
-            android:textSize="14sp"
-            android:paddingLeft="@dimen/dp4"
-            android:layout_marginRight="@dimen/dp3"/>
-
-            <TextView
-            android:id="@id/template_label"
-            android:text=""
-            android:paddingBottom="@dimen/dp7"
-            android:paddingTop="@dimen/dp7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/c_7d7d7d"
-            android:paddingLeft="@dimen/dp2"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-        <LinearLayout
-        android:id="@+id/common_template_box"
-        android:layout_width="0dp"
-        android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="3"/>
-
-        <LinearLayout
-        android:id="@+id/attr"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="right"
-        android:layout_gravity="center_vertical"
+        android:background="@color/white"
+        android:minHeight="@dimen/dp52"
         android:orientation="horizontal">
-        <LinearLayout
-            android:id="@+id/template_exception"
-            android:layout_width="wrap_content"
+
+        <!--label、require -->
+        <RelativeLayout
+            android:id="@+id/template_title"
+            android:layout_width="@dimen/dp168"
             android:layout_height="match_parent"
-            android:paddingLeft="@dimen/dp10"
-            android:paddingRight="@dimen/dp10"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
+            android:paddingLeft="@dimen/dp9">
+
             <TextView
-                android:text="异常"
-                android:textSize="16sp"
-                android:paddingBottom="@dimen/dp7"
-                android:paddingTop="@dimen/dp7"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-            <ImageView
-                android:id="@+id/template_exception_icon"
-                android:layout_marginLeft="1dp"
-                android:adjustViewBounds="true"
+                android:id="@id/template_label"
+                android:layout_width="@dimen/dp90"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="扩散速度飞快飞快放假时间飞快放假"
+                android:textColor="@color/template_c333333"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@id/template_required"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/template_radio_icon_selector"/>
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:paddingRight="@dimen/dp10"
+                android:layout_centerVertical="true"
+                android:text="*"
+                android:textColor="@color/template_cff3838"
+                android:textSize="14sp" />
 
-        <LinearLayout
-            android:id="@+id/template_refuse"
-            android:layout_width="wrap_content"
-            android:paddingLeft="@dimen/dp10"
-            android:paddingRight="@dimen/dp10"
-            android:layout_gravity="center_vertical"
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/dp0.5"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:text="拒检"
-                android:paddingBottom="@dimen/dp7"
-                android:paddingTop="@dimen/dp7"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+            android:background="@color/template_cd4d4d4" />
 
-            <ImageView
-                android:id="@+id/template_refuse_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
-                android:adjustViewBounds="true"
+        <!--content -->
+        <LinearLayout
+            android:id="@+id/common_template_box"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="horizontal" />
+
+        <View
+            android:layout_width="@dimen/dp0.5"
+            android:layout_height="match_parent"
+            android:background="@color/template_cd4d4d4" />
+
+        <!--异常、拒检 -->
+        <LinearLayout
+            android:id="@+id/attr"
+            android:layout_width="@dimen/dp160"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/template_exception"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/template_radio_icon_selector"/>
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/template_exception_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/template_abnormal_icon_selector" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp15"
+                    android:text="异常"
+                    android:textColor="@color/template_c666666"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/template_refuse"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/dp9">
+
+
+                <ImageView
+                    android:id="@+id/template_refuse_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/template_refuse_icon_selector" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp15"
+                    android:text="拒检"
+                    android:textColor="@color/template_c666666"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/template_spinner"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/template_cd4d4d4" />
 
 </LinearLayout>

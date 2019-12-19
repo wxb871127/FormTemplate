@@ -3,66 +3,59 @@
     android:id="@+id/template_linelayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+    android:layout_gravity="center_vertical"
     android:orientation="horizontal">
-<!--    android:background="@drawable/template_list_item_stroke_selector"-->
+    <!--    android:background="@drawable/template_list_item_stroke_selector"-->
+
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingLeft="@dimen/dp10"
-        android:paddingRight="@dimen/dp10">
+        android:minWidth="80dp">
 
         <TextView
             android:id="@id/template_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/dp7"
-            android:paddingTop="@dimen/dp7"
             android:background="@null"
-            android:layout_marginRight="@dimen/dp10"
-            android:gravity="center_vertical|right"
+            android:gravity="center_vertical"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
+
         <EditText
             android:id="@id/template_edit"
-            android:layout_gravity="center_vertical|right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
-            android:textCursorDrawable="@null"
-            android:textColorHint="@color/c_d1d1d1"
             android:clickable="false"
+            android:gravity="center_vertical"
             android:textColor="@color/black"
-            android:gravity="center_vertical|right"
-            android:layout_marginRight="@dimen/dp10"
-            android:textSize="16sp" />
+            android:textColorHint="@color/template_cc2c2c2"
+            android:textCursorDrawable="@null"
+            android:textSize="15sp" />
     </FrameLayout>
-
-    <ImageView
-        android:id="@+id/common_template_unit_divider"
-        android:layout_width="1px"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent" />
-
-    <TextView
-        android:id="@id/template_input_unit"
-        android:text="cm"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/dp8"
-        android:paddingRight="@dimen/dp8"
-        android:textColor="@color/c2cc1a4"
-        android:textSize="15sp" />
 
     <ImageView
         android:id="@+id/common_template_quote"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/dp5"
-        android:layout_marginRight="@dimen/dp5"
-        android:paddingLeft="@dimen/dp5"
-        android:paddingRight="@dimen/dp5"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="@dimen/dp15"
+        android:scaleType="center"
         android:src="@drawable/template_common_quote" />
+
+
+    <TextView
+        android:id="@id/template_input_unit"
+        android:layout_width="@dimen/dp382"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dp15"
+        android:gravity="center_vertical"
+        android:text="cm"
+        android:textColor="@color/template_c333333"
+        android:textSize="14sp" />
+
+
 </LinearLayout>
