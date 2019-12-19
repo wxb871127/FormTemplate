@@ -7,18 +7,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import template.bean.BaseTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
 import template.interfaces.OnTemplateListener;
 import template.widget.tree.Node;
 
-public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeLayout{
+public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeLayout {
     protected Context mContext;
     protected TextView required;
     protected TextView label;
     protected LinearLayout layout;
-    protected LinearLayout title;
+    protected RelativeLayout title;
     protected LinearLayout viewContant;
     protected LinearLayout spinner;
     protected LinearLayout attr;
@@ -42,7 +43,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected static final int BUTTON_TYPE = 7;
     protected static final int CUSTOM_TYPE = 8;
 
-    public void setOnTemplateListener(OnTemplateListener listener){
+    public void setOnTemplateListener(OnTemplateListener listener) {
         this.templateListener = listener;
     }
 
@@ -55,71 +56,70 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         return R.layout.template_common;
     }
 
-    protected int getContentLayout(){
+    protected int getContentLayout() {
         return 0;
     }
 
-    protected int getSpinnerLayout(){
+    protected int getSpinnerLayout() {
         return 0;
     }
 
-    protected void initContentView(){
+    protected void initContentView() {
 
     }
 
     public abstract int getType();
 
-    public void onFouces(){
+    public void onFouces() {
 
     }
 
     /**
-     *
-     * @param holder    layout的view
-     * @param template  view的xml配置属性
-     * @param value     数据值
+     * @param holder   layout的view
+     * @param template view的xml配置属性
+     * @param value    数据值
      */
-    public void initView(final BaseViewHolder holder, Node node, final T template, final TemplateValue value){
+    public void initView(final BaseViewHolder holder, Node node, final T template, final TemplateValue value) {
         this.template = template;
         this.holder = holder;
         this.value = value;
         this.node = node;
         layout = (LinearLayout) holder.getViewById(R.id.template_linelayout);
         required = (TextView) holder.getViewById(R.id.template_required);
-        label = (TextView)holder.getViewById(R.id.template_label);
-        title = (LinearLayout)holder.getViewById(R.id.template_title);
-        viewContant = (LinearLayout)holder.getViewById(R.id.common_template_box);
-        spinner = (LinearLayout)holder.getViewById(R.id.template_spinner);
+        label = (TextView) holder.getViewById(R.id.template_label);
+        title = (RelativeLayout) holder.getViewById(R.id.template_title);
+        viewContant = (LinearLayout) holder.getViewById(R.id.common_template_box);
+        spinner = (LinearLayout) holder.getViewById(R.id.template_spinner);
         refuse = holder.getViewById(R.id.template_refuse);
         exception = holder.getViewById(R.id.template_exception);
-        refuseIcon = (ImageView)holder.getViewById(R.id.template_refuse_icon);
-        exceptionIcon = (ImageView)holder.getViewById(R.id.template_exception_icon);
+        refuseIcon = (ImageView) holder.getViewById(R.id.template_refuse_icon);
+        exceptionIcon = (ImageView) holder.getViewById(R.id.template_exception_icon);
         attr = (LinearLayout) holder.getViewById(R.id.attr);
 
-        if(viewContant != null && getContentLayout() != 0) {
+        if (viewContant != null && getContentLayout() != 0) {
             viewContant.removeAllViews();
             LayoutInflater.from(mContext).inflate(getContentLayout(), viewContant);
         }
-        if(spinner != null) {
+        if (spinner != null) {
             if (getSpinnerLayout() != 0) {
                 spinner.setVisibility(VISIBLE);
                 spinner.removeAllViews();
                 LayoutInflater.from(mContext).inflate(getSpinnerLayout(), spinner);
-            }else
+            } else
                 spinner.setVisibility(GONE);
         }
         initContentView();
 
-        if(value.refuse){
+        if (value.refuse) {
             setValueEdit(false);
             setExceptionEdit(false);
-        }else {
+        } else {
             setValueEdit(value.editable);
             setExceptionEdit(value.editable);
             setRefuseEdit(value.editable);
         }
 
-        if(refuse != null) {
+        if (refuse != null) {
             setException(value.exception);
             setRefuse(value.refuse);
             refuse.setEnabled(value.editable);
@@ -134,52 +134,48 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
                 }
             });
         }
-        if(exception != null) {
+        if (exception != null) {
             exception.setEnabled(value.editable);
             exception.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(templateListener != null)
+                    if (templateListener != null)
                         templateListener.onAttrChanged(template, "exception", !value.exception, true);
                 }
             });
         }
 
         label.setText(template.label);
-        if("true".equals(template.required))
+        if ("true".equals(template.required))
             required.setVisibility(VISIBLE);
         else
             required.setVisibility(GONE);
     }
 
-    protected void setValueEdit(boolean editable){
-        if(viewContant == null) return;
+    protected void setValueEdit(boolean editable) {
+        if (viewContant == null) return;
         if (editable) {
             title.setBackgroundColor(getResources().getColor(R.color.white));
             viewContant.setBackgroundColor(getResources().getColor(R.color.white));
-        }else {
+        } else {
             title.setBackgroundColor(getResources().getColor(R.color.Pad_Background));
             viewContant.setBackgroundColor(getResources().getColor(R.color.Pad_Background));
         }
         viewContant.setClickable(editable);
     }
 
-    protected void notifyItemViewData(Object object){
-        if(templateListener != null)
+    protected void notifyItemViewData(Object object) {
+        if (templateListener != null)
             templateListener.onDataChanged(template, object, true);
     }
 
 
     public void setRefuse(boolean ret) {
         if (refuseIcon == null) return;
-        if (ret) {
-            refuseIcon.setBackground(getResources().getDrawable(R.drawable.template_radio_confim));
-        } else {
-            refuseIcon.setBackground(getResources().getDrawable(R.drawable.template_radio_nomal));
-        }
+        refuseIcon.setSelected(ret);
     }
 
-    protected void setRefuseEdit(boolean editable){
+    protected void setRefuseEdit(boolean editable) {
         if (editable)
             refuse.setBackgroundResource(R.color.white);
         else
@@ -187,7 +183,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         refuse.setClickable(editable);
     }
 
-    protected void setExceptionEdit(boolean editable){
+    protected void setExceptionEdit(boolean editable) {
         if (editable)
             exception.setBackgroundResource(R.color.white);
         else
@@ -195,11 +191,8 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         exception.setClickable(editable);
     }
 
-    public void setException(boolean ret){
-        if(exceptionIcon == null) return;
-        if(ret){
-            exceptionIcon.setBackground(getResources().getDrawable(R.drawable.template_radio_confim));
-        }else
-            exceptionIcon.setBackground(getResources().getDrawable(R.drawable.template_radio_nomal));
+    public void setException(boolean ret) {
+        if (exceptionIcon == null) return;
+        exceptionIcon.setSelected(ret);
     }
 }

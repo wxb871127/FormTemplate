@@ -23,4 +23,10 @@
     <color name="B0">#B0B0B0</color>
 
 
+    <color name="template_section_background">#F1F8FF</color>
+    <color name="template_c0278FE">#0278FE</color>
+    <color name="template_c333333">#333333</color>
+    <color name="template_c666666">#666666</color>
+    <color name="template_cd4d4d4">#D4D4D4</color>
+    <color name="template_cff3838">#FF3838</color>
 </resources>

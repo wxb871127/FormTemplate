@@ -1,36 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:background="@drawable/template_list_item_buttom_selector">
-    <FrameLayout
-        android:id="@+id/section_template_level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp2">
-        <ImageView
-            android:layout_width="@dimen/dp7"
-            android:layout_height="@dimen/dp15"
-            android:layout_marginRight="@dimen/dp7"
-            android:background="@drawable/template_bg_section_selector" />
+    android:layout_height="@dimen/dp20"
+    android:paddingTop="@dimen/dp24"
+    android:background="@color/white"
+    android:gravity="center_vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp8"
-            android:text="——"
-            android:textColor="@color/c595959"
-            android:textSize="@dimen/dp14"
-            android:visibility="gone" />
-    </FrameLayout>
 
     <TextView
         android:id="@id/template_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/dp9"
         android:text="症状"
-        android:textColor="@color/D17"
-        android:textSize="16sp" />
+        android:background="@color/template_section_background"
+        android:textColor="@color/template_c0278FE"
+        android:textSize="12sp" />
 
 </LinearLayout>

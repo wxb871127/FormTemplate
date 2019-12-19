@@ -3,15 +3,19 @@ package template.widget;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import base.annotation.AttrTemplate;
 import base.annotation.Template;
 import base.util.ReflectUtil;
@@ -37,11 +41,11 @@ public class TemplateAdapter extends TreeViewAdapter {
     private int mFlag = 0x0;
     private Map<String, Boolean> manual;//手动触发时，异常属性值不重新计算
 
-    public TemplateAdapter(Context context){
+    public TemplateAdapter(Context context) {
         this(context, new HashMap<String, TemplateValue>());
     }
 
-    TemplateAdapter(Context context, Map<String, TemplateValue> outMap){
+    TemplateAdapter(Context context, Map<String, TemplateValue> outMap) {
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
         valueMap = new HashMap<>();
@@ -51,25 +55,25 @@ public class TemplateAdapter extends TreeViewAdapter {
         setHasStableIds(true);//防止刷新recyckerView焦点丢失问题
     }
 
-    public void init(TemplateList templates){
+    public void init(TemplateList templates) {
         TemplateConfig.initCustomView();
         ArrayList list = templates;
         setDatas(list);
         setLevel(2);
         initSetting();
         this.templates = templates;
-        for(BaseTemplate template : templates){
-            if(template instanceof SectionTemplate) continue;
+        for (BaseTemplate template : templates) {
+            if (template instanceof SectionTemplate) continue;
             valueMap.put(template.name, new TemplateValue(null, false, false, true));
             codeMap.put(template.name, null);
         }
     }
 
-    public void setListener(OnTemplateCommandListener listener){
+    public void setListener(OnTemplateCommandListener listener) {
         this.listener = listener;
     }
 
-    public void setTemplateFlag(int flag){
+    public void setTemplateFlag(int flag) {
         this.mFlag = flag;
     }
 
@@ -82,8 +86,8 @@ public class TemplateAdapter extends TreeViewAdapter {
     @Override
     public int getItemViewType(int position) {
         BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
-        if(templateControl != null)
-                return templateControl.getTemplateView(context).getType();
+        if (templateControl != null)
+            return templateControl.getTemplateView(context).getType();
         return 0;
     }
 
@@ -96,9 +100,9 @@ public class TemplateAdapter extends TreeViewAdapter {
     protected void onBindItemViewHolder(RecyclerView.ViewHolder holder, final int position, final Node node) {
         templates.get(position).position = position;
         final BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
-        ((BaseViewHolder)holder).setFlag(mFlag);
-        ((BaseViewHolder) holder).getConvertView().setPadding(node.getLevel() * 20,1,0,1);
-        if(templateControl != null) {
+        ((BaseViewHolder) holder).setFlag(mFlag);
+        //((BaseViewHolder) holder).getConvertView().setPadding(node.getLevel() * 20,1,0,1);
+        if (templateControl != null) {
             templateControl.setTemplateListener(new OnTemplateListener() {
                 @Override
                 public void onDataChanged(BaseTemplate key, Object value, boolean notify) {
@@ -106,7 +110,7 @@ public class TemplateAdapter extends TreeViewAdapter {
                         TemplateValue templateValue = valueMap.get(key.name);
                         templateValue.value = value;
                         codeMap.put(key.name, value);
-                        if(notify)
+                        if (notify)
                             notifyDataSetChanged();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -117,10 +121,10 @@ public class TemplateAdapter extends TreeViewAdapter {
                 public void onAttrChanged(BaseTemplate key, String attr, Object value, boolean notify) {
                     TemplateValue templateValue = valueMap.get(key.name);
                     Field[] fields = ReflectUtil.findFieldByAnnotation(templateValue.getClass(), AttrTemplate.class);
-                    for(Field field : fields){
-                        if(field != null){
+                    for (Field field : fields) {
+                        if (field != null) {
                             AttrTemplate attrTemplate = field.getAnnotation(AttrTemplate.class);
-                            if(attr.equals(attrTemplate.attr())){
+                            if (attr.equals(attrTemplate.attr())) {
                                 try {
                                     field.set(templateValue, value);
                                 } catch (IllegalAccessException e) {
@@ -131,20 +135,20 @@ public class TemplateAdapter extends TreeViewAdapter {
                         }
                     }
                     manual.put(key.name, (Boolean) value);
-                    if(notify)
+                    if (notify)
                         notifyDataSetChanged();
                 }
 
                 @Override
                 public void onDatasChanged(Map<String, Object> map, boolean notify) {
-                    for(String key : map.keySet()) {
+                    for (String key : map.keySet()) {
                         if (valueMap.containsKey(key)) {
                             TemplateValue templateValue = valueMap.get(key);
                             templateValue.value = map.get(key);
                             codeMap.put(key, map.get(key));
                         }
                     }
-                    if(notify)
+                    if (notify)
                         notifyDataSetChanged();
                 }
 
@@ -157,18 +161,35 @@ public class TemplateAdapter extends TreeViewAdapter {
                 }
             });
             templateControl.initView(context, (BaseViewHolder) holder, node, templates, templateControl.getTemplate(), valueMap, codeMap, editMode, manual);
+            final View view = ((BaseViewHolder) holder).getConvertView();
+            view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    int aa = view.getMeasuredHeight();
+                    Log.e("TTTG", "height:" + px2dip(context,aa));
+                }
+            });
+
+
         }
     }
 
-    private void notifyExpressionData(){
-        for(BaseTemplate template : templates){
-            if(template.expression){
+    public  int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+
+    private void notifyExpressionData() {
+        for (BaseTemplate template : templates) {
+            if (template.expression) {
                 notifyItemChanged(template.position);
             }
         }
     }
 
-    private BaseTemplateControl getTemplateControl(BaseTemplate template){
+    private BaseTemplateControl getTemplateControl(BaseTemplate template) {
         Template tp = template.getClass().getAnnotation(Template.class);
         BaseTemplateControl templateControl = null;
         templateControl = TemplateConfig.getTemplateControlByTag(tp.tag());
@@ -176,57 +197,57 @@ public class TemplateAdapter extends TreeViewAdapter {
         return templateControl;
     }
 
-    public TemplateList getTemplateList(){
+    public TemplateList getTemplateList() {
         return templates;
     }
 
-    private View getItemView(int layoutResId, ViewGroup parent){
+    private View getItemView(int layoutResId, ViewGroup parent) {
         return mLayoutInflater.inflate(layoutResId, parent, false);
     }
 
-    public void putValue(String key, TemplateValue value){
+    public void putValue(String key, TemplateValue value) {
         valueMap.put(key, value);
         codeMap.put(key, value.value);
     }
 
 
-    public Object getValue(String key){
-        return  valueMap.get(key);
+    public Object getValue(String key) {
+        return valueMap.get(key);
     }
 
-    public void addValueMap(Map<String, TemplateValue> outMap){
+    public void addValueMap(Map<String, TemplateValue> outMap) {
         this.valueMap.putAll(outMap);
-        for(String key : outMap.keySet()){
+        for (String key : outMap.keySet()) {
             codeMap.put(key, outMap.get(key).value);
         }
     }
 
-    public void setValueMap(Map<String, TemplateValue> map){
+    public void setValueMap(Map<String, TemplateValue> map) {
         this.valueMap.clear();
         this.valueMap = map;
     }
 
-    public void setEditMode(boolean edit){
+    public void setEditMode(boolean edit) {
         editMode = edit;
         notifyDataSetChanged();
     }
 
-    public void setCommandValue(String command, Map map){
-        if(templates.isEmpty()) return;
-        if(TextUtils.isEmpty(command)) throw new IllegalArgumentException("command can not null");
+    public void setCommandValue(String command, Map map) {
+        if (templates.isEmpty()) return;
+        if (TextUtils.isEmpty(command)) throw new IllegalArgumentException("command can not null");
         BaseTemplate template = templates.getTemplateByCommand(command);
         TemplateValue templateValue = valueMap.get(template.name);
         templateValue.showValue = map.get("show").toString();
         templateValue.exception = Boolean.parseBoolean(String.valueOf(map.get("exception")));
         templateValue.value = map.get("value");
         valueMap.put(template.name, templateValue);
-        codeMap.put(template.name,map.get("value"));
+        codeMap.put(template.name, map.get("value"));
         notifyDataSetChanged();
     }
 
-    public void setDataSource(String dataSource, Object value){
-        for(BaseTemplate template : templates){
-            if(dataSource.equals(template.dataSource)){
+    public void setDataSource(String dataSource, Object value) {
+        for (BaseTemplate template : templates) {
+            if (dataSource.equals(template.dataSource)) {
                 TemplateValue templateValue = valueMap.get(template.name);
                 templateValue.value = value;
             }
@@ -234,12 +255,12 @@ public class TemplateAdapter extends TreeViewAdapter {
         notifyDataSetChanged();
     }
 
-    public boolean checkRequired(){
-        for(BaseTemplate template : templates){
-            if("true".equals(template.required)){
+    public boolean checkRequired() {
+        for (BaseTemplate template : templates) {
+            if ("true".equals(template.required)) {
                 TemplateValue templateValue = valueMap.get(template.name);
-                if(templateValue.value == null || TextUtils.isEmpty(templateValue.value.toString())){
-                    Toast.makeText(context, "必填项"+template.label + "未填写", Toast.LENGTH_LONG).show();
+                if (templateValue.value == null || TextUtils.isEmpty(templateValue.value.toString())) {
+                    Toast.makeText(context, "必填项" + template.label + "未填写", Toast.LENGTH_LONG).show();
                     return false;
                 }
             }
