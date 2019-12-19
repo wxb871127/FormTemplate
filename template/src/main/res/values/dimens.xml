@@ -18,12 +18,16 @@
     <dimen name="dp20">20dp</dimen>
     <dimen name="dp24">24dp</dimen>
     <dimen name="dp30">30dp</dimen>
+    <dimen name="dp44">44dp</dimen>
     <dimen name="dp52">52dp</dimen>
     <dimen name="dp60">60dp</dimen>
+    <dimen name="dp90">90dp</dimen>
+    <dimen name="dp160">160dp</dimen>
+    <dimen name="dp168">168dp</dimen>
     <dimen name="dp170">170dp</dimen>
     <dimen name="dp185">185dp</dimen>
     <dimen name="dp194">194dp</dimen>
+    <dimen name="dp382">382dp</dimen>
     <dimen name="dp750">750dp</dimen>
-
 
 </resources>

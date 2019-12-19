@@ -13,19 +13,18 @@
         android:minHeight="@dimen/dp52"
         android:orientation="horizontal">
 
-        <!--label -->
+        <!--label、require -->
         <RelativeLayout
             android:id="@+id/template_title"
-            android:layout_width="@dimen/dp194"
+            android:layout_width="@dimen/dp168"
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/dp9">
 
             <TextView
                 android:id="@id/template_label"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dp90"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:maxEms="5"
                 android:text="扩散速度飞快飞快放假时间飞快放假"
                 android:textColor="@color/template_c333333"
                 android:textSize="15sp" />
@@ -35,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:paddingRight="@dimen/dp10"
                 android:layout_centerVertical="true"
                 android:text="*"
                 android:textColor="@color/template_cff3838"
@@ -42,6 +42,11 @@
 
 
         </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/dp0.5"
+            android:layout_height="match_parent"
+            android:background="@color/template_cd4d4d4" />
 
         <!--content -->
         <LinearLayout
@@ -52,10 +57,15 @@
             android:layout_weight="1"
             android:orientation="horizontal" />
 
+        <View
+            android:layout_width="@dimen/dp0.5"
+            android:layout_height="match_parent"
+            android:background="@color/template_cd4d4d4" />
+
         <!--异常、拒检 -->
         <LinearLayout
             android:id="@+id/attr"
-            android:layout_width="@dimen/dp170"
+            android:layout_width="@dimen/dp160"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:gravity="right"

@@ -5,13 +5,16 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+
 import template.bean.BaseTemplate;
 import template.bean.InputTemplate;
 import template.bean.TemplateValue;
@@ -55,12 +58,14 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
         TYPE.put("date", 0x14);
         TYPE.put("time", 0x24);
     }
+
     private TextView text;
     private EditText editText;
     private TextView unit;
     private ImageView quote;
     private OnInputTemplateViewListener listener;
-    public interface OnInputTemplateViewListener{
+
+    public interface OnInputTemplateViewListener {
         void onClickQuote(BaseTemplate template);
     }
 
@@ -68,7 +73,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
         super(context);
     }
 
-    public void setListener(OnInputTemplateViewListener listener){
+    public void setListener(OnInputTemplateViewListener listener) {
         this.listener = listener;
     }
 
@@ -87,22 +92,30 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
         text = (TextView) holder.getViewById(R.id.template_text);
         editText = (EditText) holder.getViewById(R.id.template_edit);
         unit = (TextView) holder.getViewById(R.id.template_input_unit);
-        quote = (ImageView)holder.getViewById(R.id.common_template_quote);
+        quote = (ImageView) holder.getViewById(R.id.common_template_quote);
     }
 
     @Override
     public void initView(BaseViewHolder holder, Node node, final InputTemplate template, TemplateValue value) {
         super.initView(holder, node, template, value);
-        unit.setText(template.unit);
+        if (TextUtils.isEmpty(template.unit))
+            unit.setVisibility(GONE);
+        else {
+            unit.setVisibility(VISIBLE);
+            unit.setText(template.unit);
+        }
+         float scale = mContext.getResources().getDisplayMetrics().density;
+         float fontScale = mContext.getResources().getDisplayMetrics().scaledDensity;
+
         if ("true".equals(template.quote)) {
             quote.setVisibility(VISIBLE);
-        }else
+        } else
             quote.setVisibility(GONE);
 
         quote.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(listener != null)
+                if (listener != null)
                     listener.onClickQuote(template);
             }
         });
@@ -143,7 +156,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
         }
     }
 
-    private void editText(){
+    private void editText() {
         if (editText.getTag() instanceof TextWatcher) {//防止recyclerView刷新 触发TextWatcher事件
             editText.removeTextChangedListener((TextWatcher) editText.getTag());
         }
@@ -179,11 +192,11 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
         editText.requestFocus();
     }
 
-    public int getSelectionStart(){
+    public int getSelectionStart() {
         return editText.getSelectionStart();
     }
 
-    public String getText(){
+    public String getText() {
         return editText.getText().toString();
     }
 }

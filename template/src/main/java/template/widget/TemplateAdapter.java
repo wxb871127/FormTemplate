@@ -161,17 +161,6 @@ public class TemplateAdapter extends TreeViewAdapter {
                 }
             });
             templateControl.initView(context, (BaseViewHolder) holder, node, templates, templateControl.getTemplate(), valueMap, codeMap, editMode, manual);
-            final View view = ((BaseViewHolder) holder).getConvertView();
-            view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                    int aa = view.getMeasuredHeight();
-                    Log.e("TTTG", "height:" + px2dip(context,aa));
-                }
-            });
-
-
         }
     }
 
