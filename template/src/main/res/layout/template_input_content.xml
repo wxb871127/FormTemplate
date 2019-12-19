@@ -10,8 +10,7 @@
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:minWidth="80dp">
+        android:layout_weight="1">
 
         <TextView
             android:id="@id/template_text"
@@ -20,7 +19,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="@dimen/sp15" />
 
         <EditText
             android:id="@id/template_edit"
@@ -33,7 +32,7 @@
             android:textColor="@color/black"
             android:textColorHint="@color/template_cc2c2c2"
             android:textCursorDrawable="@null"
-            android:textSize="15sp" />
+            android:textSize="@dimen/sp15" />
     </FrameLayout>
 
     <ImageView
@@ -55,7 +54,7 @@
         android:gravity="center_vertical"
         android:text="cm"
         android:textColor="@color/template_c333333"
-        android:textSize="14sp" />
+        android:textSize="@dimen/sp14" />
 
 
 </LinearLayout>
