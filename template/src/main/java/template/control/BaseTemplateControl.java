@@ -130,6 +130,7 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         holder.onClickContent(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                templateView.onFouces();
                 onClickHolder(template, valueMap.get(template.name).value);
             }
         });
