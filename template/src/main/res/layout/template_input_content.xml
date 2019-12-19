@@ -3,8 +3,9 @@
     android:id="@+id/template_linelayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/template_list_item_stroke_selector"
+
     android:orientation="horizontal">
+<!--    android:background="@drawable/template_list_item_stroke_selector"-->
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -3,9 +3,9 @@
     android:id="@+id/template_linelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/template_list_item_stroke_selector"
-    android:orientation="horizontal">
 
+    android:orientation="horizontal">
+<!--    android:background="@drawable/template_list_item_stroke_selector"-->
     <TextView
         android:id="@+id/common_template_hint"
         android:layout_width="match_parent"

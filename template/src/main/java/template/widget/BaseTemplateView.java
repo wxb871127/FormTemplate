@@ -155,11 +155,11 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected void setValueEdit(boolean editable){
         if(viewContant == null) return;
         if (editable) {
-            title.setBackgroundResource(R.drawable.template_bg_color_white_border);
-            viewContant.setBackgroundResource(R.drawable.template_bg_color_white_border);
+            title.setBackgroundColor(getResources().getColor(R.color.white));
+            viewContant.setBackgroundColor(getResources().getColor(R.color.white));
         }else {
-            title.setBackgroundResource(R.drawable.template_bg_color_gray_border);
-            viewContant.setBackgroundResource(R.drawable.template_bg_color_gray_border);
+            title.setBackgroundColor(getResources().getColor(R.color.Pad_Background));
+            viewContant.setBackgroundColor(getResources().getColor(R.color.Pad_Background));
         }
         viewContant.setClickable(editable);
     }
@@ -181,17 +181,17 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
 
     protected void setRefuseEdit(boolean editable){
         if (editable)
-            refuse.setBackgroundResource(R.drawable.template_bg_color_white_border);
+            refuse.setBackgroundResource(R.color.white);
         else
-            refuse.setBackgroundResource(R.drawable.template_bg_color_gray_border);
+            refuse.setBackgroundResource(R.color.Pad_Background);
         refuse.setClickable(editable);
     }
 
     protected void setExceptionEdit(boolean editable){
         if (editable)
-            exception.setBackgroundResource(R.drawable.template_bg_color_white_border);
+            exception.setBackgroundResource(R.color.white);
         else
-            exception.setBackgroundResource(R.drawable.template_bg_color_gray_border);
+            exception.setBackgroundResource(R.color.Pad_Background);
         exception.setClickable(editable);
     }
 

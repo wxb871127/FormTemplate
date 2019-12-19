@@ -15,13 +15,12 @@ uploadArchives {
                 }
             }
 
-            // 下面这三项pom参数，在调用的时候是这个样子 ： compile 'com.jcking.jbottomtabbar:jbottomtabbar:0.0.1'
             // library的包名
             pom.groupId = 'com.template'
             // library的项目名
             pom.artifactId = 'template'
             // library的版本号
-            pom.version = '1.1.58'
+            pom.version = '1.1.60'
 
             pom.project {
                 licenses {
