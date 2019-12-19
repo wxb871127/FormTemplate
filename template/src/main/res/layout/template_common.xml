@@ -27,7 +27,7 @@
                 android:layout_centerVertical="true"
                 android:text="扩散速度飞快飞快放假时间飞快放假"
                 android:textColor="@color/template_c333333"
-                android:textSize="15sp" />
+                android:textSize="@dimen/sp15" />
 
             <TextView
                 android:id="@id/template_required"
@@ -38,7 +38,7 @@
                 android:layout_centerVertical="true"
                 android:text="*"
                 android:textColor="@color/template_cff3838"
-                android:textSize="14sp" />
+                android:textSize="@dimen/sp14" />
 
 
         </RelativeLayout>
@@ -95,7 +95,7 @@
                     android:layout_marginLeft="@dimen/dp15"
                     android:text="异常"
                     android:textColor="@color/template_c666666"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/sp14" />
 
 
             </LinearLayout>
@@ -125,7 +125,7 @@
                     android:layout_marginLeft="@dimen/dp15"
                     android:text="拒检"
                     android:textColor="@color/template_c666666"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/sp14" />
 
             </LinearLayout>
         </LinearLayout>
