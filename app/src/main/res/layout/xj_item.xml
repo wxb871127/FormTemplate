@@ -3,30 +3,38 @@
     android:id="@+id/template_linelayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/template_list_item_stroke_selector"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/dp17">
+
     <TextView
-        android:id="@+id/excption"
-        android:text="上海"
-        android:paddingBottom="@dimen/dp7"
-        android:paddingTop="@dimen/dp7"
+        android:id="@+id/excption_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/c_7d7d7d"
-        android:paddingLeft="@dimen/dp20"
-        android:textSize="16sp" />
+        android:text="齿列异常："
+        android:textColor="@color/template_c333333"
+        android:textSize="@dimen/sp15" />
+
+    <TextView
+        android:id="@+id/excption_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="左三上义齿"
+        android:textColor="@color/template_cff5959"
+        android:textSize="@dimen/sp15" />
+
     <EditText
         android:id="@+id/bz"
-        android:layout_gravity="center_vertical"
         android:layout_width="0dp"
-        android:paddingLeft="@dimen/dp15"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:textCursorDrawable="@null"
-        android:textColorHint="@color/c_d1d1d1"
-        android:textColor="@color/black"
-        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
         android:layout_marginRight="@dimen/dp10"
-        android:textSize="16sp" />
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:hint="请输入"
+        android:paddingLeft="@dimen/dp15"
+        android:textColor="@color/black"
+        android:textColorHint="@color/template_cc2c2c2"
+        android:textCursorDrawable="@null"
+        android:textSize="@dimen/sp15" />
 </LinearLayout>

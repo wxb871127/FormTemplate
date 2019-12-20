@@ -3,15 +3,24 @@
     android:id="@id/template_list_add"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
+
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/template_list_add"
+        android:layout_marginRight="@dimen/dp5"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="16sp"
-        android:paddingBottom="@dimen/dp7"
-        android:paddingTop="@dimen/dp7"
-        android:paddingRight="@dimen/dp5"
-        android:drawableRight="@drawable/template_list_add"/>
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/sp15"
+        android:text="请添加"
+        android:textColor="@color/template_c0a7cfe"/>
 
 </LinearLayout>

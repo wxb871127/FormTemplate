@@ -7,11 +7,21 @@
                 <section name="sgxx" label="生理体征">
 
                     <input
+                        name="qqwee"
+                        hint="100-200"
+                        label="文字"
+                        quote="true"/>
+
+                    <input
+                        name="qqweer"
+                        label="这个标题比较长有好多文字啊"
+                        quote="true"/>
+
+                    <input
                         name="sg"
                         inputType="numberDecimal"
                         hint="100-200"
                         label="身高"
-                        quote="11"
                         unit="cm" />
 
                     <input
@@ -132,12 +142,13 @@
 
                 </radio>
 
+         <!--<search name="ywmc" label="药物名称" style="Drug">-->
+            <!--<item name="yf" column="fyfs"/>-->
+            <!--<item name="cs" column="ffcs"/>-->
+        <!--</search>-->
                 <list name="yyqk11" label="用药记录" showArgs="ywmc"
                     showFormat="药物名称：%s" exception="xb == 9">
-                    <search name="ywmc" label="药物名称" style="Drug">
-                        <item name="yf" column="fyfs"/>
-                        <item name="cs" column="ffcs"/>
-                    </search>
+                    <input name="ywmc" label="药物名称"/>
                     <input name="yf" label="用法"/>
                     <input name="cs" label="分服次数"/>
                 </list>

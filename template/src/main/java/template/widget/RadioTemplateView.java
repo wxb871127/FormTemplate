@@ -39,7 +39,7 @@ public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
             hint.setTextColor(getResources().getColor(R.color.black));
         }else{
             hint.setText("请选择");
-            hint.setTextColor(getResources().getColor(R.color.c9));
+            hint.setTextColor(getResources().getColor(R.color.template_cc2c2c2));
         }
     }
 }

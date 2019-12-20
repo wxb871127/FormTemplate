@@ -3,34 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:paddingBottom="@dimen/dp2"
-    android:layout_marginLeft="@dimen/dp20"
-    android:paddingTop="@dimen/dp2" >
+    android:paddingBottom="@dimen/dp15">
 
     <LinearLayout
         android:id="@+id/common_template_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/template_bg_white_selector"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/dp6" >
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@id/template_list_item_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp26"
+            android:src="@drawable/template_list_item_delete" />
 
         <TextView
             android:id="@id/template_list_item_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingBottom="@dimen/dp7"
-            android:paddingTop="@dimen/dp7"
-            android:textColor="@color/c_303030"
-            android:textSize="14sp" />
-        <ImageView
-            android:id="@id/template_list_item_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="@dimen/dp5"
-            android:src="@drawable/template_list_item_delete" />
+            android:textColor="@color/black"
+            android:paddingRight="@dimen/dp9"
+            android:textSize="@dimen/sp13" />
+
     </LinearLayout>
 
 </LinearLayout>
