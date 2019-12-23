@@ -47,23 +47,23 @@ public abstract class BaseTemplate {
         setExpression();
     }
 
-    private void setExpression(){
-        if(!TextUtils.isEmpty(exception) && !"true".equals(exception) && !"false".equals(exception)) {
+    private void setExpression() {
+        if (!TextUtils.isEmpty(exception) && !"true".equals(exception) && !"false".equals(exception)) {
             expression = true;
             return;
         }
 
-        if(!TextUtils.isEmpty(value)) {
+        if (!TextUtils.isEmpty(value)) {
             expression = true;
             return;
         }
 
-        if(!TextUtils.isEmpty(editable) && !"true".equals(editable) && !"false".equals(editable)) {
+        if (!TextUtils.isEmpty(editable) && !"true".equals(editable) && !"false".equals(editable)) {
             expression = true;
             return;
         }
 
-        if(!TextUtils.isEmpty(show) && !"true".equals(show) && !"false".equals(show)) {
+        if (!TextUtils.isEmpty(show) && !"true".equals(show) && !"false".equals(show)) {
             expression = true;
             return;
         }
@@ -73,10 +73,17 @@ public abstract class BaseTemplate {
         this.sectionTemplate = sectionTemplate;
     }
 
-    public String getShowName(Object object, Context context){
-        if(object == null || "null".equalsIgnoreCase(object.toString()))
+    public String getShowName(Object object, Context context) {
+        if (object == null || "null".equalsIgnoreCase(object.toString()))
             return "";
         return object.toString();
+    }
+
+    public boolean hasExceptionExpression() {
+        if (!TextUtils.isEmpty(exception) && !"true".equals(exception) && !"false".equals(exception)) {
+            return true;
+        }
+        return false;
     }
 
 
