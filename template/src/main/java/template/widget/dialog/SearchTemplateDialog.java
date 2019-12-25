@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import template.bean.SearchTemplate;
@@ -21,6 +22,7 @@ import template.com.form.R;
 public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
     private View view;
     private EditText editText;
+    private ImageView searchHint;
     private ListView listView;
     private Adapter adapter;
 
@@ -32,6 +34,7 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
     public void initDialog(final SearchTemplate template, Object value) {
         super.initDialog(template, value);
         view = LayoutInflater.from(mContext).inflate(R.layout.template_search_dialog, null);
+        searchHint = view.findViewById(R.id.search_template_dialog_hint);
         editText = (EditText) view.findViewById(R.id.template_search_dialog_text);
         listView = (ListView) view.findViewById(R.id.template_search_dialog_list);
         adapter = new Adapter(mContext, null);
@@ -40,8 +43,11 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
         if(editText.getTag() instanceof TextWatcher){//防止recyclerView刷新 触发TextWatcher事件
             editText.removeTextChangedListener((TextWatcher)editText.getTag());
         }
-        if(value != null)
+        if(value != null) {
             editText.setText(template.getShowName(value.toString(), mContext));
+            searchHint.setVisibility(View.GONE);
+        }else
+            searchHint.setVisibility(View.VISIBLE);
 //            editText.setText(value.toString());
         TextWatcher textWatcher = new TextWatcher() {
             @Override
@@ -57,6 +63,7 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() > 0) {
+                    searchHint.setVisibility(View.GONE);
                     String selection = template.selection;
                     int count = 0;
                     while(selection.indexOf("?")!=-1){
@@ -72,7 +79,8 @@ public class SearchTemplateDialog extends BaseTemplateDialog<SearchTemplate>{
                             template.selection, selectionArg, null, null);
                     cursor.moveToFirst();
                     adapter.changeCursor(cursor);
-                }
+                }else
+                    searchHint.setVisibility(View.VISIBLE);
             }
         };
         editText.setTag(textWatcher);
