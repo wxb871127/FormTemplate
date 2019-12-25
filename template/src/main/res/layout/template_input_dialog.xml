@@ -15,7 +15,7 @@
             android:id="@+id/input_template_dialog_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp40"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:text="标题"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15" />
