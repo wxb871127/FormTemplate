@@ -1,57 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#ffcccccc" />
-
-    <ListView
-        android:id="@id/template_search_dialog_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#ffcccccc" />
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp300"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp4"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@id/btn_cancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@null"
-            android:paddingBottom="@dimen/dp6"
-            android:paddingTop="@dimen/dp10"
-            android:text="取消" />
+        android:paddingLeft="@dimen/dp20"
+        android:paddingRight="@dimen/dp20"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="1px"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dp4"
-            android:layout_marginTop="@dimen/dp6"
-            android:background="@color/_2cc1a4"/>
+            android:id="@+id/input_template_dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp40"
+            android:gravity="center_vertical"
+            android:text="标题"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp15" />
 
-        <Button
-            android:id="@+id/btn_submit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+
+        <template.view.MaxHeightListView
+            android:id="@id/template_search_dialog_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@null"
-            android:padding="@dimen/dp6"
-            android:paddingBottom="@dimen/dp6"
-            android:paddingTop="@dimen/dp10"
-            android:text="确定"
-            android:textSize="@dimen/dp16" />
-    </LinearLayout>
+            android:divider="@color/md_grey_400"
+            android:dividerHeight="0.5px"/>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp4"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:paddingTop="@dimen/dp10"
+                android:paddingBottom="@dimen/dp6"
+                android:text="取消" />
+
+
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:padding="@dimen/dp6"
+                android:paddingTop="@dimen/dp10"
+                android:paddingBottom="@dimen/dp6"
+                android:text="确定"
+                android:textSize="@dimen/dp16"
+                android:textColor="@color/template_c0278FE"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

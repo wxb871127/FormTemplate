@@ -37,8 +37,10 @@
     <dimen name="dp170">170dp</dimen>
     <dimen name="dp185">185dp</dimen>
     <dimen name="dp194">194dp</dimen>
+    <dimen name="dp300">300dp</dimen>
     <dimen name="dp370">370dp</dimen>
     <dimen name="dp382">382dp</dimen>
+    <dimen name="dp400">400dp</dimen>
     <dimen name="dp470">470dp</dimen>
     <dimen name="dp750">750dp</dimen>
 

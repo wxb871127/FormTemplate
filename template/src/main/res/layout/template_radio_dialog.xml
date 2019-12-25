@@ -1,37 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/radio_template_dialog_title"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="标题"
-                android:textSize="16dp"
-                android:gravity="center"
-                android:textColor="@color/D7"
-                />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5px"
-                android:background="@color/md_grey_400"/>
-            <ListView
-                android:id="@+id/radio_template_dialog_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5px"
-                android:background="@color/md_grey_400"/>
-            <TextView
-                    android:id="@+id/radio_template_dialog_clean"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="清空"
-                    android:onClick="onClick"
-                    android:gravity="center"
-                    android:textSize="16dp"
-                    android:textColor="@color/D7"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="@dimen/dp300"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingRight="@dimen/dp20">
+
+        <TextView
+            android:id="@+id/radio_template_dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp40"
+            android:gravity="center"
+            android:text="标题"
+            android:textColor="@color/D7"
+            android:textSize="@dimen/sp15" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5px"
+            android:background="@color/md_grey_400" />
+
+        <template.view.MaxHeightListView
+            android:id="@+id/radio_template_dialog_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/md_grey_400"
+            android:dividerHeight="0.5px" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5px"
+            android:background="@color/md_grey_400" />
+
+        <TextView
+            android:id="@+id/radio_template_dialog_clean"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp40"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="清空"
+            android:textColor="@color/D7"
+            android:textSize="@dimen/sp15" />
+    </LinearLayout>
 </LinearLayout>
