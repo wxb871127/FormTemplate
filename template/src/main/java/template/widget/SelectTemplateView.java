@@ -6,6 +6,7 @@ import android.widget.TextView;
 import template.bean.SelectTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
+import template.config.TemplateConfig;
 import template.widget.tree.Node;
 
 public class SelectTemplateView extends BaseTemplateView<SelectTemplate>{
@@ -15,7 +16,7 @@ public class SelectTemplateView extends BaseTemplateView<SelectTemplate>{
     }
 
     @Override
-    protected int getContentLayout() {
+    public int getContentLayout() {
         return R.layout.template_select_content;
     }
 
@@ -27,7 +28,7 @@ public class SelectTemplateView extends BaseTemplateView<SelectTemplate>{
 
     @Override
     public int getType() {
-        return SELECT_TYPE;
+        return TemplateConfig.SELECT_TYPE;
     }
 
     @Override

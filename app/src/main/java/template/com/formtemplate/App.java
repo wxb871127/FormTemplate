@@ -6,12 +6,20 @@ import com.templatedb.greendao.CommonExpressionDao;
 
 import template.com.templatedb.CommonExpression;
 import template.com.templatedb.DaoManager;
+import template.com.templatedb.Drug;
 
 public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
         DaoManager.getInstance().init(this);
+
+     Drug drug = new Drug();
+     drug.setYpmc("阿司匹林");
+     drug.setYpid("1");
+     drug.setBz("xxx");
+     DaoManager.getInstance().getDaoSession().getDrugDao().insertOrReplace(drug);
+
 
        CommonExpression commonExpression1 = new CommonExpression();
        commonExpression1.fieldid = "tz";

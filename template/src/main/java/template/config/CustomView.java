@@ -8,9 +8,20 @@ import template.bean.TemplateValue;
 import template.interfaces.OnTemplateListener;
 import template.widget.BaseViewHolder;
 
-public interface CustomView {
-    int getLayout();
+public abstract class CustomView {
+    protected int getLayout(){
+        return -1;
+    }
 
-    void initView(Context context, BaseViewHolder holder, Map<String, TemplateValue> valueMap, TemplateList templates, CustomTemplate template, Map<String, Object> codeMap, OnTemplateListener listener);
+    protected int getSpinnerLayout(){
+        return 0;
+    }
+
+    protected int getContentLayout(){
+        return 0;
+    }
+
+    public abstract void initView(Context context, BaseViewHolder holder, Map<String, TemplateValue> valueMap,
+                                     TemplateList templates, CustomTemplate template, Map<String, Object> codeMap, OnTemplateListener listener);
 
 }

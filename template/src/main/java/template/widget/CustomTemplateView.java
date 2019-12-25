@@ -11,11 +11,16 @@ public class CustomTemplateView extends BaseTemplateView<CustomTemplate>{
 
     @Override
     public int getType() {
-        return CUSTOM_TYPE;
+        return TemplateConfig.CUSTOM_TYPE;
     }
 
     @Override
     protected int getSpinnerLayout() {
-        return TemplateConfig.getCustomLayout(Integer.parseInt(template.command));
+        return TemplateConfig.getCustomSpinnerLayout(Integer.parseInt(template.command));
+    }
+
+    @Override
+    public int getContentLayout() {
+        return TemplateConfig.getCustomContentLayout(Integer.parseInt(template.command));
     }
 }

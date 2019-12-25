@@ -7,6 +7,7 @@ import android.widget.TextView;
 import template.bean.DateTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
+import template.config.TemplateConfig;
 import template.widget.tree.Node;
 
 public class DateTemplateView extends BaseTemplateView<DateTemplate>{
@@ -16,7 +17,7 @@ public class DateTemplateView extends BaseTemplateView<DateTemplate>{
     }
 
     @Override
-    protected int getContentLayout() {
+    public int getContentLayout() {
         return R.layout.template_select_content;
     }
 
@@ -27,7 +28,7 @@ public class DateTemplateView extends BaseTemplateView<DateTemplate>{
 
     @Override
     public int getType() {
-        return DATE_TYPE;
+        return TemplateConfig.DATE_TYPE;
     }
 
     @Override

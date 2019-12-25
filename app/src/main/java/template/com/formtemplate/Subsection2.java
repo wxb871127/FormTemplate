@@ -11,9 +11,9 @@ import template.config.CustomView;
 import template.interfaces.OnTemplateListener;
 import template.widget.BaseViewHolder;
 
-public class Subsection2 implements CustomView {
+public class Subsection2 extends CustomView {
     @Override
-    public int getLayout() {
+    public int getContentLayout() {
         return R.layout.xj2_layout;
     }
 

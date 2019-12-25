@@ -20,8 +20,19 @@ import template.control.SearchTemplateControl;
 import template.control.SectionTemplateControl;
 import template.control.SelectTemplateControl;
 import template.widget.BaseTemplateView;
+import template.widget.CustomTemplateView;
 
 public class TemplateConfig {
+    public static final int SECTION_TYPE = 0;
+    public static final int INPUT_TYPE = 1;
+    public static final int RADIO_TYPE = 2;
+    public static final int SELECT_TYPE = 3;
+    public static final int DATE_TYPE = 4;
+    public static final int SEARCH_TYPE = 5;
+    public static final int LIST_TYPE = 6;
+    public static final int BUTTON_TYPE = 7;
+    public static final int CUSTOM_TYPE = -1;
+
     private static final List<TemplateInfo> templateInfoList = new ArrayList<>();
     private static class TemplateInfo{
         String tag;
@@ -32,12 +43,14 @@ public class TemplateConfig {
     }
     private static Map<Integer, Class> customMap = new HashMap();
     private static Map<Integer, CustomView> customViewMap = new HashMap<>();
+    private static Context mContext;
 
     /*
         扫描被注解为Template的class
         表单支持的展示类型、xml的标签名、Template类的注解一致
      */
     public static void initConfig(Context context){
+        mContext = context;
         List<Class> list = new ArrayList<>();
         list.add(SectionTemplateControl.class);
         list.add(InputTemplateControl.class);
@@ -94,11 +107,16 @@ public class TemplateConfig {
     }
 
     public static int getTemplateLayoutByType(int type){
+        int layout = -1;
         for(TemplateInfo templateInfo : templateInfoList){
-            if(type == templateInfo.type)
-                return templateInfo.layout;
+            if(type == templateInfo.type) {
+                layout = templateInfo.layout;
+                break;
+            }
         }
-        return -1;
+        if(layout == -1)
+            return getCustomLayout(type);
+        return layout;
     }
 
     public static void initCustomView(){
@@ -119,7 +137,17 @@ public class TemplateConfig {
     }
 
     public static int getCustomLayout(int command){
-        return customViewMap.get(command).getLayout();
+        int layout = customViewMap.get(command).getLayout();
+        if(layout != -1) return layout;
+        return new CustomTemplateView(mContext).getlayout();
+    }
+
+    public static int getCustomContentLayout(int command){
+        return customViewMap.get(command).getContentLayout();
+    }
+
+    public static int getCustomSpinnerLayout(int command){
+        return customViewMap.get(command).getSpinnerLayout();
     }
 
     public static CustomView getCustomView(int command){
