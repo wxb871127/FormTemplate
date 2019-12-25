@@ -7,6 +7,7 @@ import android.widget.TextView;
 import template.bean.ButtonTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
+import template.config.TemplateConfig;
 import template.widget.tree.Node;
 
 public class ButtonTemplateView extends BaseTemplateView<ButtonTemplate>{
@@ -17,7 +18,7 @@ public class ButtonTemplateView extends BaseTemplateView<ButtonTemplate>{
     }
 
     @Override
-    protected int getContentLayout() {
+    public int getContentLayout() {
         return R.layout.template_select_content;
     }
 
@@ -28,7 +29,7 @@ public class ButtonTemplateView extends BaseTemplateView<ButtonTemplate>{
 
     @Override
     public int getType() {
-        return BUTTON_TYPE;
+        return TemplateConfig.BUTTON_TYPE;
     }
 
     @Override

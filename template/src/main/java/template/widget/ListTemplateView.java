@@ -15,6 +15,7 @@ import template.bean.BaseTemplate;
 import template.bean.ListTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
+import template.config.TemplateConfig;
 import template.widget.tree.Node;
 
 public class ListTemplateView extends BaseTemplateView<ListTemplate>{
@@ -40,12 +41,12 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
 
     @Override
     public int getType() {
-        return LIST_TYPE;
+        return TemplateConfig.LIST_TYPE;
     }
 
 
     @Override
-    protected int getContentLayout() {
+    public int getContentLayout() {
         return R.layout.template_list_content;
     }
 

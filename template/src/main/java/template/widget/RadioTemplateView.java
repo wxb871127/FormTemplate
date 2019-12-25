@@ -7,6 +7,7 @@ import android.widget.TextView;
 import template.bean.RadioTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
+import template.config.TemplateConfig;
 import template.widget.tree.Node;
 
 public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
@@ -16,7 +17,7 @@ public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
     }
 
     @Override
-    protected int getContentLayout() {
+    public int getContentLayout() {
         return R.layout.template_select_content;
     }
 
@@ -27,7 +28,7 @@ public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
 
     @Override
     public int getType() {
-        return RADIO_TYPE;
+        return TemplateConfig.RADIO_TYPE;
     }
 
     @Override

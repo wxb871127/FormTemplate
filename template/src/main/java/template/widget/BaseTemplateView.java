@@ -33,16 +33,6 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     protected BaseViewHolder holder;
     protected Node node;
 
-    protected static final int SECTION_TYPE = 0;
-    protected static final int INPUT_TYPE = 1;
-    protected static final int RADIO_TYPE = 2;
-    protected static final int SELECT_TYPE = 3;
-    protected static final int DATE_TYPE = 4;
-    protected static final int SEARCH_TYPE = 5;
-    protected static final int LIST_TYPE = 6;
-    protected static final int BUTTON_TYPE = 7;
-    protected static final int CUSTOM_TYPE = 8;
-
     public void setOnTemplateListener(OnTemplateListener listener) {
         this.templateListener = listener;
     }
@@ -56,7 +46,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         return R.layout.template_common;
     }
 
-    protected int getContentLayout() {
+    public int getContentLayout() {
         return 0;
     }
 
@@ -145,11 +135,14 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             });
         }
 
-        label.setText(template.label);
-        if ("true".equals(template.required))
-            required.setVisibility(VISIBLE);
-        else
-            required.setVisibility(GONE);
+        if (label != null)
+            label.setText(template.label);
+        if (required != null) {
+            if ("true".equals(template.required))
+                required.setVisibility(VISIBLE);
+            else
+                required.setVisibility(GONE);
+        }
     }
 
     protected void setValueEdit(boolean editable) {
@@ -176,6 +169,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     }
 
     protected void setRefuseEdit(boolean editable) {
+        if(refuse == null) return;
         if (editable)
             refuse.setBackgroundResource(R.color.white);
         else
@@ -184,6 +178,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
     }
 
     protected void setExceptionEdit(boolean editable) {
+        if(exception == null) return;
         if (editable)
             exception.setBackgroundResource(R.color.white);
         else

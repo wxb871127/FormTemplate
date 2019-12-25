@@ -20,6 +20,7 @@ import template.bean.BaseTemplate;
 import template.bean.InputTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
+import template.config.TemplateConfig;
 import template.widget.tree.Node;
 
 public class InputTemplateView extends BaseTemplateView<InputTemplate> {
@@ -80,11 +81,11 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
 
     @Override
     public int getType() {
-        return INPUT_TYPE;
+        return TemplateConfig.INPUT_TYPE;
     }
 
     @Override
-    protected int getContentLayout() {
+    public int getContentLayout() {
         return R.layout.template_input_content;
     }
 

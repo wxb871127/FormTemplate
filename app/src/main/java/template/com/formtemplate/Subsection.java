@@ -19,7 +19,7 @@ import template.config.CustomView;
 import template.interfaces.OnTemplateListener;
 import template.widget.BaseViewHolder;
 
-public class Subsection implements CustomView {
+public class Subsection extends CustomView {
     private RecyclerView recyclerView;
     private EditText kszj;
     private Map<String, Object> map;
@@ -29,7 +29,7 @@ public class Subsection implements CustomView {
     private Map<String, TemplateValue> valueMap;
 
     @Override
-    public int getLayout() {
+    protected int getLayout() {
         return R.layout.xj_layout;
     }
 
@@ -38,7 +38,6 @@ public class Subsection implements CustomView {
                          TemplateList templates, final CustomTemplate template, Map<String, Object> codeMap, final OnTemplateListener listener) {
         recyclerView = (RecyclerView) holder.getViewById(R.id.list);
         kszj = (EditText)holder.getViewById(R.id.kszj);
-        holder.getViewById(R.id.attr).setVisibility(View.GONE);
         this.mContext = context;
         this.listener = listener;
         this.template = template;

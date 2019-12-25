@@ -6,6 +6,7 @@ import android.widget.TextView;
 import template.bean.SectionTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
+import template.config.TemplateConfig;
 import template.widget.tree.Node;
 
 public class SectionTemplateView extends BaseTemplateView<SectionTemplate> {
@@ -20,13 +21,13 @@ public class SectionTemplateView extends BaseTemplateView<SectionTemplate> {
     }
 
     @Override
-    protected int getContentLayout() {
+    public int getContentLayout() {
         return 0;
     }
 
     @Override
     public int getType() {
-        return SECTION_TYPE;
+        return TemplateConfig.SECTION_TYPE;
     }
 
     @Override

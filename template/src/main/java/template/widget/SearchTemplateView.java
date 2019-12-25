@@ -5,6 +5,7 @@ import android.content.Context;
 import template.bean.SearchTemplate;
 import template.bean.TemplateValue;
 import template.com.form.R;
+import template.config.TemplateConfig;
 import template.widget.tree.Node;
 
 public class SearchTemplateView extends BaseTemplateView<SearchTemplate>{
@@ -13,7 +14,7 @@ public class SearchTemplateView extends BaseTemplateView<SearchTemplate>{
     }
 
     @Override
-    protected int getContentLayout() {
+    public int getContentLayout() {
         return R.layout.template_search_content;
     }
 
@@ -24,7 +25,7 @@ public class SearchTemplateView extends BaseTemplateView<SearchTemplate>{
 
     @Override
     public int getType() {
-        return SEARCH_TYPE;
+        return TemplateConfig.SEARCH_TYPE;
     }
 
     @Override
