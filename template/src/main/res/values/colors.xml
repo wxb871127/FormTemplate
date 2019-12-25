@@ -25,9 +25,12 @@
 
     <color name="template_section_background">#F1F8FF</color>
     <color name="template_c0278FE">#0278FE</color>
+    <color name="template_c0a7cfe">#0A7CFE</color>
     <color name="template_c333333">#333333</color>
     <color name="template_c666666">#666666</color>
     <color name="template_cd4d4d4">#D4D4D4</color>
     <color name="template_cff3838">#FF3838</color>
     <color name="template_cc2c2c2">#C2C2C2</color>
+    <color name="template_cff5959">#FF5959</color>
+
 </resources>

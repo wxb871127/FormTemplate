@@ -5,19 +5,24 @@
     android:layout_height="match_parent"
 
     android:orientation="horizontal">
-<!--    android:background="@drawable/template_list_item_stroke_selector"-->
+    <!--    android:background="@drawable/template_list_item_stroke_selector"-->
     <TextView
         android:id="@+id/common_template_hint"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/dp7"
-        android:paddingTop="@dimen/dp7"
-        android:layout_marginRight="12dp"
-        android:drawablePadding="5dp"
-        android:drawableRight="@drawable/template_common_arrow"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dp16"
+        android:gravity="center_vertical"
+        android:maxWidth="@dimen/dp470"
+        android:minWidth="@dimen/dp45"
         android:text="请选择"
-        android:layout_gravity="center_vertical|right"
-        android:gravity="center_vertical|right"
-        android:textColor="@color/c9"
-        android:textSize="16sp"/>
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp15" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dp15"
+        android:background="@drawable/template_common_arrow" />
 </LinearLayout>

@@ -2,38 +2,78 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/template_section_background"
+        android:paddingLeft="@dimen/dp9"
+        android:text="小结"
+        android:textColor="@color/template_c0278FE"
+        android:textSize="@dimen/sp12" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp25"
+        android:paddingLeft="@dimen/dp11"
+        android:text="异常结果"
+        android:textColor="@color/template_c333333"
+        android:textSize="@dimen/sp15" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp17"
+        android:paddingLeft="@dimen/dp11" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/template_cd4d4d4" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/dp52"
         android:orientation="horizontal">
+
         <TextView
-            android:text="科室总节"
-            android:paddingBottom="@dimen/dp7"
-            android:paddingTop="@dimen/dp7"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp168"
             android:layout_height="wrap_content"
-            android:textColor="@color/c_7d7d7d"
-            android:paddingLeft="@dimen/dp20"
-            android:textSize="16sp" />
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/dp11"
+            android:text="科室总节"
+            android:textColor="@color/template_c333333"
+            android:textSize="@dimen/sp15" />
+
+        <View
+            android:layout_width="@dimen/dp0.5"
+            android:layout_height="match_parent"
+            android:background="@color/template_cd4d4d4" />
+
         <EditText
             android:id="@+id/kszj"
-            android:layout_gravity="center_vertical"
             android:layout_width="0dp"
-            android:paddingLeft="@dimen/dp15"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:textCursorDrawable="@null"
-            android:textColorHint="@color/c_d1d1d1"
-            android:textColor="@color/black"
             android:gravity="center_vertical"
-            android:layout_marginRight="@dimen/dp10"
-            android:textSize="16sp" />
+            android:hint="请输入"
+            android:paddingLeft="@dimen/dp16"
+            android:textColor="@color/black"
+            android:textColorHint="@color/template_cc2c2c2"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/sp15" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/template_cd4d4d4" />
 </LinearLayout>

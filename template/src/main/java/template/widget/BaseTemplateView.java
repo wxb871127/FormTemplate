@@ -125,7 +125,10 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             });
         }
         if (exception != null) {
-            exception.setEnabled(value.editable);
+            if (template.hasExceptionExpression())
+                exception.setEnabled(false);
+            else
+                exception.setEnabled(value.editable);
             exception.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {

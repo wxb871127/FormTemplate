@@ -4,14 +4,17 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import base.util.TemplateList;
 import template.bean.CustomTemplate;
 import template.bean.TemplateValue;
@@ -19,7 +22,7 @@ import template.config.CustomView;
 import template.interfaces.OnTemplateListener;
 import template.widget.BaseViewHolder;
 
-public class Subsection extends CustomView {
+public class Subsection implements CustomView {
     private RecyclerView recyclerView;
     private EditText kszj;
     private Map<String, Object> map;
@@ -28,8 +31,13 @@ public class Subsection extends CustomView {
     private CustomTemplate template;
     private Map<String, TemplateValue> valueMap;
 
+    private class ExceptionBean {
+        String label;
+        String showValue;
+    }
+
     @Override
-    protected int getLayout() {
+    public int getLayout() {
         return R.layout.xj_layout;
     }
 
@@ -37,23 +45,22 @@ public class Subsection extends CustomView {
     public void initView(Context context, BaseViewHolder holder, final Map<String, TemplateValue> valueMap,
                          TemplateList templates, final CustomTemplate template, Map<String, Object> codeMap, final OnTemplateListener listener) {
         recyclerView = (RecyclerView) holder.getViewById(R.id.list);
-        kszj = (EditText)holder.getViewById(R.id.kszj);
+        kszj = (EditText) holder.getViewById(R.id.kszj);
+        holder.getViewById(R.id.attr).setVisibility(View.GONE);
         this.mContext = context;
         this.listener = listener;
         this.template = template;
-        StringBuilder builder = new StringBuilder();
         map = new HashMap<>();
         this.valueMap = valueMap;
 
-        for(String key : valueMap.keySet()){
+        for (String key : valueMap.keySet()) {
             boolean ret = valueMap.get(key).exception;
-            if(ret){
-                builder.append(templates.getTemplate(key).label).append(":");
-                String showName = templates.getTemplate(key).getShowName(valueMap.get(key).value, context);
-                if(showName != null)
-                    builder.append(showName);
-                map.put(key, builder.toString());
-                builder.delete(0, builder.length());
+            if (ret) {
+                ExceptionBean bean = new ExceptionBean();
+                bean.label = templates.getTemplate(key).label + "：";
+                bean.showValue = templates.getTemplate(key).getShowName(valueMap.get(key).value, context);
+                if (TextUtils.isEmpty(bean.showValue)) bean.showValue = "";
+                map.put(key, bean);
             }
         }
         Adapter adapter = new Adapter(map.keySet().toArray());
@@ -84,9 +91,10 @@ public class Subsection extends CustomView {
         kszj.addTextChangedListener(textWatcher);
     }
 
-    public class Adapter extends RecyclerView.Adapter{
+    public class Adapter extends RecyclerView.Adapter {
         private Object keys[];
-        public Adapter(Object keys[]){
+
+        public Adapter(Object keys[]) {
             this.keys = keys;
         }
 
@@ -97,13 +105,16 @@ public class Subsection extends CustomView {
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-            TextView excption =  (TextView) ((BaseViewHolder) holder).getViewById(R.id.excption);
-            EditText bz = (EditText)((BaseViewHolder)holder).getViewById(R.id.bz);
+            TextView label = (TextView) ((BaseViewHolder) holder).getViewById(R.id.excption_label);
+            TextView excption = (TextView) ((BaseViewHolder) holder).getViewById(R.id.excption_value);
+            EditText bz = (EditText) ((BaseViewHolder) holder).getViewById(R.id.bz);
+            final ExceptionBean bean = (ExceptionBean) map.get(keys[position]);
+            label.setText(bean.label);
+            excption.setText(bean.showValue);
 
-            excption.setText(map.get(keys[position]).toString());
+
             TemplateValue templateValue = valueMap.get(keys[position]);
             bz.setText(templateValue.exceptionDesc);
-
 
             TextWatcher textWatcher = new TextWatcher() {
                 @Override
@@ -125,7 +136,7 @@ public class Subsection extends CustomView {
 
                     TemplateValue templateValue2 = valueMap.get(template.name);
                     StringBuilder builder = new StringBuilder();
-                    for(String key : map.keySet()){
+                    for (String key : map.keySet()) {
                         builder.append(map.get(key));
                         builder.append(valueMap.get(key).exceptionDesc).append(";");
                     }
@@ -139,7 +150,7 @@ public class Subsection extends CustomView {
 
         @Override
         public int getItemCount() {
-            if(keys == null)
+            if (keys == null)
                 return 0;
             return keys.length;
         }

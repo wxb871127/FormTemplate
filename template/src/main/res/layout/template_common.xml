@@ -16,7 +16,8 @@
         <!--label、require -->
         <RelativeLayout
             android:id="@+id/template_title"
-            android:layout_width="@dimen/dp168"
+            android:layout_width="0dp"
+            android:layout_weight="168"
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/dp9">
 
@@ -34,8 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:paddingRight="@dimen/dp10"
                 android:layout_centerVertical="true"
+                android:paddingRight="@dimen/dp10"
                 android:text="*"
                 android:textColor="@color/template_cff3838"
                 android:textSize="@dimen/sp14" />
@@ -54,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_weight="495"
             android:orientation="horizontal" />
 
         <View
@@ -65,20 +66,20 @@
         <!--异常、拒检 -->
         <LinearLayout
             android:id="@+id/attr"
-            android:layout_width="@dimen/dp160"
+            android:layout_width="0dp"
+            android:layout_weight="160"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:gravity="right"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/template_exception"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp9"
+                android:paddingRight="@dimen/dp21">
 
 
                 <ImageView
@@ -92,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp15"
+                    android:layout_marginLeft="@dimen/dp10"
                     android:text="异常"
                     android:textColor="@color/template_c666666"
                     android:textSize="@dimen/sp14" />
@@ -102,12 +103,11 @@
 
             <LinearLayout
                 android:id="@+id/template_refuse"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:gravity="right"
                 android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp22"
                 android:paddingRight="@dimen/dp9">
 
 
@@ -122,7 +122,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp15"
+                    android:layout_marginLeft="@dimen/dp10"
                     android:text="拒检"
                     android:textColor="@color/template_c666666"
                     android:textSize="@dimen/sp14" />

@@ -7,11 +7,21 @@
                 <section name="sgxx" label="生理体征">
 
                     <input
+                        name="qqwee"
+                        hint="100-200"
+                        label="文字"
+                        quote="true"/>
+
+                    <input
+                        name="qqweer"
+                        label="这个标题比较长有好多文字啊"
+                        quote="true"/>
+
+                    <input
                         name="sg"
                         inputType="numberDecimal"
                         hint="100-200"
                         label="身高"
-                        quote="11"
                         unit="cm" />
 
                     <input
@@ -20,6 +30,7 @@
                         exception="tz >= 300"
                         label="体重"
                         required="true"
+                        quote="true"
                         unit="kg" />
 
                     <input
@@ -132,19 +143,20 @@
 
                 </radio>
 
+        <search name="ywmc" style="Drug" label="药物名称">
+            <item name="yf" column="fyfs" />
+            <item name="cs" column="ffcs" />
+        </search>
                 <list name="yyqk11" label="用药记录" showArgs="ywmc"
                     showFormat="药物名称：%s" exception="xb == 9">
-                    <search name="ywmc" label="药物名称" style="Drug">
-                        <item name="yf" column="fyfs"/>
-                        <item name="cs" column="ffcs"/>
-                    </search>
+                    <input name="ywmc" label="药物名称开始测试长度限制了"/>
                     <input name="yf" label="用法"/>
                     <input name="cs" label="分服次数"/>
                 </list>
 
         <custom name="xj" label="小节" command="1001"/>
 
-        <custom name="xj2" label="小节2" command="1002"/>
+        <!--<custom name="xj2" label="小节2" command="1002"/>-->
 
     </section>
 </views>

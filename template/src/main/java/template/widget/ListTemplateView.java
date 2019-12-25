@@ -60,23 +60,23 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
         super.initContentView();
         add = (LinearLayout) holder.getViewById(R.id.template_list_add);
         recyclerView = (RecyclerView) holder.getViewById(R.id.template_list_list);
-        attr.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                attr.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                attrWidth = attr.getMeasuredWidth();
-            }
-        });
-
-        layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                label.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                int width = layout.getMeasuredWidth();
-                ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(width - attrWidth - node.getLevel()*20, ViewGroup.LayoutParams.WRAP_CONTENT);
-                spinner.setLayoutParams(layoutParams);
-            }
-        });
+//        attr.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                attr.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+//                attrWidth = attr.getMeasuredWidth();
+//            }
+//        });
+//
+//        layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                label.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+//                int width = layout.getMeasuredWidth();
+//                ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(width - attrWidth - node.getLevel()*20, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                spinner.setLayoutParams(layoutParams);
+//            }
+//        });
     }
 
     @Override
