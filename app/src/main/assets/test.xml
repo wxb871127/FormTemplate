@@ -30,6 +30,7 @@
                         exception="tz >= 300"
                         label="体重"
                         required="true"
+                        quote="true"
                         unit="kg" />
 
                     <input
@@ -142,20 +143,20 @@
 
                 </radio>
 
-         <!--<search name="ywmc" label="药物名称" style="Drug">-->
-            <!--<item name="yf" column="fyfs"/>-->
-            <!--<item name="cs" column="ffcs"/>-->
-        <!--</search>-->
+        <search name="ywmc" style="Drug" label="药物名称">
+            <item name="yf" column="fyfs" />
+            <item name="cs" column="ffcs" />
+        </search>
                 <list name="yyqk11" label="用药记录" showArgs="ywmc"
                     showFormat="药物名称：%s" exception="xb == 9">
-                    <input name="ywmc" label="药物名称"/>
+                    <input name="ywmc" label="药物名称开始测试长度限制了"/>
                     <input name="yf" label="用法"/>
                     <input name="cs" label="分服次数"/>
                 </list>
 
         <custom name="xj" label="小节" command="1001"/>
 
-        <custom name="xj2" label="小节2" command="1002"/>
+        <!--<custom name="xj2" label="小节2" command="1002"/>-->
 
     </section>
 </views>

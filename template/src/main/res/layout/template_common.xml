@@ -16,7 +16,8 @@
         <!--label、require -->
         <RelativeLayout
             android:id="@+id/template_title"
-            android:layout_width="@dimen/dp168"
+            android:layout_width="0dp"
+            android:layout_weight="168"
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/dp9">
 
@@ -54,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_weight="495"
             android:orientation="horizontal" />
 
         <View
@@ -65,7 +66,8 @@
         <!--异常、拒检 -->
         <LinearLayout
             android:id="@+id/attr"
-            android:layout_width="@dimen/dp160"
+            android:layout_width="0dp"
+            android:layout_weight="160"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:orientation="horizontal">
