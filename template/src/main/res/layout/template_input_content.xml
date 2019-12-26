@@ -41,10 +41,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:paddingLeft="@dimen/dp15"
+        android:layout_marginLeft="@dimen/dp40"
+        android:layout_marginRight="@dimen/dp80"
         android:scaleType="center"
         android:src="@drawable/template_common_quote" />
-
 
     <TextView
         android:id="@id/template_input_unit"

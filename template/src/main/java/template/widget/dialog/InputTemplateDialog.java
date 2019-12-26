@@ -62,7 +62,7 @@ public class InputTemplateDialog extends BaseTemplateDialog<InputTemplate> {
         btn_cancel = view.findViewById(R.id.btn_cancel);
         btn_submit = view.findViewById(R.id.btn_submit);
         adapter = new Adapter(mContext, null);
-        listView.setListViewHeight(mContext.getResources().getDimensionPixelOffset(R.dimen.dp300));
+        listView.setListViewHeight(mContext.getResources().getDimensionPixelOffset(R.dimen.dp266));
         listView.setAdapter(adapter);
 
         title.setText(template.label + "-常用语");

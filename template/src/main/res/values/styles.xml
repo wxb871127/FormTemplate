@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
 
     <style name="MyTemPlateCheckBox" parent="Theme.AppCompat.Light">
-        <item name="colorControlNormal">@color/template_c666666</item>
+        <item name="colorControlNormal">@color/template_cdcdcdc</item>
         <item name="colorControlActivated">@color/template_c0278FE</item>
     </style>
 </resources>
