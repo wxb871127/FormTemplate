@@ -47,7 +47,8 @@
         <View
             android:layout_width="@dimen/dp0.5"
             android:layout_height="match_parent"
-            android:background="@color/template_cd4d4d4" />
+            android:background="@color/template_cd4d4d4"
+            android:visibility="gone"/>
 
         <!--content -->
         <LinearLayout
@@ -61,7 +62,8 @@
         <View
             android:layout_width="@dimen/dp0.5"
             android:layout_height="match_parent"
-            android:background="@color/template_cd4d4d4" />
+            android:background="@color/template_cd4d4d4"
+            android:visibility="gone"/>
 
         <!--异常、拒检 -->
         <LinearLayout

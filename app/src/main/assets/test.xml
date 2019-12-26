@@ -30,7 +30,6 @@
                         exception="tz >= 300"
                         label="体重"
                         required="true"
-                        quote="true"
                         unit="kg" />
 
                     <input
@@ -104,6 +103,34 @@
                     <item
                         name="心理调整"
                         code="7"/>
+                    <item
+                        name="控制体重2"
+                        code="16"/>
+
+                    <item
+                        name="心理调整2"
+                        code="17"/>
+                    <item
+                        name="控制体重1"
+                        code="26"/>
+
+                    <item
+                        name="心理调整1"
+                        code="27"/>
+                    <item
+                        name="控制体重4"
+                        code="36"/>
+
+                    <item
+                        name="心理调整3"
+                        code="37"/>
+                    <item
+                        name="控制体重3"
+                        code="46"/>
+
+                    <item
+                        name="心理调整4"
+                        code="47"/>
                 </select>
 
 
