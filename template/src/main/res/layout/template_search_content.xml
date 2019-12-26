@@ -3,13 +3,13 @@
     android:id="@+id/template_linelayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/template_list_item_stroke_selector"
+    android:layout_gravity="center_vertical"
     android:orientation="horizontal">
+
     <FrameLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingLeft="@dimen/dp10"
+        android:paddingLeft="@dimen/dp16"
         android:paddingRight="@dimen/dp10">
 
         <TextView
@@ -17,25 +17,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:paddingBottom="@dimen/dp7"
-            android:paddingTop="@dimen/dp7"
-            android:layout_marginRight="@dimen/dp10"
-            android:gravity="center_vertical|right"
+            android:gravity="center_vertical"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/sp15" />
+
         <EditText
             android:id="@id/template_edit"
-            android:layout_gravity="center_vertical|right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
-            android:textCursorDrawable="@null"
-            android:textColorHint="@color/c_d1d1d1"
             android:clickable="false"
+            android:gravity="center_vertical"
             android:textColor="@color/black"
-            android:gravity="center_vertical|right"
-            android:layout_marginRight="@dimen/dp10"
-            android:textSize="16sp"
-            />
+            android:textColorHint="@color/template_cc2c2c2"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/sp15" />
     </FrameLayout>
 </LinearLayout>

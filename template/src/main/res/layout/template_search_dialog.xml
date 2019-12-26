@@ -2,39 +2,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="@dimen/dp300"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp10" >
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingRight="@dimen/dp20">
 
-        <EditText
-            android:id="@id/template_search_dialog_text"
+        <TextView
+            android:id="@+id/search_template_dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp40"
+            android:gravity="center"
+            android:text="标题"
+            android:textColor="@color/D7"
+            android:textSize="@dimen/sp15" />
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/template_search_template_dialog_edit"
-            android:paddingLeft="@dimen/dp8"
-            android:paddingRight="@dimen/dp8"
-            android:textSize="@dimen/dp13" />
+            android:layout_margin="@dimen/dp10">
+
+            <EditText
+                android:id="@id/template_search_dialog_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/template_search_template_dialog_edit"
+                android:paddingLeft="@dimen/dp8"
+                android:paddingRight="@dimen/dp8"
+                android:textSize="@dimen/dp13" />
+
+            <ImageView
+                android:id="@+id/search_template_dialog_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp8"
+                android:background="@drawable/template_common_search" />
+        </FrameLayout>
 
         <ImageView
-            android:id="@+id/search_template_dialog_hint"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/md_grey_400" />
+
+        <template.view.MaxHeightListView
+            android:id="@id/template_search_dialog_list"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dp8"
-            android:background="@drawable/template_common_search" />
-    </FrameLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#ffcccccc" />
-
-    <ListView
-        android:id="@id/template_search_dialog_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+            android:layout_marginBottom="@dimen/dp10"
+            android:divider="@color/md_grey_400"
+            android:dividerHeight="0.5px" />
+    </LinearLayout>
 </LinearLayout>
