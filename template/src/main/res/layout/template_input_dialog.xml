@@ -29,8 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:divider="@color/md_grey_400"
-            android:dividerHeight="0.5px" />
+            android:divider="@null"/>
 
 
         <LinearLayout
