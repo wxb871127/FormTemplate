@@ -114,6 +114,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
         } else
             quote.setVisibility(GONE);
 
+        if(value.editable)
         quote.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -5,6 +5,7 @@ import android.content.Context;
 import base.annotation.Template;
 import template.bean.BaseTemplate;
 import template.bean.ButtonTemplate;
+import template.bean.TemplateValue;
 import template.widget.BaseTemplateView;
 import template.widget.BaseViewHolder;
 import template.widget.ButtonTemplateView;
@@ -23,7 +24,7 @@ public class ButtonTemplateControl extends BaseTemplateControl{
     }
 
     @Override
-    protected void onClickHolder(BaseTemplate template, Object value){
+    protected void onClickHolder(BaseTemplate template, TemplateValue value){
         if(commandListener != null)
             commandListener.onTemplateCommand(template.name, ((ButtonTemplate)template).command);
     }

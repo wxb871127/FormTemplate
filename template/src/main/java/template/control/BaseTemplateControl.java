@@ -10,6 +10,7 @@ import template.bean.BaseTemplate;
 import template.bean.TemplateValue;
 import template.interfaces.OnTemplateCommandListener;
 import template.interfaces.OnTemplateListener;
+import template.view.TemplateView;
 import template.widget.BaseTemplateView;
 import template.widget.BaseViewHolder;
 import template.widget.dialog.BaseTemplateDialog;
@@ -131,16 +132,16 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
             @Override
             public void onClick(View v) {
                 templateView.onFouces();
-                onClickHolder(template, valueMap.get(template.name).value);
+                onClickHolder(template, valueMap.get(template.name));
             }
         });
     }
 
-    protected void onClickHolder(T template, Object value){
+    protected void onClickHolder(T template, TemplateValue templateValue){
         dialog = getDialog(context, template);
 
         if(dialog != null) {
-            dialog.initDialog(template, value);
+            dialog.initDialog(template, templateValue.value);
             dialog.showDialog();
             dialog.setOnTemplateListener(new OnTemplateListener() {
                 @Override

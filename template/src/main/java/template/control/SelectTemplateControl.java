@@ -12,6 +12,7 @@ import template.bean.BaseTemplate;
 import template.bean.Item;
 import template.bean.RadioTemplate;
 import template.bean.SelectTemplate;
+import template.bean.TemplateValue;
 import template.widget.BaseTemplateView;
 import template.widget.SelectTemplateView;
 import template.widget.dialog.BaseTemplateDialog;
@@ -28,6 +29,12 @@ public class SelectTemplateControl<T extends BaseTemplate> extends BaseTemplateC
     public BaseTemplateView getTemplateView(Context context) {
         this.context = context;
         return new SelectTemplateView(context);
+    }
+
+    @Override
+    protected void onClickHolder(BaseTemplate template, TemplateValue templateValue) {
+        if(!templateValue.editable) return;
+        super.onClickHolder(template, templateValue);
     }
 
     @Override

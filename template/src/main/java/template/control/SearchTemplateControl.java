@@ -11,6 +11,7 @@ import java.util.Map;
 import base.annotation.Template;
 import template.bean.BaseTemplate;
 import template.bean.SearchTemplate;
+import template.bean.TemplateValue;
 import template.config.TemplateConfig;
 import template.widget.BaseTemplateView;
 import template.widget.SearchTemplateView;
@@ -34,6 +35,12 @@ public class SearchTemplateControl<T extends BaseTemplate> extends BaseTemplateC
     public BaseTemplateDialog getDialog(Context context, BaseTemplate template) {
         SearchTemplateDialog dialog = new SearchTemplateDialog(context);
         return dialog;
+    }
+
+    @Override
+    protected void onClickHolder(BaseTemplate template, TemplateValue templateValue) {
+        if(!templateValue.editable) return;
+        super.onClickHolder(template, templateValue);
     }
 
     @Override

@@ -8,6 +8,7 @@ import base.annotation.Template;
 import base.util.TemplateList;
 import template.bean.BaseTemplate;
 import template.bean.CustomTemplate;
+import template.bean.TemplateValue;
 import template.config.TemplateConfig;
 import template.widget.BaseTemplateView;
 import template.widget.BaseViewHolder;
@@ -24,6 +25,12 @@ public class CustomTemplateControl extends BaseTemplateControl<CustomTemplate>{
     @Override
     public BaseTemplateView getTemplateView(Context context) {
         return new CustomTemplateView(context);
+    }
+
+    @Override
+    protected void onClickHolder(CustomTemplate template, TemplateValue templateValue) {
+        if(!templateValue.editable) return;
+        super.onClickHolder(template, templateValue);
     }
 
     @Override

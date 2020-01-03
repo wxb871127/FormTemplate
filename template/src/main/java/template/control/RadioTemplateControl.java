@@ -14,6 +14,7 @@ import base.annotation.Template;
 import template.bean.BaseTemplate;
 import template.bean.Item;
 import template.bean.RadioTemplate;
+import template.bean.TemplateValue;
 import template.widget.BaseTemplateView;
 import template.widget.RadioTemplateView;
 import template.widget.dialog.BaseTemplateDialog;
@@ -32,6 +33,12 @@ public class RadioTemplateControl<T extends BaseTemplate> extends BaseTemplateCo
         this.context = context;
         RadioTemplateView radioTemplateView = new RadioTemplateView(context);
         return radioTemplateView;
+    }
+
+    @Override
+    protected void onClickHolder(BaseTemplate template, TemplateValue templateValue) {
+        if(!templateValue.editable) return;
+        super.onClickHolder(template, templateValue);
     }
 
     @Override

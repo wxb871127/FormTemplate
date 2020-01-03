@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import base.annotation.Template;
 import template.bean.BaseTemplate;
 import template.bean.InputTemplate;
+import template.bean.TemplateValue;
 import template.widget.BaseTemplateView;
 import template.widget.InputTemplateView;
 import template.widget.dialog.BaseTemplateDialog;
@@ -49,8 +50,9 @@ public class InputTemplateControl extends BaseTemplateControl{
     }
 
     @Override
-    protected void onClickHolder(BaseTemplate template, Object value) {
-
+    protected void onClickHolder(BaseTemplate template, TemplateValue value) {
+        if(!value.editable) return;
+        super.onClickHolder(template, value);
     }
 
     @Override

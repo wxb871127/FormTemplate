@@ -5,6 +5,7 @@ import android.content.Context;
 import base.annotation.Template;
 import template.bean.BaseTemplate;
 import template.bean.DateTemplate;
+import template.bean.TemplateValue;
 import template.widget.BaseTemplateView;
 import template.widget.DateTemplateView;
 import template.widget.dialog.BaseTemplateDialog;
@@ -24,6 +25,12 @@ public class DateTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
         this.context = context;
         DateTemplateView dateTemplateView = new DateTemplateView(context);
         return dateTemplateView;
+    }
+
+    @Override
+    protected void onClickHolder(BaseTemplate template, TemplateValue templateValue) {
+        if(!templateValue.editable) return;
+        super.onClickHolder(template, templateValue);
     }
 
     @Override

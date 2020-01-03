@@ -115,6 +115,12 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
     }
 
     @Override
+    protected void onClickHolder(BaseTemplate template, TemplateValue templateValue) {
+        if(!templateValue.editable) return;
+        super.onClickHolder(template, templateValue);
+    }
+
+    @Override
     public BaseTemplateDialog getDialog(Context context, BaseTemplate template) {
         ListTemplateDialog dialog = new ListTemplateDialog(context);
         return dialog;
