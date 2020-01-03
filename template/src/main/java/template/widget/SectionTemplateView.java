@@ -1,6 +1,7 @@
 package template.widget;
 
 import android.content.Context;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import template.bean.SectionTemplate;
@@ -33,6 +34,11 @@ public class SectionTemplateView extends BaseTemplateView<SectionTemplate> {
     @Override
     public void initView(final BaseViewHolder holder, Node node, final SectionTemplate template, final TemplateValue value) {
         TextView label = (TextView) holder.getViewById(R.id.template_label);
+        LinearLayout backgroud = (LinearLayout) holder.getViewById(R.id.template_section);
         label.setText(template.label);
+        if(value.editable){
+            backgroud.setBackgroundColor(getResources().getColor(R.color.white));
+        }else
+            backgroud.setBackgroundColor(getResources().getColor(R.color.Pad_Background));
     }
 }

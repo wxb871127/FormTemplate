@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp20"
     android:paddingTop="@dimen/dp24"
+    android:id="@+id/template_section"
     android:background="@color/white"
     android:gravity="center_vertical">
 

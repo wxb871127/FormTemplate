@@ -227,6 +227,10 @@ public class TemplateAdapter extends TreeViewAdapter {
         notifyDataSetChanged();
     }
 
+    public boolean getEditMode(){
+        return editMode;
+    }
+
     public void setCommandValue(String command, Map map) {
         if (templates.isEmpty()) return;
         if (TextUtils.isEmpty(command)) throw new IllegalArgumentException("command can not null");
