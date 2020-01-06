@@ -121,6 +121,10 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
                     setRefuse(value.refuse);
                     setValueEdit(!value.refuse);
                     setExceptionEdit(!value.refuse);
+                    if (templateListener != null) {
+                        templateListener.onDataChanged(template, null, true);
+                        templateListener.onAttrChanged(template, "exception", false, true);
+                    }
                 }
             });
         }
