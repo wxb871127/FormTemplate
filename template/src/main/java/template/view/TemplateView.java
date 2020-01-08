@@ -141,6 +141,12 @@ public class TemplateView extends RecyclerView{
 
     public void setDataSource(String dataSource, Object value){
         templateAdapter.setDataSource(dataSource, value);
+        templateAdapter.notifyDataSetChanged();
+    }
+
+    public void setDataSource(Map map){
+        templateAdapter.setDataSource(map);
+        templateAdapter.notifyDataSetChanged();
     }
 
     public boolean checkRequired(boolean navigation){

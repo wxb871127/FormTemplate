@@ -116,6 +116,7 @@ public class TemplateAdapter extends TreeViewAdapter {
                         TemplateValue templateValue = valueMap.get(key.name);
                         templateValue.value = value;
                         codeMap.put(key.name, value);
+                        valueMap.put(key.name, templateValue);
                         if (notify)
                             notifyDataSetChanged();
                     } catch (Exception e) {
@@ -244,6 +245,12 @@ public class TemplateAdapter extends TreeViewAdapter {
         notifyDataSetChanged();
     }
 
+    public void setDataSource(Map map){
+        for(Object key : map.keySet()){
+            setDataSource(key.toString(),map.get(key) );
+        }
+    }
+
     public void setDataSource(String dataSource, Object value) {
         for (BaseTemplate template : templates) {
             if (dataSource.equals(template.dataSource)) {
@@ -251,7 +258,6 @@ public class TemplateAdapter extends TreeViewAdapter {
                 templateValue.value = value;
             }
         }
-        notifyDataSetChanged();
     }
 
     public boolean checkRequired() {

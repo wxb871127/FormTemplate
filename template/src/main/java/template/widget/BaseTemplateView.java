@@ -100,29 +100,32 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
         }
         initContentView();
 
-        if (value.refuse) {
-            setValueEdit(false);
-            setExceptionEdit(false);
-        } else {
+        if(!value.editable){
             setValueEdit(value.editable);
             setExceptionEdit(value.editable);
             setRefuseEdit(value.editable);
+        }else {
+            if (value.refuse) {
+                setValueEdit(false);
+                setExceptionEdit(false);
+                setRefuseEdit(true);
+            } else {
+                setValueEdit(value.editable);
+                setExceptionEdit(value.editable);
+                setRefuseEdit(value.editable);
+            }
         }
 
         if (refuse != null) {
             setException(value.exception);
             setRefuse(value.refuse);
-            refuse.setEnabled(value.editable);
             refuse.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
                     value.refuse = !value.refuse;
-                    setRefuse(value.refuse);
-                    setValueEdit(!value.refuse);
-                    setExceptionEdit(!value.refuse);
                     if (templateListener != null) {
-                        templateListener.onDataChanged(template, null, true);
+                        templateListener.onDataChanged(template, "", false);
                         templateListener.onAttrChanged(template, "exception", false, true);
                     }
                 }
@@ -132,7 +135,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             if (template.hasExceptionExpression())
                 exception.setEnabled(false);
             else
-                exception.setEnabled(value.editable);
+                exception.setEnabled(value.editable && !value.refuse);
             exception.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -161,7 +164,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             title.setBackgroundColor(getResources().getColor(R.color.Pad_Background));
             viewContant.setBackgroundColor(getResources().getColor(R.color.Pad_Background));
         }
-        viewContant.setClickable(editable);
+        viewContant.setEnabled(editable);
     }
 
     protected void notifyItemViewData(Object object) {
@@ -181,7 +184,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             refuse.setBackgroundResource(R.color.white);
         else
             refuse.setBackgroundResource(R.color.Pad_Background);
-        refuse.setClickable(editable);
+        refuse.setEnabled(editable);
     }
 
     protected void setExceptionEdit(boolean editable) {
@@ -190,7 +193,7 @@ public abstract class BaseTemplateView<T extends BaseTemplate> extends RelativeL
             exception.setBackgroundResource(R.color.white);
         else
             exception.setBackgroundResource(R.color.Pad_Background);
-        exception.setClickable(editable);
+        exception.setEnabled(editable);
     }
 
     public void setException(boolean ret) {

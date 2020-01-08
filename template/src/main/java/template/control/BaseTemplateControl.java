@@ -87,8 +87,9 @@ public abstract class BaseTemplateControl<T extends BaseTemplate> {
         boolean editable;
         if(!editMode)
             editable = editMode;
-        else
+        else {
             editable = isEditable(codeMap);
+        }
         templateValue.editable = editable;
 
         Object value = null;

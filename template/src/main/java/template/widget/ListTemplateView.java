@@ -91,7 +91,7 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
                     templateViewListener.onClickAdd(template);
             }
         });
-        setValueEdit(value.editable);
+        setEdit(value.editable);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setClickable(value.editable);
         String[] ret = null;
@@ -102,11 +102,10 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
         recyclerView.setAdapter(adapter);
     }
 
-    protected void setValueEdit(boolean editable) {
-        super.setValueEdit(editable);
+    protected void setEdit(boolean editable) {
         adapter.setEdit(editable);
-        if(!editable)
-            add.setVisibility(View.INVISIBLE);
+        if(!editable || value.refuse)
+            add.setVisibility(View.GONE);
         else
             add.setVisibility(View.VISIBLE);
         adapter.notifyDataSetChanged();

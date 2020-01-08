@@ -2,6 +2,8 @@ package template.control;
 
 import android.content.Context;
 import android.os.Build;
+import android.text.TextUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +50,8 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                 dialog = getDialog(context, null);
                 if (dialog != null) {
                     TemplateValue templateValue = (TemplateValue) valueMap.get(template.name);
-                    jsonArray = (JSONArray) (templateValue.value);
+                    if(templateValue.value != null && !TextUtils.isEmpty(templateValue.value.toString()))
+                        jsonArray = (JSONArray) (templateValue.value);
                     dialog.initDialog(template, null);
                     dialog.setOnTemplateListener(new OnTemplateListener() {
                         @Override
