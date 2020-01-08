@@ -128,6 +128,9 @@ public class TemplateAdapter extends TreeViewAdapter {
                 public void onAttrChanged(BaseTemplate key, String attr, Object value, boolean notify) {
                     TemplateValue templateValue = valueMap.get(key.name);
                     Field[] fields = ReflectUtil.findFieldByAnnotation(templateValue.getClass(), AttrTemplate.class);
+                    if("exception".equals(attr) && !(Boolean) value){
+                        templateValue.exceptionDesc = "";
+                    }
                     for (Field field : fields) {
                         if (field != null) {
                             AttrTemplate attrTemplate = field.getAnnotation(AttrTemplate.class);
