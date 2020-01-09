@@ -146,14 +146,14 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
                 editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(template.maxLength)});
             }
             editText.setSelection(editText.getText().length());
-            text.setTextColor(getResources().getColor(R.color.black));
+//            text.setTextColor(getResources().getColor(R.color.black));
             holder.getConvertView().setClickable(true);
             quote.setClickable(true);
         } else {
             text.setVisibility(View.VISIBLE);
             editText.setVisibility(View.INVISIBLE);
             text.setText(value.showValue);
-            text.setTextColor(getResources().getColor(R.color.B0));
+//            text.setTextColor(getResources().getColor(R.color.B0));
             holder.getConvertView().setClickable(false);
             quote.setClickable(false);
         }
