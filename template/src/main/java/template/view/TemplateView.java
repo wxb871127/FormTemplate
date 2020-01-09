@@ -151,8 +151,9 @@ public class TemplateView extends RecyclerView{
 
     public boolean checkRequired(boolean navigation){
         for(BaseTemplate template : templateAdapter.getTemplateList()){
+            TemplateValue templateValue = templateAdapter.valueMap.get(template.name);
+            if(templateValue.refuse) continue;
             if("true".equals(template.required)){
-                TemplateValue templateValue = templateAdapter.valueMap.get(template.name);
                 if(templateValue.value == null || TextUtils.isEmpty(templateValue.value.toString())){
                     if(navigation) {
                         moveToPosition(template.position);
@@ -166,17 +167,7 @@ public class TemplateView extends RecyclerView{
     }
 
     public boolean checkRequired(){
-        for(BaseTemplate template : templateAdapter.getTemplateList()){
-            if("true".equals(template.required)){
-                TemplateValue templateValue = templateAdapter.valueMap.get(template.name);
-                if(templateValue.value == null || TextUtils.isEmpty(templateValue.value.toString())){
-                    moveToPosition(template.position);
-                    Toast.makeText(mContext, "必填项" + template.label + "未填写", Toast.LENGTH_LONG).show();
-                    return false;
-                }
-            }
-        }
-        return true;
+        return checkRequired(true);
     }
 
     public  void moveToPosition(int n) {
