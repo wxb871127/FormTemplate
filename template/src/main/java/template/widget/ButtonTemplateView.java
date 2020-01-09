@@ -44,4 +44,17 @@ public class ButtonTemplateView extends BaseTemplateView<ButtonTemplate>{
             hint.setTextColor(getResources().getColor(R.color.c9));
         }
     }
+
+    @Override
+    protected void setValueEdit(boolean editable) {
+        if (viewContant == null) return;
+        if (editable) {
+            title.setBackgroundColor(getResources().getColor(R.color.white));
+            viewContant.setBackgroundColor(getResources().getColor(R.color.white));
+        } else {
+            title.setBackgroundColor(getResources().getColor(R.color.Pad_Background));
+            viewContant.setBackgroundColor(getResources().getColor(R.color.Pad_Background));
+        }
+        viewContant.setEnabled(true);
+    }
 }

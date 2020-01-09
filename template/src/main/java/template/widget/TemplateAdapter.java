@@ -125,7 +125,7 @@ public class TemplateAdapter extends TreeViewAdapter {
                 }
 
                 @Override
-                public void onAttrChanged(BaseTemplate key, String attr, Object value, boolean notify) {
+                public void onAttrChanged(BaseTemplate key, String attr, Object value, boolean notify)  {
                     TemplateValue templateValue = valueMap.get(key.name);
                     Field[] fields = ReflectUtil.findFieldByAnnotation(templateValue.getClass(), AttrTemplate.class);
                     if("exception".equals(attr) && !(Boolean) value){
