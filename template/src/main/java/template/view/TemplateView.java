@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import java.io.InputStream;
 import java.util.Map;
+
 import base.util.TemplateList;
 import template.bean.BaseTemplate;
 import template.bean.TemplateValue;
@@ -21,9 +22,9 @@ import template.widget.TemplateAdapter;
 import base.util.TemplateParse;
 
 /**
- *  自定义表单View
+ * 自定义表单View
  */
-public class TemplateView extends RecyclerView{
+public class TemplateView extends RecyclerView {
     public static final int FLAG_EXCEPTION = 0x1;//异常标志
     public static final int FLAG_REFUSE = 0x2;//拒检标志
     private int mFlag = 0x0;
@@ -45,32 +46,33 @@ public class TemplateView extends RecyclerView{
         templateAdapter = new TemplateAdapter(mContext);
     }
 
-    public void initTemplate(String templateXml){
+    public void initTemplate(String templateXml) {
         TemplateParse.initTemplateStyle(mContext);
         TemplateList templates = TemplateParse.parseTemplateFile(mContext, templateXml);
         initTemplate(templates);
     }
 
-    public void initTemplate(String templateXml, String styleXml){
-        TemplateParse.initTemplateStyle(mContext,styleXml);
+    public void initTemplate(String templateXml, String styleXml) {
+        TemplateParse.initTemplateStyle(mContext, styleXml);
         TemplateList templates = TemplateParse.parseTemplateFile(mContext, templateXml);
         initTemplate(templates);
     }
 
-    public void initTemplate(InputStream templateXml, InputStream styleXml){
+    public void initTemplate(InputStream templateXml, InputStream styleXml) {
         TemplateParse.initTemplateStyle(mContext, styleXml);
         TemplateList templates = TemplateParse.parseStream(templateXml);
         initTemplate(templates);
     }
 
-    public void initTemplate(InputStream templateXml){
+    public void initTemplate(InputStream templateXml) {
         TemplateParse.initTemplateStyle(mContext);
         TemplateList templates = TemplateParse.parseStream(templateXml);
         initTemplate(templates);
     }
 
-    public void initTemplate(TemplateList templates){
-        if(templates == null) throw new IllegalArgumentException("templates is null, please check form xml");
+    public void initTemplate(TemplateList templates) {
+        if (templates == null)
+            throw new IllegalArgumentException("templates is null, please check form xml");
         setItemAnimator(null);//防止刷新recyckerView焦点丢失问题
         templateAdapter.init(templates);
         layoutManager = new LinearLayoutManager(mContext);
@@ -78,11 +80,11 @@ public class TemplateView extends RecyclerView{
         setAdapter(templateAdapter);
     }
 
-    public TemplateList getTemplateList(){
+    public TemplateList getTemplateList() {
         return templateAdapter.getTemplateList();
     }
 
-    public void setTemplateListener(final OnTemplateCommandListener listener){
+    public void setTemplateListener(final OnTemplateCommandListener listener) {
         templateAdapter.setListener(new OnTemplateCommandListener() {
             @Override
             public void onTemplateCommand(String name, String command) {
@@ -91,39 +93,39 @@ public class TemplateView extends RecyclerView{
         });
     }
 
-    public void addFlags(int flag){
+    public void addFlags(int flag) {
         mFlag |= flag;
         templateAdapter.setTemplateFlag(mFlag);
     }
 
-    public void setEditMode(boolean edit){
+    public void setEditMode(boolean edit) {
         templateAdapter.setEditMode(edit);
     }
 
-    public boolean getEditMode(){
+    public boolean getEditMode() {
         return templateAdapter.getEditMode();
     }
 
-    public void setValue(String key, TemplateValue value){
+    public void setValue(String key, TemplateValue value) {
         templateAdapter.putValue(key, value);
     }
 
-    public void setCommandValue(String command, Map map){
+    public void setCommandValue(String command, Map map) {
         templateAdapter.setCommandValue(command, map);
     }
 
 
-    public void setValue(Map<String, TemplateValue> value){
+    public void setValue(Map<String, TemplateValue> value) {
         templateAdapter.setValueMap(value);
     }
 
 
-    public Object  getValue(String key){
+    public Object getValue(String key) {
         return templateAdapter.getValue(key);
     }
 
 
-    public Map<String, TemplateValue> getValueMap(){
+    public Map<String, TemplateValue> getValueMap() {
         clearFocus();
         templateAdapter.notifyDataSetChanged();
         try {
@@ -135,27 +137,28 @@ public class TemplateView extends RecyclerView{
 
     }
 
-    public void notifyData(){
+    public void notifyData() {
         templateAdapter.notifyDataSetChanged();
     }
 
-    public void setDataSource(String dataSource, Object value){
+    public void setDataSource(String dataSource, Object value) {
         templateAdapter.setDataSource(dataSource, value);
         templateAdapter.notifyDataSetChanged();
     }
 
-    public void setDataSource(Map map){
+    public void setDataSource(Map map) {
         templateAdapter.setDataSource(map);
         templateAdapter.notifyDataSetChanged();
     }
 
-    public boolean checkRequired(boolean navigation){
-        for(BaseTemplate template : templateAdapter.getTemplateList()){
+    public boolean checkRequired(boolean navigation) {
+        for (BaseTemplate template : templateAdapter.getTemplateList()) {
             TemplateValue templateValue = templateAdapter.valueMap.get(template.name);
-            if(templateValue.refuse) continue;
-            if("true".equals(template.required)){
-                if(templateValue.value == null || TextUtils.isEmpty(templateValue.value.toString())){
-                    if(navigation) {
+            if (templateValue != null && templateValue.refuse != null && templateValue.refuse)
+                continue;
+            if ("true".equals(template.required)) {
+                if (templateValue == null || templateValue.value == null || TextUtils.isEmpty(templateValue.value.toString())) {
+                    if (navigation) {
                         moveToPosition(template.position);
                         Toast.makeText(mContext, "必填项" + template.label + "未填写", Toast.LENGTH_LONG).show();
                     }
@@ -166,11 +169,11 @@ public class TemplateView extends RecyclerView{
         return true;
     }
 
-    public boolean checkRequired(){
+    public boolean checkRequired() {
         return checkRequired(true);
     }
 
-    public  void moveToPosition(int n) {
+    public void moveToPosition(int n) {
         int firstItem = layoutManager.findFirstVisibleItemPosition();
         int lastItem = layoutManager.findLastVisibleItemPosition();
         if (n <= firstItem) {
