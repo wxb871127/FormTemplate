@@ -88,9 +88,9 @@ public class TemplateAdapter extends TreeViewAdapter {
     @Override
     public int getItemViewType(int position) {
         BaseTemplateControl templateControl = getTemplateControl(templates.get(position));
-        if(templateControl != null) {
-            if(templateControl instanceof CustomTemplateControl)
-                return Integer.parseInt(((CustomTemplate)(templates.get(position))).command);
+        if (templateControl != null) {
+            if (templateControl instanceof CustomTemplateControl)
+                return Integer.parseInt(((CustomTemplate) (templates.get(position))).command);
             else
                 return templateControl.getTemplateView(context).getType();
         }
@@ -125,10 +125,10 @@ public class TemplateAdapter extends TreeViewAdapter {
                 }
 
                 @Override
-                public void onAttrChanged(BaseTemplate key, String attr, Object value, boolean notify)  {
+                public void onAttrChanged(BaseTemplate key, String attr, Object value, boolean notify) {
                     TemplateValue templateValue = valueMap.get(key.name);
                     Field[] fields = ReflectUtil.findFieldByAnnotation(templateValue.getClass(), AttrTemplate.class);
-                    if("exception".equals(attr) && !(Boolean) value){
+                    if ("exception".equals(attr) && !(Boolean) value) {
                         templateValue.exceptionDesc = "";
                     }
                     for (Field field : fields) {
@@ -174,7 +174,7 @@ public class TemplateAdapter extends TreeViewAdapter {
         }
     }
 
-    public  int px2dip(Context context, float pxValue) {
+    public int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
@@ -231,7 +231,7 @@ public class TemplateAdapter extends TreeViewAdapter {
         notifyDataSetChanged();
     }
 
-    public boolean getEditMode(){
+    public boolean getEditMode() {
         return editMode;
     }
 
@@ -248,9 +248,9 @@ public class TemplateAdapter extends TreeViewAdapter {
         notifyDataSetChanged();
     }
 
-    public void setDataSource(Map map){
-        for(Object key : map.keySet()){
-            setDataSource(key.toString(),map.get(key) );
+    public void setDataSource(Map map) {
+        for (Object key : map.keySet()) {
+            setDataSource(key.toString(), map.get(key));
         }
     }
 
@@ -258,7 +258,13 @@ public class TemplateAdapter extends TreeViewAdapter {
         for (BaseTemplate template : templates) {
             if (dataSource.equals(template.dataSource)) {
                 TemplateValue templateValue = valueMap.get(template.name);
-                templateValue.value = value;
+                if (templateValue == null) {
+                    templateValue = new TemplateValue();
+                    templateValue.value = value;
+                    valueMap.put(template.name, templateValue);
+                } else {
+                    templateValue.value = value;
+                }
             }
         }
     }
