@@ -51,7 +51,7 @@ public class InputTemplateControl extends BaseTemplateControl{
 
     @Override
     protected void onClickHolder(BaseTemplate template, TemplateValue value) {
-        if(!value.editable || !template.expression) return;
+        if(!value.editable || !"true".equals(((InputTemplate)template).quote)) return;
         super.onClickHolder(template, value);
     }
 
