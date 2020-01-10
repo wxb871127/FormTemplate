@@ -116,7 +116,10 @@ public class TemplateView extends RecyclerView {
 
 
     public void setValue(Map<String, TemplateValue> value) {
-        templateAdapter.setValueMap(value);
+        if (value == null) return;
+        for (String key : value.keySet()) {
+            setValue(key, value.get(key));
+        }
     }
 
 
