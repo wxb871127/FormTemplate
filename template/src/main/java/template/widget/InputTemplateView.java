@@ -106,22 +106,22 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
             unit.setVisibility(VISIBLE);
             unit.setText(template.unit);
         }
-         float scale = mContext.getResources().getDisplayMetrics().density;
-         float fontScale = mContext.getResources().getDisplayMetrics().scaledDensity;
+        float scale = mContext.getResources().getDisplayMetrics().density;
+        float fontScale = mContext.getResources().getDisplayMetrics().scaledDensity;
 
         if ("true".equals(template.quote)) {
             quote.setVisibility(VISIBLE);
         } else
             quote.setVisibility(GONE);
 
-        if(value.editable && !value.refuse)
-        quote.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null)
-                    listener.onClickQuote(template);
-            }
-        });
+        if (value.editable && !value.refuse)
+            quote.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null)
+                        listener.onClickQuote(template);
+                }
+            });
     }
 
     @Override
@@ -178,7 +178,10 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
             public void afterTextChanged(Editable s) {
                 if ("number".equals(template.inputType) || "numberDecimal".equals(template.inputType)) {
                     try {
-                        notifyItemViewData(new BigDecimal(s.toString()));
+                        if (s.length() > 0 && ".".equals(String.valueOf(s.charAt(s.length() - 1)))) {
+                            notifyItemViewData(new BigDecimal(s.toString()) + ".");
+                        } else
+                            notifyItemViewData(new BigDecimal(s.toString()));
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                     }
@@ -193,8 +196,8 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     @Override
     public void onFouces() {
         editText.requestFocus();
-        InputMethodManager imm = (InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(editText,InputMethodManager.SHOW_FORCED);
+        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
     }
 
     public int getSelectionStart() {
