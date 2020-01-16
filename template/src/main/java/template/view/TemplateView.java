@@ -129,15 +129,7 @@ public class TemplateView extends RecyclerView {
 
 
     public Map<String, TemplateValue> getValueMap() {
-        clearFocus();
-        templateAdapter.notifyDataSetChanged();
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return templateAdapter.valueMap;
-
     }
 
     public void notifyData() {
