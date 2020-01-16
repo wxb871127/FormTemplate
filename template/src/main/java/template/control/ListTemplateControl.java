@@ -52,6 +52,7 @@ public class ListTemplateControl<T extends BaseTemplate> extends BaseTemplateCon
                     TemplateValue templateValue = (TemplateValue) valueMap.get(template.name);
                     if(templateValue.value != null && !TextUtils.isEmpty(templateValue.value.toString()))
                         jsonArray = (JSONArray) (templateValue.value);
+                    else jsonArray = null;
                     dialog.initDialog(template, null);
                     dialog.setOnTemplateListener(new OnTemplateListener() {
                         @Override
