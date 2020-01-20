@@ -21,6 +21,8 @@ import template.bean.SelectTemplate;
 import template.com.form.R;
 import template.view.MaxHeightListView;
 
+import static template.bean.SelectTemplate.SEPARATOR;
+
 public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate> {
 
     private String[] items;
@@ -43,7 +45,7 @@ public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate> {
         selectedItem.clear();
 //        if(v.contains(",")) {
         if (!TextUtils.isEmpty(v)) {
-            java.lang.String[] vs = v.split(",");
+            java.lang.String[] vs = v.split(SEPARATOR);
             for (int i = 0; i < vs.length; i++)
                 selectedItem.add(vs[i]);
         }
@@ -77,7 +79,7 @@ public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate> {
                 String selected = "";
                 for (int i = 0; i < selectedItem.size(); i++) {
                     if (i != selectedItem.size() - 1)
-                        selected += selectedItem.get(i) + ",";
+                        selected += selectedItem.get(i) + SEPARATOR;
                     else selected += selectedItem.get(i);
                 }
                 if (listener != null)
@@ -136,9 +138,9 @@ public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate> {
             //复用时，先清空监听
             holder.checkBox.setOnCheckedChangeListener(null);
 
-            if (selectedItem.contains(template.getCode(items[position]))){
+            if (selectedItem.contains(template.getCode(items[position]))) {
                 holder.checkBox.setChecked(true);
-            }else{
+            } else {
                 holder.checkBox.setChecked(false);
             }
 
@@ -146,9 +148,9 @@ public class SelectTemplateDialog extends BaseTemplateDialog<SelectTemplate> {
             holder.ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (selectedItem.contains(template.getCode(items[position]))){
+                    if (selectedItem.contains(template.getCode(items[position]))) {
                         holder.checkBox.setChecked(false);
-                    }else{
+                    } else {
                         holder.checkBox.setChecked(true);
                     }
                 }
