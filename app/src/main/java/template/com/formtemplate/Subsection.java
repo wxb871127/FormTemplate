@@ -1,11 +1,13 @@
 package template.com.formtemplate;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +27,14 @@ import template.widget.BaseViewHolder;
 public class Subsection extends CustomView {
     private RecyclerView recyclerView;
     private EditText kszj;
+    private TextView tvLabel;
+    private TextView tvSummaryLabel;
     private Map<String, Object> map;
     private Context mContext;
     private OnTemplateListener listener;
     private CustomTemplate template;
     private Map<String, TemplateValue> valueMap;
+    private boolean editable;
 
     private class ExceptionBean {
         String label;
@@ -46,11 +51,14 @@ public class Subsection extends CustomView {
                          TemplateList templates, final CustomTemplate template, Map<String, Object> codeMap, final OnTemplateListener listener) {
         recyclerView = (RecyclerView) holder.getViewById(R.id.list);
         kszj = (EditText) holder.getViewById(R.id.kszj);
+        tvLabel = (TextView) holder.getViewById(R.id.exception_result_result);
+        tvSummaryLabel = (TextView) holder.getViewById(R.id.department_summary);
         this.mContext = context;
         this.listener = listener;
         this.template = template;
         map = new HashMap<>();
         this.valueMap = valueMap;
+
 
         for (String key : valueMap.keySet()) {
             boolean ret = valueMap.get(key).exception;
@@ -67,6 +75,17 @@ public class Subsection extends CustomView {
         recyclerView.setAdapter(adapter);
 
         TemplateValue value = valueMap.get(template.name);
+        if (value.editable == null)
+            value.editable = false;
+        editable=value.editable;
+        if (value.editable) {
+            kszj.setEnabled(true);
+        } else {
+            kszj.setEnabled(false);
+        }
+        setEditableTextColor(tvLabel, value.editable, R.color.template_c333333);
+        setEditableTextColor(tvSummaryLabel, value.editable, R.color.template_c333333);
+        setEditableTextColor(kszj, value.editable, R.color.black);
         kszj.setText(value.exceptionDesc);
         TextWatcher textWatcher = new TextWatcher() {
             @Override
@@ -88,6 +107,13 @@ public class Subsection extends CustomView {
         };
         kszj.setTag(textWatcher);
         kszj.addTextChangedListener(textWatcher);
+    }
+
+    protected void setEditableTextColor(TextView textView, boolean editable, int editColor) {
+        if (editable)
+            textView.setTextColor(ContextCompat.getColor(mContext, editColor));
+        else
+            textView.setTextColor(ContextCompat.getColor(mContext, R.color.template_cbbbbbb));
     }
 
     public class Adapter extends RecyclerView.Adapter {
@@ -114,7 +140,7 @@ public class Subsection extends CustomView {
 
             TemplateValue templateValue = valueMap.get(keys[position]);
             bz.setText(templateValue.exceptionDesc);
-
+            bz.setEnabled(editable);
             TextWatcher textWatcher = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -145,6 +171,9 @@ public class Subsection extends CustomView {
             };
             bz.setTag(textWatcher);
             bz.addTextChangedListener(textWatcher);
+            setEditableTextColor(label, editable, R.color.template_c333333);
+            setEditableTextColor(excption, editable, R.color.template_cff5959);
+            setEditableTextColor(bz, editable, R.color.black);
         }
 
         @Override

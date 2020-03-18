@@ -38,22 +38,20 @@ public class ButtonTemplateView extends BaseTemplateView<ButtonTemplate>{
         super.initView(holder, node, template, value);
         if (value != null && !TextUtils.isEmpty(value.showValue)) {
             hint.setText(value.showValue);
-            hint.setTextColor(getResources().getColor(R.color.black));
+            //hint.setTextColor(getResources().getColor(R.color.black));
         } else {
             hint.setText("请选择");
-            hint.setTextColor(getResources().getColor(R.color.c9));
+            //hint.setTextColor(getResources().getColor(R.color.c9));
         }
     }
 
     @Override
     protected void setValueEdit(boolean editable) {
-        if (viewContant == null) return;
-        if (editable) {
-            title.setBackgroundColor(getResources().getColor(R.color.white));
-            viewContant.setBackgroundColor(getResources().getColor(R.color.white));
-        } else {
-            title.setBackgroundColor(getResources().getColor(R.color.Pad_Background));
-            viewContant.setBackgroundColor(getResources().getColor(R.color.Pad_Background));
+        super.setValueEdit(editable);
+        if (value != null && !TextUtils.isEmpty(value.showValue)) {
+            setEditableTextColor(hint,editable,R.color.black);
+        }else{
+            setEditableTextColor(hint,editable,R.color.c9);
         }
         viewContant.setEnabled(true);
     }

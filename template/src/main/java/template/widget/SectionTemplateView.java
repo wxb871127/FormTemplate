@@ -36,9 +36,9 @@ public class SectionTemplateView extends BaseTemplateView<SectionTemplate> {
         TextView label = (TextView) holder.getViewById(R.id.template_label);
         LinearLayout backgroud = (LinearLayout) holder.getViewById(R.id.template_section);
         label.setText(template.label);
-        if(value.editable){
-            backgroud.setBackgroundColor(getResources().getColor(R.color.white));
-        }else
-            backgroud.setBackgroundColor(getResources().getColor(R.color.Pad_Background));
+//        if(value.editable){
+//            backgroud.setBackgroundColor(getResources().getColor(R.color.white));
+//        }else
+//            backgroud.setBackgroundColor(getResources().getColor(R.color.Pad_Background));
     }
 }

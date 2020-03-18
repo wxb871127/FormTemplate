@@ -127,6 +127,8 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
     @Override
     protected void setValueEdit(boolean editable) {
         super.setValueEdit(editable);
+        setEditableTextColor(unit, editable, R.color.template_c333333);
+        setEditableTextColor(text, editable, R.color.black);
         if (editable) {
             text.setVisibility(View.INVISIBLE);
             editText.setVisibility(View.VISIBLE);
@@ -149,6 +151,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
 //            text.setTextColor(getResources().getColor(R.color.black));
             holder.getConvertView().setClickable(true);
             quote.setClickable(true);
+            quote.setImageResource(R.drawable.template_common_quote);
         } else {
             text.setVisibility(View.VISIBLE);
             editText.setVisibility(View.INVISIBLE);
@@ -156,6 +159,7 @@ public class InputTemplateView extends BaseTemplateView<InputTemplate> {
 //            text.setTextColor(getResources().getColor(R.color.B0));
             holder.getConvertView().setClickable(false);
             quote.setClickable(false);
+            quote.setImageResource(R.drawable.template_common_noneditable_quote);
         }
     }
 

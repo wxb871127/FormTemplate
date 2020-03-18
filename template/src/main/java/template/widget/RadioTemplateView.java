@@ -10,8 +10,9 @@ import template.com.form.R;
 import template.config.TemplateConfig;
 import template.widget.tree.Node;
 
-public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
+public class RadioTemplateView extends BaseTemplateView<RadioTemplate> {
     private TextView hint;
+
     public RadioTemplateView(Context context) {
         super(context);
     }
@@ -35,12 +36,23 @@ public class RadioTemplateView extends BaseTemplateView<RadioTemplate>{
     public void initView(final BaseViewHolder holder, Node node, RadioTemplate template, TemplateValue value) {
         holder.getConvertView().setClickable(value.editable);
         super.initView(holder, node, template, value);
-        if(value != null && !TextUtils.isEmpty(value.showValue)) {
+        if (value != null && !TextUtils.isEmpty(value.showValue)) {
             hint.setText(value.showValue);
-            hint.setTextColor(getResources().getColor(R.color.black));
-        }else{
+            //hint.setTextColor(getResources().getColor(R.color.black));
+        } else {
             hint.setText("请选择");
-            hint.setTextColor(getResources().getColor(R.color.template_cc2c2c2));
+            //hint.setTextColor(getResources().getColor(R.color.template_cc2c2c2));
         }
+    }
+
+    @Override
+    protected void setValueEdit(boolean editable) {
+        super.setValueEdit(editable);
+        if (value != null && !TextUtils.isEmpty(value.showValue)) {
+            setEditableTextColor(hint, editable, R.color.black);
+        } else {
+            setEditableTextColor(hint, editable, R.color.template_cc2c2c2);
+        }
+
     }
 }

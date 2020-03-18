@@ -22,24 +22,26 @@
             android:paddingLeft="@dimen/dp9">
 
             <TextView
+                android:id="@id/template_required"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingRight="@dimen/dp5"
+                android:text="*"
+                android:textColor="@color/template_cff3838"
+                android:textSize="@dimen/sp14" />
+
+            <TextView
                 android:id="@id/template_label"
                 android:layout_width="@dimen/dp90"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/template_required"
                 android:layout_centerVertical="true"
                 android:text="扩散速度飞快飞快放假时间飞快放假"
                 android:textColor="@color/template_c333333"
                 android:textSize="@dimen/sp15" />
 
-            <TextView
-                android:id="@id/template_required"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:paddingRight="@dimen/dp10"
-                android:text="*"
-                android:textColor="@color/template_cff3838"
-                android:textSize="@dimen/sp14" />
+
 
 
         </RelativeLayout>
@@ -92,6 +94,7 @@
                     android:background="@drawable/template_abnormal_icon_selector" />
 
                 <TextView
+                    android:id="@+id/text_exception"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -122,6 +125,7 @@
                     android:background="@drawable/template_refuse_icon_selector" />
 
                 <TextView
+                    android:id="@+id/text_refuse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

@@ -37,10 +37,20 @@ public class DateTemplateView extends BaseTemplateView<DateTemplate>{
         super.initView(holder, node, template, value);
         if (value != null && !TextUtils.isEmpty(value.showValue)) {
             hint.setText(value.showValue);
-            hint.setTextColor(getResources().getColor(R.color.black));
+            //hint.setTextColor(getResources().getColor(R.color.black));
         } else {
             hint.setText("请选择（日期）");
-            hint.setTextColor(getResources().getColor(R.color.c9));
+            //hint.setTextColor(getResources().getColor(R.color.c9));
+        }
+    }
+
+    @Override
+    protected void setValueEdit(boolean editable) {
+        super.setValueEdit(editable);
+        if (value != null && !TextUtils.isEmpty(value.showValue)) {
+            setEditableTextColor(hint, editable, R.color.black);
+        } else {
+            setEditableTextColor(hint, editable, R.color.c9);
         }
     }
 }

@@ -1,12 +1,14 @@
 package template.config;
 
 import android.content.Context;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import base.annotation.Template;
 import template.bean.BaseTemplate;
 import template.control.BaseTemplateControl;
@@ -34,13 +36,15 @@ public class TemplateConfig {
     public static final int CUSTOM_TYPE = -1;
 
     private static final List<TemplateInfo> templateInfoList = new ArrayList<>();
-    private static class TemplateInfo{
+
+    private static class TemplateInfo {
         String tag;
         int type;
         int layout;
         Class<? extends BaseTemplate> template;
         BaseTemplateControl templateControl;
     }
+
     private static Map<Integer, Class> customMap = new HashMap();
     private static Map<Integer, CustomView> customViewMap = new HashMap<>();
     private static Context mContext;
@@ -49,7 +53,7 @@ public class TemplateConfig {
         扫描被注解为Template的class
         表单支持的展示类型、xml的标签名、Template类的注解一致
      */
-    public static void initConfig(Context context){
+    public static void initConfig(Context context) {
         mContext = context;
         List<Class> list = new ArrayList<>();
         list.add(SectionTemplateControl.class);
@@ -62,7 +66,7 @@ public class TemplateConfig {
         list.add(ListTemplateControl.class);
         list.add(CustomTemplateControl.class);
 
-        for(Class cl : list){
+        for (Class cl : list) {
             try {
                 TemplateInfo templateInfo = new TemplateInfo();
                 Template t = (Template) cl.getAnnotation(Template.class);
@@ -70,12 +74,12 @@ public class TemplateConfig {
                 templateInfo.templateControl = (BaseTemplateControl) cl.newInstance();
 
                 Method method = cl.getMethod("getTemplateView", Context.class);
-                BaseTemplateView templateView = (BaseTemplateView)method.invoke(cl.newInstance(), context);
+                BaseTemplateView templateView = (BaseTemplateView) method.invoke(cl.newInstance(), context);
                 templateInfo.layout = templateView.getlayout();
                 templateInfo.type = templateView.getType();
 
-                method = cl.getMethod("getTemplateClass", null);
-                Class<? extends BaseTemplate>  aClass = (Class<? extends BaseTemplate>) method.invoke(cl.newInstance(),null);
+                method = cl.getMethod("getTemplateClass", new Class[]{});
+                Class<? extends BaseTemplate> aClass = (Class<? extends BaseTemplate>) method.invoke(cl.newInstance(), new Object[]{});
                 templateInfo.template = aClass;
                 templateInfoList.add(templateInfo);
             } catch (NoSuchMethodException e) {
@@ -90,38 +94,38 @@ public class TemplateConfig {
         }
     }
 
-    public static Class<? extends BaseTemplate> getTemplateByTag(String tag){
-        for(TemplateInfo templateInfo : templateInfoList){
-            if(tag.equals(templateInfo.tag))
+    public static Class<? extends BaseTemplate> getTemplateByTag(String tag) {
+        for (TemplateInfo templateInfo : templateInfoList) {
+            if (tag.equals(templateInfo.tag))
                 return templateInfo.template;
         }
         return null;
     }
 
-    public static BaseTemplateControl getTemplateControlByTag(String tag){
-        for(TemplateInfo templateInfo : templateInfoList){
-            if(tag.equals(templateInfo.tag))
+    public static BaseTemplateControl getTemplateControlByTag(String tag) {
+        for (TemplateInfo templateInfo : templateInfoList) {
+            if (tag.equals(templateInfo.tag))
                 return templateInfo.templateControl;
         }
         return null;
     }
 
-    public static int getTemplateLayoutByType(int type){
+    public static int getTemplateLayoutByType(int type) {
         int layout = -1;
-        for(TemplateInfo templateInfo : templateInfoList){
-            if(type == templateInfo.type) {
+        for (TemplateInfo templateInfo : templateInfoList) {
+            if (type == templateInfo.type) {
                 layout = templateInfo.layout;
                 break;
             }
         }
-        if(layout == -1)
+        if (layout == -1)
             return getCustomLayout(type);
         return layout;
     }
 
-    public static void initCustomView(){
+    public static void initCustomView() {
         customViewMap.clear();
-        for(Integer index : customMap.keySet()){
+        for (Integer index : customMap.keySet()) {
             try {
                 customViewMap.put(index, (CustomView) customMap.get(index).newInstance());
             } catch (IllegalAccessException e) {
@@ -132,25 +136,25 @@ public class TemplateConfig {
         }
     }
 
-    public static void registerCustomView(String command, Class clas){
+    public static void registerCustomView(String command, Class clas) {
         customMap.put(Integer.valueOf(command), clas);
     }
 
-    public static int getCustomLayout(int command){
+    public static int getCustomLayout(int command) {
         int layout = customViewMap.get(command).getLayout();
-        if(layout != -1) return layout;
+        if (layout != -1) return layout;
         return new CustomTemplateView(mContext).getlayout();
     }
 
-    public static int getCustomContentLayout(int command){
+    public static int getCustomContentLayout(int command) {
         return customViewMap.get(command).getContentLayout();
     }
 
-    public static int getCustomSpinnerLayout(int command){
+    public static int getCustomSpinnerLayout(int command) {
         return customViewMap.get(command).getSpinnerLayout();
     }
 
-    public static CustomView getCustomView(int command){
+    public static CustomView getCustomView(int command) {
         return customViewMap.get(command);
     }
 }

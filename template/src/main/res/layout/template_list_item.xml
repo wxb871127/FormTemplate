@@ -16,13 +16,13 @@
             android:id="@id/template_list_item_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp26"
             android:src="@drawable/template_list_item_delete" />
 
         <TextView
             android:id="@id/template_list_item_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp26"
             android:layout_weight="1"
             android:textColor="@color/black"
             android:paddingRight="@dimen/dp9"

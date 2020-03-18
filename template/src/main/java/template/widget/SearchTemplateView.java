@@ -50,5 +50,6 @@ public class SearchTemplateView extends BaseTemplateView<SearchTemplate>{
             editText.setVisibility(View.INVISIBLE);
             text.setText(value.showValue);
         }
+        setEditableTextColor(text,value.editable,R.color.black);
     }
 }

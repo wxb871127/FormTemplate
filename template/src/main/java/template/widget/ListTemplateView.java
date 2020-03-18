@@ -157,11 +157,11 @@ public class ListTemplateView extends BaseTemplateView<ListTemplate>{
 
             if (!edit) {
                 delete.setVisibility(GONE);
-                linearLayout.setBackgroundResource(R.drawable.template_bg_color_gray_border);
-                itemText.setTextColor(getResources().getColor(R.color.B0));
+                //linearLayout.setBackgroundResource(R.drawable.template_bg_color_gray_border);
+                itemText.setTextColor(getResources().getColor(R.color.template_cbbbbbb));
             } else {
                 delete.setVisibility(VISIBLE);
-                linearLayout.setBackgroundResource(R.drawable.template_bg_color_white_border);
+                //linearLayout.setBackgroundResource(R.drawable.template_bg_color_white_border);
                 itemText.setTextColor(getResources().getColor(R.color.black));
             }
         }
