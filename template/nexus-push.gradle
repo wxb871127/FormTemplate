@@ -9,7 +9,7 @@ uploadArchives {
             if(debug){
                 repository(url : uri('../templateRepo'))
             }else {
-                repository(url: "http://172.18.13.233:8081/repository/maven-releases/") {
+                repository(url: "http://101.132.118.167:8081/repository/maven-releases/") {
                     // nexus账号的用户名和密码，我这里没用默认的admin
                     authentication(userName: "admin", password: "lizhaohui123")
                 }
@@ -20,7 +20,7 @@ uploadArchives {
             // library的项目名
             pom.artifactId = 'template'
             // library的版本号
-            pom.version = '1.1.87'
+            pom.version = '1.1.89'
 
             pom.project {
                 licenses {
