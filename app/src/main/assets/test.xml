@@ -170,11 +170,18 @@
 
                 </radio>
 
-        <search name="ywmc" style="Drug" label="药物名称">
+        <search name="ywid" style="Drug" label="药物名称">
             <item name="yf" column="fyfs" />
             <item name="cs" column="ffcs" />
+            <item name="ypmc" column="ypmc" />
         </search>
-                <list name="yyqk11" label="用药记录" showArgs="ywmc"
+
+        <input
+            name="ypmc"
+            label="文字"
+            show="false"/>
+
+        <list name="yyqk11" label="用药记录" showArgs="ywmc"
                     showFormat="药物名称：%s" exception="xb == 9">
                     <input name="ywmc" label="药物名称开始测试长度限制了"/>
                     <input name="yf" label="用法"/>
